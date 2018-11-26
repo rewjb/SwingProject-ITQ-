@@ -17,4 +17,4 @@ insert into member values ('100',30000);
 
 desc member;
 
-drop table member;fgrnfnhfsndhfnhfshnnhsfsdfsf
+drop table member;fgrnfnhfsndhfnhfshnnhsfsdf

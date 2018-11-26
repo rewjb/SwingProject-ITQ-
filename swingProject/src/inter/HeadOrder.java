@@ -1,5 +1,5 @@
 package inter;
 
-public interface HeadOrder {
+public interface HeadOrder extends BBQHead{
 
 }

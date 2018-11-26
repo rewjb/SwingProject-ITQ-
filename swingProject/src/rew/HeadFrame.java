@@ -39,6 +39,9 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	// 버튼 그룹
 
 	JPanel mainPanel = new JPanel();
+	
+	H_CheckOrder checkOrder = new H_CheckOrder();
+	//가맹점 발주체크 객체생성
 
 	public HeadFrame() {
 		//20 간격 !
@@ -51,6 +54,9 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 		mainPanel.setBounds(12, 53, 770, 358);
 		mainPanel.setLayout(null);
+		
+		mainPanel.add(checkOrder);
+		
 
 		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
@@ -96,6 +102,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
+			show(checkOrder);
 		} else
 		if (e.getSource() == OrderBtn) {//본사 발주관리
 		} else

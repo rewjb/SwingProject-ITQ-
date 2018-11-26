@@ -1,5 +1,5 @@
 package inter;
 
-public interface BodySales extends BodyBBQ{
+public interface BodySales extends BBQBody{
 
 }

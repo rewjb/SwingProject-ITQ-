@@ -1,20 +1,14 @@
+create database BBQ;
 
-create table member
-(
- name varchar(10),
- port int
-);
+=가맹점 발주내역=
+create table bodyorder{
+goods_name,
+goods_quantity,
+order_date,
+order_confirm
+};
 
-----------------------------------------------------------
-create table test4
-(
- refid varchar(20),
- foreign key (refid) references test3(id) on delete cascade
-);
-----------------------------------------------------------------
 
-insert into member values ('100',30000);
 
-desc member;
 
-drop table member;
+

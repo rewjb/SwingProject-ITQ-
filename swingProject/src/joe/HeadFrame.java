@@ -1,4 +1,4 @@
-package head;
+package joe;
 
 import javax.swing.JFrame;
 import javax.swing.ButtonGroup;

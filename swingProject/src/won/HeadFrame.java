@@ -1,9 +1,10 @@
-package head;
+package won;
 
 import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,8 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
 
+	CardLayout card = new CardLayout();
+	
 	JPanel mainPanel = new JPanel();
 
 	public HeadFrame() {
@@ -50,7 +53,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		SalesBtn.setBounds(537, 20, 90, 23);
 
 		mainPanel.setBounds(12, 53, 770, 358);
-		mainPanel.setLayout(null);
+		mainPanel.setLayout(card);
 
 		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
@@ -67,6 +70,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		getContentPane().add(SalesBtn);
 
 		getContentPane().add(mainPanel);
+		mainPanel.setLayout(null);
 
 		F_OrderCheckBtn.addActionListener(this);
 		OrderBtn.addActionListener(this);

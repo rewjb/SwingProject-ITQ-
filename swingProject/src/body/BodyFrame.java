@@ -50,6 +50,7 @@ public class BodyFrame extends JFrame implements BBQHead, ActionListener {
 		SalesBtn.setBounds(537, 20, 90, 23);
 
 		mainPanel.setBounds(12, 53, 770, 358);
+		mainPanel.setLayout(null);
 
 		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);

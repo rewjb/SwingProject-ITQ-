@@ -1,9 +1,9 @@
-package joe;
+package head;
 
-public class joe {
+public class Head {
 
 	public static void main(String[] args) {
-		
+
 	}
 
 }

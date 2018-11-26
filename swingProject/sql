@@ -1,8 +1,9 @@
 create database BBQ;
 
-¿Ø≈Î±‚«—..∞ÌπŒ..
+<<<<<<< HEAD
+Ïú†ÌÜµÍ∏∞Ìïú..Í≥†ÎØº..
 
-=∞°∏Õ¡° πﬂ¡÷≥ªø™=
+=Í∞ÄÎßπÏ†ê Î∞úÏ£ºÎÇ¥Ïó≠=
 create table bodyorder{
 num int,
 name varchar(15),
@@ -12,7 +13,7 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 };
 
-=∞°∏Õ¡° ∏≈√‚≥ªø™=
+=Í∞ÄÎßπÏ†ê Îß§Ï∂úÎÇ¥Ïó≠=
 create table bodysales{
 num int,
 id varchar(10) unique,
@@ -24,7 +25,7 @@ chickenS int,
 side int
 };
 
-=∞°∏Õ¡° ∞¸∏Æ=
+=Í∞ÄÎßπÏ†ê Í¥ÄÎ¶¨=
 create table headmember{
 id varchar(10) unique not null,
 pw varchar(10) not null,
@@ -35,14 +36,14 @@ addr varchar(50) unique not null,
 alias varchar(20) unique not null
 };
 
-=∞°∏Õ¡° ¿Á∞Ì∞¸∏Æ=
+=Í∞ÄÎßπÏ†ê Ïû¨Í≥†Í¥ÄÎ¶¨=
 create table bodystock{
 name varchar(15),
 quantity int,
 
 };
 
-=∞°∏Õ¡° ∞¸∏Æ=
+=Í∞ÄÎßπÏ†ê Í¥ÄÎ¶¨=
 create table headmember{
 id varchar(10) unique not null,
 pw varchar(10) not null,
@@ -53,7 +54,7 @@ addr varchar(50) unique not null,
 alias varchar(20) unique not null
 };
 
-=æ˜√º ∞¸∏Æ=
+=ÏóÖÏ≤¥ Í¥ÄÎ¶¨=
 create table headvender{
 id varchar(10) unique not null,
 name varchar(10) not null,
@@ -62,7 +63,7 @@ comnum varchar(15) not null,
 tel varchar(15) not null,
 };
 
-=¡¶«∞ ∞¸∏Æ=
+=Ï†úÌíà Í¥ÄÎ¶¨=
 create table headvender{
 id varchar(10) unique not null,
 name varchar(10) not null,

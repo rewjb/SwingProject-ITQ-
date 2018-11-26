@@ -1,0 +1,14 @@
+create database BBQ;
+
+=가맹점 발주내역=
+create table bodyorder{
+goods_name,
+goods_quantity,
+order_date,
+order_confirm
+};
+
+
+
+
+

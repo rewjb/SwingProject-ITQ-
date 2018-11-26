@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 // 아래의 4번은 제작한 모든  Jpanel을 3번까지의 과정을 거친 후 4번을 실행한다.
 // 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
-public class HeadFrame extends JFrame implements BBQHead, ActionListener {
+public class BodyFrame extends JFrame implements BBQHead, ActionListener {
 
 	JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리");
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
@@ -40,7 +40,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 	JPanel mainPanel = new JPanel();
 
-	public HeadFrame() {
+	public BodyFrame() {
 		//20 간격 !
 		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
 		OrderBtn.setBounds(143, 20, 90, 23);
@@ -84,13 +84,13 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	}// 생성자 종료
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 show 오버라이딩
-	public void show(BBQHead bbqHead) {
-		((Component) bbqHead).setVisible(true);
+	public void show(BBQHead bbqBody) {
+		((Component) bbqBody).setVisible(true);
 	}// show 메서드 끝
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 hide 오버라이딩
-	public void hide(BBQHead bbqHead) {
-		((Component) bbqHead).setVisible(false);
+	public void hide(BBQHead bbqBody) {
+		((Component) bbqBody).setVisible(false);
 	}// hide 메서드 끝
 
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
@@ -111,7 +111,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	}// actionPerformed 메서드 끝
 
 	public static void main(String[] args) {
-		new HeadFrame();
+		new BodyFrame();
 	}// main 메서드 종료
 
 }// 클래스 종료

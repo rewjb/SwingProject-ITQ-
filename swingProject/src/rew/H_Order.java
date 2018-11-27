@@ -6,9 +6,9 @@ import java.awt.Component;
 import javax.swing.JPanel;
 
 import inter.BBQHead;
-import inter.Head_Check_Order;
+import inter.HeadCheckOrder;
 
-public class H_Order extends JPanel implements Head_Check_Order {
+public class H_Order extends JPanel implements HeadCheckOrder {
 	
 	
 	public H_Order() {

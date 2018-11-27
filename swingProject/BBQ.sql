@@ -79,6 +79,7 @@ drop table bodystock;
 
 ----- 전체 테이블 삭제--------
 select * from bodyorder;
+select * from bodyorder ORDER BY DATE DESC;
 select name from bodyorder where date like '%2018-11-27%';
 특정 날짜로 검색하기!!!
 ----- 테이블 선택--------

@@ -9,14 +9,14 @@ import javax.swing.JPanel;
 import inter.BBQHead;
 import inter.Head_Check_Order;
 
-public class H_CheckOrder extends JPanel implements Head_Check_Order {
+public class H_Stock_InOut extends JPanel implements Head_Check_Order {
 	
 	
 	
 	Schedule schedule = new Schedule();
 	
 	
-	public H_CheckOrder() {
+	public H_Stock_InOut() {
 		
 		
 		add(schedule);

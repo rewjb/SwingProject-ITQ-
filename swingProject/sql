@@ -71,3 +71,6 @@ venderid varchar(10) not null,
 money int,
 };
 
+
+
+

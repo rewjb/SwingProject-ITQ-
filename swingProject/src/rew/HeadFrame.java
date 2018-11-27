@@ -40,7 +40,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 	JPanel mainPanel = new JPanel();
 	
-	H_CheckOrder checkOrder = new H_CheckOrder();
+	H_Stock_InOut H_stock = new H_Stock_InOut();
 	//가맹점 발주체크 객체생성
 
 	public HeadFrame() {
@@ -55,7 +55,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		mainPanel.setBounds(12, 53, 770, 358);
 		mainPanel.setLayout(null);
 		
-		mainPanel.add(checkOrder);
+		mainPanel.add(H_stock);
 		
 
 		btnGroup.add(F_OrderCheckBtn);
@@ -102,11 +102,11 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
-			show(checkOrder);
 		} else
 		if (e.getSource() == OrderBtn) {//본사 발주관리
 		} else
 		if (e.getSource() == StockBtn) {//재고 입출고 관리
+			show(H_stock);
 		} else
 		if (e.getSource() == VenderBtn) {//업체관리
 		} else

@@ -9,7 +9,7 @@ public class Schedule extends JPanel {
 	public Schedule()
 	{
 		
-		setBounds(0, 0, 200, 200);
+		setBounds(300, 9, 300, 300);
 		
 		
 		

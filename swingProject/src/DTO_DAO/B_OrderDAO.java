@@ -24,6 +24,10 @@ public class B_OrderDAO {
 
 	private static B_OrderDAO b_orderdao = new B_OrderDAO();
 	// 싱긑톤 패턴
+	
+	public B_OrderDAO getInstance() {
+		return b_orderdao;
+	} // 싱긑톤 패턴 메서드
 
 	public void connectDB() {
 		try {
@@ -37,9 +41,10 @@ public class B_OrderDAO {
 //	sql = "select id from member where id =" + id;
 //	PreparedStatement ps = con.prepareStatement(sql);
 
-	public void insert(B_OrderDTO orderDTO) {
+	public void headselect(B_OrderDTO orderDTO) {
 		try {
 			connectDB();
+			sql = "insert into bodyorder values (default,'a',10,default,'','');"; 
 			sql = "insert into bodyorder values (default,'a',10,default,'','');"; 
 			
 
@@ -50,9 +55,7 @@ public class B_OrderDAO {
 		}
 	}
 
-	public B_OrderDAO getInstance() {
-		return b_orderdao;
-	}
+	
 
 	public void join_execute(String id, String pw, String name, String tel_total) // 로그인 체크
 	{

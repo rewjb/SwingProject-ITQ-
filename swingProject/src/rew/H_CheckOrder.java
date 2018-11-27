@@ -11,15 +11,21 @@ import inter.Head_Check_Order;
 
 public class H_CheckOrder extends JPanel implements Head_Check_Order {
 	
+	
+	
+	Schedule schedule = new Schedule();
+	
+	
 	public H_CheckOrder() {
 		
 		
+		add(schedule);
 		
-		
+		setLayout(null);
 		setBackground(Color.BLACK);
 		setBounds(0, 0, 770, 358);
 		setSize(770, 358);
-		setVisible(true); // 마지막에는 false로 변경
+		setVisible(false); // 마지막에는 false로 변경
 	}//생성자 끝
 
 	
@@ -36,19 +42,6 @@ public class H_CheckOrder extends JPanel implements Head_Check_Order {
 		((Component) bbqHead).setVisible(false);
 	}// hide 메서드 끝
 
-	
-	public static void main(String[] args) {
-		
-		H_CheckOrder  hr = new  H_CheckOrder();
-		hr.setBounds(20, 20,  770, 358);
-		JFrame j = new JFrame();
-		j.setLayout(null);
-		j.setSize(900, 500);
-		j.add(hr);
-		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j.setVisible(true);
-	}
-	
 	
 	
 }//클래스 끝

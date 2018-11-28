@@ -2,14 +2,15 @@ package DTO_DAO;
 
 public class B_SalesDTO {
 
-	private int num;
-	private String id;
-	private	String date;
-	private int money;
-	private	int chickenF;
-	private int chickenH;
-	private int chickenS;
-	private int side;
+	private int num;//일일 매출당 고유번호
+	private String id;//가맹점 아이디
+	private	String date;//날짜
+	private int money;//매출 총액
+	private	int chickenF;//후라이드 매출
+	private int chickenH;//양념 매출
+	private int chickenS;//간장 매출
+	private int side;// 사이드 메뉴 매출
+	
 	public B_SalesDTO(int num, String id, String date, int money, int chickenF, int chickenH, int chickenS, int side) {
 		super();
 		this.num = num;
@@ -20,6 +21,11 @@ public class B_SalesDTO {
 		this.chickenH = chickenH;
 		this.chickenS = chickenS;
 		this.side = side;
+		
+	}
+	
+	public B_SalesDTO() {//기본 생성자
+	
 	}
 	public int getNum() {
 		return num;

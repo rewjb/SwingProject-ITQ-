@@ -8,18 +8,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.B_OrderDAO;
+import DTO_DAO.B_OrderDTO;
 import inter.BBQHead;
 import inter.HeadCheckOrder;
 
 public class H_Order extends JPanel implements HeadCheckOrder {
 	
 	
-	private DefaultTableModel model = new DefaultTableModel(5,5);
-	private JTable listTable = new JTable();
+	private DefaultTableModel model = new DefaultTableModel(10,4);
+	private JTable listTable = new JTable(model);
 	//리스트를 넣을 Jtable
 	
 	private JScrollPane scroll = new JScrollPane(listTable,
@@ -28,11 +30,13 @@ public class H_Order extends JPanel implements HeadCheckOrder {
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	//Jtable의 가운데 정렬 객체
 	
-	JButton previousBtn = new JButton("1");
-	JButton nowBtn = new JButton("2");
-	JButton nextBtn = new JButton("3");
+	JButton previousBtn = new JButton();
+	JButton nowBtn = new JButton();
+	JButton nextBtn = new JButton();
 	
-	B_OrderDAO orderDAO = B_OrderDAO.getInstance();
+	int index=1;
+	
+	B_OrderDTO[] orderDAO ; 
 	
 	public H_Order() {
 		
@@ -40,12 +44,24 @@ public class H_Order extends JPanel implements HeadCheckOrder {
 		nowBtn.setBounds(365, 336, 42, 20);
 		nextBtn.setBounds(407, 336, 42, 20);
 		
-		scroll.setBounds(0, 0, 770, 335);
+		scroll.setBounds(0, 20, 560, 315);
+		
+		model.setColumnIdentifiers(new Object[] {"가맹점명","상품명","수량","발주일"});
 		
 		
 		
 		
+//		listTable.getTableHeader().setBackground(Color.BLACK);
+//		컬럼 배경설정
+//		listTable.getColumnModel().getColumn(0)
+		
+		
+//		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
+//		
+//		
 //		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
+//		//가운데 정렬을 시킬 수 있는 속성을 지닌 객체이다.
+//		
 //		//가운데 정렬 설정의 객체
 //		for (int i = 0; i < 4; i++) {
 //			listTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);

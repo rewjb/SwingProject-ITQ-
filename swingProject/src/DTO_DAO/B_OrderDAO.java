@@ -28,6 +28,7 @@ public class B_OrderDAO {
 	private static B_OrderDAO b_orderdao = new B_OrderDAO();
 	// 싱긑톤 패턴
 	
+	
 	public B_OrderDAO getInstance() {
 		return b_orderdao;
 	} // 싱긑톤 패턴 메서드
@@ -45,18 +46,38 @@ public class B_OrderDAO {
 //	PreparedStatement ps = con.prepareStatement(sql);
 
 	//이건 본사에서 사용할 select문
-	public void select_UnCheck() {
+	public B_OrderDTO[] select_UnCheck(int index) {
 		try {
 			connectDB();
-			sql = "SELECT bodyorder.*,headmember.alias FROM bodyorder,headmember WHERE bodyorder.id=headmember.id ORDER BY DATE DESC;"; 
+			sql = "SELECT bodyorder.*,headmember.alias FROM bodyorder,headmember WHERE (bodyorder.id=headmember.id) and (hconfirm='') ORDER BY DATE DESC;;"; 
 			ps= con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 			
+			B_OrderDTO[] orderDTO = new B_OrderDTO[30];
 			
+			for (int i = 0; i < index; i++) {
+				result.next();
+			} //건너뛰기 메서드
+			
+			
+			for (int i = 0; i <30; i++) {
+				orderDTO[i].setNum(result.getInt(0)); // 식별자 번호
+				orderDTO[i].setId(result.getString(1)); // 아이디
+				orderDTO[i].setName(result.getString(2)); // 제품명
+				orderDTO[i].setQuantity(result.getInt(3));// 수량
+				orderDTO[i].setDate(result.getString(4)); // 발주일 
+				orderDTO[i].sethComfirm(result.getString(5)); // 본사확인
+				orderDTO[i].setbComfirm(result.getString(6)); // 가맹점확인
+				orderDTO[i].setAlias(result.getString(7)); // 별칭
+			}// 30개의 게시글의 내용을 담아오는 반복문
 			ps.close();
 			con.close();
+			
+			return orderDTO; 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("유주빈: 개망점에서 발주 내용갖고 오는거 오류");
+			return null;
 		}
 	}
 

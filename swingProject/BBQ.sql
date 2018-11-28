@@ -88,14 +88,14 @@ select * from bodyorder ORDER BY DATE DESC;
 날짜로 솔트~
 select name from bodyorder where date like '%2018-11-28%';
 특정 날짜로 검색하기!!!
-SELECT bodyorder.*,headmember.alias FROM bodyorder,headmember WHERE bodyorder.id=headmember.id ORDER BY DATE DESC;
+SELECT bodyorder.*,headmember.alias FROM bodyorder,headmember WHERE (bodyorder.id=headmember.id) and (hconfirm='') ORDER BY DATE DESC;
 ----- 테이블 선택--------
 
 insert into bodyorder values (default,'a','A',10,default,'','');
 insert into bodyorder values (default,'a','A-1',10,default,'','');
 insert into bodyorder values (default,'a','A-2',10,default,'','');
-insert into bodyorder values (default,'b','B',10,default,'','');
-insert into bodyorder values (default,'c','C',10,default,'','');
+insert into bodyorder values (default,'b','B',10,default,'ok','');
+insert into bodyorder values (default,'c','C',10,default,'ok','');
 
 insert into headmember values ('a','1','1','1','1','1','AA');
 insert into headmember values ('b','12','12','12','12','12','BB');

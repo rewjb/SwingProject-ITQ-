@@ -34,7 +34,7 @@ quantity int not null
 );
 -----------상단은 이미 함-----------
 =가맹점 관리=
-create table headmember(
+create table headFranchise(
 id varchar(10) primary key not null,
 pw varchar(10) not null,
 ownername varchar(10) not null,
@@ -45,7 +45,7 @@ alias varchar(20) not null
 );
 -----------상단은 이미 함-----------
 =업체 관리=
-create table headFranchise(
+create table headvender(
 id varchar(10) primary key not null,
 name varchar(10) not null,
 comnum varchar(15) not null,

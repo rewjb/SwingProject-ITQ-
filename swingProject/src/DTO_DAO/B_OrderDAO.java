@@ -105,7 +105,6 @@ public class B_OrderDAO {
 				return lastorderDTO;
 			} else { // 마지막 페이지가 아닐 경우!
 				
-				System.out.println(result.getInt(1));
 
 				for (int i = 0; i < (index-1) * listNum; i++) {
 					result.next();

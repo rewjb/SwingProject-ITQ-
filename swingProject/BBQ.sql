@@ -45,7 +45,7 @@ alias varchar(20) not null
 );
 -----------상단은 이미 함-----------
 =업체 관리=
-create table headvender(
+create table headFranchise(
 id varchar(10) primary key not null,
 name varchar(10) not null,
 comnum varchar(15) not null,
@@ -74,7 +74,7 @@ desc bodyorder;
 show tables;
 ----- 전체 테이블 보기--------
 drop table bodyvenderp;
-drop table headvender;
+drop table headFranchise;
 drop table headmember;
 drop table bodyorder;
 drop table bodysales;

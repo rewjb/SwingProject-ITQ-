@@ -34,19 +34,21 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
 
-	JButton previousBtn = new JButton();
-	JButton nowBtn = new JButton();
-	JButton nextBtn = new JButton();
+	private JButton previousBtn = new JButton();
+	private JButton nowBtn = new JButton();
+	private JButton nextBtn = new JButton();
 
 	private int index = 1;
 	private int count;
 	private int listNum = 10;
 
-	B_OrderDTO[] orderDAO;
+	private B_OrderDTO[] orderDAO;
+	
+	private JPanel bodyTelJpanel = new JPanel();
 
 	public H_Order() {
 
-		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
+		listInsert(index);
 
 		nowBtn.setText(String.valueOf(index));
 		// 버튼의 초기값
@@ -59,9 +61,6 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 
 //		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
 //		데이터를 얻어오는 것
-		count = B_OrderDAO.getInstance().LastIdex();
-		
-		listInsert();
 
 		nextBtn.addActionListener(this);
 		previousBtn.addActionListener(this);
@@ -71,8 +70,6 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 		nextBtn.setBounds(284, 336, 42, 20);
 
 		scroll.setBounds(0, 20, 560, 315);
-		
-		
 
 		listTable.getTableHeader().setReorderingAllowed(false);
 
@@ -89,7 +86,14 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 		} // for문 끝 / 가운데 정렬 세팅
 
 		assignBtnIndex();
+		//처음 시작시 버튼에 인덱스 번호 부여
+		
+		//----------------------------------------------------위에는 발주목록 아래는 전화번호 목록
+		
+		bodyTelJpanel.setBounds(570,20,300,200);
+		bodyTelJpanel.setBackground(Color.pink);
 
+		add(bodyTelJpanel);
 		add(previousBtn);
 		add(nowBtn);
 		add(nextBtn);
@@ -114,7 +118,6 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 	}// hide 메서드 끝
 
 	public void assignBtnIndex() {
-
 		if (index == 1) {
 			previousBtn.setText("");
 			previousBtn.setEnabled(false);
@@ -132,25 +135,25 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 		}
 	}// assignBtnIndex():메서드 끝
 
-	public void listInsert() {
-		
+	public void listInsert(int index) {
+
 		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
-		
+
+		count = B_OrderDAO.getInstance().LastIdex();
+
 		if ((int) (count / listNum + 1) == index) {
 
-			for (int i = 0; i < count % listNum + 1; i++) {
+			for (int i = 0; i < count % listNum; i++) {
 				listmodel.insertRow(i, new Object[] { orderDAO[i].getNum(), orderDAO[i].getName(),
 						orderDAO[i].getQuantity(), orderDAO[i].getDate() });
-				System.out.println("a");
 			}
 		} else {
 			for (int i = 0; i < listNum; i++) {
 				listmodel.insertRow(i, new Object[] { orderDAO[i].getNum(), orderDAO[i].getName(),
 						orderDAO[i].getQuantity(), orderDAO[i].getDate() });
-				System.out.println("b");
 			}
 		}
-	}//listInsert():메서드 끝
+	}// listInsert():메서드 끝
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -160,22 +163,29 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 				++index;
 				nowBtn.setText(String.valueOf(index));
 				assignBtnIndex();
+				int deNum = listmodel.getRowCount();
+				for (int i = 0; i < deNum; i++) {
+					listmodel.removeRow(0);
+				}
+				listInsert(index);
 			}
 
 		}
+
 		if (e.getSource() == previousBtn) {
 			if (!((index - 1) == 0)) {
 				--index;
 				nowBtn.setText(String.valueOf(index));
 				assignBtnIndex();
+				int deNum = listmodel.getRowCount();
+				for (int i = 0; i < deNum; i++) {
+					listmodel.removeRow(0);
+				}
+				listInsert(index);
 			}
 
 		}
 
-	}
-
-//	JButton previousBtn = new JButton();
-//	JButton nowBtn = new JButton();
-//	JButton nextBtn = new JButton();
+	}// actionPerformed:메서드 끝
 
 }// 클래스 끝

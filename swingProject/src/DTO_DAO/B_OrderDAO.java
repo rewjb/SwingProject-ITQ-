@@ -3,7 +3,10 @@ package DTO_DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.xml.transform.Result;
 
 //가맹점 총 발주내역
 
@@ -45,9 +48,12 @@ public class B_OrderDAO {
 	public void select_UnCheck() {
 		try {
 			connectDB();
-			sql = "SELECT bodyorder.*,headmember.alias FROM bodyorder INNER JOIN bodyorder.id=headmember.id"; 
+			sql = "SELECT bodyorder.*,headmember.alias FROM bodyorder,headmember WHERE bodyorder.id=headmember.id ORDER BY DATE DESC;"; 
+			ps= con.prepareStatement(sql);
+			ResultSet result = ps.executeQuery();
+			result.
 			
-//			sadasdasdasdsad
+			
 			ps.close();
 			con.close();
 		} catch (SQLException e) {

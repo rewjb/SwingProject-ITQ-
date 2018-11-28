@@ -11,6 +11,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import DTO_DAO.B_OrderDAO;
 import inter.BBQHead;
 import inter.HeadCheckOrder;
 
@@ -30,6 +31,8 @@ public class H_Order extends JPanel implements HeadCheckOrder {
 	JButton previousBtn = new JButton("1");
 	JButton nowBtn = new JButton("2");
 	JButton nextBtn = new JButton("3");
+	
+	B_OrderDAO orderDAO = B_OrderDAO.getInstance();
 	
 	public H_Order() {
 		

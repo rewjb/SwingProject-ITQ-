@@ -29,7 +29,7 @@ public class B_OrderDAO {
 	// 싱긑톤 패턴
 	
 	
-	public B_OrderDAO getInstance() {
+	public static B_OrderDAO getInstance() {
 		return b_orderdao;
 	} // 싱긑톤 패턴 메서드
 

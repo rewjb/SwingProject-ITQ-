@@ -78,4 +78,4 @@ public class B_SalesDTO {
 
 	
 	
-}
+}//클래스 끝

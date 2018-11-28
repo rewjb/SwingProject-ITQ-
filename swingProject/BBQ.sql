@@ -75,7 +75,7 @@ show tables;
 ----- 전체 테이블 보기--------
 drop table bodyvenderp;
 drop table headFranchise;
-drop table headmember;
+drop table headvender;
 drop table bodyorder;
 drop table bodysales;
 drop table bodystock;
@@ -83,12 +83,15 @@ drop table bodystock;
 
 ----- 전체 테이블 삭제--------
 select * from bodyorder;
-select * from headmember;
+select * from headFranchise;
 select * from bodyorder ORDER BY DATE DESC;
 날짜로 솔트~
 select name from bodyorder where date like '%2018-11-28%';
 특정 날짜로 검색하기!!!
-SELECT bodyorder.*,headmember.alias FROM bodyorder,headmember WHERE (bodyorder.id=headmember.id) and (hconfirm='') ORDER BY DATE DESC;
+SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) and (hconfirm='') ORDER BY DATE DESC;
+위에는 가맹점의 발주 중에 확인안한 리스트 갖고오기! / 담당자 : 유주빈
+SELECT alias,tel FROM headFranchise ORDER BY alias DESC;
+위에는 가맹점의 이름과 연락처 갖고오기! / 담당자 : 유주빈
 ----- 테이블 선택--------
 
 insert into bodyorder values (default,'a','A',10,default,'','');
@@ -96,21 +99,19 @@ insert into bodyorder values (default,'a','A-1',10,default,'','');
 insert into bodyorder values (default,'a','A-2',10,default,'','');
 insert into bodyorder values (default,'b','B',10,default,'ok','');
 insert into bodyorder values (default,'c','C',10,default,'ok','');
+//가맹점의 발주기록을 넣는 sql문
 
-insert into headmember values ('a','1','1','1','1','1','AA');
-insert into headmember values ('b','12','12','12','12','12','BB');
-insert into headmember values ('c','123','123','123','123','123','CC');
+insert into headFranchise values ('a','1','1','1','1','1','AA');
+insert into headFranchise values ('b','12','12','12','12','12','BB');
+insert into headFranchise values ('c','123','123','123','123','123','CC');
+//가맹점의 등록 테이블에 넣는 sql문
 
-=가맹점 관리=
-create table headmember(
-id varchar(10) primary key not null,
-pw varchar(10) not null,
-ownername varchar(10) not null,
-tel varchar(15) not null,
-comnum varchar(15) not null,
-addr varchar(50) unique not null,
-alias varchar(20) unique not null
-);
+
+
+
+
+
+
 
 
 insert into bodyorder values (자동입력 수,품명,수량,자동날짜,보점 확인,가맹점 확인);

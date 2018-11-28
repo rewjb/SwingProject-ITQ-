@@ -49,7 +49,7 @@ public class B_OrderDAO {
 	public B_OrderDTO[] select_UnCheck(int index) {
 		try {
 			connectDB();
-			sql = "SELECT bodyorder.*,headmember.alias FROM bodyorder,headmember WHERE (bodyorder.id=headmember.id) and (hconfirm='') ORDER BY DATE DESC;";
+			sql = "SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) and (hconfirm='') ORDER BY DATE DESC;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 

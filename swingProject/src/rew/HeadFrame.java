@@ -1,15 +1,15 @@
 package rew;
 
-import javax.swing.JFrame;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
-import javax.swing.JToggleButton;
-import inter.BBQHead;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+
+import inter.BBQHead;
 
 // 담당 :유주빈
 //수정일 : 2018-11-26 
@@ -41,8 +41,10 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	JPanel mainPanel = new JPanel();
 	
 	H_Stock_InOut H_stock = new H_Stock_InOut();
+	//재고관리 객체 생성
+	H_Order H_order = new H_Order();
 	//가맹점 발주체크 객체생성
-
+	
 	public HeadFrame() {
 		//20 간격 !
 		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
@@ -55,7 +57,9 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		mainPanel.setBounds(12, 53, 770, 358);
 		mainPanel.setLayout(null);
 		
+		//메인 판넬에 추가중 ..
 		mainPanel.add(H_stock);
+		mainPanel.add(H_order);
 		
 
 		btnGroup.add(F_OrderCheckBtn);
@@ -102,11 +106,14 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
+			show(H_order);
+			hide(H_stock);
 		} else
 		if (e.getSource() == OrderBtn) {//본사 발주관리
 		} else
 		if (e.getSource() == StockBtn) {//재고 입출고 관리
 			show(H_stock);
+			hide(H_order);
 		} else
 		if (e.getSource() == VenderBtn) {//업체관리
 		} else

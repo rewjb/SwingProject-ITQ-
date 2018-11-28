@@ -37,12 +37,13 @@ public class B_OrderDAO {
 //	sql = "select id from member where id =" + id;
 //	PreparedStatement ps = con.prepareStatement(sql);
 
-	public void insert(B_OrderDTO orderDTO) {
+	//이건 본사에서 사용할 select문
+	public void select_UnCheck() {
 		try {
 			connectDB();
-			sql = "insert into bodyorder values (default,'a',10,default,'','');"; 
+			sql = "SELECT bodyorder.*,headmember.alias FROM bodyorder INNER JOIN bodyorder.id=headmember.id"; 
 			
-
+			
 			ps.close();
 			con.close();
 		} catch (SQLException e) {

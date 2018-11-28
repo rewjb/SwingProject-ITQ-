@@ -1,4 +1,4 @@
-package uiTest;
+package won;
 
 public class BbsDTO {
 	private String id;

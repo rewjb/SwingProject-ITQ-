@@ -47,7 +47,7 @@ public class B_OrderDAO {
 			connectDB();
 			sql = "SELECT bodyorder.*,headmember.alias FROM bodyorder INNER JOIN bodyorder.id=headmember.id"; 
 			
-			
+//			sadasdasdasdsad
 			ps.close();
 			con.close();
 		} catch (SQLException e) {

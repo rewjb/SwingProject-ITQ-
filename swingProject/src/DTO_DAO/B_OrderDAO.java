@@ -51,7 +51,6 @@ public class B_OrderDAO {
 			sql = "SELECT bodyorder.*,headmember.alias FROM bodyorder,headmember WHERE bodyorder.id=headmember.id ORDER BY DATE DESC;"; 
 			ps= con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
-			result.
 			
 			
 			ps.close();

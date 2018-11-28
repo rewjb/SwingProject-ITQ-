@@ -6,6 +6,7 @@ create database BBQ;
 =가맹점 발주내역=
 create table bodyorder(
 num int auto_increment primary key,
+id varchar(10) primary key not null,
 name varchar(15) not null,
 quantity int not null,
 date TIMESTAMP DEFAULT NOW(),

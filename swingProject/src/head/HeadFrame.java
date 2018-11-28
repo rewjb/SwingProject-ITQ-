@@ -1,4 +1,4 @@
-package rew;
+package head;
 
 import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
@@ -39,9 +39,6 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	// 버튼 그룹
 
 	JPanel mainPanel = new JPanel();
-	
-	H_Stock_InOut H_stock = new H_Stock_InOut();
-	//가맹점 발주체크 객체생성
 
 	public HeadFrame() {
 		//20 간격 !
@@ -54,9 +51,6 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 		mainPanel.setBounds(12, 53, 770, 358);
 		mainPanel.setLayout(null);
-		
-		mainPanel.add(H_stock);
-		
 
 		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
@@ -106,7 +100,6 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		if (e.getSource() == OrderBtn) {//본사 발주관리
 		} else
 		if (e.getSource() == StockBtn) {//재고 입출고 관리
-			show(H_stock);
 		} else
 		if (e.getSource() == VenderBtn) {//업체관리
 		} else

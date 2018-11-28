@@ -5,6 +5,6 @@ package inter;
 
 public interface BBQBody extends BBQ
 {
-	 public void show(); //Panel 올리기
-	 public void hide(); //Panel 내리기
+	 public void show(BBQBody bbqBody); //Panel 올리기
+	 public void hide(BBQBody bbqBody); //Panel 내리기
 }

@@ -1,4 +1,4 @@
-package rew;
+package joe;
 
 import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
@@ -26,59 +26,38 @@ import javax.swing.JPanel;
 // 아래의 4번은 제작한 모든  Jpanel을 3번까지의 과정을 거친 후 4번을 실행한다.
 // 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
-public class HeadFrame extends JFrame implements BBQHead, ActionListener {
+public class BodyFrame extends JFrame implements BBQHead, ActionListener {
 
-	JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리");
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
-	JToggleButton StockBtn = new JToggleButton("입-출고관리");
-	JToggleButton VenderBtn = new JToggleButton("업체관리");
-	JToggleButton FranchiseBtn = new JToggleButton("가맹점관리");
+	JToggleButton StockBtn = new JToggleButton("재고관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
 
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
 
 	JPanel mainPanel = new JPanel();
-	
-	H_Stock_InOut H_stock = new H_Stock_InOut();
-	//가맹점 발주체크 객체생성
 
-	public HeadFrame() {
-		//20 간격 !
-		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
+	public BodyFrame() {
+		// 20 간격 !
 		OrderBtn.setBounds(143, 20, 90, 23);
 		StockBtn.setBounds(234, 20, 110, 23);
-		VenderBtn.setBounds(345, 20, 90, 23);
-		FranchiseBtn.setBounds(436, 20, 100, 23);
 		SalesBtn.setBounds(537, 20, 90, 23);
 
 		mainPanel.setBounds(12, 53, 770, 358);
 		mainPanel.setLayout(null);
-		
-		mainPanel.add(H_stock);
-		
 
-		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
-		btnGroup.add(VenderBtn);
-		btnGroup.add(FranchiseBtn);
 		btnGroup.add(SalesBtn);
 
-		getContentPane().add(F_OrderCheckBtn);
 		getContentPane().add(OrderBtn);
 		getContentPane().add(StockBtn);
-		getContentPane().add(VenderBtn);
-		getContentPane().add(FranchiseBtn);
 		getContentPane().add(SalesBtn);
 
 		getContentPane().add(mainPanel);
 
-		F_OrderCheckBtn.addActionListener(this);
 		OrderBtn.addActionListener(this);
 		StockBtn.addActionListener(this);
-		VenderBtn.addActionListener(this);
-		FranchiseBtn.addActionListener(this);
 		SalesBtn.addActionListener(this);
 
 		// 사이즈 , 레이아웃 및 각종 설정
@@ -90,35 +69,30 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	}// 생성자 종료
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 show 오버라이딩
-	public void show(BBQHead bbqHead) {
-		((Component) bbqHead).setVisible(true);
+	public void show(BBQHead bbqBody) {
+		((Component) bbqBody).setVisible(true);
 	}// show 메서드 끝
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 hide 오버라이딩
-	public void hide(BBQHead bbqHead) {
-		((Component) bbqHead).setVisible(false);
+	public void hide(BBQHead bbqBody) {
+		((Component) bbqBody).setVisible(false);
 	}// hide 메서드 끝
 
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
-		} else
-		if (e.getSource() == OrderBtn) {//본사 발주관리
-		} else
-		if (e.getSource() == StockBtn) {//재고 입출고 관리
-			show(H_stock);
-		} else
-		if (e.getSource() == VenderBtn) {//업체관리
-		} else
-		if (e.getSource() == FranchiseBtn) {//가맹점 관리
-		} else
-		if (e.getSource() == SalesBtn) {//매출관리
+
+		if (e.getSource() == OrderBtn) {// 본사 발주관리
+
+		} else if (e.getSource() == StockBtn) {// 재고 입출고 관리
+
+		} else if (e.getSource() == SalesBtn) {// 매출관리
+
 		}
 
 	}// actionPerformed 메서드 끝
 
 	public static void main(String[] args) {
-		new HeadFrame();
+		new BodyFrame();
 	}// main 메서드 종료
 
 }// 클래스 종료

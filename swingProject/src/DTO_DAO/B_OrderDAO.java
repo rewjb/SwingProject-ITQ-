@@ -29,7 +29,7 @@ public class B_OrderDAO {
 	private static B_OrderDAO b_orderdao = new B_OrderDAO();
 	// 싱긑톤 패턴
 
-	public B_OrderDAO getInstance() {
+	public static B_OrderDAO getInstance() {
 		return b_orderdao;
 	} // 싱긑톤 패턴 메서드
 
@@ -121,18 +121,19 @@ public class B_OrderDAO {
 	}
 
 	
+	
+	//발주 내역 insert문
 	public void orderDay(String id, String name, int quantity) {
+		
+		sql = "insert into bodyorder value(default, ? ,? ,? , default, null, null )";
 		
 		try {
 			connectDB();
-			sql = "insert into bodyorder value(default )";
+			ps = con.prepareStatement(sql);
 			
-			
-			
-		
-		
-		
-		
+			ps.setString(2, id);
+			ps.setString(3, name);
+			ps.setInt(4, quantity);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,8 +145,17 @@ public class B_OrderDAO {
 			}
 		}
 		
+	}
+	
+	public void orderDelete(int num) {
+		
+		
+		
+		
 		
 	}
+	
+	
 	
 	
 	

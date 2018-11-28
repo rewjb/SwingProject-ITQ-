@@ -9,11 +9,12 @@ public class BodySalesC extends JPanel implements BodySales{
 
 	
 	public BodySalesC() {
+		setLayout(null);
 		setSize(500 ,500);
 	
 		
 		
-		
+		setVisible(true);
 	}
 	
 	

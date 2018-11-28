@@ -3,6 +3,7 @@ package rew;
 import java.awt.Color;
 import java.awt.Component;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -10,6 +11,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import DTO_DAO.B_OrderDAO;
 import inter.BBQHead;
 import inter.HeadCheckOrder;
 
@@ -26,8 +28,22 @@ public class H_Order extends JPanel implements HeadCheckOrder {
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	//Jtable의 가운데 정렬 객체
 	
+	JButton previousBtn = new JButton("1");
+	JButton nowBtn = new JButton("2");
+	JButton nextBtn = new JButton("3");
+	
+	B_OrderDAO orderDAO = B_OrderDAO.getInstance();
 	
 	public H_Order() {
+		
+		previousBtn.setBounds(323, 336, 42, 20);
+		nowBtn.setBounds(365, 336, 42, 20);
+		nextBtn.setBounds(407, 336, 42, 20);
+		
+		scroll.setBounds(0, 0, 770, 335);
+		
+		
+		
 		
 //		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
 //		//가운데 정렬 설정의 객체
@@ -35,11 +51,14 @@ public class H_Order extends JPanel implements HeadCheckOrder {
 //			listTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 //		}//for문 끝 / 가운데 정렬 세팅
 	
-		
-		scroll.setBounds(0, 0, 770, 335);
-		
+		add(previousBtn);
+		add(nowBtn);
+		add(nextBtn);
 		add(scroll);
 		
+		
+		
+	
 		setLayout(null);
 		setBackground(Color.BLACK);
 		setBounds(0, 0, 770, 358);

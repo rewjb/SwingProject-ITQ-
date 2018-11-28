@@ -6,6 +6,7 @@ public class B_StockDTO {
 		private	String name;//재고 품명
 		private	String quantity;//재고 수량
 		
+		
 		public B_StockDTO(String id, String name, String quantity) {
 			super();
 			this.id = id;

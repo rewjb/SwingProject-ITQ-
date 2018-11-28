@@ -4,10 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
+
+import inter.BBQBody;
 import inter.BBQHead;
 import javax.swing.JPanel;
 
@@ -26,55 +29,66 @@ import javax.swing.JPanel;
 // 아래의 4번은 제작한 모든  Jpanel을 3번까지의 과정을 거친 후 4번을 실행한다.
 // 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
-public class BodyFrame extends JFrame implements BBQHead, ActionListener {
+public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
 	JToggleButton StockBtn = new JToggleButton("재고관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
+	JToggleButton hallButton = new JToggleButton("홀");
 
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
 
 	JPanel mainPanel = new JPanel();
-
+	BodyOrderC orderC = new BodyOrderC();
+	BodySalesC salesC = new BodySalesC();
+	BodyStockC stodckC = new BodyStockC();
+	
 	public BodyFrame() {
+		
 		// 20 간격 !
-		OrderBtn.setBounds(143, 20, 90, 23);
-		StockBtn.setBounds(234, 20, 110, 23);
-		SalesBtn.setBounds(537, 20, 90, 23);
+		setLayout(null);
+		OrderBtn.setBounds(12, 30, 90, 23);
+		StockBtn.setBounds(102, 30, 90, 23);
+		SalesBtn.setBounds(193, 30, 90, 23);
+		hallButton.setBounds(671, 30, 90, 23);
+		
 
-		mainPanel.setBounds(12, 53, 770, 358);
+		mainPanel.setBounds(12, 53, 790, 358);
 		mainPanel.setLayout(null);
-
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
 		btnGroup.add(SalesBtn);
+		btnGroup.add(hallButton);
 
 		getContentPane().add(OrderBtn);
 		getContentPane().add(StockBtn);
 		getContentPane().add(SalesBtn);
-
+		getContentPane().add(hallButton);
+		mainPanel.add(orderC);
+		
 		getContentPane().add(mainPanel);
 
 		OrderBtn.addActionListener(this);
 		StockBtn.addActionListener(this);
 		SalesBtn.addActionListener(this);
+		hallButton.addActionListener(this);
 
 		// 사이즈 , 레이아웃 및 각종 설정
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 450);
+		setSize(820, 450);
 		setResizable(false);
 		setVisible(true);
 	}// 생성자 종료
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 show 오버라이딩
-	public void show(BBQHead bbqBody) {
+	public void show(BBQBody bbqBody) {
 		((Component) bbqBody).setVisible(true);
 	}// show 메서드 끝
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 hide 오버라이딩
-	public void hide(BBQHead bbqBody) {
+	public void hide(BBQBody bbqBody) {
 		((Component) bbqBody).setVisible(false);
 	}// hide 메서드 끝
 
@@ -82,11 +96,14 @@ public class BodyFrame extends JFrame implements BBQHead, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == OrderBtn) {// 본사 발주관리
-
+			show(orderC);
+			
 		} else if (e.getSource() == StockBtn) {// 재고 입출고 관리
-
+			show(stodckC);
 		} else if (e.getSource() == SalesBtn) {// 매출관리
-
+			show(salesC);
+		} else if (e.getSource()== hallButton) {
+			
 		}
 
 	}// actionPerformed 메서드 끝

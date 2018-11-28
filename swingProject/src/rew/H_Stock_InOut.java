@@ -7,9 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import inter.BBQHead;
-import inter.Head_Check_Order;
+import inter.HeadCheckOrder;
 
-public class H_Stock_InOut extends JPanel implements Head_Check_Order {
+public class H_Stock_InOut extends JPanel implements HeadCheckOrder {
 	
 	
 	

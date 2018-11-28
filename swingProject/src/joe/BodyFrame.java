@@ -28,11 +28,8 @@ import javax.swing.JPanel;
 
 public class BodyFrame extends JFrame implements BBQHead, ActionListener {
 
-	JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리");
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
-	JToggleButton StockBtn = new JToggleButton("입-출고관리");
-	JToggleButton VenderBtn = new JToggleButton("업체관리");
-	JToggleButton FranchiseBtn = new JToggleButton("가맹점관리");
+	JToggleButton StockBtn = new JToggleButton("재고관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
 
 	ButtonGroup btnGroup = new ButtonGroup();
@@ -41,38 +38,26 @@ public class BodyFrame extends JFrame implements BBQHead, ActionListener {
 	JPanel mainPanel = new JPanel();
 
 	public BodyFrame() {
-		//20 간격 !
-		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
+		// 20 간격 !
 		OrderBtn.setBounds(143, 20, 90, 23);
 		StockBtn.setBounds(234, 20, 110, 23);
-		VenderBtn.setBounds(345, 20, 90, 23);
-		FranchiseBtn.setBounds(436, 20, 100, 23);
 		SalesBtn.setBounds(537, 20, 90, 23);
 
 		mainPanel.setBounds(12, 53, 770, 358);
 		mainPanel.setLayout(null);
 
-		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
-		btnGroup.add(VenderBtn);
-		btnGroup.add(FranchiseBtn);
 		btnGroup.add(SalesBtn);
 
-		getContentPane().add(F_OrderCheckBtn);
 		getContentPane().add(OrderBtn);
 		getContentPane().add(StockBtn);
-		getContentPane().add(VenderBtn);
-		getContentPane().add(FranchiseBtn);
 		getContentPane().add(SalesBtn);
 
 		getContentPane().add(mainPanel);
 
-		F_OrderCheckBtn.addActionListener(this);
 		OrderBtn.addActionListener(this);
 		StockBtn.addActionListener(this);
-		VenderBtn.addActionListener(this);
-		FranchiseBtn.addActionListener(this);
 		SalesBtn.addActionListener(this);
 
 		// 사이즈 , 레이아웃 및 각종 설정
@@ -95,17 +80,13 @@ public class BodyFrame extends JFrame implements BBQHead, ActionListener {
 
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
-		} else
-		if (e.getSource() == OrderBtn) {//본사 발주관리
-		} else
-		if (e.getSource() == StockBtn) {//재고 입출고 관리
-		} else
-		if (e.getSource() == VenderBtn) {//업체관리
-		} else
-		if (e.getSource() == FranchiseBtn) {//가맹점 관리
-		} else
-		if (e.getSource() == SalesBtn) {//매출관리
+
+		if (e.getSource() == OrderBtn) {// 본사 발주관리
+
+		} else if (e.getSource() == StockBtn) {// 재고 입출고 관리
+
+		} else if (e.getSource() == SalesBtn) {// 매출관리
+
 		}
 
 	}// actionPerformed 메서드 끝

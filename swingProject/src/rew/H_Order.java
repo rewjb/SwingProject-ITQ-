@@ -11,9 +11,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import inter.BBQHead;
-import inter.Head_Check_Order;
+import inter.HeadCheckOrder;
 
-public class H_Order extends JPanel implements Head_Check_Order {
+public class H_Order extends JPanel implements HeadCheckOrder {
 	
 	
 	private DefaultTableModel model = new DefaultTableModel(5,5);

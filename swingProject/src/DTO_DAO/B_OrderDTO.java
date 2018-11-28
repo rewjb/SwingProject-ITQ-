@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 public class B_OrderDTO {
 
+	
+	
 	private int num;// 발주당 고유번호
 	private String id;// 가맹점 아이디
 	private String name;// 발주 제품
@@ -24,7 +26,7 @@ public class B_OrderDTO {
 	}
 
 	public B_OrderDTO() {// 기본생성자
-
+		System.out.println("test");
 	}
 
 	public int getNum() {

@@ -106,7 +106,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
-			show(H_order);
+//			show(H_order);
 			hide(H_stock);
 		} else
 		if (e.getSource() == OrderBtn) {//본사 발주관리

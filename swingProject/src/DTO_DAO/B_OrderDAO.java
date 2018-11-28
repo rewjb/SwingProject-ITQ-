@@ -53,14 +53,13 @@ public class B_OrderDAO {
 			ps= con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 			
-			B_OrderDTO[] orderDTO = new B_OrderDTO[30];
+			B_OrderDTO[] orderDTO = new B_OrderDTO[10];
 			
-			for (int i = 0; i < index; i++) {
+			for (int i = 0; i < index*10; i++) {
 				result.next();
-			} //건너뛰기 메서드
+			} //페이지에 따른 건너뛰기 메서드
 			
-			
-			for (int i = 0; i <30; i++) {
+			for (int i = 0; i <10; i++) {
 				orderDTO[i].setNum(result.getInt(0)); // 식별자 번호
 				orderDTO[i].setId(result.getString(1)); // 아이디
 				orderDTO[i].setName(result.getString(2)); // 제품명

@@ -3,6 +3,7 @@ package rew;
 import java.awt.Color;
 import java.awt.Component;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,8 +27,16 @@ public class H_Order extends JPanel implements HeadCheckOrder {
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	//Jtable의 가운데 정렬 객체
 	
+	JButton previousBtn = new JButton("dd");
+	JButton nowBtn = new JButton();
+	JButton nextBtn = new JButton();
 	
 	public H_Order() {
+		
+		previousBtn.setBounds(350, 340, 100, 10);
+		nowBtn.setBounds(350, 340, 100, 10);
+		nextBtn.setBounds(350, 340, 100, 10);
+		
 		
 //		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
 //		//가운데 정렬 설정의 객체
@@ -35,11 +44,13 @@ public class H_Order extends JPanel implements HeadCheckOrder {
 //			listTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 //		}//for문 끝 / 가운데 정렬 세팅
 	
+//		add(previousBtn);
+//		add(nowBtn);
+//		add(nextBtn);
 		
 		scroll.setBounds(0, 0, 770, 335);
 		
 		add(scroll);
-		
 		setLayout(null);
 		setBackground(Color.BLACK);
 		setBounds(0, 0, 770, 358);

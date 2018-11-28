@@ -5,8 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.xml.transform.Result;
+import java.util.ArrayList;
 
 //가맹점 총 발주내역
 
@@ -53,7 +52,15 @@ public class B_OrderDAO {
 			ps= con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 			
+			int count=0;
+			//데이터 필드 수량
 			B_OrderDTO[] orderDTO = new B_OrderDTO[10];
+			
+			
+			while (result.next()) {
+				++count;
+			}//전체 게시글 수량
+//			result.first()
 			
 			for (int i = 0; i < index*10; i++) {
 				result.next();
@@ -68,6 +75,7 @@ public class B_OrderDAO {
 				orderDTO[i].sethComfirm(result.getString(5)); // 본사확인
 				orderDTO[i].setbComfirm(result.getString(6)); // 가맹점확인
 				orderDTO[i].setAlias(result.getString(7)); // 별칭
+				result.next();
 			}// 30개의 게시글의 내용을 담아오는 반복문
 			ps.close();
 			con.close();
@@ -79,6 +87,46 @@ public class B_OrderDAO {
 			return null;
 		}
 	}
+	
+	// 가맹점에서 사용할 select문
+	   public ArrayList<B_OrderDTO> selectAll() {
+	      ArrayList<B_OrderDTO> orderlist = new ArrayList<>();
+	      ResultSet rs = null;
+	      
+	      try {
+	         connectDB();
+	         sql = "SELECT * from bodyorder";
+	         ps = con.prepareStatement(sql);
+	         rs = ps.executeQuery();
+
+	         while (rs.next()) {
+	            int num = rs.getInt("num");
+	            String id = rs.getString("id");
+	            String name = rs.getString("name");
+	            int quantity = rs.getInt("quantity");
+	            String date = rs.getString("date");
+	            String hComfirm = rs.getString("hcomfirm");
+	            String bComfirm = rs.getString("bcomfirm");
+
+	            B_OrderDTO orderDTO = new B_OrderDTO(num, id, name, quantity, date, hComfirm, bComfirm);
+
+	            orderlist.add(orderDTO);
+
+	         }
+
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            if(con!=null) {con.close();}
+	            if(ps!=null) {ps.close();}
+	            if(rs!=null) {rs.close();}
+	         } catch (Exception e2) {
+	            e2.printStackTrace();
+	         }
+	      }
+	      return orderlist;
+	   }
 
 	
 

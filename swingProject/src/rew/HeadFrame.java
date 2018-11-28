@@ -68,7 +68,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		btnGroup.add(VenderBtn);
 		btnGroup.add(FranchiseBtn);
 		btnGroup.add(SalesBtn);
-
+		
 		getContentPane().add(F_OrderCheckBtn);
 		getContentPane().add(OrderBtn);
 		getContentPane().add(StockBtn);

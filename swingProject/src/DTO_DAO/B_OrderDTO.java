@@ -27,7 +27,6 @@ public class B_OrderDTO {
 	}
 
 	public B_OrderDTO() {// 기본생성자
-		System.out.println("test");
 	}
 
 	public int getNum() {

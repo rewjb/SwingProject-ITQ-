@@ -70,7 +70,7 @@ public class H_VenderDAO {
 	}//end selectVenderInfo
 
 	// wonHn
-	//업체정보 전체 출력메서드 : 처음부터 마지막 인덱스 값까지 한줄 출력메서드를 돌려줄 예정입니다.
+	//업체정보 전체 출력메서드
 	public void selectALLVenderInfo() {
 		connectDB();
 	//	sql = "select * from headvender;"

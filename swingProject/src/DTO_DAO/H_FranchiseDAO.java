@@ -69,5 +69,43 @@ public class H_FranchiseDAO {
 			return null;
 		}
 	}// select_tel:메서드 끝
+	
+	// wonHn
+	//가맹점 정보 입력메서드
+	public void insertFranchiseInfo() {		
+		connectDB();
+		
+	}//end insertFranchiseInfo()
+
+	// wonHn
+	//가맹점 정보 수정메서드
+	public void updateFranchiseInfo() {		
+		connectDB();
+		
+	}//end insertFranchiseInfo()
+	
+	// wonHn
+	//가맹점 수정 및 출력를 위한 출력메서드
+	public void selectFranchiseInfo() {		
+		connectDB();
+		
+	}//end selectFranchiseInfo()
+	
+	// wonHn
+	//재료정보 전체 출력메서드
+	public void selectALLFranchiseInfo() {	
+		connectDB();
+		
+	}//end selectALLFranchiseInfo
+	
+	// wonHn
+	//가맹점 정보 삭제메서드
+	public void deleteFranchiseInfo() {		
+		connectDB();
+		
+	}//end deleteFranchiseInfo()
+	
+	
+	
 
 }

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -59,15 +60,20 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 
 	private B_OrderDTO[] orderDAO;
 
-	private JPanel bodyTelJpanel = new JPanel();
-
 	private H_FranchiseDAO franchiseDAO = H_FranchiseDAO.getInstance();
 
 	private JButton confirmBtn = new JButton("확인");
 	
+	private JLabel title1 = new JLabel("가맹점 발주내역");
+	private JLabel title2 = new JLabel("가맹점 연락처");
+	
 	public static int goOrder;
-
+	
 	public H_CheckOrder() {
+		
+		title1.setBounds(230, 1, 100, 20);
+		title2.setBounds(625, 1, 100, 20);
+		//테이블당 제목 붙이기
 
 		orderInsert(index);
 		// 발주 길록을 입력하는 메서드 index는 페이지 번호
@@ -102,7 +108,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		previousBtn.addActionListener(this);
 		confirmBtn.addActionListener(this);
 		// 인덱스 숫자 액션리스너
-
+		
+		
 		previousBtn.setBounds(200, 336, 42, 20);
 		nowBtn.setBounds(242, 336, 42, 20);
 		nextBtn.setBounds(284, 336, 42, 20);
@@ -132,7 +139,9 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		// 처음 시작시 버튼에 인덱스 번호 부여
 
 		// ----------------------------------------------------위에는 발주목록 아래는 전화번호 목록
-
+		
+		add(title1);
+		add(title2);
 		add(confirmBtn);
 		add(franchiseScroll);
 		add(previousBtn);
@@ -141,7 +150,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		add(orderScroll);
 
 		setLayout(null);
-		setBackground(Color.BLACK);
+		setBackground(Color.gray);
 		setBounds(0, 0, 770, 358);
 		setSize(770, 358);
 		setVisible(false);// 마지막에는 false로 변경
@@ -173,6 +182,11 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		} else {
 			nextBtn.setText(String.valueOf(index + 1));
 			nextBtn.setEnabled(true);
+		}
+		
+		if ((index == (int) (count / listNum)) && ((count%listNum)==0)) {
+			nextBtn.setEnabled(false);
+			nextBtn.setText("");
 		}
 	}// assignBtnIndex():메서드 끝
 
@@ -222,7 +236,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				orderInsert(index);
 			}
 		} // 다음 버튼을 누를 시 발생하는 액션
-
+		
 		if (e.getSource() == previousBtn) {
 			if (!((index - 1) == 0)) {
 				--index;
@@ -239,31 +253,47 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		if (e.getSource() == confirmBtn) {
 
 			int selectNum;
-			//해당 발주를 체크하는 테이블 행 번호
+			// 해당 발주를 체크하는 테이블 행 번호
 			int deNum = orderListModel.getRowCount();
-			//지울 횟수 숫자
+			// 지울 횟수 숫자
+            int selectTrue = orderListTable.getSelectedRow();		
+		
 
 			for (int i = 0; i < orderListTable.getSelectedRows().length; i++) {
 				selectNum = orderListTable.getSelectedRows()[i];
 				B_OrderDAO.getInstance().checkUpdate(orderDAO[selectNum].getNum());
-			}//ck_1을 입력하는 과정
+			} // ck_1을 입력하는 과정
 
-			if ((index + 1) <= (int) (count / listNum + 1)) {
+			if ((index) < (int) (count / listNum + 1)) {
 				// 세팅을 다시 하기 위해 값을 지우는 for문
 				for (int i = 0; i < deNum; i++) {
 					orderListModel.removeRow(0);
 				}
-			} else if (!((index - 1) == 0)) {
+				orderInsert(index);
+				assignBtnIndex();
+			} else if ((index) == (int) (count / listNum + 1)) {
 				for (int i = 0; i < deNum; i++) {
 					orderListModel.removeRow(0);
 				}
+				
+				
+				orderInsert(index);
+				assignBtnIndex();
 			}
-			orderInsert(index);
-			//값을 다시 세팅
-			goOrder=JOptionPane.showConfirmDialog(this, "발주작업으로 이동하시겠습니까?", "발주안내 메세지", JOptionPane.YES_OPTION);
-			//0 : 예 / 1 : 아니
+			
+			// 값을 다시 세팅
+			if (selectTrue==-1) {
+				JOptionPane.showMessageDialog(this, "목록을 선택하세요.", "알림", JOptionPane.WARNING_MESSAGE);
+			} else if(selectTrue>=0){
+				goOrder = JOptionPane.showConfirmDialog(this, "발주작업으로 이동하시겠습니까?", "발주안내 메세지", JOptionPane.YES_OPTION);
+				// 0 : 예 / 1 : 아니
+			}
+			
+			if(orderListTable.getRowCount()==0){
+				previousBtn.doClick();
+			}
+			
 		}
-
 	}// actionPerformed:메서드 끝
 
 }// 클래스 끝

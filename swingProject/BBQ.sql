@@ -48,19 +48,29 @@ alias varchar(20) not null
 create table headvender(
 id varchar(10) primary key not null,
 name varchar(10) not null,
-comnum varchar(15) not null,
+comnum varchar(15) not null,  이거 중복안되게 해야하는거 아니냐 ..
 tel varchar(15) not null
 );
 -----------상단은 이미 함-----------
 =제품 관리=
 create table headvenderp(
-id varchar(10) primary key not null,
+id varchar(10) not null,
 num int auto_increment unique,
-name varchar(10) not null,
-venderid varchar(10) not null,
+name varchar(10) not null,  
 money int,
 foreign key (id) references headvender(id) on delete cascade
 );
+
+=발주 관리=
+create table headOrder(
+id varchar(10) not null,
+num int auto_increment unique,
+name varchar(10) not null,  
+money int,
+date TIMESTAMP DEFAULT NOW(),
+confirm varchar(10)
+);
+
 
 
 ------------------------------구분선---------------------------------
@@ -73,9 +83,9 @@ desc bodyorder;
 ------컬럼 설정보기--------
 show tables;
 ----- 전체 테이블 보기--------
-drop table bodyvenderp;
-drop table headFranchise;
+drop table headvenderp;
 drop table headvender;
+drop table headFranchise;
 drop table bodyorder;
 drop table bodysales;
 drop table bodystock;
@@ -83,6 +93,9 @@ drop table bodystock;
 show tables;
 ----- 전체 테이블 삭제--------
 select * from bodyorder;
+select * from headvender;
+select * from headvenderp;
+//거래업체확인 sql문
 select * from headFranchise;
 select * from bodyorder ORDER BY DATE DESC;
 날짜로 솔트~
@@ -98,6 +111,17 @@ SELECT * from bodyorder WHERE num=10;
 update bodyorder set hconfirm = 'ck_1' where num=10;
 update 테이블명 set 컬럼명 = '변경값' where 컬럼명='해당값'
 ----- 테이블 선택--------
+drop table bodyorder;
+
+create table bodyorder(
+num int auto_increment primary key,
+id varchar(10)  not null,
+name varchar(15) not null,
+quantity int not null,
+date TIMESTAMP DEFAULT NOW(),
+hconfirm varchar(10),
+bconfirm varchar(10)
+);
 
 insert into bodyorder values (default,'daum','d-1',1,default,'','');
 insert into bodyorder values (default,'daum','d-2',12,default,'','');
@@ -126,6 +150,33 @@ insert into headFranchise values (아이디,비밀번호,가맹점 대표,전화
 
 
 
+insert into headvenderp values ('com-AAA',default,'melon',3000);
+insert into headvenderp values ('com-AAA',default,'apple',700);
+insert into headvenderp values ('com-BBB',default,'orange',1500);
+insert into headvenderp values ('com-BBB',default,'banana',1000);
+insert into headvenderp values (아이디(업체 아이디 외부키),고유번호(자동값),제품명,가격);
+//업체의 제품등록 테이블
+
+
+insert into headvender values ('com-BBB','whrhkdwo','002','02-xxx-xxx');
+insert into headvender values ('com-AAA','dbwnqls','001','02-xxx-xxx');
+insert into headvender values (아이디,회사명,사업자 번호,전화번호);
+//업체 등록 테이블
+
+create table headvenderp(
+id varchar(10) not null,
+num int auto_increment unique,
+name varchar(10) not null,
+money int,
+foreign key (id) references headvender(id) on delete cascade
+);
+
+create table headvender(
+id varchar(10) primary key not null,
+name varchar(10) not null,
+comnum varchar(15) not null,  
+tel varchar(15) not null
+);
 
 
 

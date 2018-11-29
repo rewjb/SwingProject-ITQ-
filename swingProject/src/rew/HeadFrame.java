@@ -43,8 +43,10 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	
 	H_Stock_InOut H_stock = new H_Stock_InOut();
 	//재고관리 객체 생성
-	H_CheckOrder H_order = new H_CheckOrder();
+	H_CheckOrder H_checkOrder = new H_CheckOrder();
 	//가맹점 발주체크 객체생성
+	H_Order H_order = new H_Order();
+	//발주넣기
 	
 	public HeadFrame() {
 		
@@ -61,6 +63,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		
 		//메인 판넬에 추가중 ..
 		mainPanel.add(H_stock);
+		mainPanel.add(H_checkOrder);
 		mainPanel.add(H_order);
 		
 
@@ -109,13 +112,18 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
-			show(H_order);
+			show(H_checkOrder);
 			hide(H_stock);
+			hide(H_order);
 		} else
 		if (e.getSource() == OrderBtn) {//본사 발주관리
+			show(H_order);
+			hide(H_stock);
+			hide(H_checkOrder);
 		} else
 		if (e.getSource() == StockBtn) {//재고 입출고 관리
 			show(H_stock);
+			hide(H_checkOrder);
 			hide(H_order);
 		} else
 		if (e.getSource() == VenderBtn) {//업체관리

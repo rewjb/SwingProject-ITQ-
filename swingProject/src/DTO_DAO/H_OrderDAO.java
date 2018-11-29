@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 //가맹점 총 발주내역
 
-public class B_OrderDAO {
+public class H_OrderDAO {
 
 	private String url = "jdbc:mysql://localhost:3306/bbq";
 	// 데이터 베이스 url
@@ -24,12 +24,12 @@ public class B_OrderDAO {
 	private PreparedStatement ps;
 	// Connection 객체와 PreparedStatement 미리 선언
 
-	private static B_OrderDAO b_orderdao = new B_OrderDAO();
+	private static H_OrderDAO b_orderdao = new H_OrderDAO();
 	// 싱긑톤 패턴
 
 	int count;
 
-	public static B_OrderDAO getInstance() {
+	public static H_OrderDAO getInstance() {
 		return b_orderdao;
 	} // 싱긑톤 패턴 메서드
 
@@ -42,6 +42,8 @@ public class B_OrderDAO {
 		}
 	}// connectDB:메서드 끝
 
+//	sql = "select id from member where id =" + id;
+//	PreparedStatement ps = con.prepareStatement(sql);
 
 	// 이건 본사에서 사용할 select문 담당자 : 유주빈
 	public B_OrderDTO[] select_UnCheck(int index) {

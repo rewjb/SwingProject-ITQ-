@@ -57,8 +57,6 @@ public class B_OrderDAO {
 			// 보여줄 리스트 수량
 			count = 0;
 			// 데이터 필드 수량
-			
-			
 
 			while (result.next()) {
 				++count;
@@ -104,14 +102,12 @@ public class B_OrderDAO {
 				result.close();
 				return lastorderDTO;
 			} else { // 마지막 페이지가 아닐 경우!
-				
 
-				for (int i = 0; i < (index-1) * listNum; i++) {
+				for (int i = 0; i < (index - 1) * listNum; i++) {
 					result.next();
 				} // 페이지에 따른 건너뛰기 메서드
 
-
-				for (int i = 0; i < listNum ; i++) {
+				for (int i = 0; i < listNum; i++) {
 					orderDTO[i].setNum(result.getInt(1)); // 식별자 번호
 					orderDTO[i].setId(result.getString(2)); // 아이디
 					orderDTO[i].setName(result.getString(3)); // 제품명
@@ -133,7 +129,21 @@ public class B_OrderDAO {
 			System.out.println("유주빈: 개망점에서 발주 내용갖고 오는거 오류");
 			return null;
 		}
-	}
+	}// select_UnCheck:메서드 끝
+
+	// 이건 본사에서 사용할 update문 담당자 : 유주빈
+	public void checkUpdate(int uniqueNum) {
+		try {
+			connectDB();
+			sql = "UPDATE bodyorder SET hconfirm = 'ck_1' WHERE num=" + uniqueNum + ";";
+			ps = con.prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			System.out.println("checkUpdate:가맹점 발주를 확인하는 메서드가 오류입니다.");
+		}
+	}// checkUpdate:메서드 종료
 
 	// 가맹점에서 사용할 select문 담당자 : 조광재
 	public ArrayList<B_OrderDTO> selectAll() {

@@ -21,11 +21,11 @@ public class H_FranchiseDAO {
 	private PreparedStatement ps;
 	// Connection 객체와 PreparedStatement 미리 선언
 
-	private static B_OrderDAO b_orderdao = new B_OrderDAO();
+	private static H_FranchiseDAO h_franchiseDAO = new H_FranchiseDAO();
 	// 싱긑톤 패턴
 
-	public static B_OrderDAO getInstance() {
-		return b_orderdao;
+	public static H_FranchiseDAO getInstance() {
+		return h_franchiseDAO;
 	} // 싱긑톤 패턴 메서드
 
 	public void connectDB() {
@@ -37,29 +37,37 @@ public class H_FranchiseDAO {
 		}
 	}// connectDB:메서드 끝
 
-//	sql = "select id from member where id =" + id;
-//	PreparedStatement ps = con.prepareStatement(sql);
-
 	// 이건 본사에서 사용할 select문 담당자 : 유주빈
-	public void select_tel(int index) {
+	public ArrayList<H_FranchiseDTO> select_AliasNTel() {
 		try {
 			connectDB();
-			sql = "SELECT alias,tel FROM headFranchise ORDER BY alias DESC;";
+			sql = "SELECT * FROM headFranchise ORDER BY alias;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
-			
-			
-			
-//			H_FranchiseDTO[] franchiseDTO = H_FranchiseDTO[];
-			
-			
-			
-			
-			
-			
+
+			ArrayList<H_FranchiseDTO> franchiseArray = new ArrayList<H_FranchiseDTO>();
+			// 업체 내용의 DTO를 담을 ArrayList 선언
+
+			while (result.next()) { // 1번째 데이터 선택
+				franchiseArray.add(new H_FranchiseDTO(null, null, null, result.getString(4), null, result.getString(6),
+						result.getString(7)));
+//				 전화번호 , 주소 , 가맹점명 넣기
+//				 result.getString(1) 아이디
+//				 result.getString(2) 비밀번호
+//				 result.getString(3) 점장이름
+//				 result.getString(4) 전화번호
+//				 result.getString(5) 사업자번호 
+//				 result.getString(6) 주소
+//				 result.getString(7) 가맹점 이름
+			}
+			result.close();
+			con.close();
+			ps.close();
+			return franchiseArray;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-	}//select_tel:메서드 끝
+	}// select_tel:메서드 끝
 
 }

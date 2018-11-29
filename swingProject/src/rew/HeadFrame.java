@@ -1,6 +1,7 @@
 package rew;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -42,10 +43,11 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	
 	H_Stock_InOut H_stock = new H_Stock_InOut();
 	//재고관리 객체 생성
-	H_Order H_order = new H_Order();
+	H_CheckOrder H_order = new H_CheckOrder();
 	//가맹점 발주체크 객체생성
 	
 	public HeadFrame() {
+		
 		//20 간격 !
 		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
 		OrderBtn.setBounds(143, 20, 90, 23);
@@ -54,7 +56,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		FranchiseBtn.setBounds(436, 20, 100, 23);
 		SalesBtn.setBounds(537, 20, 90, 23);
 
-		mainPanel.setBounds(12, 53, 770, 358);
+		mainPanel.setBounds(12, 43, 770, 368);
 		mainPanel.setLayout(null);
 		
 		//메인 판넬에 추가중 ..
@@ -87,8 +89,9 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 		// 사이즈 , 레이아웃 및 각종 설정
 		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 450);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
 	}// 생성자 종료

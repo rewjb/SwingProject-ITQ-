@@ -23,7 +23,7 @@ import DTO_DAO.H_FranchiseDTO;
 import inter.BBQHead;
 import inter.HeadCheckOrder;
 
-public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
+public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListener {
 
 	private DefaultTableModel orderListModel = new DefaultTableModel(0, 4);
 	private JTable orderListTable = new JTable(orderListModel) {
@@ -67,7 +67,7 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 	
 	public static int goOrder;
 
-	public H_Order() {
+	public H_CheckOrder() {
 
 		orderInsert(index);
 		// 발주 길록을 입력하는 메서드 index는 페이지 번호

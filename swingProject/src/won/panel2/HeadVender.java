@@ -1,4 +1,4 @@
-package panel2;
+package won.panel2;
 
 import panel2.BBQHead;
 

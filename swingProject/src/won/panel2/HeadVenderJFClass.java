@@ -1,4 +1,4 @@
-package panel2;
+package won.panel2;
 /*2018-11-29
  * 메인 대용
  * 작업 끝나고 각각 클래스로 찢어놓을 예정입니다.

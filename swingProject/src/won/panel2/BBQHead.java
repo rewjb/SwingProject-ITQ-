@@ -1,4 +1,4 @@
-package panel2;
+package won.panel2;
 
 public interface BBQHead {
 

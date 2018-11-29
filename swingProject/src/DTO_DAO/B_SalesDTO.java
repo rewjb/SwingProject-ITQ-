@@ -25,8 +25,9 @@ public class B_SalesDTO {
 	}
 	
 	public B_SalesDTO() {//기본 생성자
-	System.out.println("test");
 	}
+	
+	
 	public int getNum() {
 		return num;
 	}

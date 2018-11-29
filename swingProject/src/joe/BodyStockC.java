@@ -21,8 +21,8 @@ public class BodyStockC extends JPanel implements BodyStock{
 		
 		
 		
-	
 		
+			
 		
 		
 		setVisible(true);

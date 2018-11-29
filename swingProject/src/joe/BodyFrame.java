@@ -43,18 +43,24 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	BodyOrderC orderC = new BodyOrderC();
 	BodySalesC salesC = new BodySalesC();
 	BodyStockC stodckC = new BodyStockC();
+	HallC hallc = new HallC();
 	
 	public BodyFrame() {
 		
+		// 사이즈 , 레이아웃 및 각종 설정
+		setSize(820, 450);
+		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		// 20 간격 !
-		setLayout(null);
 		OrderBtn.setBounds(12, 30, 90, 23);
 		StockBtn.setBounds(102, 30, 90, 23);
 		SalesBtn.setBounds(193, 30, 90, 23);
 		hallButton.setBounds(671, 30, 90, 23);
 		
 
-		mainPanel.setBounds(12, 53, 790, 358);
+		mainPanel.setBounds(12, 53, 790, 364);
 		mainPanel.setLayout(null);
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
@@ -66,6 +72,9 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		getContentPane().add(SalesBtn);
 		getContentPane().add(hallButton);
 		mainPanel.add(orderC);
+		mainPanel.add(hallc);
+		mainPanel.add(salesC);
+		mainPanel.add(stodckC);
 		
 		getContentPane().add(mainPanel);
 
@@ -74,11 +83,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		SalesBtn.addActionListener(this);
 		hallButton.addActionListener(this);
 
-		// 사이즈 , 레이아웃 및 각종 설정
-		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(820, 450);
-		setResizable(false);
+		
 		setVisible(true);
 	}// 생성자 종료
 
@@ -103,7 +108,8 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		} else if (e.getSource() == SalesBtn) {// 매출관리
 			show(salesC);
 		} else if (e.getSource()== hallButton) {
-			
+			show(hallc);
+			hide(orderC);
 		}
 
 	}// actionPerformed 메서드 끝

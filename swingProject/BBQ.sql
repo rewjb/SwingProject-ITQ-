@@ -1,6 +1,5 @@
 create database BBQ;
 
-<<<<<<< HEAD
 유통기한..고민..
 
 =가맹점 발주내역=
@@ -31,6 +30,7 @@ create table bodystock(
 id varchar(10) not null unique,
 name varchar(15) not null,
 quantity int not null
+date TIMESTAMP DEFAULT NOW(),
 );
 -----------상단은 이미 함-----------
 =가맹점 관리=
@@ -115,6 +115,9 @@ SELECT * from bodyorder WHERE num=10;
 SELECT * FROM headorder ORDER BY  headorder.date DESC;
 위에는 가맹점의 이름과 연락처 갖고오기! / 담당자 : 유주빈
 
+;
+
+
 update bodyorder set hconfirm = 'ck_1' where num=10;
 update 테이블명 set 컬럼명 = '변경값' where 컬럼명='해당값'
 ----- 테이블 선택--------
@@ -130,12 +133,12 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 );
 
-insert into bodyorder values (default,'daum','d-1',1,default,'','');
-insert into bodyorder values (default,'daum','d-2',12,default,'','');
-insert into bodyorder values (default,'daum','d-1',13,default,'','');
-insert into bodyorder values (default,'daum','d-1',14,default,'','');
-insert into bodyorder values (default,'daum','d-2',15,default,'','');
-insert into bodyorder values (default,'naver','n-1',16,default,'','');
+insert into bodyorder values (default,'daum','d-1',1,default,'1','');
+insert into bodyorder values (default,'daum','d-2',12,default,'1','');
+insert into bodyorder values (default,'daum','d-1',13,default,'1','');
+insert into bodyorder values (default,'daum','d-1',14,default,'1','');
+insert into bodyorder values (default,'daum','d-2',15,default,'1','');
+insert into bodyorder values (default,'naver','n-1',16,default,'1','');
 insert into bodyorder values (default,'naver','n-1',17,default,'','');
 insert into bodyorder values (default,'naver','n-1',18,default,'','');
 insert into bodyorder values (default,'naver','n-2',19,default,'','');
@@ -153,6 +156,7 @@ insert into headFranchise values ('naver','123','BBB','010-xxxx-xxxx','408-81-45
 insert into headFranchise values ('google','123','CCC','010-xxxx-xxxx','408-81-789789','Seoul Geumcheon-2','bbq-g');
 insert into headFranchise values (아이디,비밀번호,가맹점 대표,전화번호,사업자번호,주소,가맹점 이름);
 //가맹점의 등록 테이블에 넣는 sql문
+
 
 
 

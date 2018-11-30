@@ -42,7 +42,7 @@ public class H_V_Product extends JPanel {
 
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
-		table.setRowHeight(30);
+		table.setRowHeight(20);
 
 		add(scrollPane);
 		scrollPane.setVisible(true);

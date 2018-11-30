@@ -1,6 +1,6 @@
-package won.panel2;
+package panel2;
 
-import panel2.BBQHead;
+import wone.panel2.BBQHead;
 
 public interface HeadVender extends BBQHead {
 

@@ -1,4 +1,4 @@
-package DAO_DTO;
+package DTO_DAO;
 
 public class H_VenderpDTO {
 	private String id;

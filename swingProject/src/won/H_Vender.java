@@ -1,4 +1,9 @@
 package won;
+/*
+ * 2018-11-30 wonHn
+ * 기본 틀 구성
+ * H_Vender위에 H_V_Company와  H_V_Product가 동작하는 구조
+ */
 
 import java.awt.Color;
 import java.awt.Component;
@@ -70,9 +75,6 @@ public class H_Vender extends JPanel implements HeadVender {
 		
 		setVisible(false);
 	}
-
-
-
 
 
 	@Override

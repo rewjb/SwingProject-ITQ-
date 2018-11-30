@@ -38,6 +38,19 @@ public class B_OrderDTO {
 	
 	
 	
+	public B_OrderDTO(int num, String id, String name, int quantity, String date, String hComfirm, String bComfirm,
+			String alias) {
+		super();
+		this.num = num;
+		this.id = id;
+		this.name = name;
+		this.quantity = quantity;
+		this.date = date;
+		this.hComfirm = hComfirm;
+		this.bComfirm = bComfirm;
+		this.alias = alias;
+	}
+
 	public B_OrderDTO() {// 기본생성자
 	}
 

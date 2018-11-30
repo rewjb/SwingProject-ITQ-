@@ -14,7 +14,11 @@ public class BodySalesC extends JPanel implements BodySales{
 	
 		
 		
-		setVisible(true);
+		
+		
+		
+		
+		setVisible(false);
 	}
 	
 	

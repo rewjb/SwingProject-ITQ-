@@ -223,36 +223,45 @@ public class B_OrderDAO {
 				e2.printStackTrace();
 			}
 		}
-		
 	}
 	
-	public void orderDelete(int num) {
-		
-		int rn1 = 0;
-		
+	public ArrayList<B_OrderDTO> checkSelect() {
+		ArrayList<B_OrderDTO> orderDTO = new ArrayList<>();
+		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "delete from bodyorder where num = ?";
+			sql = "select * from bodyorder where hconfirm != ''";
 			ps = con.prepareStatement(sql);
-			ps.setInt(0, num);
+			rs = ps.executeQuery();
+		
+		while(rs.next()) {	
 			
-			rn1 = ps.executeUpdate();
+			int num = rs.getInt("num");
+			String id = rs.getString("id");
+			String name = rs.getString("name");
+			int quantity = rs.getInt("quantity");
+			String date = rs.getString("date");
+			String hConfirm = rs.getString("hconfirm");
+			String bConfirm = rs.getString("bconfirm");
+			
+			B_OrderDTO order = new B_OrderDTO(num, id, name, quantity, date, hConfirm, bConfirm);
+			
+			orderDTO.add(order);
+			
+		}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (con != null) {
-					con.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				
+				if(con!=null) {con.close();}
+				if(ps!=null) {ps.close();}
+				if(rs!=null) {ps.close();}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
+		return orderDTO;
 	}
 	
 }// 클래스 끝

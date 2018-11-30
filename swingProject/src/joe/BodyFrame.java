@@ -42,7 +42,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	JPanel mainPanel = new JPanel();
 	BodyOrderC orderC = new BodyOrderC();
 	BodySalesC salesC = new BodySalesC();
-	BodyStockC stodckC = new BodyStockC();
+	BodyStockC stockC = new BodyStockC();
 	HallC hallc = new HallC();
 	
 	public BodyFrame() {
@@ -74,7 +74,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		mainPanel.add(orderC);
 		mainPanel.add(hallc);
 		mainPanel.add(salesC);
-		mainPanel.add(stodckC);
+		mainPanel.add(stockC);
 		
 		getContentPane().add(mainPanel);
 
@@ -102,12 +102,12 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
 		if (e.getSource() == OrderBtn) {// 본사 발주관리
 			show(orderC);
-			
 		} else if (e.getSource() == StockBtn) {// 재고 입출고 관리
-			show(stodckC);
+			show(stockC);
+			hide(orderC);
 		} else if (e.getSource() == SalesBtn) {// 매출관리
 			show(salesC);
-		} else if (e.getSource()== hallButton) {
+		} else if (e.getSource()== hallButton) {// 홀 관리 
 			show(hallc);
 			hide(orderC);
 		}

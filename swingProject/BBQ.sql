@@ -17,7 +17,7 @@ bconfirm varchar(10)
 =가맹점 매출내역=
 create table bodysales(
 num int auto_increment primary key,
-id varchar(10) not null unique,
+id varchar(10) not null ,
 date TIMESTAMP DEFAULT NOW(),
 money int not null,
 chickenF int,
@@ -108,6 +108,8 @@ SELECT * FROM headFranchise ORDER BY alias;
 SELECT * from bodyorder WHERE num=10;
 위에는 가맹점의 이름과 연락처 갖고오기! / 담당자 : 유주빈
 
+;
+
 update bodyorder set hconfirm = 'ck_1' where num=10;
 update 테이블명 set 컬럼명 = '변경값' where 컬럼명='해당값'
 ----- 테이블 선택--------
@@ -123,7 +125,7 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 );
 
-insert into bodyorder values (default,'daum','d-1',1,default,'','');
+insert into bodyorder values (default,'daum','d-1',1,default,'1','');
 insert into bodyorder values (default,'daum','d-2',12,default,'','');
 insert into bodyorder values (default,'daum','d-1',13,default,'','');
 insert into bodyorder values (default,'daum','d-1',14,default,'','');

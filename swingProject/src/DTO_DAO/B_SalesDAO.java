@@ -83,7 +83,7 @@ public class B_SalesDAO {
 		
 		try {
 			connectDB();
-			sql = "insert into headOrder values(default,?,default,?,?,?,?,?)";
+			sql = "insert into bodysales values(default,?,default,?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, id);

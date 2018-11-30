@@ -225,8 +225,9 @@ public class B_OrderDAO {
 		}
 	}
 	
-	public ArrayList<B_OrderDTO> checkSelect() {
-		ArrayList<B_OrderDTO> orderDTO = new ArrayList<>();
+	//본사 확인 값이 존재하는 테이블만 가져오는 메서드
+	public ArrayList<B_OrderDTO> hCheckSelect() {
+		ArrayList<B_OrderDTO> hOrderDTO = new ArrayList<>();
 		ResultSet rs = null;
 		try {
 			connectDB();
@@ -246,7 +247,7 @@ public class B_OrderDAO {
 			
 			B_OrderDTO order = new B_OrderDTO(num, id, name, quantity, date, hConfirm, bConfirm);
 			
-			orderDTO.add(order);
+			hOrderDTO.add(order);
 			
 		}
 			
@@ -261,7 +262,76 @@ public class B_OrderDAO {
 				e2.printStackTrace();
 			}
 		}
-		return orderDTO;
+		return hOrderDTO;
 	}
+	
+	
+	//가맹점 확인이 끝난 테이블만 가져오는 메서드
+	public ArrayList<B_OrderDTO> bCheckSelect() {
+		ArrayList<B_OrderDTO> bOrderDTO = new ArrayList<>();
+		ResultSet rs = null;
+		try {
+			connectDB();
+			sql = "select * from bodyorder where hconfirm != ''";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+		
+		while(rs.next()) {	
+			
+			int num = rs.getInt("num");
+			String id = rs.getString("id");
+			String name = rs.getString("name");
+			int quantity = rs.getInt("quantity");
+			String date = rs.getString("date");
+			String hConfirm = rs.getString("hconfirm");
+			String bConfirm = rs.getString("bconfirm");
+			
+			B_OrderDTO order = new B_OrderDTO(num, id, name, quantity, date, hConfirm, bConfirm);
+			
+			bOrderDTO.add(order);
+			
+		}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(con!=null) {con.close();}
+				if(ps!=null) {ps.close();}
+				if(rs!=null) {ps.close();}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bOrderDTO;
+	}
+	
+	
+	
+	public void name(int num) {
+	
+		try {
+			connectDB();
+			sql = "update bodyorder set bconfirm = 'bk_1' where hconfirm = '1'";
+			
+			
+			
+			
+			
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	
 	
 }// 클래스 끝

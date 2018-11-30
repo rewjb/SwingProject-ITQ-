@@ -42,6 +42,8 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	CardLayout card = new CardLayout();
 	
 	JPanel mainPanel = new JPanel();
+	H_Vender H_vender = new H_Vender();
+	H_Franchise H_franchise = new H_Franchise();
 
 	public HeadFrame() {
 		//20 간격 !
@@ -52,9 +54,12 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		FranchiseBtn.setBounds(436, 20, 100, 23);
 		SalesBtn.setBounds(537, 20, 90, 23);
 
-		mainPanel.setBounds(12, 53, 770, 358);
+		mainPanel.setBounds(12, 43, 770, 368);
 		mainPanel.setLayout(card);
 
+		mainPanel.add(H_vender);
+		mainPanel.add(H_franchise);
+		
 		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
@@ -100,16 +105,24 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
+			hide(H_vender);
 		} else
 		if (e.getSource() == OrderBtn) {//본사 발주관리
+			hide(H_vender);
 		} else
 		if (e.getSource() == StockBtn) {//재고 입출고 관리
+			hide(H_vender);
 		} else
 		if (e.getSource() == VenderBtn) {//업체관리
+			show(H_vender);
+			hide(H_franchise);
 		} else
 		if (e.getSource() == FranchiseBtn) {//가맹점 관리
+			show(H_franchise);
+			hide(H_vender);
 		} else
 		if (e.getSource() == SalesBtn) {//매출관리
+			hide(H_vender);
 		}
 
 	}// actionPerformed 메서드 끝

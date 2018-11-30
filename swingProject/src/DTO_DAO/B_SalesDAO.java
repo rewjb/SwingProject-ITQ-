@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class B_SalesDAO {
 
@@ -38,29 +39,29 @@ public class B_SalesDAO {
 		}
 	}// connectDB:메서드 끝
 	
-	public void menuAllSelect() {
-		
+	public ArrayList<B_SalesDTO> menuAllSelect() {
+		ArrayList<B_SalesDTO> salesDTO = new ArrayList<>();
 		ResultSet rs = null;
 		
 		try {
 			connectDB();
-			sql = "";
+			sql = "SELECT * FROM bodysale";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			while(rs.next()) {
+				int num = rs.getInt("num");
+				String id = rs.getString("id");
+				String date = rs.getString("date");
+				int money = rs.getInt("money");
+				int chickenF = rs.getInt("chickenF");
+				int chickenH = rs.getInt("chickenH");
+				int chickenS = rs.getInt("chickenS");
+				int side = rs.getInt("side");
+				
+				B_SalesDTO sales = new B_SalesDTO(num, id, date, money, chickenF, chickenH, chickenS, side);
+				salesDTO.add(sales);
+			}		
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,28 +73,8 @@ public class B_SalesDAO {
 				e2.printStackTrace();
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
+		return salesDTO;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//매출 담는 메서드 
 	public void menuInsert(String id, int money , int chickenF , int chickenH, int chickenS , int side) {
@@ -129,6 +110,8 @@ public class B_SalesDAO {
 	
 	
 	public void menuUpdate(int num) {
+		
+		
 		
 	}
 	

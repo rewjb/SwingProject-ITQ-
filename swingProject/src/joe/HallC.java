@@ -18,6 +18,8 @@ import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
+import DTO_DAO.B_OrderDAO;
+import DTO_DAO.B_SalesDAO;
 import inter.BBQBody;
 import inter.BodyHall;
 import javax.swing.JLabel;
@@ -61,18 +63,18 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 
 	HashMap<JToggleButton, DefaultTableModel> key = new HashMap<>();//해쉬맵 사용법
-
+	
 	// 테이블내 표
 	private DefaultTableModel model = new DefaultTableModel(15, 2);
 	
 	// 표가 들어갈 테이블
 	private JTable listTable = new JTable(model);// 주문하기 테이블
-	private JTable table = new JTable(model1);//
-	private JTable table1 = new JTable(model2);//
-	private JTable table2 = new JTable(model3);//
-	private JTable table3 = new JTable(model4);//
-	private JTable table4 = new JTable(model5);//
-	private JTable table5 = new JTable(model6);//
+	private JTable table = new JTable(model1);//1번테이블
+	private JTable table1 = new JTable(model2);//2번테이블
+	private JTable table2 = new JTable(model3);//3번테이블
+	private JTable table3 = new JTable(model4);//4번테이블
+	private JTable table4 = new JTable(model5);//5번테이블
+	private JTable table5 = new JTable(model6);//6번테이블
 
 	// 스크롤바
 	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -101,10 +103,13 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	Object temp = null;
 	
 	
+	B_OrderDAO salesDAO = B_SalesDAO.getInstance();
+	
 	// 메뉴
 	String[] menu = new String[] { "후라이드", "양념", "간장", "사이드메뉴" };
 
 	public HallC() {
+		
 		
 		jb = new JToggleButton("1번 테이블");
 		jb1 = new JToggleButton("2번 테이블");
@@ -173,12 +178,12 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 		button6 = new JButton("계산");
 		button6.setBounds(543, 334, 60, 25);
 
-		scroll1.setBounds(71, 68, 131, 97);
-		scroll2.setBounds(312, 68, 131, 97);
-		scroll3.setBounds(543, 68, 131, 97);
-		scroll4.setBounds(71, 235, 131, 97);
-		scroll5.setBounds(312, 235, 131, 97);
-		scroll6.setBounds(543, 235, 131, 97);
+		scroll1.setBounds(58, 68, 144, 97);
+		scroll2.setBounds(299, 68, 144, 97);
+		scroll3.setBounds(530, 68, 144, 97);
+		scroll4.setBounds(58, 235, 144, 97);
+		scroll5.setBounds(299, 235, 144, 97);
+		scroll6.setBounds(530, 235, 144, 97);
 
 		scroll.setBounds(0, 50, 285, 145);
 		jb.setBounds(91, 38, 97, 28);
@@ -243,6 +248,11 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// System.out.println((String)combo.getSelectedItem());콤보박스 선택값 출력
+		int chikenF = 0;
+		int chikenH = 0;
+		int chikenS = 0;
+		int sideMenu = 0;
+		int PriceSum = chikenS+chikenH+chikenS+sideMenu;
 		
 		if (e.getSource() == jb) {
 			jframe.setVisible(true);
@@ -274,20 +284,35 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				temp2.insertRow(0, new Object[] {  model.getValueAt(0, 0),  model.getValueAt(0, 1) });
 				model.removeRow(0);
 			}
+
+		} else if (e.getSource() == button1) {//1번테이블 계산
 			
+			while(true) {
+				if (model1.getValueAt(0, 0) == null) {break;}
+				
+				if(model1.getValueAt(0, 0).equals("후라이드")){
+					chikenF = (int) model.getValueAt(0, 1) * 20000;
+				}else if (model1.getValueAt(0, 0).equals("양념")) {
+					 chikenH = (int) model.getValueAt(0, 1) * 20000;
+				}else if (model1.getValueAt(0, 0).equals("간장")) {
+					chikenS = (int) model.getValueAt(0, 1) * 20000;
+				}else if (model1.getValueAt(0, 0).equals("사이드메뉴")) {
+					sideMenu = (int) model.getValueAt(0, 1) * 10000;
+				}
+				
+				
+		
+		
+			}
+		} else if (e.getSource() == button2) {//2번테이블 계산
 
+		} else if (e.getSource() == button3) {//3번테이블 계산
 
-		} else if (e.getSource() == button1) {
+		} else if (e.getSource() == button4) {//4번테이블 계산
 
-		} else if (e.getSource() == button2) {
+		} else if (e.getSource() == button5) {//5번테이블 계산
 
-		} else if (e.getSource() == button3) {
-
-		} else if (e.getSource() == button4) {
-
-		} else if (e.getSource() == button5) {
-
-		} else if (e.getSource() == button6) {
+		} else if (e.getSource() == button6) {//6번테이블 계산
 
 		} else if (e.getSource() == button7) {
 			model.insertRow(0, new Object[] { (String) combo.getSelectedItem(), textfiled.getText() });

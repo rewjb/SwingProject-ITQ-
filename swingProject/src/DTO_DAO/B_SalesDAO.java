@@ -21,13 +21,13 @@ public class B_SalesDAO {
 	private PreparedStatement ps;
 	// Connection 객체와 PreparedStatement 미리 선언
 	
-	private static B_OrderDAO b_orderdao = new B_OrderDAO();
+	private static B_SalesDAO b_salesDAO = new B_SalesDAO();
 	// 싱긑톤 패턴
 	
 	int count;
 	
-	public static B_OrderDAO getInstance() {
-		return b_orderdao;
+	public static B_SalesDAO getInstance() {
+		return b_salesDAO;
 	} // 싱긑톤 패턴 메서드
 	
 	public void connectDB() {

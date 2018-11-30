@@ -79,7 +79,16 @@ public class H_OrderDAO {
 			count = 0;
 			// 데이터 필드 수량
 
-	}// select_UnCheck:메서드 끝
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	
+	
+	
+	
+	
+	}// insert:메서드 끝
 
 	
 }// 클래스 끝

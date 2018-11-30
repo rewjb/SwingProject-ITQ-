@@ -1,4 +1,4 @@
-package DAO_DTO;
+package DTO_DAO;
 /*
  * 2018-11-29 wonHn
  * ~44라인까지의 기본 틀은 [메인폴더.DTO_DAO.H_FranchiseDTO]를 참고했습니다.

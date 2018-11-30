@@ -70,6 +70,8 @@ public class H_FranchiseDAO {
 		}
 	}// select_tel:메서드 끝
 	
+//	-------------------------------------------------------------------------------------
+	
 	// wonHn
 	//가맹점 정보 입력메서드
 	public void insertFranchiseInfo() {		

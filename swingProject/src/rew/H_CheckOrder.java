@@ -215,8 +215,6 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		for (int i = 0; i < franchiseArray.size(); i++) {
 			franchiseListModel.insertRow(i,
 					new Object[] { franchiseArray.get(i).getAlias(), franchiseArray.get(i).getTel() });
-//			franchiseArray.get(i).getAddr()
-//			툴팁으로 넣을지 말지 .. 고민 ..
 		}
 
 	}
@@ -275,13 +273,12 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				for (int i = 0; i < deNum; i++) {
 					orderListModel.removeRow(0);
 				}
-				
-				
 				orderInsert(index);
 				assignBtnIndex();
 			}
 			
 			// 값을 다시 세팅
+			//selectTrue는 행을 선택안할시 테이블이 -1값을 반환하는 것을 받은것이다.
 			if (selectTrue==-1) {
 				JOptionPane.showMessageDialog(this, "목록을 선택하세요.", "알림", JOptionPane.WARNING_MESSAGE);
 			} else if(selectTrue>=0){

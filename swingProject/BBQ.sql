@@ -17,7 +17,7 @@ bconfirm varchar(10)
 =가맹점 매출내역=
 create table bodysales(
 num int auto_increment primary key,
-id varchar(10) not null unique,
+id varchar(10) not null,
 date TIMESTAMP DEFAULT NOW(),
 money int not null,
 chickenF int,
@@ -47,8 +47,8 @@ alias varchar(20) not null
 =업체 관리=
 create table headvender(
 id varchar(10) primary key not null,
-name varchar(10) not null,
-comnum varchar(15) not null,  이거 중복안되게 해야하는거 아니냐 ..
+name varchar(10) unique not null,
+comnum varchar(15) unique not null,  이거 중복안되게 해야하는거 아니냐 ..
 tel varchar(15) not null
 );
 -----------상단은 이미 함-----------
@@ -89,12 +89,17 @@ drop table headFranchise;
 drop table bodyorder;
 drop table bodysales;
 drop table bodystock;
+drop table headOrder;
 
 show tables;
 ----- 전체 테이블 삭제--------
 select * from bodyorder;
+SELECT id,name FROM headvender;
 select * from headvender;
+select * from  headOrder;
 select * from headvenderp;
+SELECT DISTINCT name FROM headvenderp ORDER BY name;
+select * from 
 //거래업체확인 sql문
 select * from headFranchise;
 select * from bodyorder ORDER BY DATE DESC;
@@ -103,9 +108,11 @@ select name from bodyorder where date like '%2018-11-28%';
 특정 날짜로 검색하기!!!
 SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) and (hconfirm='') ORDER BY DATE DESC;
 위에는 가맹점의 발주 중에 확인안한 리스트 갖고오기! / 담당자 : 유주빈
+SELECT headvenderp.num,headvenderp.name,headvender.name,headvenderp.money FROM headvenderp,headvender WHERE (headvender.id=headvenderp.id) ORDER BY headvender.name;
 SELECT alias,tel FROM headFranchise ORDER BY alias;
 SELECT * FROM headFranchise ORDER BY alias;
 SELECT * from bodyorder WHERE num=10;
+SELECT * FROM headorder ORDER BY  headorder.date DESC;
 위에는 가맹점의 이름과 연락처 갖고오기! / 담당자 : 유주빈
 
 update bodyorder set hconfirm = 'ck_1' where num=10;
@@ -163,20 +170,10 @@ insert into headvender values ('com-AAA','dbwnqls','001','02-xxx-xxx');
 insert into headvender values (아이디,회사명,사업자 번호,전화번호);
 //업체 등록 테이블
 
-create table headvenderp(
-id varchar(10) not null,
-num int auto_increment unique,
-name varchar(10) not null,
-money int,
-foreign key (id) references headvender(id) on delete cascade
-);
+                                 1     2      3  4  5     6     7
+insert into headorder values (업체명,default,발주품명,발주수량,가격,default,'');
 
-create table headvender(
-id varchar(10) primary key not null,
-name varchar(10) not null,
-comnum varchar(15) not null,  
-tel varchar(15) not null
-);
+
 
 
 

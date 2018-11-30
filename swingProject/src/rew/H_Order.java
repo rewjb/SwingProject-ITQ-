@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,18 +17,22 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
+import com.mysql.fabric.proto.xmlrpc.InternalXmlRpcMethodCaller;
 import DTO_DAO.B_OrderDAO;
 import DTO_DAO.B_OrderDTO;
 import DTO_DAO.H_FranchiseDAO;
 import DTO_DAO.H_FranchiseDTO;
+import DTO_DAO.H_OrderDAO;
+import DTO_DAO.H_OrderDTO;
+import DTO_DAO.H_VenderpDAO;
 import inter.BBQHead;
 import inter.HeadCheckOrder;
-import javax.swing.JLabel;
 
-public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
+public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, ItemListener, DocumentListener {
 
 	private DefaultTableModel orderListModel = new DefaultTableModel(0, 6);
 	private JTable orderListTable = new JTable(orderListModel) {
@@ -34,7 +40,7 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 			return false;
 		};
 	}; // 가맹점의 발주 리스트(확인하지 않은..)를 넣을 Jtable / 오면서 셀을
-	// 수정여부 메서드를 무조건 false값으로 리턴
+		// 수정여부 메서드를 무조건 false값으로 리턴
 
 	private DefaultTableModel franchiseListModel = new DefaultTableModel(0, 2);
 	private JTable franchiseListTable = new JTable(franchiseListModel) {
@@ -42,6 +48,16 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 			return false;
 		};
 	}; // 가맹점의 연락처 목록보기
+
+	private DefaultTableModel orderPlusListModel = new DefaultTableModel(0, 5);
+	private JTable orderPlusListTable = new JTable(orderPlusListModel) {
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		};
+	}; // 가맹점의 연락처 목록보기
+
+	private JScrollPane orderPlusScroll = new JScrollPane(orderPlusListTable,
+			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 	private JScrollPane orderScroll = new JScrollPane(orderListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -57,15 +73,17 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 	private JButton nowBtn = new JButton();
 	private JButton nextBtn = new JButton();
 
-	private int index = 1;
-	private int count;
-	private int listNum = 9;
-
-	private B_OrderDTO[] orderDAO;
+	private int index = 1; // 처음 인덱스 번호
+	private int count; // 전체 필드 수량
+	private int listNum = 9; // 표시할 수
 
 	private H_FranchiseDAO franchiseDAO = H_FranchiseDAO.getInstance();
 
-	private JButton confirmBtn = new JButton("확인");
+	// 이거는 발주 리스트에 있는 것을 삭제.. 조만간 구현
+	private JButton plusBtn = new JButton("추가");
+	private JButton deletemBtn1 = new JButton("삭제");
+	private JButton deletemBtn2 = new JButton("삭제");
+	private JButton confirmOrderBtn = new JButton("확인");
 
 	public static int goOrder;
 
@@ -76,34 +94,31 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 	private JLabel totalPriceLabel = new JLabel(); // 총 가격 레이블
 
 	private JComboBox<String> pNameBox = new JComboBox<>(); // 발주품목 선택
-	private JComboBox<String> pvenderBox = new JComboBox<>(); // 발주품목에 대한 업체 선택
+	private JComboBox<String> pVenderBox = new JComboBox<>(); // 발주품목에 대한 업체 선택
 	private JTextField pMoneyField = new JTextField(); // 제품 선택시 가격 표시
 	private JTextField pQuantityField = new JTextField(); // 수량 입력란
 	private JTextField ptotalPriceField = new JTextField();
-	
+
 	private JLabel orderListLabel = new JLabel();
-	//발주목록 제목 레이블
-	
-//	(2, 45, 560, 100); 이거 위에거
-//	(2, 45, 560, 100); 이거 위에거
-//	(2, 180, 560, 155); 이거 아래
-
-	private JPanel la = new JPanel();
-
-	
-//	JLabel
+	// 발주목록 제목 레이블
 
 	// 발주품목 , 업체 , 가격정보, 수량 , 최종가격
 
+	private H_VenderpDAO venderpDAO = H_VenderpDAO.getInstance();
+	// 싱글톤 업체제품의 DAO 선언
+	private ArrayList<String> productList;
+	// 제품군만 갖고오는 스트링 list
+	private ArrayList<String[]> venderList;
+	// 제품군에 맞는 업체를 갖고오는 리스트
+	private H_OrderDAO h_orderDAO = H_OrderDAO.getInstance();
+	// 발주를 데이터베이스에 넣는 싱글톤 DAO
+	private ArrayList<H_OrderDTO> orderList;
+	// 발주 기록을 갖고올 orderList
+	ArrayList<Integer> uniqueNum;
+	// 발주기록을 지우기 위한 유니크 넘버 갖기
+
+//	발주 넣는 리스트 배치 (2, 45, 560, 100)
 	public H_Order() {
-		la.setForeground(Color.BLACK);
-		
-		la.setBackground(Color.BLACK);
-		la.setBounds(2, 45, 560, 100);
-		
-
-		add(la);
-
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nameLabel.setText("발주품목");
 
@@ -120,30 +135,40 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 		totalPriceLabel.setText("총가격");
 
 		pMoneyField.setHorizontalAlignment(SwingConstants.RIGHT);
-		pMoneyField.setBounds(244, 23, 70, 20);
+		pMoneyField.setBounds(230, 23, 70, 20);
 		pMoneyField.setEditable(false);
 
 		pQuantityField.setHorizontalAlignment(SwingConstants.RIGHT);
-		pQuantityField.setBounds(326, 23, 60, 20);
+		pQuantityField.setBounds(312, 23, 60, 20);
 
 		ptotalPriceField.setHorizontalAlignment(SwingConstants.RIGHT);
-		ptotalPriceField.setBounds(398, 23, 111, 20);
+		ptotalPriceField.setBounds(384, 23, 111, 20);
 		ptotalPriceField.setEditable(false);
 
-		nameLabel.setBounds(40, 7, 60, 15);
-		venderLabel.setBounds(160, 7, 40, 15);
-		moneyLabel.setBounds(257, 7, 40, 15);
-		quantityLabel.setBounds(336, 7, 40, 15);
-		totalPriceLabel.setBounds(428, 7, 40, 15);
+		nameLabel.setBounds(32, 7, 60, 15);
+		venderLabel.setBounds(152, 7, 40, 15);
+		moneyLabel.setBounds(244, 7, 40, 15);
+		quantityLabel.setBounds(322, 7, 40, 15);
+		totalPriceLabel.setBounds(420, 7, 40, 15);
 
-		pNameBox.setBounds(20, 23, 100, 20);
-		pvenderBox.setBounds(130, 23, 100, 20);
+		pNameBox.setBounds(12, 23, 100, 20);
+		pVenderBox.setBounds(122, 23, 100, 20);
 		// 이거 위에 2개는 콤보박스
-		
+
 		orderListLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		orderListLabel.setText("발주목록");
 		orderListLabel.setBounds(245, 155, 69, 15);
-		//발주목록 레이블
+		// 발주목록 레이블
+
+		pNameBox.addItemListener(this);
+		pVenderBox.addItemListener(this);
+		// 콤보박스 액션리스너
+		pQuantityField.getDocument().addDocumentListener(this);
+
+		insertIntoNameBox();
+		// 발주품목을 콤보박스에 넣기
+		insertIntoVenderBox();
+		// 품목에 따른 업체를 콤보박스에 넣기
 
 		orderInsert(index);
 		// 발주 길록을 입력하는 메서드 index는 페이지 번호
@@ -165,10 +190,15 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 		franchiseListTable.getTableHeader().setReorderingAllowed(false);
 		// 업체테이블의 헤더를 얻어서 사이즈 수정 불가, / 업체테이블의 컬럼 이동 금지
 
-		franchiseListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
-		orderListModel.setColumnIdentifiers(new String[] { "업체", "발주품목", "수량", "금액", "발주일","입고여부" });
+		orderPlusListTable.getTableHeader().setResizingAllowed(false);
+		orderPlusListTable.getTableHeader().setReorderingAllowed(false);
+		// 발주품목 추가 테이블의 헤더를 얻어서 사이즈 수정 불가, / 업체테이블의 컬럼 이동 금지
 
-//		orderListTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+		franchiseListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
+		orderListModel.setColumnIdentifiers(new String[] { "업체", "발주품목", "수량", "금액", "발주일", "입고여부" });
+		orderPlusListModel.setColumnIdentifiers(new String[] { "발주품목", "업체", "가격정보", "수량", "총금액" });
+
+		orderListTable.getColumnModel().getColumn(4).setPreferredWidth(180);
 		// 컬럼 너비를 수정하는 메서드 , 그러나 여기에서는 스크롤팬에 맞춰서 설정된듯 하다 ..
 
 //		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
@@ -176,28 +206,38 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 
 		nextBtn.addActionListener(this);
 		previousBtn.addActionListener(this);
-		confirmBtn.addActionListener(this);
+		deletemBtn2.addActionListener(this);
+		deletemBtn1.addActionListener(this);
+		confirmOrderBtn.addActionListener(this);
 		// 인덱스 숫자 액션리스너
+
+		plusBtn.addActionListener(this);
 
 		previousBtn.setBounds(200, 336, 42, 20);
 		nowBtn.setBounds(242, 336, 42, 20);
 		nextBtn.setBounds(284, 336, 42, 20);
-		confirmBtn.setBounds(502, 336, 60, 20);
+		deletemBtn2.setBounds(502, 336, 60, 20);
+		plusBtn.setBounds(502, 23, 60, 20);
+		deletemBtn1.setBounds(502, 133, 60, 20);
 		// 버튼들의 배치
 
-		orderScroll.setBounds(2, 170, 560, 165); //발주목록
-		franchiseScroll.setBounds(565, 20, 200, 315);
-		// 2개 스크롤팬의 배치
+		orderScroll.setBounds(2, 170, 560, 165); // 발주목록
+		franchiseScroll.setBounds(565, 20, 200, 150);
+		orderPlusScroll.setBounds(2, 44, 560, 88);
+		// 3개 스크롤팬의 배치
 
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
 		// 가운데 정렬 설정의 객체
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 6; i++) {
 			orderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 
 		for (int i = 0; i < 2; i++) {
 			franchiseListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
+		} // for문 끝 / 가운데 정렬 세팅
+		for (int i = 0; i < 5; i++) {
+			orderPlusListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 
 //		orderListTable.getTableHeader().setBackground(Color.BLACK);
@@ -208,8 +248,8 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 
 		// ----------------------------------------------------위에는 발주목록 아래는 전화번호 목록
 
-//		add(confirmBtn);
-//		add(franchiseScroll);
+		add(deletemBtn2);
+		add(franchiseScroll);
 		add(previousBtn);
 		add(nowBtn);
 		add(nextBtn);
@@ -217,25 +257,27 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 		// 위에는 기존거
 
 		add(pNameBox);
-		add(pvenderBox);
+		add(pVenderBox);
 		add(pMoneyField);
 		add(pQuantityField);
-
 		add(nameLabel);
 		add(venderLabel);
 		add(moneyLabel);
 		add(quantityLabel);
 		add(totalPriceLabel);
 		add(ptotalPriceField);
+		add(orderListLabel);
+		add(plusBtn);
+		add(deletemBtn1);
+		add(orderPlusScroll);
 
 		setLayout(null);
 		setBackground(Color.PINK);
 		setBounds(0, 0, 770, 358);
 		setSize(770, 358);
-		
-		
-		add(orderListLabel);
+		confirmOrderBtn.setBounds(435, 133, 60, 20);
 
+		add(confirmOrderBtn);
 		setVisible(false);// 마지막에는 false로 변경
 
 	}// 생성자 끝
@@ -249,6 +291,47 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 	public void hide(BBQHead bbqHead) {
 		((Component) bbqHead).setVisible(false);
 	}// hide 메서드 끝
+
+	public void insertIntoNameBox() {// 발주품목 넣기
+		productList = venderpDAO.select_product();
+		// productList에 제품군 넣기!
+		for (int i = 0; i < productList.size(); i++) {
+			pNameBox.addItem((String) productList.get(i));
+		}
+	}// insertIntoNameBox:메서드 종료
+
+	public void insertIntoVenderBox() {// 발주품목에 따른 업체 넣기
+		venderList = venderpDAO.select_vender();
+		// 제품군에 맞는 고유번호,제품군,업체명,금액이 들어있다.
+		pVenderBox.removeAllItems();
+		for (int i = 0; i < venderList.size(); i++) {
+			if (venderList.get(i)[1].equals((String) pNameBox.getSelectedItem())) {
+				// 제품군과 업체를 매칭시는 과정
+				pVenderBox.addItem(venderList.get(i)[2]);
+			}
+		}
+	}// insertIntoVenderBox:메서드 종료
+
+	public void insertMoneyField() {
+
+		for (int i = 0; i < venderList.size(); i++) {
+
+			if ((venderList.get(i)[1].equals(pNameBox.getSelectedItem()))
+					&& (venderList.get(i)[2].equals(pVenderBox.getSelectedItem()))) {
+				pMoneyField.setText(venderList.get(i)[3]);
+			}
+		}
+	}// insertMoneyField:메서드 종료
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == pNameBox) {
+			insertIntoVenderBox();
+		}
+		if (e.getSource() == pVenderBox) {
+			insertMoneyField();
+		}
+	}// itemStateChanged:메서드 종료
 
 	public void assignBtnIndex() {
 		if (index == 1) {
@@ -270,33 +353,47 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 
 	public void orderInsert(int index) {
 
-		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
 		// B_OrderDAO의 배열값 객체 반환
-		count = B_OrderDAO.getInstance().LastIdex();
+		count = h_orderDAO.selectAll().size();
+		orderList = h_orderDAO.selectAll();
+		int deNum = orderListModel.getRowCount();
+		int lastStartNum;
+		uniqueNum = new ArrayList<>();
 
 		if ((int) (count / listNum + 1) == index) {
-
+			for (int i = 0; i < deNum; i++) {
+				orderListModel.removeRow(0);
+			}
 			for (int i = 0; i < count % listNum; i++) {
-				orderListModel.insertRow(i, new Object[] { orderDAO[i].getAlias(), orderDAO[i].getName(),
-						orderDAO[i].getQuantity(), orderDAO[i].getDate() });
+				lastStartNum = count / listNum;
+				lastStartNum = (lastStartNum * listNum);
+				orderListModel.insertRow(i, new Object[] { orderList.get(lastStartNum + i).getVendername(),
+						orderList.get(lastStartNum + i).getName(), orderList.get(lastStartNum + i).getQuantity(),
+						orderList.get(lastStartNum + i).getMoney(), orderList.get(lastStartNum + i).getDate(),
+						orderList.get(lastStartNum + i).getConfirm() });
+				uniqueNum.add(orderList.get(lastStartNum + i).getNum());
 			}
 		} else {
+			for (int i = 0; i < deNum; i++) {
+				orderListModel.removeRow(0);
+			}
 			for (int i = 0; i < listNum; i++) {
-				orderListModel.insertRow(i, new Object[] { orderDAO[i].getAlias(), orderDAO[i].getName(),
-						orderDAO[i].getQuantity(), orderDAO[i].getDate() });
+				lastStartNum = (index - 1) * listNum;
+				orderListModel.insertRow(i, new Object[] { orderList.get(lastStartNum + i).getVendername(),
+						orderList.get(lastStartNum + i).getName(), orderList.get(lastStartNum + i).getQuantity(),
+						orderList.get(lastStartNum + i).getMoney(), orderList.get(lastStartNum + i).getDate(),
+						orderList.get(lastStartNum + i).getConfirm() });
+				uniqueNum.add(orderList.get(lastStartNum + i).getNum());
 			}
 		}
 	}// orderInsert():메서드 끝
 
-	public void aliasNtelInsert() {
+	public void aliasNtelInsert() {//설명이 필요할것 같은데 ..
 		ArrayList<H_FranchiseDTO> franchiseArray = franchiseDAO.select_AliasNTel();
 		for (int i = 0; i < franchiseArray.size(); i++) {
 			franchiseListModel.insertRow(i,
 					new Object[] { franchiseArray.get(i).getAlias(), franchiseArray.get(i).getTel() });
-//			franchiseArray.get(i).getAddr()
-//			툴팁으로 넣을지 말지 .. 고민 ..
 		}
-
 	}
 
 	@Override
@@ -307,10 +404,6 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 				++index;
 				nowBtn.setText(String.valueOf(index));
 				assignBtnIndex();
-				int deNum = orderListModel.getRowCount();
-				for (int i = 0; i < deNum; i++) {
-					orderListModel.removeRow(0);
-				}
 				orderInsert(index);
 			}
 		} // 다음 버튼을 누를 시 발생하는 액션
@@ -320,41 +413,107 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener {
 				--index;
 				nowBtn.setText(String.valueOf(index));
 				assignBtnIndex();
-				int deNum = orderListModel.getRowCount();
-				for (int i = 0; i < deNum; i++) {
-					orderListModel.removeRow(0);
-				}
 				orderInsert(index);
 			}
 		} // 이전 버튼을 누를 시 발생하는 액션
 
-		if (e.getSource() == confirmBtn) {
+		if (e.getSource() == deletemBtn2) { //작업중
 
-			int selectNum;
-			// 해당 발주를 체크하는 테이블 행 번호
-			int deNum = orderListModel.getRowCount();
-			// 지울 횟수 숫자
-
-			for (int i = 0; i < orderListTable.getSelectedRows().length; i++) {
-				selectNum = orderListTable.getSelectedRows()[i];
-				B_OrderDAO.getInstance().checkUpdate(orderDAO[selectNum].getNum());
-			} // ck_1을 입력하는 과정
-
-			if ((index + 1) <= (int) (count / listNum + 1)) {
-				// 세팅을 다시 하기 위해 값을 지우는 for문
-				for (int i = 0; i < deNum; i++) {
-					orderListModel.removeRow(0);
-				}
-			} else if (!((index - 1) == 0)) {
-				for (int i = 0; i < deNum; i++) {
-					orderListModel.removeRow(0);
-				}
+			int[] selectedIndex = orderListTable.getSelectedRows();
+			int countNum = orderListTable.getSelectedRows().length;
+//			h_orderDAO
+			for (int i = 0; i < countNum; i++) {
+				h_orderDAO.deleteSelected(uniqueNum.get(i));
 			}
 			orderInsert(index);
-			// 값을 다시 세팅
-			goOrder = JOptionPane.showConfirmDialog(this, "발주작업으로 이동하시겠습니까?", "발주안내 메세지", JOptionPane.YES_OPTION);
-			// 0 : 예 / 1 : 아니
-		}
+			
+		} // 발주기록을 지우는 메서드
+
+		// 추가버튼을 누르면 선택한 항목이 발주 바구니에 이동한다.
+		// 이때 수량이 int값으로 전환을 시도하는데
+		if (e.getSource() == plusBtn) {
+			try {
+				Integer.parseInt(pQuantityField.getText());
+				orderPlusListModel.insertRow(0, new Object[] { pNameBox.getSelectedItem(), pVenderBox.getSelectedItem(),
+						pMoneyField.getText(), pQuantityField.getText(), ptotalPriceField.getText() }); // 5개 입력임
+				pQuantityField.setText("");
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(this, "수량에 숫자를 입력해 주세요.");
+			}
+		} // plusBtn:버튼 if문 종료
+
+		if (e.getSource() == deletemBtn1) {
+			if (orderPlusListTable.getRowCount() == 0) {
+				JOptionPane.showMessageDialog(this, "항목을 추가해 주세요!");
+			} else if (orderPlusListTable.getSelectedRowCount() == 1) {
+				orderPlusListModel.removeRow(orderPlusListTable.getSelectedRow());
+			} else {
+				JOptionPane.showMessageDialog(this, "하나만 선택해 주세요!");
+			}
+		} // deletemBtn:버튼 if문 종료
+
+		if (e.getSource() == confirmOrderBtn) {
+			ArrayList<H_OrderDTO> list = new ArrayList<>();
+			// H_OrderDTO를 담을 리스트
+			H_OrderDTO tempDTO;
+			int num = orderPlusListTable.getRowCount(); // 왜 ..그러지 ..?
+			for (int i = 0; i < num; i++) {
+				System.out.println("1");
+				tempDTO = new H_OrderDTO();
+				tempDTO.setVendername((String) orderPlusListModel.getValueAt(0, 1));
+				tempDTO.setName((String) orderPlusListModel.getValueAt(0, 0));
+				tempDTO.setQuantity(Integer.parseInt((String) orderPlusListModel.getValueAt(0, 3)));
+				tempDTO.setMoney(Integer.parseInt((String) orderPlusListModel.getValueAt(0, 4)));
+				orderPlusListModel.removeRow(0);
+				list.add(tempDTO);
+			} // DTO를 list에 넣는 과정
+
+			h_orderDAO.insert(list);
+			orderInsert(index);
+		} // confirmOrderBtn:버튼 if문 종료
+
+		if (e.getSource() == deletemBtn1) {
+
+		} // deletemBtn : 버튼 if문 종료
 
 	}// actionPerformed:메서드 끝
+
+	@Override
+	public void insertUpdate(DocumentEvent e) {
+		try {
+			Integer.parseInt(pQuantityField.getText());
+			int temp2;
+			if (pQuantityField.getText().equals("")) {
+				temp2 = 0;
+			} else {
+				temp2 = Integer.parseInt(pQuantityField.getText());
+			}
+			int temp1 = Integer.parseInt(pMoneyField.getText());
+
+			ptotalPriceField.setText((String.valueOf((temp1 * temp2))));
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(this, "숫자를 입력해 주세요.");
+		}
+	}// 수량을 입력할 때 값이 변경된다.
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+		try {
+			int temp2;
+			if (pQuantityField.getText().equals("")) {
+				temp2 = 0;
+			} else {
+				temp2 = Integer.parseInt(pQuantityField.getText());
+			}
+			int temp1 = Integer.parseInt(pMoneyField.getText());
+
+			ptotalPriceField.setText((String.valueOf((temp1 * temp2))));
+		} catch (Exception e2) {
+		}
+	}// 수량을 지울때 때 값이 변경된다.
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+	}// 이 메서드는 정의하지 않습니다.
+
 }// 클래스 끝

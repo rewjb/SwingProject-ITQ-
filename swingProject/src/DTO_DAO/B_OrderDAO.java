@@ -51,7 +51,7 @@ public class B_OrderDAO {
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 			
-			int listNum = 9;
+			int listNum = 10;
 			// 보여줄 리스트 수량
 			count = 0;
 			// 데이터 필드 수량

@@ -4,18 +4,25 @@ package DTO_DAO;
 
 public class H_OrderDTO {
 	
-	String id;
+	String vendername;
 	int num;
 	String name;
+	int quantity;
 	int money;
 	String date;
 	String confirm;
 	
-	public String getId() {
-		return id;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public String getVendername() {
+		return vendername;
+	}
+	public void setVendername(String vendername) {
+		this.vendername = vendername;
 	}
 	public int getNum() {
 		return num;
@@ -50,7 +57,7 @@ public class H_OrderDTO {
 	
 	public H_OrderDTO(String id, int num, String name, int money, String date, String confirm) {
 		super();
-		this.id = id;
+		this.vendername = id;
 		this.num = num;
 		this.name = name;
 		this.money = money;

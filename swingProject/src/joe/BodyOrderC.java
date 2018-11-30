@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,35 +29,48 @@ import javax.swing.JButton;
 
 public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
-	String[] list = { "닭", "음료", "무" };
-	String a = "1";
+	String[] list = { "닭", "음료", "무" };//콤보박스 안에 들어갈 목록
+	String a = "1";//로그인하면 오는 아이디  = > 임시 테스트용입니다.
 
 	private JLabel j;
 	private JLabel j1;
-	private DefaultTableModel model = new DefaultTableModel(16, 2);
-	private DefaultTableModel model1 = new DefaultTableModel(16, 2);
-	private DefaultTableModel model2 = new DefaultTableModel(16, 3);
+	private DefaultTableModel model = new DefaultTableModel(16, 2);//발주할 표
+	private DefaultTableModel model1 = new DefaultTableModel(16, 2);//발주 목록 표
+	private DefaultTableModel model2 = new DefaultTableModel(16, 3);//재고 목록 표
 
 	// 리스트를 넣을 Jtable
-	private JTable listTable = new JTable(model);
-	private JTable listTable1 = new JTable(model1);
-	private JTable listTable2 = new JTable(model2);
+	private JTable listTable = new JTable(model){//발주할 테이블
+	      public boolean isCellEditable(int row, int column) {
+	          return false;
+	       };
+	    };
+	private JTable listTable1 = new JTable(model1){//발주목록 테이블 
+	      public boolean isCellEditable(int row, int column) {
+	          return false;
+	       };
+	    };
+	private JTable listTable2 = new JTable(model2){//재고 목록 테이블 
+	      public boolean isCellEditable(int row, int column) {
+	          return false;
+	       };
+	    };
 
-	private JButton bt;
-	private JButton bt1;
-	private JButton bt2;
-	private JButton bt3;
-	private JButton bt4;
+	private JButton bt;//선택 버튼
+	private JButton bt1;//발주 버튼
+	private JButton bt2;//삭제 버튼
+	private JButton bt3;//발주목록 버튼
+	private JButton bt4;//발주목록 지우기 버튼
+	private JButton bt5;//발주 하기전 목록 전체 지우기
 	
 
-	private JComboBox jcom;
+	private JComboBox jcom;//토글버튼의 기능을 사용할 수 있게 해주는 버튼 그룹
 	private JTextField jf;
 
-	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,//발주 테이블 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	private JScrollPane scroll1 = new JScrollPane(listTable1, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+	private JScrollPane scroll1 = new JScrollPane(listTable1, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,//발주목록 테이블 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	private JScrollPane scroll2 = new JScrollPane(listTable2, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+	private JScrollPane scroll2 = new JScrollPane(listTable2, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,//재고테이블 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 	B_OrderDAO b = B_OrderDAO.getInstance();
@@ -66,7 +80,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	// DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
 
-	public BodyOrderC() {
+	public BodyOrderC() {//생성자
 
 		setLayout(null);
 		setSize(781, 399);
@@ -116,7 +130,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 		bt1 = new JButton("\uBC1C\uC8FC");
 		bt1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		bt1.setBounds(76, 340, 97, 23);
+		bt1.setBounds(23, 340, 84, 23);
 		add(bt1);
 
 		bt2 = new JButton("\uC0AD\uC81C");
@@ -134,6 +148,10 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		bt4.setBounds(395, 340, 113, 23);
 		add(bt4);
 		
+		bt5 = new JButton("\uBAA9\uB85D\uC9C0\uC6B0\uAE30");
+		bt5.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		bt5.setBounds(119, 340, 110, 23);
+		add(bt5);
 		
 
 		bt.addActionListener(this);
@@ -141,6 +159,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		bt2.addActionListener(this);
 		bt3.addActionListener(this);
 		bt4.addActionListener(this);
+		bt5.addActionListener(this);
+		
 
 		setVisible(false);
 	}
@@ -157,11 +177,15 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == bt) {
+		if (e.getSource() == bt) {//선택버튼기능
 			model.insertRow(0, new Object[] { (String) jcom.getSelectedItem(), jf.getText() });
 		} else if (e.getSource() == bt2) {
-			model.removeRow(0);
-		} else if (e.getSource() == bt1) {
+			if (model.getValueAt(0, 0)==null) {
+				JOptionPane.showMessageDialog(null, "지울 목록이 없습니다.");
+			}else {
+				model.removeRow(0);
+			}
+		} else if (e.getSource() == bt1) {//발주버튼 기능
 
 			int i = 0;
 
@@ -175,16 +199,24 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 				model.removeRow(0);
 			}
 
-		} else if (e.getSource() == bt3) {
+		} else if (e.getSource() == bt3) {//발주목록 버튼기능
 
 			for (int i = 0; i < b.selectAll().size(); i++) {
 				model2.insertRow(i,new Object[] { b.selectAll().get(i).getName(), b.selectAll().get(i).getQuantity(),b.selectAll().get(i).getDate() });
 			}
 
-		}else if (e.getSource() == bt4) {
+		}else if (e.getSource() == bt4) {//발주후 목록지우기 버튼기능
 			for (int i = 0; i < b.selectAll().size(); i++) {
 				model2.removeRow(0);
 			}
+		}else if (e.getSource()==bt5) {//발주하기전 목록 지우기기능
+			for (int i = 0; i >= 0 ; i++) {
+				if (model.getValueAt(0, 0)==null) {
+					break;
+				}else {
+					model.removeRow(0);
+				}
+			}
 		}
 	}
-}
+}//클래스끝

@@ -127,10 +127,10 @@ bconfirm varchar(10)
 );
 
 insert into bodyorder values (default,'daum','d-1',1,default,'1','');
-insert into bodyorder values (default,'daum','d-2',12,default,'','');
-insert into bodyorder values (default,'daum','d-1',13,default,'','');
-insert into bodyorder values (default,'daum','d-1',14,default,'','');
-insert into bodyorder values (default,'daum','d-2',15,default,'','');
+insert into bodyorder values (default,'daum','d-2',12,default,'1','');
+insert into bodyorder values (default,'daum','d-1',13,default,'1','');
+insert into bodyorder values (default,'daum','d-1',14,default,'1','');
+insert into bodyorder values (default,'daum','d-2',15,default,'1','');
 insert into bodyorder values (default,'naver','n-1',16,default,'','');
 insert into bodyorder values (default,'naver','n-1',17,default,'','');
 insert into bodyorder values (default,'naver','n-1',18,default,'','');

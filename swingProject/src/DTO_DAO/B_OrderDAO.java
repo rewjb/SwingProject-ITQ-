@@ -231,7 +231,7 @@ public class B_OrderDAO {
 		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "select * from bodyorder where hconfirm != ''";
+			sql = "select * from bodyorder where hconfirm != ''and bconfirm =''";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 		
@@ -272,7 +272,7 @@ public class B_OrderDAO {
 		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "select * from bodyorder where hconfirm != ''";
+			sql = "select * from bodyorder where bconfirm = 'bk_1'";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 		
@@ -308,17 +308,16 @@ public class B_OrderDAO {
 	
 	
 	
-	public void name(int num) {
+	public void bConfirmUpdate() {
 	
+		int rn = 0;
 		try {
 			connectDB();
 			sql = "update bodyorder set bconfirm = 'bk_1' where hconfirm = '1'";
+			ps = con.prepareStatement(sql);
 			
-			
-			
-			
-			
-			
+			rn = ps.executeUpdate();
+			System.out.println("업데이트 체크 : " + rn);
 			
 			
 		} catch (Exception e) {

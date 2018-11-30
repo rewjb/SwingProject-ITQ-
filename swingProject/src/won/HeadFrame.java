@@ -42,6 +42,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	CardLayout card = new CardLayout();
 	
 	JPanel mainPanel = new JPanel();
+	H_Vender H_vender = new H_Vender();
 
 	public HeadFrame() {
 		//20 간격 !
@@ -55,6 +56,8 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		mainPanel.setBounds(12, 53, 770, 358);
 		mainPanel.setLayout(card);
 
+		mainPanel.add(H_vender);
+		
 		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
@@ -106,8 +109,10 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		if (e.getSource() == StockBtn) {//재고 입출고 관리
 		} else
 		if (e.getSource() == VenderBtn) {//업체관리
+			show(H_vender);
 		} else
 		if (e.getSource() == FranchiseBtn) {//가맹점 관리
+			hide(H_vender);
 		} else
 		if (e.getSource() == SalesBtn) {//매출관리
 		}

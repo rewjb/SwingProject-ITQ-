@@ -69,5 +69,48 @@ public class H_FranchiseDAO {
 			return null;
 		}
 	}// select_tel:메서드 끝
+	
+	// wonHn
+	//가맹점 정보 입력메서드
+	public void insertFranchiseInfo() {		
+		connectDB();
+	//	sql = "insert into headfranchise values ('"+ id +"','" + pw + "','"+ ownername 
+	//				+ "','" + tel + "','" + comnum + "','"+ addr + "','" + alias + "');";					
+	}//end insertFranchiseInfo()
+
+	// wonHn
+	//가맹점 정보 수정메서드 : 전화번호와 가맹점주 이름만 변경 가능합니다.
+	//	*입력값을 어떻게 구분할껀지 정해야함*
+	public void updateFranchiseInfo() {		
+		connectDB();
+	//	sql = "update headfranchise set ownername='" + ownerName + "' where id = '"+ id +"';";	
+	//	sql = "update headfranchise set tel='" + tel + "' where id = '"+ id +"';";	
+	//	sql = "update headfranchise set ownername='" + ownerName + "' tel='" + tel
+	//												+ "' where id = '"+아이디+"';";	
+	}//end insertFranchiseInfo()
+	
+	// wonHn
+	//가맹점정보 한줄 출력메서드 
+	public void selectFranchiseInfo() {		
+		connectDB();
+	//	sql = "select * from headfranchise where id'" + id + "';";
+	}//end selectFranchiseInfo()
+	
+	// wonHn
+	//가맹점 정보 전체 출력메서드
+	public void selectALLFranchiseInfo() {	
+		connectDB();
+	//	sql = "select * from headfranchise;";
+	}//end selectALLFranchiseInfo
+	
+	// wonHn
+	//가맹점 정보 삭제메서드
+	public void deleteFranchiseInfo() {		
+		connectDB();
+	//	sql = "delete from headmember where id='" + id + "';"	
+	}//end deleteFranchiseInfo()
+	
+	
+	
 
 }

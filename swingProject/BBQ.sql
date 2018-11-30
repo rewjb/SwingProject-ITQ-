@@ -31,6 +31,7 @@ create table bodystock(
 id varchar(10) not null unique,
 name varchar(15) not null,
 quantity int not null
+date TIMESTAMP DEFAULT NOW(),
 );
 -----------상단은 이미 함-----------
 =가맹점 관리=
@@ -131,7 +132,7 @@ insert into bodyorder values (default,'daum','d-2',12,default,'1','');
 insert into bodyorder values (default,'daum','d-1',13,default,'1','');
 insert into bodyorder values (default,'daum','d-1',14,default,'1','');
 insert into bodyorder values (default,'daum','d-2',15,default,'1','');
-insert into bodyorder values (default,'naver','n-1',16,default,'','');
+insert into bodyorder values (default,'naver','n-1',16,default,'1','');
 insert into bodyorder values (default,'naver','n-1',17,default,'','');
 insert into bodyorder values (default,'naver','n-1',18,default,'','');
 insert into bodyorder values (default,'naver','n-2',19,default,'','');

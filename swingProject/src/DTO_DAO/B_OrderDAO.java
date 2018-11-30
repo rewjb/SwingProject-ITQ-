@@ -313,7 +313,7 @@ public class B_OrderDAO {
 		int rn = 0;
 		try {
 			connectDB();
-			sql = "update bodyorder set bconfirm = 'bk_1' where hconfirm = '1'";
+			sql = "update bodyorder set bconfirm = 'bk_1' where hconfirm = '1'and bconfirm = ''";
 			ps = con.prepareStatement(sql);
 			
 			rn = ps.executeUpdate();

@@ -5,6 +5,7 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -103,22 +104,45 @@ public class BodyStockC extends JPanel implements BodyStock,ActionListener{
 						dao.hCheckSelect().get(i).getbComfirm()});
 			}
 		}else if (e.getSource()==button_2) {//확인 버튼 기능
-			dao.bConfirmUpdate();
-			for (int i = 0; i < dao.bCheckSelect().size(); i++) {
-				model.removeRow(0);
+			if(model.getValueAt(0, 0)==null) {
+				JOptionPane.showMessageDialog(null, "확인할 목록이 없습니다.");
+			}else {
+				dao.bConfirmUpdate();
+				for (int i = 0; i < dao.bCheckSelect().size(); i++) {
+					model.removeRow(0);
+				}
+				for (int i = 0; i<dao.bCheckSelect().size(); i++) {
+					       model.insertRow(0, new Object[] { dao.bCheckSelect().get(i).getName(),dao.bCheckSelect().get(i).getQuantity(),
+					       dao.bCheckSelect().get(i).gethComfirm(),dao.bCheckSelect().get(i).getbComfirm()
+					       });
+				}
 			}
-			for (int i = 0; i<dao.bCheckSelect().size(); i++) {
-				       model.insertRow(0, new Object[] { dao.bCheckSelect().get(i).getName(),dao.bCheckSelect().get(i).getQuantity(),
-				       dao.bCheckSelect().get(i).gethComfirm(),dao.bCheckSelect().get(i).getbComfirm()
-				       });
-			}
+			
+		
 				
 		}else if (e.getSource() == button_1) {//확인재고 버튼 기능
-			for (int i = 0; i < dao.bCheckSelect().size(); i++) {
-				model1.insertRow(0, new Object[] { dao.bCheckSelect().get(i).getName(),dao.bCheckSelect().get(i).getQuantity(),
-						dao.bCheckSelect().get(i).getbComfirm()});
+			
+			if (!(model1.getValueAt(0, 0)==null)) {
+				for (int i = 0; i >=0; i++) {
+					if(model1.getValueAt(0, 0)==null) {
+						break;
+					}else {
+						model1.removeRow(0);
+					}
+					
+				}
+				for (int i = 0; i < dao.bCheckSelect().size(); i++) {
+					model1.insertRow(0, new Object[] { dao.bCheckSelect().get(i).getName(),dao.bCheckSelect().get(i).getQuantity(),
+							dao.bCheckSelect().get(i).getbComfirm()});
+			}
+			}else {
+				
+				for (int i = 0; i < dao.bCheckSelect().size(); i++) {
+					model1.insertRow(0, new Object[] { dao.bCheckSelect().get(i).getName(),dao.bCheckSelect().get(i).getQuantity(),
+							dao.bCheckSelect().get(i).getbComfirm()});
+			}
 			}
 		} 
 		
 	}
-}
+}//클래스 끝 

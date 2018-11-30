@@ -111,7 +111,6 @@ SELECT * from bodyorder WHERE num=10;
 ;
 
 
-
 update bodyorder set hconfirm = 'ck_1' where num=10;
 update 테이블명 set 컬럼명 = '변경값' where 컬럼명='해당값'
 ----- 테이블 선택--------

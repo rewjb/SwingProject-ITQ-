@@ -53,7 +53,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		FranchiseBtn.setBounds(436, 20, 100, 23);
 		SalesBtn.setBounds(537, 20, 90, 23);
 
-		mainPanel.setBounds(12, 53, 770, 358);
+		mainPanel.setBounds(12, 43, 770, 368);
 		mainPanel.setLayout(card);
 
 		mainPanel.add(H_vender);

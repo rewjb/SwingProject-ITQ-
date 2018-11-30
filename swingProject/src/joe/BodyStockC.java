@@ -27,6 +27,7 @@ public class BodyStockC extends JPanel implements BodyStock,ActionListener{
 	private DefaultTableModel model = new DefaultTableModel(15, 4);
 	private DefaultTableModel model1 = new DefaultTableModel(15, 3);
 	
+	
 	private JTable listTable = new JTable(model){//
 	      public boolean isCellEditable(int row, int column) {
 	          return false;
@@ -45,7 +46,6 @@ public class BodyStockC extends JPanel implements BodyStock,ActionListener{
 	B_OrderDAO dao = B_OrderDAO.getInstance();
 	
 	public BodyStockC() {
-		
 		setLayout(null);
 		setSize(781,360);
 		setBackground(Color.GREEN);

@@ -28,9 +28,14 @@ import DTO_DAO.H_FranchiseDAO;
 import DTO_DAO.H_FranchiseDTO;
 import DTO_DAO.H_OrderDAO;
 import DTO_DAO.H_OrderDTO;
+import DTO_DAO.H_VenderDAO;
+import DTO_DAO.H_VenderDTO;
 import DTO_DAO.H_VenderpDAO;
 import inter.BBQHead;
 import inter.HeadCheckOrder;
+import javax.swing.JSeparator;
+import javax.swing.JSpinner;
+import javax.swing.JList;
 
 public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, ItemListener, DocumentListener {
 
@@ -40,14 +45,24 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 			return false;
 		};
 	}; // 가맹점의 발주 리스트(확인하지 않은..)를 넣을 Jtable / 오면서 셀을
-		// 수정여부 메서드를 무조건 false값으로 리턴
+	// 수정여부 메서드를 무조건 false값으로 리턴
+	
+	private JScrollPane orderScroll = new JScrollPane(orderListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	// 발주내용의 스크롤 기능 객체
+	
 
-	private DefaultTableModel franchiseListModel = new DefaultTableModel(0, 2);
-	private JTable franchiseListTable = new JTable(franchiseListModel) {
+	private DefaultTableModel venderListModel = new DefaultTableModel(0, 2);
+	private JTable venderListTable = new JTable(venderListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
-	}; // 가맹점의 연락처 목록보기
+	}; // 업체 연락처 보는 테이블
+	
+	private JScrollPane vendereScroll = new JScrollPane(venderListTable,
+			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	//업체 연락처 테이블 스크롤
+
 
 	private DefaultTableModel orderPlusListModel = new DefaultTableModel(0, 5);
 	private JTable orderPlusListTable = new JTable(orderPlusListModel) {
@@ -55,16 +70,23 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 			return false;
 		};
 	}; // 가맹점의 연락처 목록보기
+	
 
+	
 	private JScrollPane orderPlusScroll = new JScrollPane(orderPlusListTable,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-	private JScrollPane orderScroll = new JScrollPane(orderListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
-			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	// 발주내용의 스크롤 기능 객체
-
-	private JScrollPane franchiseScroll = new JScrollPane(franchiseListTable,
+	//발주 추가 테이블의 스크롤
+	
+	private DefaultTableModel stockListModel = new DefaultTableModel(0, 2);
+	private JTable stockListTable = new JTable(stockListModel) {
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		};
+	}; // 업체 연락처 보는 테이블
+	
+	private JScrollPane stockScroll = new JScrollPane(stockListTable,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	//업체 연락처 테이블 스크롤
 
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
@@ -92,6 +114,8 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 	private JLabel moneyLabel = new JLabel(); // 제품 선택시 가격 레이블
 	private JLabel quantityLabel = new JLabel(); // 수량 입력란 레이블
 	private JLabel totalPriceLabel = new JLabel(); // 총 가격 레이블
+	private JLabel venderInfoLabel = new JLabel(); // 업체 연락처 레이블
+	private JLabel stockInfoLabel = new JLabel(); // 업체 연락처 레이블
 
 	private JComboBox<String> pNameBox = new JComboBox<>(); // 발주품목 선택
 	private JComboBox<String> pVenderBox = new JComboBox<>(); // 발주품목에 대한 업체 선택
@@ -114,11 +138,12 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 	// 발주를 데이터베이스에 넣는 싱글톤 DAO
 	private ArrayList<H_OrderDTO> orderList;
 	// 발주 기록을 갖고올 orderList
-	ArrayList<Integer> uniqueNum;
+	private ArrayList uniqueNum;
 	// 발주기록을 지우기 위한 유니크 넘버 갖기
+	private H_VenderDAO h_venderDAO = H_VenderDAO.getInstance();
 
 //	발주 넣는 리스트 배치 (2, 45, 560, 100)
-	public H_Order() {
+	public H_Order() {// 생성자 시작
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nameLabel.setText("발주품목");
 
@@ -134,6 +159,12 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		totalPriceLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		totalPriceLabel.setText("총가격");
 
+		venderInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		venderInfoLabel.setText("업체 연락처");
+		
+		stockInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		stockInfoLabel.setText("재고확인");
+
 		pMoneyField.setHorizontalAlignment(SwingConstants.RIGHT);
 		pMoneyField.setBounds(230, 23, 70, 20);
 		pMoneyField.setEditable(false);
@@ -145,6 +176,8 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		ptotalPriceField.setBounds(384, 23, 111, 20);
 		ptotalPriceField.setEditable(false);
 
+		stockInfoLabel.setBounds(625, 160, 80, 15);
+		venderInfoLabel.setBounds(625, 7, 80, 15);
 		nameLabel.setBounds(32, 7, 60, 15);
 		venderLabel.setBounds(152, 7, 40, 15);
 		moneyLabel.setBounds(244, 7, 40, 15);
@@ -154,6 +187,8 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		pNameBox.setBounds(12, 23, 100, 20);
 		pVenderBox.setBounds(122, 23, 100, 20);
 		// 이거 위에 2개는 콤보박스
+		
+//		orderPlusListTable.getColumnModel().seted 작업중
 
 		orderListLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		orderListLabel.setText("발주목록");
@@ -178,27 +213,33 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 
 		assignBtnIndex();
 		// 초기 인덱스 번호에 따른 버튼 속성 부여
-//		
-		aliasNtelInsert();
+		
+		venderInsert();
 		// 업체들 전화번호 갖고오는 메서드
 
 		orderListTable.getTableHeader().setResizingAllowed(false);
 		orderListTable.getTableHeader().setReorderingAllowed(false);
-		// 발주테이블의 헤더를 얻어서 사이즈 수정 불가 , 발주테이블의 컬럼 이동 금지
+		// 발주테이블의 헤더를 얻어서 사이즈 수정 불가 ,  컬럼 이동 금지  및 사이즈조절 금지
 
-		franchiseListTable.getTableHeader().setResizingAllowed(false);
-		franchiseListTable.getTableHeader().setReorderingAllowed(false);
-		// 업체테이블의 헤더를 얻어서 사이즈 수정 불가, / 업체테이블의 컬럼 이동 금지
+		venderListTable.getTableHeader().setResizingAllowed(false);
+		venderListTable.getTableHeader().setReorderingAllowed(false);
+		// 업체테이블의 헤더를 얻어서 사이즈 수정 불가, / 컬럼 이동 금지  및 사이즈조절 금지
 
 		orderPlusListTable.getTableHeader().setResizingAllowed(false);
 		orderPlusListTable.getTableHeader().setReorderingAllowed(false);
-		// 발주품목 추가 테이블의 헤더를 얻어서 사이즈 수정 불가, / 업체테이블의 컬럼 이동 금지
+		// 발주품목 추가 테이블의 헤더를 얻어서 사이즈 수정 불가, / 컬럼 이동 금지  및 사이즈조절 금지
+		
+		orderPlusListTable.getTableHeader().setResizingAllowed(false);
+		orderPlusListTable.getTableHeader().setReorderingAllowed(false);
+		// 재고확인 테이블의 헤더를 얻어서.., / 컬럼 이동 금지  및 사이즈조절 금지
 
-		franchiseListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
+		venderListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
 		orderListModel.setColumnIdentifiers(new String[] { "업체", "발주품목", "수량", "금액", "발주일", "입고여부" });
 		orderPlusListModel.setColumnIdentifiers(new String[] { "발주품목", "업체", "가격정보", "수량", "총금액" });
+	    stockListModel.setColumnIdentifiers(new String[] { "품목", "현재고/완료재고"});
 
 		orderListTable.getColumnModel().getColumn(4).setPreferredWidth(180);
+		stockListTable.getColumnModel().getColumn(1).setPreferredWidth(130);
 		// 컬럼 너비를 수정하는 메서드 , 그러나 여기에서는 스크롤팬에 맞춰서 설정된듯 하다 ..
 
 //		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
@@ -222,8 +263,9 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		// 버튼들의 배치
 
 		orderScroll.setBounds(2, 170, 560, 165); // 발주목록
-		franchiseScroll.setBounds(565, 20, 200, 150);
+		vendereScroll.setBounds(565, 25, 200, 130);
 		orderPlusScroll.setBounds(2, 44, 560, 88);
+		stockScroll.setBounds(565, 180, 200, 155);
 		// 3개 스크롤팬의 배치
 
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
@@ -234,7 +276,7 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		} // for문 끝 / 가운데 정렬 세팅
 
 		for (int i = 0; i < 2; i++) {
-			franchiseListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
+			venderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 		for (int i = 0; i < 5; i++) {
 			orderPlusListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
@@ -249,7 +291,7 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		// ----------------------------------------------------위에는 발주목록 아래는 전화번호 목록
 
 		add(deletemBtn2);
-		add(franchiseScroll);
+		add(vendereScroll);
 		add(previousBtn);
 		add(nowBtn);
 		add(nextBtn);
@@ -270,6 +312,9 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		add(plusBtn);
 		add(deletemBtn1);
 		add(orderPlusScroll);
+		add(venderInfoLabel);
+		add(stockInfoLabel);
+		add(stockScroll);
 
 		setLayout(null);
 		setBackground(Color.PINK);
@@ -278,6 +323,7 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		confirmOrderBtn.setBounds(435, 133, 60, 20);
 
 		add(confirmOrderBtn);
+
 		setVisible(false);// 마지막에는 false로 변경
 
 	}// 생성자 끝
@@ -334,7 +380,7 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 	}// itemStateChanged:메서드 종료
 
 	public void assignBtnIndex() {
-		if (index == 1) {
+		if (index == 1) { // 1을 기준으로 작은 쪽
 			previousBtn.setText("");
 			previousBtn.setEnabled(false);
 		} else {
@@ -342,59 +388,72 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 			previousBtn.setEnabled(true);
 		}
 
-		if (index == (int) (count / listNum + 1)) {
+		if (index == (int) (count / listNum + 1) && count % listNum == 0) { // 마지막 번호에 대한 것
+			nextBtn.setText("");
+			nextBtn.setEnabled(false);
+			previousBtn.doClick();
+		} else if ((index == (int) (count / listNum + 1) && count % listNum != 0)) {
 			nextBtn.setText("");
 			nextBtn.setEnabled(false);
 		} else {
 			nextBtn.setText(String.valueOf(index + 1));
 			nextBtn.setEnabled(true);
 		}
+
 	}// assignBtnIndex():메서드 끝
 
 	public void orderInsert(int index) {
 
 		// B_OrderDAO의 배열값 객체 반환
 		count = h_orderDAO.selectAll().size();
+		// 전체 리스트 수량
 		orderList = h_orderDAO.selectAll();
-		int deNum = orderListModel.getRowCount();
-		int lastStartNum;
-		uniqueNum = new ArrayList<>();
+		// 전체 데이터베이스 값을 갖고 있는 리스트
 
-		if ((int) (count / listNum + 1) == index) {
-			for (int i = 0; i < deNum; i++) {
+		int lastListNumBefore = orderListModel.getRowCount();
+		// 기존의 마지막 페이지의 자료 갯수
+
+		int lastListNumAfter = (count % listNum);
+		// 마지막 index의 자료 갯수 , 전체필드%9 + 1
+
+		int deNum = orderListModel.getRowCount();// 이거 솔직히 필요 없음..
+
+		uniqueNum = new ArrayList<>();
+		// Interger타입으로 고유번호를 넣는 리스트
+
+		int lastStartNum;
+
+		if (orderListModel.getRowCount() > 0) {
+			for (int i = 0; i < lastListNumBefore; i++) {
 				orderListModel.removeRow(0);
+			} // 마지막 페이지의 필드 수량만큼 삭제
+		}
+
+		if (((int) (count / listNum) + 1) == index) { // 마지막 페이지
+			for (int i = 0; i < lastListNumAfter; i++) {
+				orderListModel.insertRow(i,
+						new Object[] { orderList.get((index - 1) * listNum + i).getVendername(),
+								orderList.get((index - 1) * listNum + i).getName(),
+								orderList.get((index - 1) * listNum + i).getQuantity(),
+								orderList.get((index - 1) * listNum + i).getMoney(),
+								orderList.get((index - 1) * listNum + i).getDate(),
+								orderList.get((index - 1) * listNum + i).getConfirm() });
+				uniqueNum.add(orderList.get((index - 1) * listNum + i).getNum());
 			}
-			for (int i = 0; i < count % listNum; i++) {
-				lastStartNum = count / listNum;
-				lastStartNum = (lastStartNum * listNum);
-				orderListModel.insertRow(i, new Object[] { orderList.get(lastStartNum + i).getVendername(),
-						orderList.get(lastStartNum + i).getName(), orderList.get(lastStartNum + i).getQuantity(),
-						orderList.get(lastStartNum + i).getMoney(), orderList.get(lastStartNum + i).getDate(),
-						orderList.get(lastStartNum + i).getConfirm() });
-				uniqueNum.add(orderList.get(lastStartNum + i).getNum());
-			}
-		} else {
-			for (int i = 0; i < deNum; i++) {
-				orderListModel.removeRow(0);
-			}
+		} else { // 마지막 페이지가 아님
 			for (int i = 0; i < listNum; i++) {
 				lastStartNum = (index - 1) * listNum;
-				orderListModel.insertRow(i, new Object[] { orderList.get(lastStartNum + i).getVendername(),
-						orderList.get(lastStartNum + i).getName(), orderList.get(lastStartNum + i).getQuantity(),
-						orderList.get(lastStartNum + i).getMoney(), orderList.get(lastStartNum + i).getDate(),
-						orderList.get(lastStartNum + i).getConfirm() });
-				uniqueNum.add(orderList.get(lastStartNum + i).getNum());
+				orderListModel.insertRow(i,
+						new Object[] { orderList.get((index - 1) * listNum + i).getVendername(),
+								orderList.get((index - 1) * listNum + i).getName(),
+								orderList.get((index - 1) * listNum + i).getQuantity(),
+								orderList.get((index - 1) * listNum + i).getMoney(),
+								orderList.get((index - 1) * listNum + i).getDate(),
+								orderList.get((index - 1) * listNum + i).getConfirm() });
+				uniqueNum.add(orderList.get((index - 1) * listNum + i).getNum());
 			}
 		}
 	}// orderInsert():메서드 끝
-
-	public void aliasNtelInsert() {//설명이 필요할것 같은데 ..
-		ArrayList<H_FranchiseDTO> franchiseArray = franchiseDAO.select_AliasNTel();
-		for (int i = 0; i < franchiseArray.size(); i++) {
-			franchiseListModel.insertRow(i,
-					new Object[] { franchiseArray.get(i).getAlias(), franchiseArray.get(i).getTel() });
-		}
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -417,16 +476,16 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 			}
 		} // 이전 버튼을 누를 시 발생하는 액션
 
-		if (e.getSource() == deletemBtn2) { //작업중
+		if (e.getSource() == deletemBtn2) { // 작업중
 
 			int[] selectedIndex = orderListTable.getSelectedRows();
+
 			int countNum = orderListTable.getSelectedRows().length;
-//			h_orderDAO
 			for (int i = 0; i < countNum; i++) {
-				h_orderDAO.deleteSelected(uniqueNum.get(i));
+				h_orderDAO.deleteSelected((int) uniqueNum.get(selectedIndex[i]));
 			}
 			orderInsert(index);
-			
+
 		} // 발주기록을 지우는 메서드
 
 		// 추가버튼을 누르면 선택한 항목이 발주 바구니에 이동한다.
@@ -466,7 +525,7 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 				orderPlusListModel.removeRow(0);
 				list.add(tempDTO);
 			} // DTO를 list에 넣는 과정
-			
+
 			h_orderDAO.insert(list);
 			orderInsert(index);
 		} // confirmOrderBtn:버튼 if문 종료
@@ -515,4 +574,14 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 	public void changedUpdate(DocumentEvent e) {
 	}// 이 메서드는 정의하지 않습니다.
 
+	public void venderInsert() {
+		
+		ArrayList<H_VenderDTO> list = h_venderDAO.selectALLVenderInfo();
+		
+		for (int i = 0; i <list.size(); i++) {
+			venderListModel.insertRow(0, new Object[] {list.get(i).getName(),list.get(i).getTel()});
+		}
+	
+		
+	}
 }// 클래스 끝

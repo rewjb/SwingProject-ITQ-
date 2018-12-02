@@ -48,7 +48,6 @@ alias varchar(20) not null
 create table headvender(
 id varchar(10) primary key not null,
 name varchar(10) unique not null,
-comnum varchar(15) unique not null, 
 tel varchar(15) not null
 );
 -----------상단은 이미 함-----------
@@ -66,8 +65,8 @@ create table headOrder(
 vendername varchar(10) not null,
 num int auto_increment unique,
 name varchar(10) not null,  
-money int,
 quantity int,
+money int,
 date TIMESTAMP DEFAULT NOW(),
 confirm varchar(10)
 );

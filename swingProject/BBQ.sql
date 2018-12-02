@@ -48,7 +48,7 @@ alias varchar(20) not null
 create table headvender(
 id varchar(10) primary key not null,
 name varchar(10) unique not null,
-comnum varchar(15) unique not null,  이거 중복안되게 해야하는거 아니냐 ..
+comnum varchar(15) unique not null, 
 tel varchar(15) not null
 );
 -----------상단은 이미 함-----------
@@ -63,14 +63,14 @@ foreign key (id) references headvender(id) on delete cascade
 
 =발주 관리=
 create table headOrder(
-id varchar(10) not null,
+vendername varchar(10) not null,
 num int auto_increment unique,
 name varchar(10) not null,  
 money int,
+quantity int,
 date TIMESTAMP DEFAULT NOW(),
 confirm varchar(10)
 );
-
 
 
 ------------------------------구분선---------------------------------
@@ -133,12 +133,12 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 );
 
-insert into bodyorder values (default,'daum','d-1',1,default,'1','');
-insert into bodyorder values (default,'daum','d-2',12,default,'1','');
-insert into bodyorder values (default,'daum','d-1',13,default,'1','');
-insert into bodyorder values (default,'daum','d-1',14,default,'1','');
-insert into bodyorder values (default,'daum','d-2',15,default,'1','');
-insert into bodyorder values (default,'naver','n-1',16,default,'1','');
+insert into bodyorder values (default,'daum','d-1',1,default,'','');
+insert into bodyorder values (default,'daum','d-2',12,default,'','');
+insert into bodyorder values (default,'daum','d-1',13,default,'','');
+insert into bodyorder values (default,'daum','d-1',14,default,'','');
+insert into bodyorder values (default,'daum','d-2',15,default,'','');
+insert into bodyorder values (default,'naver','n-1',16,default,'','');
 insert into bodyorder values (default,'naver','n-1',17,default,'','');
 insert into bodyorder values (default,'naver','n-1',18,default,'','');
 insert into bodyorder values (default,'naver','n-2',19,default,'','');

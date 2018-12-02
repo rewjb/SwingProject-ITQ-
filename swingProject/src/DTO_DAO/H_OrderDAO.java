@@ -57,6 +57,7 @@ public class H_OrderDAO {
 			sql = "INSERT INTO headorder VALUES (?,default,?,?,?,default,'');";
 			// 업체명,발주품명, 가격
 			ps = con.prepareStatement(sql);
+			
 			for (int i = 0; i < list.size(); i++) {
 				ps.setString(1, list.get(i).getVendername()); // 업체명
 				ps.setString(2, list.get(i).getName()); // 발주품명

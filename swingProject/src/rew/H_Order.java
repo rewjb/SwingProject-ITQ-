@@ -458,7 +458,6 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 			H_OrderDTO tempDTO;
 			int num = orderPlusListTable.getRowCount(); // 왜 ..그러지 ..?
 			for (int i = 0; i < num; i++) {
-				System.out.println("1");
 				tempDTO = new H_OrderDTO();
 				tempDTO.setVendername((String) orderPlusListModel.getValueAt(0, 1));
 				tempDTO.setName((String) orderPlusListModel.getValueAt(0, 0));
@@ -467,7 +466,7 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 				orderPlusListModel.removeRow(0);
 				list.add(tempDTO);
 			} // DTO를 list에 넣는 과정
-
+			
 			h_orderDAO.insert(list);
 			orderInsert(index);
 		} // confirmOrderBtn:버튼 if문 종료

@@ -9,7 +9,7 @@ num int auto_increment primary key,
 id varchar(10)  not null,
 name varchar(15) not null,
 quantity int not null,
-date TIMESTAMP DEFAULT NOW(),
+datTe TIMESAMP DEFAULT NOW(),
 hconfirm varchar(10),
 bconfirm varchar(10)
 );

@@ -35,8 +35,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	private JLabel j;
 	private JLabel j1;
 	private DefaultTableModel model = new DefaultTableModel(16, 2);//발주할 표
-	private DefaultTableModel model1 = new DefaultTableModel(16, 2);//발주 목록 표
-	private DefaultTableModel model2 = new DefaultTableModel(16, 3);//재고 목록 표
+	private DefaultTableModel model1 = new DefaultTableModel(16, 2);//재고  목록 표
+	private DefaultTableModel model2 = new DefaultTableModel(16, 4);//발주 목록 표
 
 	// 리스트를 넣을 Jtable
 	private JTable listTable = new JTable(model){//발주할 테이블
@@ -94,15 +94,15 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		j.setBounds(0, 10, 80, 38);
 		j1.setBounds(151, 19, 65, 20);
 
-		scroll.setBounds(23, 58, 206, 275);
-		scroll1.setBounds(552, 58, 229, 275);
-		scroll2.setBounds(263, 58, 261, 275);
+		scroll.setBounds(23, 58, 200, 275);
+		scroll1.setBounds(599, 58, 182, 275);
+		scroll2.setBounds(263, 58, 293, 275);
 		listTable.getTableHeader().setResizingAllowed(false);
 		listTable.getTableHeader().setReorderingAllowed(false);
 
 		model.setColumnIdentifiers(new Object[] { "식자재", "수량" });
 		model1.setColumnIdentifiers(new Object[] { "식자재", "수량" });
-		model2.setColumnIdentifiers(new Object[] { "식자재", "수량", "발주일" });
+		model2.setColumnIdentifiers(new Object[] { "식자재", "수량", "발주일","본사확인" });
 
 		add(scroll2);
 		add(scroll1);
@@ -140,12 +140,12 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 		bt3 = new JButton("\uBC1C\uC8FC \uBAA9\uB85D");
 		bt3.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		bt3.setBounds(273, 340, 106, 23);
+		bt3.setBounds(299, 340, 106, 23);
 		add(bt3);
 		
 		bt4 = new JButton("\uBAA9\uB85D \uC9C0\uC6B0\uAE30");
 		bt4.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		bt4.setBounds(395, 340, 113, 23);
+		bt4.setBounds(417, 340, 113, 23);
 		add(bt4);
 		
 		bt5 = new JButton("\uBAA9\uB85D\uC9C0\uC6B0\uAE30");
@@ -180,11 +180,22 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		if (e.getSource() == bt) {//선택버튼기능
 			model.insertRow(0, new Object[] { (String) jcom.getSelectedItem(), jf.getText() });
 		} else if (e.getSource() == bt2) {
-			if (model.getValueAt(0, 0)==null) {
-				JOptionPane.showMessageDialog(null, "지울 목록이 없습니다.");
-			}else {
-				model.removeRow(0);
-			}
+//			if (model.getValueAt(0, 0)==null) {
+//				JOptionPane.showMessageDialog(null, "지울 목록이 없습니다.");
+//			}else {
+//				model.removeRow(0);
+//			}
+		       if (model.getValueAt(0, 0)==null) {
+		            JOptionPane.showMessageDialog(null, "지울 목록이 없습니다.");
+		         }else {
+		            int[] a = listTable.getSelectedRows();
+		           
+		            int b = listTable.getSelectedRowCount();
+		         for (int i = b-1; i >= 0; i--) {
+		            model.removeRow(a[i]);
+		         }   
+		      
+		         }
 		} else if (e.getSource() == bt1) {//발주버튼 기능
 
 			int i = 0;
@@ -201,9 +212,23 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 		} else if (e.getSource() == bt3) {//발주목록 버튼기능
 
-			for (int i = 0; i < b.selectAll().size(); i++) {
-				model2.insertRow(i,new Object[] { b.selectAll().get(i).getName(), b.selectAll().get(i).getQuantity(),b.selectAll().get(i).getDate() });
+			if(model2.getValueAt(0, 0)==null) {
+				for (int i = 0; i < b.selectAll().size(); i++) {
+					model2.insertRow(i,new Object[] { b.selectAll().get(i).getName(), b.selectAll().get(i).getQuantity(),b.selectAll().get(i).getDate()
+							,b.selectAll().get(i).gethComfirm()});
+				}
+				
+			}else {
+				for (int i = 0; i < b.selectAll().size(); i++) {
+					model2.removeRow(0);
+				}
+				for (int i = 0; i < b.selectAll().size(); i++) {
+					model2.insertRow(i,new Object[] { b.selectAll().get(i).getName(), b.selectAll().get(i).getQuantity(),b.selectAll().get(i).getDate()
+							,b.selectAll().get(i).gethComfirm()});
+				}
+				
 			}
+			
 
 		}else if (e.getSource() == bt4) {//발주후 목록지우기 버튼기능
 			for (int i = 0; i < b.selectAll().size(); i++) {

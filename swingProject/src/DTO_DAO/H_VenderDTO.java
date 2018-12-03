@@ -33,6 +33,9 @@ public class H_VenderDTO {
 		this.tel = tel;
 	}
 	
+	
+	
+	//수정확인중.... 20181203
 	//default 생성자
 	public H_VenderDTO() {
 

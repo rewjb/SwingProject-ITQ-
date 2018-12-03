@@ -15,7 +15,6 @@ public class B_StockDTO {
 		}
 		
 		public B_StockDTO() {//기본생성자
-		
 		}
 
 		public String getId() {

@@ -47,18 +47,19 @@ public class H_Franchise extends JPanel implements HeadFranchise {
 		btAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				row[0] = "가맹점ID";
-				row[1] = "pw";
-				row[2] = "점주명";
-				String s = "연락처0" + "연락처1" + "연락처2";
-				row[3] = s;
-				s = "사업자번호0" + "사업자번호1" + "사업자번호2";
-				row[4] = s;
-				row[5] = "주소1";
-				row[6] = "주소2";
-				row[7] = "별칭";
-
-				model.addRow(row);
+//				새로 창을 띄워서 연결...
+//				row[0] = "가맹점ID";
+//				row[1] = "pw";
+//				row[2] = "점주명";
+//				String s = "연락처0" + "연락처1" + "연락처2";
+//				row[3] = s;
+//				s = "사업자번호0" + "사업자번호1" + "사업자번호2";
+//				row[4] = s;
+//				row[5] = "주소1";
+//				row[6] = "주소2";
+//				row[7] = "별칭";
+//
+//				model.addRow(row);
 			}
 		});
 		// 클릭한 테이블의 row인덱스값 읽어오기
@@ -78,13 +79,14 @@ public class H_Franchise extends JPanel implements HeadFranchise {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int i = table.getSelectedRow();
-				if (i >= 0) {
+//				새로 창을 띄워서 연결...
+//				int i = table.getSelectedRow();
+//				if (i >= 0) {
 //					model.setValueAt(tfId.getText(), i, 0);
-
-				} else {
-					System.out.println("Update Error");
-				}
+//
+//				} else {
+//					System.out.println("Update Error");
+//				}
 			}
 		});
 
@@ -95,12 +97,13 @@ public class H_Franchise extends JPanel implements HeadFranchise {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int i = table.getSelectedRow();
-				if (i >= 0) {
-					model.removeRow(i);
-				} else {
-					System.out.println("Delete Error");
-				}
+//				새로 창을 띄워서 연결...
+//				int i = table.getSelectedRow();
+//				if (i >= 0) {
+//					model.removeRow(i);
+//				} else {
+//					System.out.println("Delete Error");
+//				}
 			}
 		});
 	}

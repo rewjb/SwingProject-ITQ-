@@ -8,7 +8,7 @@ num int auto_increment primary key,
 id varchar(10)  not null,
 name varchar(15) not null,
 quantity int not null,
-datTe TIMESAMP DEFAULT NOW(),
+date TIMESTAMP DEFAULT NOW(),
 hconfirm varchar(10),
 bconfirm varchar(10)
 );
@@ -27,10 +27,10 @@ side int
 -----------상단은 이미 함-----------
 =가맹점 재고관리=
 create table bodystock(
-id varchar(10) not null unique,
+id varchar(10) not null,
 name varchar(15) not null,
-quantity int not null
-date TIMESTAMP DEFAULT NOW(),
+quantity int not null,
+date TIMESTAMP DEFAULT NOW()
 );
 -----------상단은 이미 함-----------
 =가맹점 관리=
@@ -93,6 +93,7 @@ drop table headOrder;
 show tables;
 ----- 전체 테이블 삭제--------
 select * from bodyorder;
+select * from bodystock;
 SELECT id,name FROM headvender;
 select * from headvender;
 select * from  headOrder;
@@ -132,11 +133,11 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 );
 
-insert into bodyorder values (default,'daum','d-1',1,default,'','');
-insert into bodyorder values (default,'daum','d-2',12,default,'','');
-insert into bodyorder values (default,'daum','d-1',13,default,'','');
-insert into bodyorder values (default,'daum','d-1',14,default,'','');
-insert into bodyorder values (default,'daum','d-2',15,default,'','');
+insert into bodyorder values (default,'daum','d-1',1,default,'1','');
+insert into bodyorder values (default,'daum','d-2',12,default,'1','');
+insert into bodyorder values (default,'daum','d-1',13,default,'1','');
+insert into bodyorder values (default,'daum','d-1',14,default,'1','');
+insert into bodyorder values (default,'daum','d-2',15,default,'1','');
 insert into bodyorder values (default,'naver','n-1',16,default,'','');
 insert into bodyorder values (default,'naver','n-1',17,default,'','');
 insert into bodyorder values (default,'naver','n-1',18,default,'','');

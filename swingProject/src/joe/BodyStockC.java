@@ -13,6 +13,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.B_OrderDAO;
+import DTO_DAO.B_StockDAO;
 import inter.BBQBody;
 import inter.BodyStock;
 import java.awt.Component;
@@ -44,7 +45,10 @@ public class BodyStockC extends JPanel implements BodyStock,ActionListener{
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	private JScrollPane scroll1 = new JScrollPane(listTable1,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	B_OrderDAO dao = B_OrderDAO.getInstance();
+	B_OrderDAO orderDAO = B_OrderDAO.getInstance();
+	B_StockDAO stockDAO = B_StockDAO.getInstance();
+	
+	String id = "조광재";
 	
 	public BodyStockC() {
 		setLayout(null);
@@ -97,49 +101,50 @@ public class BodyStockC extends JPanel implements BodyStock,ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==button) {//미확인재고 버튼 기능
 			
-			for (int i = 0; i<dao.hCheckSelect().size(); i++) {
-				model.insertRow(0, new Object[] {dao.hCheckSelect().get(i).getName(),
-						dao.hCheckSelect().get(i).getQuantity(),
-						dao.hCheckSelect().get(i).gethComfirm(),
-						dao.hCheckSelect().get(i).getbComfirm()});
+			for (int i = 0; i<orderDAO.hCheckSelect().size(); i++) {//본사만 확인 한 재고들을 보여주는 반복문
+				model.insertRow(0, new Object[] {orderDAO.hCheckSelect().get(i).getName(),
+						orderDAO.hCheckSelect().get(i).getQuantity(),
+						orderDAO.hCheckSelect().get(i).gethComfirm(),
+						orderDAO.hCheckSelect().get(i).getbComfirm()});
 			}
 		}else if (e.getSource()==button_2) {//확인 버튼 기능
-			if(model.getValueAt(0, 0)==null) {
+			
+			if(model.getValueAt(0, 0)==null) {//표에 미확인재고들이 없으면 확인할수없습니다.
 				JOptionPane.showMessageDialog(null, "확인할 목록이 없습니다.");
-			}else {
-				dao.bConfirmUpdate();
-				for (int i = 0; i < dao.bCheckSelect().size(); i++) {
+			}else {//표에 미확인 재고가 있으면 확인할 수 있습니다. 
+				for (int i = 0; i < orderDAO.hCheckSelect().size(); i++) {//확인버튼 누를때 발주dB에 있는 데이터를 재고 DB로 옮기는 반복문
+					stockDAO.insertStock(id, orderDAO.hCheckSelect().get(i).getName(), orderDAO.hCheckSelect().get(i).getQuantity());  
+				}
+				orderDAO.bConfirmUpdate();//확인된 데이터를 표에 보여주기 위해서 표를 
+				for (int i = 0; i < orderDAO.bCheckSelect().size(); i++) {
 					model.removeRow(0);
 				}
-				for (int i = 0; i<dao.bCheckSelect().size(); i++) {
-					       model.insertRow(0, new Object[] { dao.bCheckSelect().get(i).getName(),dao.bCheckSelect().get(i).getQuantity(),
-					       dao.bCheckSelect().get(i).gethComfirm(),dao.bCheckSelect().get(i).getbComfirm()
+				for (int i = 0; i<orderDAO.bCheckSelect().size(); i++) {
+					       model.insertRow(0, new Object[] { orderDAO.bCheckSelect().get(i).getName(),orderDAO.bCheckSelect().get(i).getQuantity(),
+					    		   orderDAO.bCheckSelect().get(i).gethComfirm(),orderDAO.bCheckSelect().get(i).getbComfirm()
 					       });
+					       
 				}
+				
 			}
 			
-		
 				
 		}else if (e.getSource() == button_1) {//확인재고 버튼 기능
 			
 			if (!(model1.getValueAt(0, 0)==null)) {
-				for (int i = 0; i >=0; i++) {
-					if(model1.getValueAt(0, 0)==null) {
-						break;
-					}else {
+				for (int i = 0; !(model1.getValueAt(0, 0)==null); i++) {//확인재고 버튼을 누를때마다 실시간으로 업데이트 하기위해 표를 지워주는 반복문
 						model1.removeRow(0);
-					}
-					
+				
 				}
-				for (int i = 0; i < dao.bCheckSelect().size(); i++) {
-					model1.insertRow(0, new Object[] { dao.bCheckSelect().get(i).getName(),dao.bCheckSelect().get(i).getQuantity(),
-							dao.bCheckSelect().get(i).getbComfirm()});
+				for (int i = 0; i < stockDAO.stockSelectAll().size(); i++) {//작업중
+					model1.insertRow(0, new Object[] { orderDAO.bCheckSelect().get(i).getName(),orderDAO.bCheckSelect().get(i).getQuantity(),
+							orderDAO.bCheckSelect().get(i).getbComfirm()});
 			}
 			}else {
 				
-				for (int i = 0; i < dao.bCheckSelect().size(); i++) {
-					model1.insertRow(0, new Object[] { dao.bCheckSelect().get(i).getName(),dao.bCheckSelect().get(i).getQuantity(),
-							dao.bCheckSelect().get(i).getbComfirm()});
+				for (int i = 0; i < orderDAO.bCheckSelect().size(); i++) {
+					model1.insertRow(0, new Object[] { orderDAO.bCheckSelect().get(i).getName(),orderDAO.bCheckSelect().get(i).getQuantity(),
+							orderDAO.bCheckSelect().get(i).getbComfirm()});
 			}
 			}
 		} 

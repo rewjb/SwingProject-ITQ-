@@ -160,8 +160,10 @@ public class B_OrderDAO {
 				String name = rs.getString("name");
 				int quantity = rs.getInt("quantity");
 				String date = rs.getString("date");
+				String hComfirm = rs.getString("hconfirm");
+				String bComfirm = rs.getString("bconfirm");
 				
-				B_OrderDTO orderDTO = new B_OrderDTO(num, id, name, quantity, date);
+				B_OrderDTO orderDTO = new B_OrderDTO(num, id, name, quantity, date, hComfirm, bComfirm);
 				
 				orderlist.add(orderDTO);
 				

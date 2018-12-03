@@ -203,7 +203,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 		bg = new ButtonGroup();
 
 		button1 = new JButton("계산");
-		button1.setBounds(71, 166, 60, 24);
+		button1.setBounds(68, 166, 60, 24);
 		button2 = new JButton("계산");
 		button2.setBounds(312, 166, 60, 25);
 		button3 = new JButton("계산");
@@ -215,17 +215,17 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 		button6 = new JButton("계산");
 		button6.setBounds(543, 334, 60, 25);
 
-		scroll1.setBounds(58, 68, 144, 97);
-		scroll2.setBounds(299, 68, 144, 97);
-		scroll3.setBounds(530, 68, 144, 97);
+		scroll1.setBounds(58, 59, 144, 97);
+		scroll2.setBounds(299, 59, 144, 97);
+		scroll3.setBounds(530, 59, 144, 97);
 		scroll4.setBounds(58, 235, 144, 97);
 		scroll5.setBounds(299, 235, 144, 97);
 		scroll6.setBounds(530, 235, 144, 97);
 
 		scroll.setBounds(0, 50, 285, 145);
-		jb.setBounds(91, 38, 97, 28);
-		jb1.setBounds(325, 38, 97, 29);
-		jb2.setBounds(559, 38, 97, 29);
+		jb.setBounds(91, 27, 97, 28);
+		jb1.setBounds(325, 27, 97, 29);
+		jb2.setBounds(559, 27, 97, 29);
 		jb3.setBounds(71, 201, 97, 29);
 		jb4.setBounds(325, 201, 97, 29);
 		jb5.setBounds(559, 201, 97, 29);

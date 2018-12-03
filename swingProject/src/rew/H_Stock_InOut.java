@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -12,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
+import DTO_DAO.H_OrderDAO;
+import DTO_DAO.H_OrderDTO;
 import inter.BBQHead;
 import inter.HeadStockInOut;
 import javax.swing.JLabel;
@@ -59,6 +62,11 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	private JLabel outIInfoLabel = new JLabel("출고 정보");
 	private JLabel factoryIInfoLabel = new JLabel("공장 배치도");
 	private JLabel stockLabel = new JLabel("재고현황");
+
+	H_OrderDAO h_orderDAO = H_OrderDAO.getInstance();
+	//입고정보를 갖고 있는 객체
+	ArrayList<H_OrderDTO> h_orderLIst;
+	//입고정보를 갖고 갖고 있는 리스트
 
 	public H_Stock_InOut() {// 생성자 시작
 		insertArrayBtn();
@@ -153,6 +161,23 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		// 버튼의 색을 색칠하는 메서드
 
 	}// paintingArrayBtn:메서드 끝
+
+	public void inStockInsert() {
+		//입고정보 테이블에 들어갈 정보
+		
+		h_orderLIst =  h_orderDAO.selectAll();
+		
+		
+		
+		inStockListModel.insertRow(1, new Object[] {});
+		
+	}
+	
+	
+	
+	
+	
+	
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 show 오버라이딩
 	public void show(BBQHead bbqHead) {

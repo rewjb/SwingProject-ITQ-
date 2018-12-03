@@ -41,7 +41,7 @@ public class H_OrderDAO {
 		return b_orderdao;
 	} // 싱긑톤 패턴 메서드
 
-	public void connectDB() {
+	private void connectDB() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, user, password);
@@ -75,11 +75,11 @@ public class H_OrderDAO {
 	public ArrayList<H_OrderDTO> selectAll() { // selectAll:전부 다 선택하기
 		try {
 			connectDB();
-			sql = "SELECT * FROM headorder ORDER BY  headorder.date, headorder.confirm DESC;";
+			sql = "SELECT * FROM headorder ORDER BY  headorder.confirm , headorder.date DESC;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 			
-
+			
 			ArrayList<H_OrderDTO> list = new ArrayList<>();
 			H_OrderDTO orderDTO;
 

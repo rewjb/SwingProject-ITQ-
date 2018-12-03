@@ -181,9 +181,10 @@ SELECT * FROM headorder ORDER BY  headorder.date, headorder.confirm DESC;
 
 SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY  bodyorder.hconfirm, bodyorder.DATE  DESC ;
 
-
-
-
-
+SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY  bodyorder.hconfirm DESC, bodyorder.DATE   ;
+SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY  bodyorder.hconfirm, bodyorder.DATE  DESC ;
+SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY  bodyorder.DATE  DESC,bodyorder.hconfirm DESC  ;
+SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY bodyorder.hconfirm ASC, bodyorder.DATE  DESC  ;
+UPDATE bodyorder SET hconfirm = 'ck_1' WHERE num= 41 ;
 insert into bodyorder values (자동입력 수,품명,수량,자동날짜,보점 확인,가맹점 확인);
 

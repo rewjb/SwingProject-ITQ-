@@ -50,15 +50,17 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
 
-	private JButton previousBtn = new JButton();
+	private JButton previousBtn = new JButton("이전");
 	private JButton nowBtn = new JButton();
-	private JButton nextBtn = new JButton();
+	private JButton nextBtn = new JButton("다음");
 
 	private int index = 1;
 	private int count;
 	private int listNum = 30;
 
-	private B_OrderDTO[] orderDAO;
+	private B_OrderDAO b_orderDAO = B_OrderDAO.getInstance();
+	// 가맹점 발주 기록 갖고오기
+	private ArrayList<B_OrderDTO> orderList;
 
 	private H_FranchiseDAO franchiseDAO = H_FranchiseDAO.getInstance();
 
@@ -109,9 +111,9 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		confirmBtn.addActionListener(this);
 		// 인덱스 숫자 액션리스너
 
-		previousBtn.setBounds(200, 336, 42, 20);
-		nowBtn.setBounds(242, 336, 42, 20);
-		nextBtn.setBounds(284, 336, 42, 20);
+		previousBtn.setBounds(176, 336, 60, 20);
+		nowBtn.setBounds(233, 336, 60, 20);
+		nextBtn.setBounds(293, 336, 60, 20);
 		confirmBtn.setBounds(502, 336, 60, 20);
 		;
 		// 버튼들의 배치
@@ -168,55 +170,49 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 
 	public void assignBtnIndex() {
 		if (index == 1) {
-			previousBtn.setText("");
 			previousBtn.setEnabled(false);
 		} else {
-			previousBtn.setText(String.valueOf(index - 1));
 			previousBtn.setEnabled(true);
 		}
 
 		if (index == (int) (count / listNum + 1)) {
-			nextBtn.setText("");
 			nextBtn.setEnabled(false);
 		} else {
-			nextBtn.setText(String.valueOf(index + 1));
 			nextBtn.setEnabled(true);
 		}
 
 		if ((index == (int) (count / listNum)) && ((count % listNum) == 0)) {
 			nextBtn.setEnabled(false);
-			nextBtn.setText("");
 		}
 	}// assignBtnIndex():메서드 끝
 
-	public void orderInsert(int index) {
+	public void orderInsert(int index) { 
 
-		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
-		// B_OrderDAO의 배열값 객체 반환
-		count = B_OrderDAO.getInstance().LastIdex();
+		orderList = b_orderDAO.selectAllPlusAlias();
 
-		String tempConfirm = "";
+		count = orderList.size();
 
-		if ((int) (count / listNum + 1) == index) {
+		int temp = orderListModel.getRowCount();
 
-			for (int i = 0; i < count % listNum; i++) {
-				if (orderDAO[i].gethComfirm().equals("ck_1")) {
-					tempConfirm = "확인";
-				} else {
-					tempConfirm = "";
-				}
-				orderListModel.insertRow(i, new Object[] { orderDAO[i].getAlias(), orderDAO[i].getName(),
-						orderDAO[i].getQuantity(), orderDAO[i].getDate().substring(0, 16), tempConfirm });
+		for (int i = 0; i < temp; i++) {
+			orderListModel.removeRow(0);
+		}
+
+		if (((int) (count / listNum) + 1) == index) {
+			int startNum = (int) (index - 1) * listNum;
+			for (int i = 0; i < (count % listNum); i++) { // 마지막 index
+				orderListModel.insertRow(orderListModel.getRowCount(),
+						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
+								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate(),
+								orderList.get(startNum + i).gethComfirm() });
 			}
 		} else {
-			for (int i = 0; i < listNum; i++) {
-				if (orderDAO[i].gethComfirm().equals("ck_1")) {
-					tempConfirm = "확인";
-				} else {
-					tempConfirm = "";
-				}
-				orderListModel.insertRow(i, new Object[] { orderDAO[i].getAlias(), orderDAO[i].getName(),
-						orderDAO[i].getQuantity(), orderDAO[i].getDate().substring(0, 16), tempConfirm });
+			int startNum = (int) (index - 1) * listNum;
+			for (int i = 0; i < listNum; i++) { // 마지막 index가 아님
+				orderListModel.insertRow(orderListModel.getRowCount(),
+						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
+								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate(),
+								orderList.get(startNum + i).gethComfirm() });
 			}
 		}
 	}// orderInsert():메서드 끝
@@ -260,47 +256,17 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		} // 이전 버튼을 누를 시 발생하는 액션
 
 		if (e.getSource() == confirmBtn) {
+			System.out.println("dd");
 
-			int selectNum;
-			// 해당 발주를 체크하는 테이블 행 번호
-			int deNum = orderListModel.getRowCount();
-			// 지울 횟수 숫자
-			int selectTrue = orderListTable.getSelectedRow();
+			int[] selectedIndex = orderListTable.getSelectedRows();
+			int selectedCount = orderListTable.getSelectedRowCount();
 
-			for (int i = 0; i < orderListTable.getSelectedRows().length; i++) {
-				selectNum = orderListTable.getSelectedRows()[i];
-				B_OrderDAO.getInstance().checkUpdate(orderDAO[selectNum].getNum());
-			} // ck_1을 입력하는 과정
-
-			if ((index) < (int) (count / listNum + 1)) {
-				// 세팅을 다시 하기 위해 값을 지우는 for문
-				for (int i = 0; i < deNum; i++) {
-					orderListModel.removeRow(0);
-				}
-				orderInsert(index);
-				assignBtnIndex();
-			} else if ((index) == (int) (count / listNum + 1)) {
-				for (int i = 0; i < deNum; i++) {
-					orderListModel.removeRow(0);
-				}
-				orderInsert(index);
-				assignBtnIndex();
+			for (int i = 0; i < selectedCount; i++) {
+				b_orderDAO.checkUpdate(selectedIndex[i]);
+				System.out.println("dd");
 			}
-
-			// 값을 다시 세팅
-			// selectTrue는 행을 선택안할시 테이블이 -1값을 반환하는 것을 받은것이다.
-			if (selectTrue == -1) {
-				JOptionPane.showMessageDialog(this, "목록을 선택하세요.", "알림", JOptionPane.WARNING_MESSAGE);
-			} else if (selectTrue >= 0) {
-				goOrder = JOptionPane.showConfirmDialog(this, "발주작업으로 이동하시겠습니까?", "발주안내 메세지", JOptionPane.YES_OPTION);
-				// 0 : 예 / 1 : 아니
-			}
-
-			if (orderListTable.getRowCount() == 0) {
-				previousBtn.doClick();
-			}
-
-		}
+			orderInsert(index);
+		} // confirmBtn:버튼 액션 끝
 	}// actionPerformed:메서드 끝
 
 }// 클래스 끝

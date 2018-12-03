@@ -73,7 +73,7 @@ public class H_VenderDAO {
 	public ArrayList<H_VenderDTO> selectALLVenderInfo() {
 		try {
 			connectDB();
-			sql = "SELECT * FROM headvender ORDER BY  name;";
+			sql = "SELECT * FROM headvender  ORDER BY  name;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 

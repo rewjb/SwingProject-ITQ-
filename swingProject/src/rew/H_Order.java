@@ -508,6 +508,9 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		if (e.getSource() == confirmOrderBtn) {
 			ArrayList<H_OrderDTO> list = new ArrayList<>();
 			// H_OrderDTO를 담을 리스트
+			int[] a = orderListTable.getSelectedRows();
+			System.out.println(a);
+			
 			H_OrderDTO tempDTO;
 			int num = orderPlusListTable.getRowCount(); // 왜 ..그러지 ..?
 			for (int i = 0; i < num; i++) {

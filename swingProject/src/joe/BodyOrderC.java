@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.B_OrderDAO;
+import DTO_DAO.B_StockDAO;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -61,8 +62,9 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	private JButton bt3;// 발주목록 버튼
 	private JButton bt4;// 발주목록 지우기 버튼
 	private JButton bt5;// 발주 하기전 목록 전체 지우기
+	private JButton btJego;//재고 목록
 
-	private JComboBox jcom;// 토글버튼의 기능을 사용할 수 있게 해주는 버튼 그룹
+	private JComboBox jCom;// 토글버튼의 기능을 사용할 수 있게 해주는 버튼 그룹
 	private JTextField jf;
 
 	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 발주 테이블
@@ -76,8 +78,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 																												// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-	B_OrderDAO b = B_OrderDAO.getInstance();
-
+	B_OrderDAO order = B_OrderDAO.getInstance();
+	B_StockDAO stock = B_StockDAO.getInstance();
 	// Jtable의 스크롤 기능 객체 w
 	// private DefaultTableCellRenderer celAlignCenter = new
 	// DefaultTableCellRenderer();
@@ -113,9 +115,9 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		add(j1);
 		add(j, BorderLayout.WEST);
 
-		jcom = new JComboBox(list);
-		jcom.setBounds(78, 18, 80, 21);
-		add(jcom);
+		jCom = new JComboBox(list);
+		jCom.setBounds(78, 18, 80, 21);
+		add(jCom);
 
 		jf = new JTextField();
 		jf.setBounds(208, 18, 80, 21);
@@ -123,7 +125,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 		JLabel lblNewLabel = new JLabel("\uC7AC\uACE0 \uBAA9\uB85D");
 		lblNewLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
-		lblNewLabel.setBounds(648, 18, 57, 20);
+		lblNewLabel.setBounds(668, 28, 57, 20);
 		add(lblNewLabel);
 
 		bt = new JButton("\uC120\uD0DD");
@@ -156,12 +158,18 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		bt5.setBounds(119, 340, 110, 23);
 		add(bt5);
 
+		btJego = new JButton("\uC7AC\uACE0 \uBAA9\uB85D");
+		btJego.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		btJego.setBounds(642, 340, 113, 23);
+		add(btJego);
+		
 		bt.addActionListener(this);
 		bt1.addActionListener(this);
 		bt2.addActionListener(this);
 		bt3.addActionListener(this);
 		bt4.addActionListener(this);
 		bt5.addActionListener(this);
+		btJego.addActionListener(this);
 
 		setVisible(false);
 	}
@@ -179,23 +187,19 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == bt) {// 선택버튼기능
-			model.insertRow(0, new Object[] { (String) jcom.getSelectedItem(), jf.getText() });
+			model.insertRow(0, new Object[] { (String) jCom.getSelectedItem(), jf.getText() });
 		} else if (e.getSource() == bt2) {
-//			if (model.getValueAt(0, 0)==null) {
-//				JOptionPane.showMessageDialog(null, "지울 목록이 없습니다.");
-//			}else {
-//				model.removeRow(0);
-//			}
+
 			if (model.getValueAt(0, 0) == null) {
 				JOptionPane.showMessageDialog(null, "지울 목록이 없습니다.");
-			} else {
+			} else if(!(model.getValueAt(0, 0)==null) && listTable.getSelectedRowCount()==0 ){
+				JOptionPane.showMessageDialog(null, "지울 목록을 선택해주세요.");
+			}else {
 				int[] a = listTable.getSelectedRows();
-
 				int b = listTable.getSelectedRowCount();
 				for (int i = b - 1; i >= 0; i--) {
 					model.removeRow(a[i]);
 				}
-
 			}
 		} else if (e.getSource() == bt1) {// 발주버튼 기능
 
@@ -207,33 +211,33 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 				}
 				String test2 = (String) model.getValueAt(i, 0);
 				int test3 = Integer.parseInt((String) model.getValueAt(i, 1));
-				b.orderInsert(a, test2, test3);
+				order.orderInsert(a, test2, test3);
 				model.removeRow(0);
 			}
 
 		} else if (e.getSource() == bt3) {// 발주목록 버튼기능
 
 			if (model2.getValueAt(0, 0) == null) {
-				for (int i = 0; i < b.selectAll().size(); i++) {
+				for (int i = 0; i < order.selectAll().size(); i++) {
 					model2.insertRow(i,
-							new Object[] { b.selectAll().get(i).getName(), b.selectAll().get(i).getQuantity(),
-									b.selectAll().get(i).getDate(), b.selectAll().get(i).gethComfirm() });
+							new Object[] { order.selectAll().get(i).getName(), order.selectAll().get(i).getQuantity(),
+									order.selectAll().get(i).getDate(), order.selectAll().get(i).gethComfirm() });
 				}
 
 			} else {
-				for (int i = 0; i < b.selectAll().size(); i++) {
+				for (int i = 0; i < order.selectAll().size(); i++) {
 					model2.removeRow(0);
 				}
-				for (int i = 0; i < b.selectAll().size(); i++) {
+				for (int i = 0; i < order.selectAll().size(); i++) {
 					model2.insertRow(i,
-							new Object[] { b.selectAll().get(i).getName(), b.selectAll().get(i).getQuantity(),
-									b.selectAll().get(i).getDate(), b.selectAll().get(i).gethComfirm() });
+							new Object[] { order.selectAll().get(i).getName(), order.selectAll().get(i).getQuantity(),
+									order.selectAll().get(i).getDate(), order.selectAll().get(i).gethComfirm() });
 				}
 
 			}
 
 		} else if (e.getSource() == bt4) {// 발주후 목록지우기 버튼기능
-			for (int i = 0; i < b.selectAll().size(); i++) {
+			for (int i = 0; i < order.selectAll().size(); i++) {
 				model2.removeRow(0);
 			}
 		} else if (e.getSource() == bt5) {// 발주하기전 목록 지우기기능
@@ -244,6 +248,13 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 					model.removeRow(0);
 				}
 			}
+		} else if(e.getSource()==btJego) {
+			for (int j = 0; j < stock.stockSelectAll().size(); j++) {
+				model1.insertRow(j, new Object[] {stock.stockSelectAll().get(j).getName(),stock.stockSelectAll().get(j).getQuantity()
+						 });
+			}
+			
+			
 		}
 	}
 }// 클래스끝

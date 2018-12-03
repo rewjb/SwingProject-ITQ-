@@ -48,7 +48,8 @@ alias varchar(20) not null
 create table headvender(
 id varchar(10) primary key not null,
 name varchar(10) unique not null,
-tel varchar(15) not null
+tel varchar(15) not null,
+comNum varchar(15) not null
 );
 -----------상단은 이미 함-----------
 =제품 관리=

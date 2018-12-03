@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,11 +22,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import com.mysql.fabric.proto.xmlrpc.InternalXmlRpcMethodCaller;
-import DTO_DAO.B_OrderDAO;
-import DTO_DAO.B_OrderDTO;
+
 import DTO_DAO.H_FranchiseDAO;
-import DTO_DAO.H_FranchiseDTO;
 import DTO_DAO.H_OrderDAO;
 import DTO_DAO.H_OrderDTO;
 import DTO_DAO.H_VenderDAO;
@@ -33,11 +31,9 @@ import DTO_DAO.H_VenderDTO;
 import DTO_DAO.H_VenderpDAO;
 import inter.BBQHead;
 import inter.HeadCheckOrder;
-import javax.swing.JSeparator;
-import javax.swing.JSpinner;
-import javax.swing.JList;
+import inter.HeadOrder;
 
-public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, ItemListener, DocumentListener {
+public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemListener, DocumentListener {
 
 	private DefaultTableModel orderListModel = new DefaultTableModel(0, 6);
 	private JTable orderListTable = new JTable(orderListModel) {
@@ -229,10 +225,11 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		orderPlusListTable.getTableHeader().setReorderingAllowed(false);
 		// 발주품목 추가 테이블의 헤더를 얻어서 사이즈 수정 불가, / 컬럼 이동 금지  및 사이즈조절 금지
 		
-		orderPlusListTable.getTableHeader().setResizingAllowed(false);
-		orderPlusListTable.getTableHeader().setReorderingAllowed(false);
+		stockListTable.getTableHeader().setResizingAllowed(false);
+		stockListTable.getTableHeader().setReorderingAllowed(false);
 		// 재고확인 테이블의 헤더를 얻어서.., / 컬럼 이동 금지  및 사이즈조절 금지
 
+		
 		venderListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
 		orderListModel.setColumnIdentifiers(new String[] { "업체", "발주품목", "수량", "금액", "발주일", "입고여부" });
 		orderPlusListModel.setColumnIdentifiers(new String[] { "발주품목", "업체", "가격정보", "수량", "총금액" });
@@ -274,12 +271,14 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		for (int i = 0; i < 6; i++) {
 			orderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
-
 		for (int i = 0; i < 2; i++) {
 			venderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 		for (int i = 0; i < 5; i++) {
 			orderPlusListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
+		} // for문 끝 / 가운데 정렬 세팅
+		for (int i = 0; i < 2; i++) {
+			stockListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 
 //		orderListTable.getTableHeader().setBackground(Color.BLACK);
@@ -416,12 +415,8 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 		int lastListNumAfter = (count % listNum);
 		// 마지막 index의 자료 갯수 , 전체필드%9 + 1
 
-		int deNum = orderListModel.getRowCount();// 이거 솔직히 필요 없음..
-
 		uniqueNum = new ArrayList<>();
 		// Interger타입으로 고유번호를 넣는 리스트
-
-		int lastStartNum;
 
 		if (orderListModel.getRowCount() > 0) {
 			for (int i = 0; i < lastListNumBefore; i++) {
@@ -442,7 +437,6 @@ public class H_Order extends JPanel implements HeadCheckOrder, ActionListener, I
 			}
 		} else { // 마지막 페이지가 아님
 			for (int i = 0; i < listNum; i++) {
-				lastStartNum = (index - 1) * listNum;
 				orderListModel.insertRow(i,
 						new Object[] { orderList.get((index - 1) * listNum + i).getVendername(),
 								orderList.get((index - 1) * listNum + i).getName(),

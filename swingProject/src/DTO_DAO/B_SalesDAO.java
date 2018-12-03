@@ -24,7 +24,6 @@ public class B_SalesDAO {
 	private static B_SalesDAO b_salesDAO = new B_SalesDAO();
 	// 싱긑톤 패턴
 	
-	int count;
 	
 	public static B_SalesDAO getInstance() {
 		return b_salesDAO;

@@ -4,10 +4,10 @@ public class B_StockDTO {
 
 		private String id;//가맹점 아이디
 		private	String name;//재고 품명
-		private	String quantity;//재고 수량
+		private	int quantity;//재고 수량
 		
 		
-		public B_StockDTO(String id, String name, String quantity) {
+		public B_StockDTO(String id, String name, int quantity) {
 			super();
 			this.id = id;
 			this.name = name;
@@ -33,11 +33,11 @@ public class B_StockDTO {
 			this.name = name;
 		}
 
-		public String getQuantity() {
+		public int getQuantity() {
 			return quantity;
 		}
 
-		public void setQuantity(String quantity) {
+		public void setQuantity(int quantity) {
 			this.quantity = quantity;
 		}
 		

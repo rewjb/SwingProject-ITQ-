@@ -75,9 +75,10 @@ public class H_OrderDAO {
 	public ArrayList<H_OrderDTO> selectAll() { // selectAll:전부 다 선택하기
 		try {
 			connectDB();
-			sql = "SELECT * FROM headorder ORDER BY  headorder.date DESC;";
+			sql = "SELECT * FROM headorder ORDER BY  headorder.date, headorder.confirm DESC;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
+			
 
 			ArrayList<H_OrderDTO> list = new ArrayList<>();
 			H_OrderDTO orderDTO;

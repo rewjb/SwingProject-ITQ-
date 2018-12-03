@@ -45,13 +45,14 @@ public class B_OrderDAO {
 	
 	// 이건 본사에서 사용할 select문 담당자 : 유주빈
 	public B_OrderDTO[] select_UnCheck(int index) {
+		
 		try {
 			connectDB();
-			sql = "SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) and (hconfirm='') ORDER BY DATE DESC;";
+			sql = "SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY  bodyorder.hconfirm, bodyorder.DATE  DESC ;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 			
-			int listNum = 10;
+			int listNum = 30;
 			// 보여줄 리스트 수량
 			count = 0;
 			// 데이터 필드 수량

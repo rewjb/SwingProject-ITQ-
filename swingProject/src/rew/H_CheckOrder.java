@@ -26,7 +26,7 @@ import inter.HeadCheckOrder;
 
 public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListener {
 
-	private DefaultTableModel orderListModel = new DefaultTableModel(0, 4);
+	private DefaultTableModel orderListModel = new DefaultTableModel(0, 5);
 	private JTable orderListTable = new JTable(orderListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
@@ -56,24 +56,24 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 
 	private int index = 1;
 	private int count;
-	private int listNum = 10;
+	private int listNum = 30;
 
 	private B_OrderDTO[] orderDAO;
 
 	private H_FranchiseDAO franchiseDAO = H_FranchiseDAO.getInstance();
 
 	private JButton confirmBtn = new JButton("확인");
-	
+
 	private JLabel title1 = new JLabel("가맹점 발주내역");
 	private JLabel title2 = new JLabel("가맹점 연락처");
-	
+
 	public static int goOrder;
-	
+
 	public H_CheckOrder() {
-		
+
 		title1.setBounds(230, 1, 100, 20);
 		title2.setBounds(625, 1, 100, 20);
-		//테이블당 제목 붙이기
+		// 테이블당 제목 붙이기
 
 		orderInsert(index);
 		// 발주 길록을 입력하는 메서드 index는 페이지 번호
@@ -96,7 +96,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		// 업체테이블의 헤더를 얻어서 사이즈 수정 불가, / 업체테이블의 컬럼 이동 금지
 
 		franchiseListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
-		orderListModel.setColumnIdentifiers(new String[] { "가맹점명", "상품명", "수량", "발주일" });
+		orderListModel.setColumnIdentifiers(new String[] { "가맹점명", "상품명", "수량", "발주일", "확인여부" });
 
 //		orderListTable.getColumnModel().getColumn(1).setPreferredWidth(300);
 		// 컬럼 너비를 수정하는 메서드 , 그러나 여기에서는 스크롤팬에 맞춰서 설정된듯 하다 ..
@@ -108,8 +108,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		previousBtn.addActionListener(this);
 		confirmBtn.addActionListener(this);
 		// 인덱스 숫자 액션리스너
-		
-		
+
 		previousBtn.setBounds(200, 336, 42, 20);
 		nowBtn.setBounds(242, 336, 42, 20);
 		nextBtn.setBounds(284, 336, 42, 20);
@@ -124,7 +123,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
 		// 가운데 정렬 설정의 객체
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			orderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 
@@ -139,7 +138,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		// 처음 시작시 버튼에 인덱스 번호 부여
 
 		// ----------------------------------------------------위에는 발주목록 아래는 전화번호 목록
-		
+
 		add(title1);
 		add(title2);
 		add(confirmBtn);
@@ -183,8 +182,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 			nextBtn.setText(String.valueOf(index + 1));
 			nextBtn.setEnabled(true);
 		}
-		
-		if ((index == (int) (count / listNum)) && ((count%listNum)==0)) {
+
+		if ((index == (int) (count / listNum)) && ((count % listNum) == 0)) {
 			nextBtn.setEnabled(false);
 			nextBtn.setText("");
 		}
@@ -196,16 +195,28 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		// B_OrderDAO의 배열값 객체 반환
 		count = B_OrderDAO.getInstance().LastIdex();
 
+		String tempConfirm = "";
+
 		if ((int) (count / listNum + 1) == index) {
 
 			for (int i = 0; i < count % listNum; i++) {
+				if (orderDAO[i].gethComfirm().equals("ck_1")) {
+					tempConfirm = "확인";
+				} else {
+					tempConfirm = "";
+				}
 				orderListModel.insertRow(i, new Object[] { orderDAO[i].getAlias(), orderDAO[i].getName(),
-						orderDAO[i].getQuantity(), orderDAO[i].getDate() });
+						orderDAO[i].getQuantity(), orderDAO[i].getDate().substring(0, 16), tempConfirm });
 			}
 		} else {
 			for (int i = 0; i < listNum; i++) {
+				if (orderDAO[i].gethComfirm().equals("ck_1")) {
+					tempConfirm = "확인";
+				} else {
+					tempConfirm = "";
+				}
 				orderListModel.insertRow(i, new Object[] { orderDAO[i].getAlias(), orderDAO[i].getName(),
-						orderDAO[i].getQuantity(), orderDAO[i].getDate() });
+						orderDAO[i].getQuantity(), orderDAO[i].getDate().substring(0, 16), tempConfirm });
 			}
 		}
 	}// orderInsert():메서드 끝
@@ -234,7 +245,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				orderInsert(index);
 			}
 		} // 다음 버튼을 누를 시 발생하는 액션
-		
+
 		if (e.getSource() == previousBtn) {
 			if (!((index - 1) == 0)) {
 				--index;
@@ -254,8 +265,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 			// 해당 발주를 체크하는 테이블 행 번호
 			int deNum = orderListModel.getRowCount();
 			// 지울 횟수 숫자
-            int selectTrue = orderListTable.getSelectedRow();		
-		
+			int selectTrue = orderListTable.getSelectedRow();
 
 			for (int i = 0; i < orderListTable.getSelectedRows().length; i++) {
 				selectNum = orderListTable.getSelectedRows()[i];
@@ -276,20 +286,20 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				orderInsert(index);
 				assignBtnIndex();
 			}
-			
+
 			// 값을 다시 세팅
-			//selectTrue는 행을 선택안할시 테이블이 -1값을 반환하는 것을 받은것이다.
-			if (selectTrue==-1) {
+			// selectTrue는 행을 선택안할시 테이블이 -1값을 반환하는 것을 받은것이다.
+			if (selectTrue == -1) {
 				JOptionPane.showMessageDialog(this, "목록을 선택하세요.", "알림", JOptionPane.WARNING_MESSAGE);
-			} else if(selectTrue>=0){
+			} else if (selectTrue >= 0) {
 				goOrder = JOptionPane.showConfirmDialog(this, "발주작업으로 이동하시겠습니까?", "발주안내 메세지", JOptionPane.YES_OPTION);
 				// 0 : 예 / 1 : 아니
 			}
-			
-			if(orderListTable.getRowCount()==0){
+
+			if (orderListTable.getRowCount() == 0) {
 				previousBtn.doClick();
 			}
-			
+
 		}
 	}// actionPerformed:메서드 끝
 

@@ -61,10 +61,9 @@ public class H_VenderDAO {
 
 	// wonHn
 	// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
-
 	public void selectVenderInfo() {
 		connectDB();
-		// sql = "select * from headvender where id'" + id + "';"
+		// sql = "select * from headvender where id='" + id + "';"
 	}// end selectVenderInfo
 
 	// 이름을 오름차순으로 모든 벤더정보를 갖고오는 메서드입니다.
@@ -86,6 +85,7 @@ public class H_VenderDAO {
 				venderDTO.setId(result.getString(1));
 				venderDTO.setName(result.getString(2));
 				venderDTO.setTel(result.getString(3));
+				venderDTO.setTel(result.getString(4));
 				list.add(venderDTO);
 			} // list에 DTO 넣기
 

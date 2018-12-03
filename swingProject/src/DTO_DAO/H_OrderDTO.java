@@ -11,6 +11,7 @@ public class H_OrderDTO {
 	int money;
 	String date;
 	String confirm;
+	//ck_1로 변경시 입고 완료
 	
 	public int getQuantity() {
 		return quantity;

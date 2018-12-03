@@ -116,7 +116,7 @@ SELECT * FROM headorder ORDER BY  headorder.date DESC;
 위에는 가맹점의 이름과 연락처 갖고오기! / 담당자 : 유주빈
 
 ;
-
+SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY DATE DESC;
 
 update bodyorder set hconfirm = 'ck_1' where num=10;
 update 테이블명 set 컬럼명 = '변경값' where 컬럼명='해당값'
@@ -177,6 +177,9 @@ insert into headvender values (아이디,회사명,사업자 번호,전화번호
                                  1     2      3  4  5     6     7
 insert into headorder values (업체명,default,발주품명,발주수량,가격,default,'');
 
+SELECT * FROM headorder ORDER BY  headorder.date, headorder.confirm DESC;
+
+SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY  bodyorder.hconfirm, bodyorder.DATE  DESC ;
 
 
 

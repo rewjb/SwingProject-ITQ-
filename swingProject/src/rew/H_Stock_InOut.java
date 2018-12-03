@@ -36,32 +36,29 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		};
 	}; // 출고에 관련된 정보를 담고 있는 테이블 및 모델
 
-	private JScrollPane outStockScroll = new JScrollPane(outStockListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
-			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	private JScrollPane outStockScroll = new JScrollPane(outStockListTable,
+			ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 출고에 관련정보 스크롤
-	
+
 	private DefaultTableModel StockListModel = new DefaultTableModel(0, 3);
-	private JTable StockListTable = new JTable(outStockListModel) {
+	private JTable StockListTable = new JTable(StockListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
 	}; // 재고에 관련된 정보를 담고 있는 테이블 및 모델
-	private JScrollPane StockScroll = new JScrollPane(outStockListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+	private JScrollPane stockScroll = new JScrollPane(StockListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 재고에 관련정보 스크롤
-	
-	
-	
-	
 
-	JPanel factoryArrange = new JPanel();
+	private JPanel factoryArrange = new JPanel();
 	// 공장 배치도 panel
-	JButton[] Point = new JButton[20];
+	private JButton[] Point = new JButton[20];
 	// 버튼의 20개 배열 선언
 
-	JLabel inInfoLabel = new JLabel("입고 정보");
-	JLabel outIInfoLabel = new JLabel("출고 정보");
-	JLabel factoryIInfoLabel = new JLabel("공장 배치도");
+	private JLabel inInfoLabel = new JLabel("입고 정보");
+	private JLabel outIInfoLabel = new JLabel("출고 정보");
+	private JLabel factoryIInfoLabel = new JLabel("공장 배치도");
+	private JLabel stockLabel = new JLabel("재고현황");
 
 	public H_Stock_InOut() {// 생성자 시작
 		insertArrayBtn();
@@ -74,24 +71,26 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		inInfoLabel.setBounds(120, 200, 57, 15);
 		outIInfoLabel.setBounds(397, 200, 57, 15);
 		factoryIInfoLabel.setBounds(249, 10, 80, 15);
+		stockLabel.setBounds(643, 10, 57, 15);
 
-		inStockScroll.setBounds(10, 220, 270, 130);
-		outStockScroll.setBounds(290, 220, 270, 130);
-		
-		outStockListModel.setColumnIdentifiers(new String[] {"업체명","품목","수량","출고여부","위치"});
-		inStockListModel.setColumnIdentifiers(new String[] {"업체명","품목","수량","입고여부","위치"});
-		StockListModel.setColumnIdentifiers(new String[] {"품명","재고","비고","입고여부","위치"});
-		
-		//outStockListTable.getTableHeader().setResizingAllowed(false);
+		inStockScroll.setBounds(10, 220, 270, 115);
+		outStockScroll.setBounds(290, 220, 270, 115);
+		stockScroll.setBounds(572, 25, 186, 325);
+
+		outStockListModel.setColumnIdentifiers(new String[] { "업체명", "품목", "수량", "출고여부", "위치" });
+		inStockListModel.setColumnIdentifiers(new String[] { "업체명", "품목", "수량", "입고여부", "위치" });
+		StockListModel.setColumnIdentifiers(new String[] { "품명", "재고" });
+
+		// outStockListTable.getTableHeader().setResizingAllowed(false);
 		outStockListTable.getTableHeader().setReorderingAllowed(false);
-		// 입고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지  및 사이즈조절 금지
-		
+		// 입고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지 및 사이즈조절 금지
+
 		inStockListTable.getTableHeader().setReorderingAllowed(false);
-		// 출고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지  및 사이즈조절 금지
-		
+		// 출고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지 및 사이즈조절 금지
+
 		StockListTable.getTableHeader().setResizingAllowed(false);
 		StockListTable.getTableHeader().setReorderingAllowed(false);
-		// 출고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지  및 사이즈조절 금지
+		// 출고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지 및 사이즈조절 금지
 
 		add(factoryArrange);
 		add(outStockScroll);
@@ -99,6 +98,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		add(inInfoLabel);
 		add(outIInfoLabel);
 		add(factoryIInfoLabel);
+		add(stockScroll);
+		add(stockLabel);
 
 		setLayout(null);
 		setBackground(Color.GRAY);

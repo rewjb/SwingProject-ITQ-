@@ -287,7 +287,9 @@ public class B_OrderDAO {
 			ps = con.prepareStatement(sql);
 
 			rn = ps.executeUpdate();
-
+			System.out.println("가맹점확인 업데이트 체크 : " + rn);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -298,5 +300,6 @@ public class B_OrderDAO {
 			}
 		}
 	}
-
+	
+	
 }// 클래스 끝

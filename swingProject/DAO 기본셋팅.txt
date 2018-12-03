@@ -1,0 +1,10 @@
+			connectDB();
+			sql = "SELECT id,name FROM headvender;";
+			ps = con.prepareStatement(sql);
+			ResultSet result = ps.executeQuery();
+			// 기본셋팅 : 
+			
+			ArrayList<H_VenderDTO> list = new ArrayList<>();
+			//업체정보를 담을 list
+			H_VenderDTO venderDTO = new H_VenderDTO();
+			//업체정보를 옮겨주는 DTO

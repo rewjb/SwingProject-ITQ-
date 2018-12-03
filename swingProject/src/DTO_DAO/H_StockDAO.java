@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 import com.mysql.jdbc.Statement;
 
-public class H_VenderDAO {
+public class H_StockDAO {
 	private String url = "jdbc:mysql://localhost:3306/bbq";
 	// 데이터 베이스 url
 	private String user = "root";
@@ -28,10 +28,10 @@ public class H_VenderDAO {
 	private PreparedStatement ps;
 	// Connection 객체와 PreparedStatement 미리 선언
 
-	private static H_VenderDAO h_venderDAO = new H_VenderDAO();
+	private static H_StockDAO h_venderDAO = new H_StockDAO();
 	// 싱긑톤 패턴
 
-	public static H_VenderDAO getInstance() {
+	public static H_StockDAO getInstance() {
 		return h_venderDAO;
 	} // 싱긑톤 패턴 메서드
 

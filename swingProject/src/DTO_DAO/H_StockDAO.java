@@ -1,7 +1,6 @@
 package DTO_DAO;
 
 /*
- * 2018-11-29 wonHn
  * ~44라인까지의 기본 틀은 메인폴더.DTO_DAO.H_FranchiseDTO를 참고했습니다.
  * 코드테스트 아직 안했습니다..!
  */
@@ -28,11 +27,11 @@ public class H_StockDAO {
 	private PreparedStatement ps;
 	// Connection 객체와 PreparedStatement 미리 선언
 
-	private static H_StockDAO h_venderDAO = new H_StockDAO();
+	private static H_StockDAO h_stockDAO = new H_StockDAO();
 	// 싱긑톤 패턴
 
 	public static H_StockDAO getInstance() {
-		return h_venderDAO;
+		return h_stockDAO ;
 	} // 싱긑톤 패턴 메서드
 
 	public void connectDB() {
@@ -44,37 +43,10 @@ public class H_StockDAO {
 		}
 	}// connectDB:메서드 끝
 
-	// wonHn
-	// 업체정보 입력메서드
-	public void insertVenderInfo() {
-		connectDB();
-		// sql = "insert into headvender values ('" + id + "', '" + name + "', '" + tel
-		// +"');";
-	}// end insertVenderInfo()
-
-	// wonHn
-	// 업체정보 수정 메서드 : 전화번호만 수정할예정입니다.
-	public void updateVenderInfo() {
-		connectDB();
-		// sql = "update headvender set tel='" + tel + "' where id = '"+ id +"';";
-	}// end updateVenderInfo()
-
-	// wonHn
-	// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
-
-	public void selectVenderInfo() {
-		connectDB();
-		// sql = "select * from headvender where id'" + id + "';"
-	}// end selectVenderInfo
-
-	// 이름을 오름차순으로 모든 벤더정보를 갖고오는 메서드입니다.
-	// 이거 한나씨깨서 만드신 메서드인데 안에 제가 내용 채웠어요~
-	// 반환 타입이 H_VenderDTO를 담고 있는 ArrayList 타입입니다~
-	// 수정일 : 2018-12-03
 	public ArrayList<H_VenderDTO> selectALLVenderInfo() {
 		try {
 			connectDB();
-			sql = "SELECT * FROM headvender ORDER BY name;";
+			sql = "SELECT * FROM headstock ORDER BY date DESC;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 

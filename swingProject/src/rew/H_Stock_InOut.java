@@ -167,9 +167,13 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		
 		h_orderLIst =  h_orderDAO.selectAll();
 		
+		for (int i = 0; i < h_orderLIst.size(); i++) {
+			inStockListModel.insertRow(1, new Object[] {});
+		}
 		
 		
-		inStockListModel.insertRow(1, new Object[] {});
+		
+
 		
 	}
 	

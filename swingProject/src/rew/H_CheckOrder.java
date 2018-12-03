@@ -68,6 +68,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 
 	private JLabel title1 = new JLabel("가맹점 발주내역");
 	private JLabel title2 = new JLabel("가맹점 연락처");
+	
+	ArrayList<Integer> uniqueNum ;
 
 	public static int goOrder;
 
@@ -193,6 +195,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		count = orderList.size();
 
 		int temp = orderListModel.getRowCount();
+		
+		uniqueNum = new ArrayList<>();
 
 		for (int i = 0; i < temp; i++) {
 			orderListModel.removeRow(0);
@@ -204,7 +208,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				orderListModel.insertRow(orderListModel.getRowCount(),
 						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
 								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate(),
-								orderList.get(startNum + i).gethComfirm() });
+								orderList.get(startNum + i).gethComfirm()});
+				uniqueNum.add(orderList.get(startNum + i).getNum());
 			}
 		} else {
 			int startNum = (int) (index - 1) * listNum;
@@ -212,7 +217,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				orderListModel.insertRow(orderListModel.getRowCount(),
 						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
 								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate(),
-								orderList.get(startNum + i).gethComfirm() });
+								orderList.get(startNum + i).gethComfirm(),orderList.get(startNum + i).gethComfirm()});
+				uniqueNum.add(orderList.get(startNum + i).getNum());  
 			}
 		}
 	}// orderInsert():메서드 끝
@@ -256,14 +262,12 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		} // 이전 버튼을 누를 시 발생하는 액션
 
 		if (e.getSource() == confirmBtn) {
-			System.out.println("dd");
 
 			int[] selectedIndex = orderListTable.getSelectedRows();
 			int selectedCount = orderListTable.getSelectedRowCount();
 
 			for (int i = 0; i < selectedCount; i++) {
-				b_orderDAO.checkUpdate(selectedIndex[i]);
-				System.out.println("dd");
+				b_orderDAO.checkUpdate(uniqueNum.get(selectedIndex[i]));
 			}
 			orderInsert(index);
 		} // confirmBtn:버튼 액션 끝

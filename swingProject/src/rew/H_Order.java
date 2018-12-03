@@ -35,7 +35,7 @@ import inter.HeadOrder;
 
 public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemListener, DocumentListener {
 
-	private DefaultTableModel orderListModel = new DefaultTableModel(0, 6);
+	private DefaultTableModel orderListModel = new DefaultTableModel(0, 5);
 	private JTable orderListTable = new JTable(orderListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
@@ -231,7 +231,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		
 		venderListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
-		orderListModel.setColumnIdentifiers(new String[] { "업체", "발주품목", "수량", "금액", "발주일", "입고여부" });
+		orderListModel.setColumnIdentifiers(new String[] { "업체", "발주품목", "수량", "금액", "발주일"});
 		orderPlusListModel.setColumnIdentifiers(new String[] { "발주품목", "업체", "가격정보", "수량", "총금액" });
 	    stockListModel.setColumnIdentifiers(new String[] { "품목", "현재고/완료재고"});
 
@@ -268,7 +268,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
 		// 가운데 정렬 설정의 객체
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 5; i++) {
 			orderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 		for (int i = 0; i < 2; i++) {

@@ -33,6 +33,16 @@ quantity int not null,
 date TIMESTAMP DEFAULT NOW()
 );
 -----------상단은 이미 함-----------
+=본사 재고관리=
+create table headstock(
+point varchar(5) not null,
+IO varchar(5) not null,
+name varchar(15) not null,
+quantity int not null,
+date TIMESTAMP DEFAULT NOW()
+);
+drop table headstock;
+-----------상단은 이미 함-----------
 =가맹점 관리=
 create table headFranchise(
 id varchar(10) primary key not null,
@@ -90,6 +100,7 @@ drop table bodyorder;
 drop table bodysales;
 drop table bodystock;
 drop table headOrder;
+drop table headstock;
 
 show tables;
 ----- 전체 테이블 삭제--------
@@ -188,4 +199,14 @@ SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyo
 SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY bodyorder.hconfirm ASC, bodyorder.DATE  DESC  ;
 UPDATE bodyorder SET hconfirm = 'ck_1' WHERE num= 41 ;
 insert into bodyorder values (자동입력 수,품명,수량,자동날짜,보점 확인,가맹점 확인);
+
+SELECT * FROM headorder ORDER BY  headorder.confirm , headorder.date DESC;
+
+
+=본사 재고관리=
+insert into headstock values ('10','in','apple',10,default);
+insert into headstock values ('11','in','apple',11,default);
+insert into headstock values ('20','out','apple',20,default);
+insert into headstock values ('21','out','apple',21,default);
+select * from headstock;
 

@@ -50,7 +50,7 @@ public class B_StockDAO {
 			ps.setInt(3, quantity);
 			
 			check = ps.executeUpdate();
-			System.out.println("업데이트 체크 : " + check);
+			System.out.println("재고 등록  체크 : " + check);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,21 +97,6 @@ public class B_StockDAO {
 		}
 		return stockDTO;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }//클래스 끝

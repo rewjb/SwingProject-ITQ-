@@ -102,6 +102,9 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
 		if (e.getSource() == OrderBtn) {// 본사 발주관리
 			show(orderC);
+			hide(salesC);
+			hide(hallc);
+			hide(stockC);
 		} else if (e.getSource() == StockBtn) {// 재고 입출고 관리
 			show(stockC);
 			hide(orderC);

@@ -276,7 +276,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 				}
 			}
 		} else if (e.getSource() == btJego) {//재고 확인 버튼
-			
 			if (model1.getValueAt(0, 0)==null) {//model1의 첫번째 줄에 아무값도 없으면 재고를 가져온다
 				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll().size(); j++) {
 					model1.insertRow(j, new Object[] { B_StockDAO.getInstance().stockSelectAll().get(j).getName(),

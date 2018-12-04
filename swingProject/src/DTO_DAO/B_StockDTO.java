@@ -7,6 +7,13 @@ public class B_StockDTO {
 		private	int quantity;//재고 수량
 		
 		
+		
+		public B_StockDTO(String id, String name) {
+			super();
+			this.id = id;
+			this.name = name;
+		}
+
 		public B_StockDTO(String id, String name, int quantity) {
 			super();
 			this.id = id;

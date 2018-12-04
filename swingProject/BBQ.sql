@@ -39,6 +39,7 @@ point varchar(5) not null,
 IO varchar(5) not null,
 name varchar(15) not null,
 quantity int not null,
+place  varchar(15) not null,
 date TIMESTAMP DEFAULT NOW()
 );
 drop table headstock;
@@ -90,6 +91,7 @@ foreign key (A) references ????(B) on delete cascade
 
 ------------------------------구분선---------------------------------
 desc bodyorder;
+desc headstock;
 ------컬럼 설정보기--------
 show tables;
 ----- 전체 테이블 보기--------
@@ -111,6 +113,10 @@ select * from bodysales  order by date desc;
 SELECT id,name FROM headvender;
 select * from headvender;
 select * from  headOrder;
+
+select * from  headstock ORDER BY date;
+select name,SUM(quantity) as quantity  from headstock  where point=16  group by name;
+
 select * from headvenderp;
 SELECT DISTINCT name FROM headvenderp ORDER BY name;
 select * from 
@@ -177,6 +183,7 @@ insert into headFranchise values (아이디,비밀번호,가맹점 대표,전화
 
 insert into headvenderp values ('com-AAA',default,'melon',3000);
 insert into headvenderp values ('com-AAA',default,'apple',700);
+insert into headvenderp values ('com-BBB',default,'apple',1500);
 insert into headvenderp values ('com-BBB',default,'orange',1500);
 insert into headvenderp values ('com-BBB',default,'banana',1000);
 insert into headvenderp values (아이디(업체 아이디 외부키),고유번호(자동값),제품명,가격);
@@ -212,9 +219,11 @@ SELECT * FROM headorder ORDER BY  headorder.confirm , headorder.date DESC;
 
 
 =본사 재고관리=
-insert into headstock values ('10','in','apple',10,default);
-insert into headstock values ('11','in','apple',11,default);
-insert into headstock values ('20','out','apple',20,default);
-insert into headstock values ('21','out','apple',21,default);
+insert into headstock values ('10','in','apple',10,"asdasd",default);
+insert into headstock values ('11','in','apple',11,"asdasddsd",default);
+insert into headstock values ('20','out','apple',20,"sadasd",default);
+insert into headstock values ('21','out','apple',21,"asdasd122",default);
 select * from headstock;
+
+SELECT headvenderp.name,headvender.name FROM headvenderp,headvender WHERE (headvender.id=headvenderp.id) and headvenderp.name='apple'  ORDER BY headvender.name;
 

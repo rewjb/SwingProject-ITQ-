@@ -37,6 +37,7 @@ public class H_FranchiseDAO {
 		}
 	}// connectDB:메서드 끝
 
+
 	// 이건 본사에서 사용할 select문 담당자 : 유주빈
 	public ArrayList<H_FranchiseDTO> select_AliasNTel() {
 		try {

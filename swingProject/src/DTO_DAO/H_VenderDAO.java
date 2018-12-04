@@ -73,7 +73,7 @@ public class H_VenderDAO {
 	public ArrayList<H_VenderDTO> selectALLVenderInfo() {
 		try {
 			connectDB();
-			sql = "SELECT * FROM headvender  ORDER BY  name;";
+			sql = "SELECT * FROM  headvender  ORDER BY  name;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
 
@@ -84,7 +84,7 @@ public class H_VenderDAO {
 				venderDTO = new H_VenderDTO();
 				venderDTO.setId(result.getString(1));
 				venderDTO.setName(result.getString(2));
-				venderDTO.setTel(result.getString(3));
+				venderDTO.setComNum(result.getString(3));
 				venderDTO.setTel(result.getString(4));
 				list.add(venderDTO);
 			} // list에 DTO 넣기

@@ -71,7 +71,7 @@ public class B_StockDAO {
 		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "select * from bodystock ";
+			sql = "select id,name,sum(quantity) as quantity from bodystock group by name";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			

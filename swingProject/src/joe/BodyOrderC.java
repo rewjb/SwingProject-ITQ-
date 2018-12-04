@@ -256,5 +256,5 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 			}
 			
 		}
-	}
+	}//액션 리스터 끝
 }// 클래스끝

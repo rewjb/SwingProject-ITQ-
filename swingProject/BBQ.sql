@@ -191,9 +191,11 @@ insert into headvender values (아이디,회사명,사업자 번호,전화번호
                                  1     2      3  4  5     6     7
 insert into headorder values (업체명,default,발주품명,발주수량,가격,default,'');
 
-select name, sum(quantity) from bodystock group by name;//특정 조건에 따른 값 더하기
+select id, name,quantity, sum(quantity) from bodystock group by name;//특정 조건에 따른 값 더하기
 name에 따른 quantity값을 더하는데 from(bodystock테이블로 부터) group by(name이라는 그룹으로 묶는다.)
 
+
+select * from bodysales where date like '%%';
 
 SELECT * FROM headorder ORDER BY  headorder.date, headorder.confirm DESC;
 

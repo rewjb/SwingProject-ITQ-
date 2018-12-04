@@ -131,14 +131,26 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 					}else {
 						break;
 					}
-					
-					
-					
-					
-					//					model.insertRow(0, new Object[] { orderDAO.bCheckSelect().get(i).getName(),
-//							orderDAO.bCheckSelect().get(i).getQuantity(), orderDAO.bCheckSelect().get(i).gethComfirm(),
-//							orderDAO.bCheckSelect().get(i).getbComfirm() });
 				}
+				if (!(model1.getValueAt(0, 0) == null)) {
+					for (int i = 0; !(model1.getValueAt(0, 0) == null); i++) {// 확인재고 버튼을 누를때마다 실시간으로 업데이트 하기위해 표를 지워주는 반복문
+						model1.removeRow(0);
+
+					}
+					for (int i = 0; i < stockDAO.stockSelectAll().size(); i++) {
+						model1.insertRow(0, new Object[] { stockDAO.stockSelectAll().get(i).getName(),
+								stockDAO.stockSelectAll().get(i).getQuantity() });
+					}
+				} else {
+
+					for (int i = 0; i < stockDAO.stockSelectAll().size(); i++) {
+						model1.insertRow(0, new Object[] { stockDAO.stockSelectAll().get(i).getName(),
+								stockDAO.stockSelectAll().get(i).getQuantity() });
+					}
+				}
+					
+					
+
 
 			}
 

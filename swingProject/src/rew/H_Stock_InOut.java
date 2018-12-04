@@ -18,8 +18,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.H_FranchiseDAO;
@@ -35,7 +37,9 @@ import inter.HeadStockInOut;
 
 public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListener, DocumentListener, ItemListener {
 
-	private DefaultTableModel inStockListModel = new DefaultTableModel(0, 4);
+	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+
+	private DefaultTableModel inStockListModel = new DefaultTableModel(0, 5);
 	private JTable inStockListTable = new JTable(inStockListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
@@ -46,7 +50,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 입고에 관련정보 스크롤
 
-	private DefaultTableModel outStockListModel = new DefaultTableModel(0, 4);
+	private DefaultTableModel outStockListModel = new DefaultTableModel(0, 5);
 	private JTable outStockListTable = new JTable(outStockListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
@@ -85,7 +89,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 	private JLabel inInfoLabel = new JLabel("입고 정보");
 	private JLabel outIInfoLabel = new JLabel("출고 정보");
-	private JLabel factoryIInfoLabel = new JLabel("공장 배치도");
+	private JLabel factoryIInfoLabel = new JLabel("창고  배치도");
 	private JLabel totalStockLabel = new JLabel("재고현황");
 
 	private H_OrderDAO h_orderDAO = H_OrderDAO.getInstance();
@@ -117,9 +121,12 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 	private H_StockDTO set_stockDTO;
 	// 입력을 위한 DTO
-	ArrayList<String> venderName;
-	ArrayList<H_FranchiseDTO> h_franchiseList;
-	ArrayList<H_StockDTO> stockList;
+	ArrayList<String> venderName; // 업체 리스트
+	ArrayList<H_FranchiseDTO> h_franchiseList; // 가맹점 리스트
+	ArrayList<H_StockDTO> pointStockList; // point별 리스트
+	ArrayList<H_StockDTO> inStockList; // 입고 재고 기록
+	ArrayList<H_StockDTO> outStockList;// 출고 재고 기록
+	ArrayList<H_StockDTO> totalStockList;// 전체 재고
 
 	public H_Stock_InOut() {// 생성자 시작
 
@@ -130,14 +137,16 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		kindOfBox.addItem("입고");
 		kindOfBox.addItem("출고");
 
-		inInfoLabel.setBounds(120, 200, 57, 15);
-		outIInfoLabel.setBounds(397, 200, 57, 15);
+		insertInOutTotalStockHistoryList();
+
+		inInfoLabel.setBounds(178, 200, 57, 15);
+		outIInfoLabel.setBounds(560, 200, 57, 15);
 		factoryIInfoLabel.setBounds(249, 10, 80, 15);
 		totalStockLabel.setBounds(643, 10, 57, 15);
 
-		inStockScroll.setBounds(10, 220, 270, 115);
-		outStockScroll.setBounds(290, 220, 270, 115);
-		stockScroll.setBounds(572, 25, 186, 325);
+		inStockScroll.setBounds(10, 220, 369, 115);
+		outStockScroll.setBounds(389, 220, 369, 115);
+		stockScroll.setBounds(572, 25, 186, 170);
 		inputStockScroll.setBounds(10, 20, 200, 145);
 
 		factoryArrange.setBackground(Color.BLACK);
@@ -145,15 +154,39 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		factoryArrange.setLayout(null);
 		// 공장 배치도 판넬 설정
 
-		outStockListModel.setColumnIdentifiers(new String[] { "품명", "수량", "위치", "출고지"});
-		inStockListModel.setColumnIdentifiers(new String[] {  "품명", "수량", "위치", "입고지"});
+		outStockListModel.setColumnIdentifiers(new String[] { "품명", "수량", "위치", "출고지", "날짜" });
+		inStockListModel.setColumnIdentifiers(new String[] { "품명", "수량", "위치", "입고지", "날짜" });
 		StockListModel.setColumnIdentifiers(new String[] { "품명", "재고" });
 		inputStockModel.setColumnIdentifiers(new String[] { "품명", "재고" });
 
-		// outStockListTable.getTableHeader().setResizingAllowed(false);
+		inStockListTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+		inStockListTable.getColumnModel().getColumn(1).setPreferredWidth(25);
+		inStockListTable.getColumnModel().getColumn(2).setPreferredWidth(25);
+		inStockListTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+		outStockListTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+		outStockListTable.getColumnModel().getColumn(1).setPreferredWidth(25);
+		outStockListTable.getColumnModel().getColumn(2).setPreferredWidth(25);
+		outStockListTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+		// 입고 및 출고 기록테이블의 컬럼 크기 조정
+
+		for (int i = 0; i < 2; i++) {
+			inputStockTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
+		} // for문 끝 / 가운데 정렬 세팅
+		for (int i = 0; i < 2; i++) {
+			StockListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
+		} // for문 끝 / 가운데 정렬 세팅
+		for (int i = 0; i < 5; i++) {
+			inStockListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
+		} // for문 끝 / 가운데 정렬 세팅
+		for (int i = 0; i < 5; i++) {
+			outStockListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
+		} // for문 끝 / 가운데 정렬 세팅
+
+		outStockListTable.getTableHeader().setResizingAllowed(false);
 		outStockListTable.getTableHeader().setReorderingAllowed(false);
 		// 입고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지 및 사이즈조절 금지
 
+		inStockListTable.getTableHeader().setResizingAllowed(false);
 		inStockListTable.getTableHeader().setReorderingAllowed(false);
 		// 출고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지 및 사이즈조절 금지
 
@@ -161,11 +194,19 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		StockListTable.getTableHeader().setReorderingAllowed(false);
 		// 출고 테이블의 헤더를 얻어서.., / 컬럼 이동 금지 및 사이즈조절 금지
 
+		inputStockTable.getTableHeader().setResizingAllowed(false);
+		inputStockTable.getTableHeader().setReorderingAllowed(false);
+		// 다이얼로그안에 있는 스크롤!
+
+		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
+
 		for (int i = 0; i < PointBtn.length; i++) {
 			PointBtn[i].addActionListener(this);
 		}
+
 		insertVenderNfranchise();
-		
+		// 처음 시작할때 목적지 넣어주기
+
 		inputConfirm.addActionListener(this);
 		Quantity.getDocument().addDocumentListener(this);
 		kindOfBox.addItemListener(this);
@@ -249,7 +290,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 		inOutStockFrame.setTitle(num + "번 입출고");
 		inOutStockFrame.setSize(400, 200);
-		inOutStockFrame.setLayout(null);
+		inOutStockFrame.getContentPane().setLayout(null);
 		inOutStockFrame.setLocationRelativeTo(this);
 		inOutStockFrame.setResizable(false);
 
@@ -267,18 +308,18 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		inputConfirm.setBounds(280, 140, 60, 20); // 확인 버튼
 		placeBox.setBounds(265, 100, 100, 20);
 
-		inOutStockFrame.add(placeLabel);
-		inOutStockFrame.add(placeBox);
-		inOutStockFrame.add(stockLabel);
-		inOutStockFrame.add(inputLabel);
-		inOutStockFrame.add(pNameLabel);
-		inOutStockFrame.add(pQuantity);
-		inOutStockFrame.add(inputKindOfLabel);
-		inOutStockFrame.add(inputStockScroll);
-		inOutStockFrame.add(inputConfirm);
-		inOutStockFrame.add(pNameBox);
-		inOutStockFrame.add(kindOfBox);
-		inOutStockFrame.add(Quantity);
+		inOutStockFrame.getContentPane().add(placeLabel);
+		inOutStockFrame.getContentPane().add(placeBox);
+		inOutStockFrame.getContentPane().add(stockLabel);
+		inOutStockFrame.getContentPane().add(inputLabel);
+		inOutStockFrame.getContentPane().add(pNameLabel);
+		inOutStockFrame.getContentPane().add(pQuantity);
+		inOutStockFrame.getContentPane().add(inputKindOfLabel);
+		inOutStockFrame.getContentPane().add(inputStockScroll);
+		inOutStockFrame.getContentPane().add(inputConfirm);
+		inOutStockFrame.getContentPane().add(pNameBox);
+		inOutStockFrame.getContentPane().add(kindOfBox);
+		inOutStockFrame.getContentPane().add(Quantity);
 
 		inOutStockFrame.setVisible(true);
 	}// inOutframe:메서드 끝
@@ -298,16 +339,18 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 		if (e.getSource() == inputConfirm) {
 			try {
-				Integer.parseInt(Quantity.getText());
 				// 오류를 검출하기 위한 사전 문장
 				set_stockDTO = new H_StockDTO(pointNum, (String) kindOfBox.getSelectedItem(),
-						(String) pNameBox.getSelectedItem(), Integer.parseInt(Quantity.getText()),(String)placeBox.getSelectedItem(),null);
+						(String) pNameBox.getSelectedItem(), Integer.parseInt(Quantity.getText()),
+						(String) placeBox.getSelectedItem(), null);
 
 				if (H_StockDAO.getInstance().insert(set_stockDTO) == 1) {
 					Quantity.setText(null);
 				}
 				insertPointList(pointNum);
+				insertInOutTotalStockHistoryList();
 			} catch (Exception e2) {
+				e2.printStackTrace();
 				JOptionPane.showMessageDialog(inOutStockFrame, "수량에 숫자를 입력해 주세요.");
 			}
 		} else {
@@ -367,18 +410,61 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	}// insertVenderNfranchise:메서드 끝
 
 	public void insertPointList(String point) {
-		stockList = H_StockDAO.getInstance().selectPointAll(point);
-		int count=inputStockModel.getRowCount();
-		
+		pointStockList = H_StockDAO.getInstance().selectPointAll(point);
+		int count = inputStockModel.getRowCount();
+
 		for (int i = 0; i < count; i++) {
 			inputStockModel.removeRow(0);
 		}
-		
-		for (int i = 0; i < stockList .size(); i++) {
-			inputStockModel.insertRow(0, new Object[] {stockList.get(i).getName(),stockList.get(i).getQuantity()});
-		}
-		
-	}
 
+		for (int i = 0; i < pointStockList.size(); i++) {
+			inputStockModel.insertRow(0,
+					new Object[] { pointStockList.get(i).getName(), pointStockList.get(i).getQuantity() });
+		}
+
+	}// insertPointList:메서드 끝
+
+	public void insertInOutTotalStockHistoryList() {
+		inStockList = H_StockDAO.getInstance().selectInStockHistory();
+		int count = inStockListModel.getRowCount();
+
+		if (count > 0) {
+			for (int i = 0; i < count; i++) {
+				inStockListModel.removeRow(0);
+			}
+		}
+		for (int i = 0; i < inStockList.size(); i++) {
+			inStockListModel.insertRow(0,
+					new Object[] { inStockList.get(i).getName(), inStockList.get(i).getQuantity(),
+							inStockList.get(i).getPoint(), inStockList.get(i).getPlace(),
+							inStockList.get(i).getDate().substring(0, 16) });
+		}
+
+		outStockList = H_StockDAO.getInstance().selectOutStockHistory();
+		count = outStockListModel.getRowCount();
+		if (count > 0) {
+			for (int i = 0; i < count; i++) {
+				outStockListModel.removeRow(0);
+			}
+		}
+		for (int i = 0; i < outStockList.size(); i++) {
+			outStockListModel.insertRow(0,
+					new Object[] { outStockList.get(i).getName(), outStockList.get(i).getQuantity(),
+							outStockList.get(i).getPoint(), outStockList.get(i).getPlace(),
+							outStockList.get(i).getDate().substring(0, 16) });
+		}
+
+		totalStockList = H_StockDAO.getInstance().selectTotalStock();
+		count = StockListModel.getRowCount();
+		if (count > 0) {
+			for (int i = 0; i < count; i++) {
+				StockListModel.removeRow(0);
+			}
+		}
+		for (int i = 0; i < totalStockList.size(); i++) {
+			StockListModel.insertRow(0,
+					new Object[] {totalStockList.get(i).getName(),totalStockList.get(i).getQuantity()});
+		}
+	}// insertInOutTotalStockHistoryList:메서드 종료
 
 }// 클래스 끝

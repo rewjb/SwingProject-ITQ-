@@ -301,5 +301,27 @@ public class B_OrderDAO {
 		}
 	}
 	
+	public void orderDelete() {
+		try {
+			connectDB();
+			sql = " ";
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		
+		
+	}
+	
+	
 	
 }// 클래스 끝

@@ -73,7 +73,6 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	          return false;
 	       };
 	    };
-	 
 	// 주문하기 테이블
 	private JTable table = new JTable(model1){
 	      public boolean isCellEditable(int row, int column) {
@@ -136,9 +135,11 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	private JTextField textfiled;
 	private JLabel jl;
 	private JLabel jl_1;
-
+	
+	//각버튼의 주소값을 담아두는 변수
 	Object temp = null;
 
+	//메뉴별로 가격을 담아둘 변수
 	int chickenF = 0;
 	int chickenH = 0;
 	int chickenS = 0;
@@ -147,8 +148,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	
 	int count;
 
-	// 메뉴
-	String[] menu = new String[] { "후라이드", "양념", "간장", "사이드메뉴" };
+	
+	String[] menu = new String[] { "후라이드", "양념", "간장", "음료" };
 
 	public HallC() {
 
@@ -174,7 +175,6 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 		jl = new JLabel("메뉴  ");
 		jl.setBounds(15, 10, 50, 30);
-		// .setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14)); 폰트설정
 		jl_1 = new JLabel("수량 ");
 		jl_1.setBounds(155, 10, 50, 30);
 
@@ -183,11 +183,10 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 		combo = new JComboBox(menu);
 		combo.setBounds(50, 10, 90, 30);
-		// combo.addActionListener(this);
 		button7 = new JButton("선택하기");
 		button7.setBounds(30, 210, 100, 30);
 
-		// 주문할
+		// 
 		jframe = new JFrame("주문하기");
 		jframe.getContentPane().setLayout(null);
 		jframe.setBounds(250, 295, 300, 300);
@@ -345,8 +344,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 					chickenH += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
 				} else if (model1.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
-				} else if (model1.getValueAt(i-count, 0).equals("사이드메뉴")) {
-					side += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 10000;
+				} else if (model1.getValueAt(i-count, 0).equals("음료")) {
+					side += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 2000;
 				}
 				model1.removeRow(i-count);
 				count++;
@@ -366,8 +365,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 					chickenH += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
 				} else if (model2.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
-				} else if (model2.getValueAt(i-count, 0).equals("사이드메뉴")) {
-					side += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 10000;
+				} else if (model2.getValueAt(i-count, 0).equals("음료")) {
+					side += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 2000;
 				}
 				model2.removeRow(i-count);
 				count++;
@@ -388,8 +387,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 					chickenH += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
 				} else if (model3.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
-				} else if (model3.getValueAt(i-count, 0).equals("사이드메뉴")) {
-					side += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 10000;
+				} else if (model3.getValueAt(i-count, 0).equals("음료")) {
+					side += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 2000;
 				}
 				model3.removeRow(i-count);
 				count++;
@@ -409,8 +408,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 					chickenH += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
 				} else if (model4.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
-				} else if (model4.getValueAt(i-count, 0).equals("사이드메뉴")) {
-					side += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 10000;
+				} else if (model4.getValueAt(i-count, 0).equals("음료")) {
+					side += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 2000;
 				}
 				model4.removeRow(i-count);
 				count++;
@@ -430,8 +429,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 					chickenH += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
 				} else if (model5.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
-				} else if (model5.getValueAt(i-count, 0).equals("사이드메뉴")) {
-					side += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 10000;
+				} else if (model5.getValueAt(i-count, 0).equals("음료")) {
+					side += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 2000;
 				}
 				model5.removeRow(i-count);
 				count++;
@@ -451,8 +450,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 					chickenH += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
 				} else if (model6.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
-				} else if (model6.getValueAt(i-count, 0).equals("사이드메뉴")) {
-					side += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 10000;
+				} else if (model6.getValueAt(i-count, 0).equals("음료")) {
+					side += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 2000;
 				}
 				model6.removeRow(i-count);
 				count++;

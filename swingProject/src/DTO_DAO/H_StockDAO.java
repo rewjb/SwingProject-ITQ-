@@ -73,7 +73,7 @@ public class H_StockDAO {
 	public ArrayList<H_StockDTO> selectPointAll(String point) {
 		try {
 			connectDB();
-			sql = "select name,SUM(quantity) as quantity  from headstock  where point=?  group by name;";
+			sql = "SELECT name,SUM(quantity) AS quantity  FROM headstock  WHERE point=?  GROUP BY name;";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, point);
 			ResultSet result = ps.executeQuery();
@@ -97,5 +97,100 @@ public class H_StockDAO {
 			return null;
 		}
 	}// selectPointAll:메서드 끝
+	
+	public ArrayList<H_StockDTO> selectInStockHistory() {
+		try {
+			connectDB();
+			sql = "SELECT *  FROM headstock where IO='in' ORDER BY date ;";
+			ps = con.prepareStatement(sql);
+			ResultSet result = ps.executeQuery();
+
+			ArrayList<H_StockDTO> list = new ArrayList<>();
+			H_StockDTO stockDTO;
+
+			while (result.next()) {
+				stockDTO = new H_StockDTO();
+				
+				stockDTO.setPoint(result.getString("point"));
+				stockDTO.setIo(result.getString("IO"));
+				stockDTO.setName(result.getString("name"));
+				stockDTO.setQuantity(result.getInt("quantity"));
+				stockDTO.setPlace(result.getString("place"));
+				stockDTO.setDate(result.getString("date"));
+				
+				list.add(stockDTO);
+			}
+
+			con.close();
+			ps.close();
+			result.close();
+			return list;
+		} catch (Exception e) {
+			System.out.println("H_StockDAO-selectInStockHistory");
+			return null;
+		}
+	}// selectInStockHistory:메서드 끝
+	
+	public ArrayList<H_StockDTO> selectOutStockHistory() {
+		try {
+			connectDB();
+			sql = "SELECT * FROM headstock where IO='out' ORDER BY date ;";
+			ps = con.prepareStatement(sql);
+			ResultSet result = ps.executeQuery();
+
+			ArrayList<H_StockDTO> list = new ArrayList<>();
+			H_StockDTO stockDTO;
+
+			while (result.next()) {
+				stockDTO = new H_StockDTO();
+				
+				stockDTO.setPoint(result.getString("point"));
+				stockDTO.setIo(result.getString("IO"));
+				stockDTO.setName(result.getString("name"));
+				stockDTO.setQuantity(result.getInt("quantity"));
+				stockDTO.setPlace(result.getString("place"));
+				stockDTO.setDate(result.getString("date"));
+				
+				list.add(stockDTO);
+			}
+
+			con.close();
+			ps.close();
+			result.close();
+			return list;
+		} catch (Exception e) {
+			System.out.println("H_StockDAO-selectOutStockHistory");
+			return null;
+		}
+	}// selectOutStockHistory:메서드 끝
+	
+	public ArrayList<H_StockDTO> selectTotalStock() {
+		try {
+			connectDB();
+			sql = "SELECT name,SUM(quantity) AS quantity FROM headstock GROUP BY name;";
+			ps = con.prepareStatement(sql);
+			ResultSet result = ps.executeQuery();
+
+			ArrayList<H_StockDTO> list = new ArrayList<>();
+			H_StockDTO stockDTO;
+
+			while (result.next()) {
+				stockDTO = new H_StockDTO();
+				stockDTO.setName(result.getString("name"));
+				stockDTO.setQuantity(result.getInt("quantity"));
+				list.add(stockDTO);
+			}
+
+			con.close();
+			ps.close();
+			result.close();
+			return list;
+		} catch (Exception e) {
+			System.out.println("H_StockDAO-selectPointAll");
+			return null;
+		}
+	}// selectInStockHistory:메서드 끝
+	
+	
 
 }// 클래스 종료

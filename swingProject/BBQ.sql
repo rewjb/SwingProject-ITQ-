@@ -114,6 +114,8 @@ SELECT id,name FROM headvender;
 select * from headvender;
 select * from  headOrder;
 
+select * from  headstock;
+
 select * from  headstock ORDER BY date;
 select name,SUM(quantity) as quantity  from headstock  where point=16  group by name;
 
@@ -214,7 +216,7 @@ insert into bodyorder values (자동입력 수,품명,수량,자동날짜,보점
 
 SELECT * FROM headorder ORDER BY  headorder.confirm , headorder.date DESC;
 
-
+SELECT *  FROM headstock where IO='in' ORDER BY date DESC;
 =본사 재고관리=
 insert into headstock values ('10','in','apple',10,"asdasd",default);
 insert into headstock values ('11','in','apple',11,"asdasddsd",default);

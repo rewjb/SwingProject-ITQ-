@@ -31,14 +31,15 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class HallC extends JPanel implements ActionListener, BodyHall {
+	String id = "1";// 로그인시 넘어올 아이디 임시 테스트용
 
 	// 테이블 버튼
-	private JToggleButton jb;// 1번테이블 버튼
-	private JToggleButton jb1;// 2번테이블 버튼
-	private JToggleButton jb2;// 3번테이블 버튼
-	private JToggleButton jb3;// 4번 테이블 버튼
-	private JToggleButton jb4;// 5번 테이블 버튼
-	private JToggleButton jb5;// 6번 테이블 버튼
+	private JButton jb;// 1번테이블 버튼
+	private JButton jb1;// 2번테이블 버튼
+	private JButton jb2;// 3번테이블 버튼
+	private JButton jb3;// 4번 테이블 버튼
+	private JButton jb4;// 5번 테이블 버튼
+	private JButton jb5;// 6번 테이블 버튼
 	
 
 	private DefaultTableModel model1 = new DefaultTableModel(15, 2);// 1번테이블 표
@@ -59,9 +60,9 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	// 주문 선택버튼
 	private JButton button7;//선택하기 버튼                    
 	// 버튼 그룹
-	private ButtonGroup bg;
+	//private ButtonGroup bg;
 
-	HashMap<JToggleButton, DefaultTableModel> key = new HashMap<>();// 해쉬맵 사용법
+	HashMap<JButton, DefaultTableModel> key = new HashMap<>();// 해쉬맵 사용법
 
 	// 테이블내 표
 	private DefaultTableModel model = new DefaultTableModel(15, 2);
@@ -71,7 +72,9 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	      public boolean isCellEditable(int row, int column) {
 	          return false;
 	       };
-	    };// 주문하기 테이블
+	    };
+	 
+	// 주문하기 테이블
 	private JTable table = new JTable(model1){
 	      public boolean isCellEditable(int row, int column) {
 	          return false;
@@ -136,8 +139,6 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 	Object temp = null;
 
-	B_SalesDAO salesDAO = B_SalesDAO.getInstance();// B_SalesDAO클래스 메서드를 사용하기 위한 방법
-	String id = "1";// 로그인시 넘어올 아이디 임시 테스트용
 	int chickenF = 0;
 	int chickenH = 0;
 	int chickenS = 0;
@@ -151,12 +152,12 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 	public HallC() {
 
-		jb = new JToggleButton("1번 테이블");
-		jb1 = new JToggleButton("2번 테이블");
-		jb2 = new JToggleButton("3번 테이블");
-		jb3 = new JToggleButton("4번 테이블");
-		jb4 = new JToggleButton("5번 테이블");
-		jb5 = new JToggleButton("6번 테이블");
+		jb = new JButton("1번 테이블");
+		jb1 = new JButton("2번 테이블");
+		jb2 = new JButton("3번 테이블");
+		jb3 = new JButton("4번 테이블");
+		jb4 = new JButton("5번 테이블");
+		jb5 = new JButton("6번 테이블");
 
 		key.put(jb, model1);
 		key.put(jb1, model2);
@@ -200,7 +201,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 		jframe.setVisible(false);
 
-		bg = new ButtonGroup();
+		//bg = new ButtonGroup();
 
 		button1 = new JButton("계산");
 		button1.setBounds(68, 166, 60, 24);
@@ -238,22 +239,22 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 		model5.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 5번테이블 컬럼
 		model6.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 6번테이블 컬럼
 
-		bg.add(jb);
-		bg.add(jb1);
+		//bg.add(jb);
+		//bg.add(jb1);
 		add(jb4);
 		add(jb5);
 		add(scroll1);
-		bg.add(jb2);
+		//bg.add(jb2);
 		add(jb3);
 		add(scroll3);
 		add(scroll2);
-		bg.add(jb3);
+		//bg.add(jb3);
 		add(jb2);
 		add(scroll4);
-		bg.add(jb4);
+		//bg.add(jb4);
 		add(jb1);
 		add(scroll5);
-		bg.add(jb5);
+		//bg.add(jb5);
 		add(jb);
 		add(scroll6);
 		add(button1);
@@ -285,25 +286,31 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// System.out.println((String)combo.getSelectedItem());콤보박스 선택값 출력
-
+		
 		if (e.getSource() == jb) {
 			jframe.setVisible(true);
 			temp = e.getSource();
+			jframe.setTitle("1번테이블");
 		} else if (e.getSource() == jb1) {
 			jframe.setVisible(true);
 			temp = e.getSource();
+			jframe.setTitle("2번테이블");
 		} else if (e.getSource() == jb2) {
 			jframe.setVisible(true);
 			temp = e.getSource();
+			jframe.setTitle("3번테이블");
 		} else if (e.getSource() == jb3) {
 			jframe.setVisible(true);
 			temp = e.getSource();
+			jframe.setTitle("4번테이블");
 		} else if (e.getSource() == jb4) {
 			jframe.setVisible(true);
 			temp = e.getSource();
+			jframe.setTitle("5번테이블");
 		} else if (e.getSource() == jb5) {
 			jframe.setVisible(true);
 			temp = e.getSource();
+			jframe.setTitle("6번테이블");
 		} else if (e.getSource() == button) {// 주문하기
 
 			if (model.getValueAt(0, 0)==null) {
@@ -344,7 +351,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				model1.removeRow(i-count);
 				count++;
 			}
-			salesDAO.menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
+			B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
 
 		} else if (e.getSource() == button2) {// 2번테이블 계산
 			for (int i = 0; i >= 0; i++) {
@@ -366,7 +373,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				count++;
 			}
 			
-			salesDAO.menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
+			B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
 
 		} else if (e.getSource() == button3) {// 3번테이블 계산
 			for (int i = 0; i >= 0; i++) {
@@ -387,7 +394,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				model3.removeRow(i-count);
 				count++;
 			}
-			salesDAO.menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
+			B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
 
 		} else if (e.getSource() == button4) {// 4번테이블 계산
 			for (int i = 0; i >= 0; i++) {
@@ -408,7 +415,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				model4.removeRow(i-count);
 				count++;
 			}
-			salesDAO.menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
+			B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
 
 		} else if (e.getSource() == button5) {// 5번테이블 계산
 			for (int i = 0; i >= 0; i++) {
@@ -429,7 +436,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				model5.removeRow(i-count);
 				count++;
 			}
-			salesDAO.menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
+			B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
 
 		} else if (e.getSource() == button6) {// 6번테이블 계산
 			for (int i = 0; i >= 0; i++) {
@@ -450,7 +457,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				model6.removeRow(i-count);
 				count++;
 			}
-			salesDAO.menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
+			B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
 
 		} else if (e.getSource() == button7) {// 선택하기 버튼 누를시
 			if(!(textfiled.getText().equals(""))) {

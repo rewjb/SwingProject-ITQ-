@@ -164,7 +164,6 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		for (int i = 0; i < PointBtn.length; i++) {
 			PointBtn[i].addActionListener(this);
 		}
-		
 		insertVenderNfranchise();
 		
 		inputConfirm.addActionListener(this);

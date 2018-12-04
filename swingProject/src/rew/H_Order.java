@@ -251,9 +251,9 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		plusBtn.addActionListener(this);
 
-		previousBtn.setBounds(200, 336, 42, 20);
-		nowBtn.setBounds(242, 336, 42, 20);
-		nextBtn.setBounds(284, 336, 42, 20);
+		previousBtn.setBounds(180, 336, 60, 20);
+		nowBtn.setBounds(240, 336, 60, 20);
+		nextBtn.setBounds(300, 336, 60, 20);
 		deletemBtn2.setBounds(502, 336, 60, 20);
 		plusBtn.setBounds(502, 23, 60, 20);
 		deletemBtn1.setBounds(502, 133, 60, 20);

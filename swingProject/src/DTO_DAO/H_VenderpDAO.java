@@ -142,6 +142,39 @@ public class H_VenderpDAO {
 	}// select_vender:메서드 종료
 	
 	
+	public ArrayList<String> select_vender(String temp) {
+		// 제품군에 맞은 업체를 갖고오는 메서드
+		// 이거 나중에 한나씨가 만들면 이거 없애야 함 ..
+		// 이거 기능은 재고에서 입출고 입력할때 업체 콤보박스에 들어가는 string을 반환함
+
+		try {
+			connectDB();
+			sql = "SELECT headvenderp.name,headvender.name FROM headvenderp,headvender WHERE (headvender.id=headvenderp.id) and headvenderp.name=?  ORDER BY headvender.name;";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, temp);
+			ResultSet result = ps.executeQuery();
+			// 기본셋팅 : sql문 문자열 , DB연결 객체의 statement를 받을 ps
+			
+			ArrayList<String> list = new ArrayList<>();
+			//업체정보를 담을 list
+			String insertList;
+			
+			while (result.next()) {
+				insertList =result.getString(2);
+				list.add(insertList);
+			}//값을 list에 넣기
+			
+			con.close();
+			ps.close();
+			result.close();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}// select_vender:메서드 종료
 	
 	
 	

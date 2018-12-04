@@ -31,7 +31,7 @@ public class H_StockDAO {
 	// 싱긑톤 패턴
 
 	public static H_StockDAO getInstance() {
-		return h_stockDAO ;
+		return h_stockDAO;
 	} // 싱긑톤 패턴 메서드
 
 	public void connectDB() {
@@ -43,40 +43,59 @@ public class H_StockDAO {
 		}
 	}// connectDB:메서드 끝
 
-	public ArrayList<H_VenderDTO> selectALLVenderInfo() {
+	public int insert(H_StockDTO stockDTO) {
 		try {
 			connectDB();
-			sql = "SELECT * FROM headstock ORDER BY date DESC;";
+			int tr = -1;
+			sql = "insert into headstock values(?,?,?,?,?,default);";
 			ps = con.prepareStatement(sql);
+			ps.setString(1, stockDTO.getPoint());
+			ps.setString(3, stockDTO.getName());
+			ps.setString(5, stockDTO.getPlace());
+			if (stockDTO.getIo().equals("입고")) {
+				ps.setString(2, "in");
+				ps.setInt(4, +stockDTO.getQuantity());
+			} else {
+				ps.setString(2, "out");
+				ps.setInt(4, -stockDTO.getQuantity());
+			}
+			tr = ps.executeUpdate();
+			con.close();
+			ps.close();
+			return tr;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("H_StockDAO-insert()");
+			return 0;
+		}
+	} // insert:메서드 종료
+
+	public ArrayList<H_StockDTO> selectPointAll(String point) {
+		try {
+			connectDB();
+			sql = "select name,SUM(quantity) as quantity  from headstock  where point=?  group by name;";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, point);
 			ResultSet result = ps.executeQuery();
 
-			ArrayList<H_VenderDTO> list = new ArrayList<>();
-			H_VenderDTO venderDTO;
+			ArrayList<H_StockDTO> list = new ArrayList<>();
+			H_StockDTO stockDTO;
 
 			while (result.next()) {
-				venderDTO = new H_VenderDTO();
-				venderDTO.setId(result.getString(1));
-				venderDTO.setName(result.getString(2));
-				venderDTO.setTel(result.getString(3));
-				list.add(venderDTO);
-			} // list에 DTO 넣기
+				stockDTO = new H_StockDTO();
+				stockDTO.setName(result.getString("name"));
+				stockDTO.setQuantity(result.getInt("quantity"));
+				list.add(stockDTO);
+			}
 
 			con.close();
 			ps.close();
 			result.close();
 			return list;
 		} catch (Exception e) {
-			System.out.println("H_VenderDAO-");
+			System.out.println("H_StockDAO-selectPointAll");
 			return null;
 		}
-	}// end selectALLVenderInfo
-
-	// wonHn
-	// 업체정보 삭제 메서드
-	public void deleteVenderInfo() {
-		connectDB();
-		// sql = "delete from headmember where id='" + id + "';"
-
-	}// end deleteVenderInfo
+	}// selectPointAll:메서드 끝
 
 }// 클래스 종료

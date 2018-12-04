@@ -71,7 +71,7 @@ public class B_StockDAO {
 		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "select * from bodystock";
+			sql = "select * from bodystock ";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			

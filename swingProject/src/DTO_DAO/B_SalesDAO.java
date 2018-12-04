@@ -44,7 +44,7 @@ public class B_SalesDAO {
 		
 		try {
 			connectDB();
-			sql = "SELECT * FROM bodysale";
+			sql = "SELECT * FROM bodysales";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			

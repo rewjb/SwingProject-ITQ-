@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.B_OrderDAO;
 import DTO_DAO.B_SalesDAO;
+import DTO_DAO.B_StockDAO;
 import inter.BBQBody;
 import inter.BodyHall;
 import javax.swing.JLabel;
@@ -145,6 +146,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	int chickenS = 0;
 	int side = 0;
 	int priceSum = 0;
+	int chickenSum;
 	
 	int count;
 
@@ -329,12 +331,15 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				if (model1.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model1.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model1.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model1.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 2000;
 					priceSum += side;
@@ -344,7 +349,9 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 			}
 			if (priceSum!=0) {
 				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
 				priceSum = 0;
+				chickenSum = 0;
 				chickenF = 0;
 				chickenH = 0;
 				chickenS = 0;
@@ -361,12 +368,15 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				if (model2.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model2.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model2.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenS;
+					chickenSum += chickenS; 
 				} else if (model2.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 2000;
 					priceSum += side;
@@ -376,6 +386,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 			}
 			if (priceSum!=0) {
 				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
 				chickenH = 0;
@@ -393,12 +405,15 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				if (model3.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model3.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model3.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model3.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 2000;
 					priceSum += side;
@@ -408,6 +423,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 			}
 			if (priceSum!=0) {
 				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
 				chickenH = 0;
@@ -424,12 +441,15 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				if (model4.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model4.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model4.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model4.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 2000;
 					priceSum += side;
@@ -439,6 +459,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 			}
 			if (priceSum!=0) {
 				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
 				chickenH = 0;
@@ -455,12 +477,15 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				if (model5.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model5.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model5.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model5.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 2000;
 					priceSum += side;
@@ -470,6 +495,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 			}
 			if (priceSum!=0) {
 				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
 				chickenH = 0;
@@ -486,12 +513,15 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				if (model6.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model6.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model6.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
 					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model6.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 2000;
 					priceSum += side;
@@ -501,6 +531,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 			}
 			if (priceSum!=0) {
 				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
 				chickenH = 0;

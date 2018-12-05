@@ -158,7 +158,7 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 );
 
-insert into bodyorder values (default,'닭','d-1',1,default,'1','');
+insert into bodyorder values (default,'닭','닭',10,default,'1','');
 insert into bodyorder values (default,'콜라','d-1',1,default,'1','');
 insert into bodyorder values (default,'사이다','d-1',1,default,'1','');
 insert into bodyorder values (default,'','d-1',1,default,'1','');

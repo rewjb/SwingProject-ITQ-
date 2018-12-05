@@ -100,7 +100,7 @@ public class B_SalesDAO {
 			ps.setInt(6, side);
 
 			rn = ps.executeUpdate();
-			System.out.println("insert 체크" + rn);
+			System.out.println("매출등록 체크" + rn);
 
 		} catch (Exception e) {
 			e.printStackTrace();

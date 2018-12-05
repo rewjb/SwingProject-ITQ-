@@ -67,7 +67,6 @@ public class H_VenderDAO {
 	}// end selectVenderInfo
 
 	// 이름을 오름차순으로 모든 벤더정보를 갖고오는 메서드입니다.
-	// 이거 한나씨깨서 만드신 메서드인데 안에 제가 내용 채웠어요~
 	// 반환 타입이 H_VenderDTO를 담고 있는 ArrayList 타입입니다~
 	// 수정일 : 2018-12-03
 	public ArrayList<H_VenderDTO> selectALLVenderInfo() {

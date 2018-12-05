@@ -159,7 +159,7 @@ bconfirm varchar(10)
 create table asd(
 name varchar(15) not null
 );
-select * from bodyorder;
+select * from headstock;
 select * from asd;
 insert into asd values ("유주빈");
 insert into bodyorder values (default,'안녕?','d-1',1,default,'1','');

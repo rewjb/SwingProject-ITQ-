@@ -53,6 +53,8 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	
 	public HeadFrame() {
 		
+		setTitle("BBQ 관리자 계정 : root");
+		
 		//20 간격 !
 		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
 		OrderBtn.setBounds(143, 20, 90, 23);

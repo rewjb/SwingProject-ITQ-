@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -16,33 +17,56 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTree;
+
+import DTO_DAO.H_VenderDAO;
+import DTO_DAO.H_VenderDTO;
+
 import javax.swing.JEditorPane;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemListener {
 
-	private JLabel franSalesLabel = new JLabel("가맹점 매출");
+	
 	private JRadioButton monthRadio = new JRadioButton("월별");
 	private JRadioButton dayRadio = new JRadioButton("일별");
+	
 	private ButtonGroup radioGroup = new ButtonGroup();
+	private ButtonGroup buttonGroup = new ButtonGroup();
+	
 	private JComboBox yearComboBox = new JComboBox();
 	private JComboBox monthComboBox = new JComboBox();
+	private JComboBox franSelectJComboBox = new JComboBox();
+	
+	private JLabel franSalesLabel = new JLabel("가맹점 매출");
 	private JLabel yearLabel = new JLabel("년");
 	private JLabel monthLabel = new JLabel("월");
 	private JLabel franSelectJLabel = new JLabel("점");
+	private JLabel label = new JLabel("가맹점 인기메뉴");
+	
+	private JToggleButton headSalesBtn = new JToggleButton("본사 매출");
+	private JToggleButton bodySalesBtn = new JToggleButton("가맹점 매출");
 
-	private int yearComboBoxNum;
-	private int monthComboBoxNum;
+	private ArrayList<H_VenderDTO> h_venderList;
+	// 가맹점 선택하는 콤보박스에 넣을 데이터 DTO리스느
 
-	private final JComboBox franSelectJComboBox = new JComboBox();
+	private FranSalesBarChart franSalesBarChart = new FranSalesBarChart();
+	// 가맹점 막대그래프 판넬 객체
+	private FranSalesPieChart franSalesPieChart = new FranSalesPieChart();
 
 	public H_Salses() {
 
+		insertFranComboBox();
+
 		radioGroup.add(monthRadio);
 		radioGroup.add(dayRadio);
+		buttonGroup.add(headSalesBtn);
+		buttonGroup.add(bodySalesBtn);
 
 		for (int i = 0; i < 10; i++) {
 			yearComboBox.addItem(String.valueOf(2018 - i));
@@ -54,21 +78,38 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 		monthRadio.addItemListener(this);
 		dayRadio.addItemListener(this);
+		headSalesBtn.addActionListener(this);
+		bodySalesBtn.addActionListener(this);
 
+		
 		setLayout(null);
 		setBackground(Color.GREEN);
 		setBounds(0, 0, 770, 358);
-		setSize(770, 358);
+		
+		franSalesLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		label.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		
+		label.setHorizontalAlignment(SwingConstants.CENTER);
 
-		monthRadio.setBounds(133, 32, 60, 21);
-		dayRadio.setBounds(199, 32, 60, 21);
-		yearLabel.setBounds(230, 62, 20, 15);
-		monthLabel.setBounds(314, 62, 20, 15);
-		franSalesLabel.setBounds(160, 10, 70, 15);
-		yearComboBox.setBounds(158, 59, 70, 21);
-		monthComboBox.setBounds(252, 59, 60, 21);
-		franSelectJLabel.setBounds(138, 62, 20, 15);
-
+		monthRadio.setBounds(38, 32, 60, 21);
+		dayRadio.setBounds(104, 32, 60, 21);
+		yearLabel.setBounds(358, 35, 20, 15);
+		monthLabel.setBounds(442, 35, 20, 15);
+		franSalesLabel.setBounds(189, 10, 86, 15);
+		yearComboBox.setBounds(286, 32, 70, 21);
+		monthComboBox.setBounds(380, 32, 60, 21);
+		franSelectJLabel.setBounds(266, 35, 20, 15);
+		franSelectJComboBox.setBounds(178, 32, 86, 21);
+		label.setBounds(566, 35, 111, 15);
+		bodySalesBtn.setBounds(566, 335, 111, 23);
+		headSalesBtn.setBounds(673, 335, 97, 23);
+		
+		franSalesBarChart.setLocation(12, 59);
+		franSalesPieChart.setLocation(474, 59);
+		
+		add(franSalesBarChart);
+		add(franSalesPieChart);
+		
 		add(monthComboBox);
 		add(yearComboBox);
 		add(dayRadio);
@@ -77,15 +118,22 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		add(monthRadio);
 		add(franSalesLabel);
 		add(franSelectJLabel);
-
-		
-	
-		franSelectJComboBox.setBounds(50, 59, 86, 21);
-		
 		add(franSelectJComboBox);
-
+		add(label);
+		add(headSalesBtn);
+		add(bodySalesBtn);
+		
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝
+
+	public void insertFranComboBox() {
+		h_venderList = H_VenderDAO.getInstance().selectALLVenderInfo();
+		int count = h_venderList.size();
+		franSelectJComboBox.removeAllItems();
+		for (int i = 0; i < count; i++) {
+			franSelectJComboBox.addItem(h_venderList.get(i).getName());
+		}
+	}// insertFranComboBox:메서드 종료
 
 	@Override
 	public void show(BBQHead bbqHead) {
@@ -97,18 +145,19 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+//		headSalesBtn 가맹점 매출 버튼
+//		bodySalesBtn 본사 매출 버튼
+		
 	}// actionPerformed:메서드 종료
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		
+
 		if (monthRadio.isSelected()) {
-			
-		}else if (dayRadio.isSelected()) {
-			
+
+		} else if (dayRadio.isSelected()) {
+
 		}
-	
-		
 
 	}// itemStateChanged:메서드 종료
 }// 클래스 끝

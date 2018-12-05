@@ -36,11 +36,12 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 			return false;
 		};
 	};
-	private JTable listTable1 = new JTable(model1) {
-		public boolean isCellEditable(int row, int column) {
-			return false;
-		};
-	};
+	private JTable listTable1 = new JTable(model1);
+//	{
+//		public boolean isCellEditable(int row, int column) {
+//			return false;
+//		};
+//	};
 
 	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -67,10 +68,13 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 		scroll1.setBounds(380, 37, 223, 262);
 
 		listTable.getTableHeader().setResizingAllowed(false);
+		listTable.getTableHeader().setReorderingAllowed(false);
 		model.setColumnIdentifiers(new Object[] { "식자재", "수량", "본사 확인", "가맹점 확인" });
 		listTable1.getTableHeader().setResizingAllowed(false);
+		listTable1.getTableHeader().setReorderingAllowed(false);
 		model1.setColumnIdentifiers(new Object[] { "식자재", "수량" });
 
+		
 		button_2 = new JButton("\uD655\uC778");
 		button_2.setBounds(193, 309, 107, 35);
 

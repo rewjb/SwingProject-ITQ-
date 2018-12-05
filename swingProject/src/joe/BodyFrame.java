@@ -31,6 +31,9 @@ import javax.swing.JPanel;
 
 public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
+	
+	
+	
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
 	JToggleButton StockBtn = new JToggleButton("재고관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");

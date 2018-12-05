@@ -40,21 +40,21 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	private JLabel j1;
 	private DefaultTableModel model = new DefaultTableModel(16, 2);// 발주할 표
 	private DefaultTableModel model1 = new DefaultTableModel(16, 2);// 재고 목록 표
-	private DefaultTableModel model2 = new DefaultTableModel(16, 5);// 발주 목록 표
+	private DefaultTableModel model2 = new DefaultTableModel(16, 4);// 발주 목록 표
 
 	// 리스트를 넣을 Jtable
 	private JTable listTable = new JTable(model) {// 발주할 테이블
-		public boolean isCellEditable(int row, int column) {
+		public boolean isCellEditable(int row, int column) {//내부 표 수정불가
 			return false;
 		};
 	};
 	private JTable listTable1 = new JTable(model1) {// 발주목록 테이블
-		public boolean isCellEditable(int row, int column) {
+		public boolean isCellEditable(int row, int column) {//내부 표 수정불가
 			return false;
 		};
 	};
 	private JTable listTable2 = new JTable(model2) {// 재고 목록 테이블
-		public boolean isCellEditable(int row, int column) {
+		public boolean isCellEditable(int row, int column) {//내부 표 수정불가
 			return false;
 		};
 	};
@@ -86,8 +86,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	// private DefaultTableCellRenderer celAlignCenter = new
 	// DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
-	
-	
 	  
 
 	public BodyOrderC() {// 생성자
@@ -105,16 +103,22 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		j.setBounds(0, 10, 80, 38);
 		j1.setBounds(151, 19, 65, 20);
 
-		scroll.setBounds(23, 75, 200, 258);
+		scroll.setBounds(23, 94, 200, 239);
 		scroll1.setBounds(599, 58, 182, 275);
-		scroll2.setBounds(263, 75, 293, 258);
+		scroll2.setBounds(263, 94, 293, 239);
 		// 테이블내
 		listTable.getTableHeader().setResizingAllowed(false);
+		listTable1.getTableHeader().setResizingAllowed(false);
+		listTable2.getTableHeader().setResizingAllowed(false);
 		listTable.getTableHeader().setReorderingAllowed(false);
+		listTable1.getTableHeader().setReorderingAllowed(false);
+		listTable2.getTableHeader().setReorderingAllowed(false);
 
 		model.setColumnIdentifiers(new Object[] { "식자재", "수량" });
 		model1.setColumnIdentifiers(new Object[] { "식자재", "수량" });
-		model2.setColumnIdentifiers(new Object[] { "발주번호", "식자재", "수량", "발주일", "본사확인" });
+		model2.setColumnIdentifiers(new Object[] {  "식자재", "수량", "발주일", "본사확인" });
+		
+		//listTable2.getColumnModel().getColumn(4).setPreferredWidth(-10);
 
 		add(scroll2);
 		add(scroll1);
@@ -187,14 +191,24 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		label = new JLabel("\uBC1C\uC8FC");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
-		label.setBounds(88, 49, 57, 20);
+		label.setBounds(90, 73, 57, 20);
 		add(label);
 
 		label_1 = new JLabel("\uBC1C\uC8FC \uBAA9\uB85D");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
-		label_1.setBounds(381, 51, 57, 20);
+		label_1.setBounds(378, 73, 57, 20);
 		add(label_1);
+		
+		textField = new JTextField();
+		textField.setBounds(208, 44, 80, 21);
+		add(textField);
+		
+		JLabel lblEksrk = new JLabel("\uB2E8\uAC00");
+		lblEksrk.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEksrk.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		lblEksrk.setBounds(151, 45, 65, 20);
+		add(lblEksrk);
 		
 
 		setVisible(false);
@@ -210,6 +224,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		((Component) bbqBody).setVisible(false);
 	}
 
+	ArrayList<Integer> list = new ArrayList<>();
+	private JTextField textField;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == bt) {// 선택버튼기능
@@ -243,14 +259,17 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 		} else if (e.getSource() == bt3) {// 발주목록 버튼기능
 
+			
 			if (model2.getValueAt(0, 0) == null) {
 				for (int i = 0; i < B_OrderDAO.getInstance().selectAll().size(); i++) {
 					model2.insertRow(i,
-							new Object[] { B_OrderDAO.getInstance().selectAll().get(i).getNum(),
+							new Object[] { 
 									B_OrderDAO.getInstance().selectAll().get(i).getName(),
 									B_OrderDAO.getInstance().selectAll().get(i).getQuantity(),
 									B_OrderDAO.getInstance().selectAll().get(i).getDate(),
-									B_OrderDAO.getInstance().selectAll().get(i).gethComfirm() });
+									B_OrderDAO.getInstance().selectAll().get(i).gethComfirm()
+									});
+									list.add(B_OrderDAO.getInstance().selectAll().get(i).getNum());
 				}
 
 			} else {
@@ -259,11 +278,13 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 				}
 				for (int i = 0; i < B_OrderDAO.getInstance().selectAll().size(); i++) {
 					model2.insertRow(i,
-							new Object[] { B_OrderDAO.getInstance().selectAll().get(i).getNum(),
+							new Object[] {
 									B_OrderDAO.getInstance().selectAll().get(i).getName(),
 									B_OrderDAO.getInstance().selectAll().get(i).getQuantity(),
 									B_OrderDAO.getInstance().selectAll().get(i).getDate(),
-									B_OrderDAO.getInstance().selectAll().get(i).gethComfirm() });
+									B_OrderDAO.getInstance().selectAll().get(i).gethComfirm(),
+									B_OrderDAO.getInstance().selectAll().get(i).getNum()});
+					list.add(B_OrderDAO.getInstance().selectAll().get(i).getNum());
 				}
 
 			}
@@ -293,7 +314,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 							B_StockDAO.getInstance().stockSelectAll().get(j).getQuantity() });
 				}
 				
-			}else {//
+			}else {
 				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll().size(); i++) {
 					model1.removeRow(0);
 				}
@@ -308,8 +329,12 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 			int[] selects =  listTable2.getSelectedRows();
 			for (int i = 0; i < selects.length; i++) {
 				System.out.println(selects[i]);
-				if(model2.getValueAt(selects[i], 4)==null) {
+				if(model2.getValueAt(selects[i], 3).equals("")) {
+					B_OrderDAO.getInstance().orderDelete(list.get(selects[i]));
 				}
+			}
+			for ( int j = selects.length-1;  j >= 0; j--) {
+				model2.removeRow(selects[j]);
 			}
 			
 			

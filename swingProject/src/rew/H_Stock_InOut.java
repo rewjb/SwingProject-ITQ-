@@ -227,7 +227,6 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		setSize(770, 358);
 
 		setVisible(false);// 마지막에는 false로 변경
-
 	}// 생성자 끝
 
 	public void insertArrayBtn() {

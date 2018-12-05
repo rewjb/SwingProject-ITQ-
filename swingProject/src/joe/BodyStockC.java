@@ -19,6 +19,8 @@ import inter.BodyStock;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 
@@ -48,11 +50,13 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 	B_StockDAO stockDAO = B_StockDAO.getInstance();
 
 	String id = "조광재";
+	private final JLabel lblNewLabel = new JLabel("\uBBF8\uD655\uC778\uC7AC\uACE0 \uAD00\uB9AC");
+	private final JLabel label = new JLabel("\uD655\uC778\uC7AC\uACE0 \uAD00\uB9AC");
 
 	public BodyStockC() {
 		setLayout(null);
 		setSize(781, 360);
-		setBackground(Color.BLACK);
+		setBackground(Color.BLUE);
 
 		button = new JButton("미확인 재고");
 		button_1 = new JButton("확인 재고");
@@ -79,6 +83,16 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 		add(button_1);
 
 		add(button_2);
+		lblNewLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(121, 10, 117, 15);
+		
+		add(lblNewLabel);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		label.setBounds(430, 10, 117, 15);
+		
+		add(label);
 		setVisible(false);
 	}
 

@@ -69,13 +69,13 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		setBackground(Color.YELLOW);
 
 		// 스크롤 사이즈 설정
-		scroll3.setBounds(382, 200, 150, 84);
-		scroll2.setBounds(382, 56, 314, 60);
-		scroll.setBounds(30, 56, 314, 228);
+		scroll3.setBounds(382, 214, 150, 84);
+		scroll2.setBounds(382, 70, 314, 60);
+		scroll.setBounds(30, 70, 314, 228);
 
 		// 각 표 컬럼 설정
 		model.setColumnIdentifiers(new Object[] { "메뉴", "수량", "합계", "날짜" });
-		model2.setColumnIdentifiers(new Object[] { "후라이드", "양념", "간장", "사이드", "합계" });
+		model2.setColumnIdentifiers(new Object[] { "후라이드", "양념", "간장", "음료", "합계" });
 		model3.setColumnIdentifiers(new Object[] { "순위", "메뉴" });
 
 		salesTable.getColumnModel().getColumn(3).setPreferredWidth(200);// 표 특정 컬럼 길이 증가
@@ -87,41 +87,41 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		// 선택버튼 폰트설정
 		btnNewButton_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		// 버튼 위치 지정
-		button.setBounds(500, 126, 90, 23);
+		button.setBounds(500, 135, 90, 23);
 		button_1.setBounds(409, 304, 90, 23);
-		btnNewButton_1.setBounds(287, 27, 57, 23);
+		btnNewButton_1.setBounds(287, 37, 57, 23);
 
 		// 각 텍스트 필드 위치지정
 		textField = new JTextField();
-		textField.setBounds(117, 27, 42, 21);
+		textField.setBounds(117, 37, 42, 21);
 		add(textField);
 		textField.setColumns(10);
 
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(186, 27, 29, 21);
+		textField_1.setBounds(184, 37, 29, 21);
 		add(textField_1);
 
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(245, 27, 29, 21);
+		textField_2.setBounds(245, 37, 29, 21);
 		add(textField_2);
 
 		// 각 라벨 내용 폰트 위치 조정
 		lblNewLabel = new JLabel("\uB0A0\uC9DC \uAC80\uC0C9");
 		lblNewLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(59, 31, 57, 15);
+		lblNewLabel.setBounds(59, 41, 57, 15);
 
 		lblNewLabel_1 = new JLabel("/");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(144, 31, 57, 15);
+		lblNewLabel_1.setBounds(143, 40, 57, 15);
 
 		label = new JLabel("/");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		label.setBounds(201, 30, 57, 15);
+		label.setBounds(199, 40, 57, 15);
 
 		// 각 컴포턴트 jpanel에 더하기
 		add(lblNewLabel);
@@ -139,28 +139,42 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		button_1.addActionListener(this);
 		btnNewButton_1.addActionListener(this);
 		button.addActionListener(this);
+		
+		JLabel lblNewLabel_2 = new JLabel("\uC778\uAE30\uC21C\uC704");
+		lblNewLabel_2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(426, 189, 57, 15);
+		add(lblNewLabel_2);
+		
+		JLabel label_1 = new JLabel("\uB9E4\uCD9C\uC885\uD569");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		label_1.setBounds(510, 45, 57, 15);
+		add(label_1);
+		
+		JLabel label_2 = new JLabel("\uB9E4\uCD9C \uAC80\uC0C9");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		label_2.setBounds(146, 12, 67, 15);
+		add(label_2);
 
 		setVisible(false);
 	}
 
 	@Override
 	public void show(BBQBody bbqBody) {
-
+		((Component) bbqBody).setVisible(true);
 	}
 
 	@Override
 	public void hide(BBQBody bbqBody) {
-
+		((Component) bbqBody).setVisible(false);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNewButton_1) {
 
-			
-//			try {
-				
-		
 			if (model.getValueAt(0, 0) == null) {
 
 				for (int j = 0; j < B_SalesDAO.getInstance()
@@ -214,8 +228,8 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 					}
 
 				}
-			}else {
-				for (int i = 0; !(model.getValueAt(0, 0)==null); i++) {
+			} else {
+				for (int i = 0; !(model.getValueAt(0, 0) == null); i++) {
 					model.removeRow(0);
 				}
 
@@ -270,25 +284,11 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 					}
 
 				}
-				
-				
+
 			}
-//			} catch (Exception e2) {
-//				JOptionPane.showMessageDialog(null, "숫자만 입력가능합니다");
-//			}
-		}else if (e.getSource()==button) {
-			
+
+		} else if (e.getSource() == button) {
+
 		}
 	}// 액션리스너 끝
-
-//	private JButton button_1;//인기순위
-//	private JButton btnNewButton;//일일매출
-//	private JButton button;//매출 종합
-//	private JTextField textField;//첫번째 날짜 입력칸
-//	private JTextField textField_1;//두번째 날짜 입력칸
-//	private JTextField textField_2;//세번째 날짜 입력칸
-//	private JLabel label;// "/"
-//	private JLabel lblNewLabel_1;// "/"
-//	private JLabel lblNewLabel;//날짜검색
-//	private JButton btnNewButton_1;//선택버튼
 }// 클래스 끝

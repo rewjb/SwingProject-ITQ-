@@ -181,9 +181,6 @@ insert into headFranchise values (아이디,비밀번호,가맹점 대표,전화
 //가맹점의 등록 테이블에 넣는 sql문
 
 
-
-
-
 insert into headvenderp values ('com-AAA',default,'melon',3000);
 insert into headvenderp values ('com-AAA',default,'apple',700);
 insert into headvenderp values ('com-BBB',default,'apple',1500);

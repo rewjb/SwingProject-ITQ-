@@ -86,9 +86,13 @@ public class H_VenderDAO {
 
 	// wonHn
 	// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
-	public H_VenderDTO selectVenderInfo(String input) {
+	public H_VenderDTO selectVenderInfo(String column, String input) {
 		connectDB();
-		sql = "select * from headvender where id=?;";
+		if(column.equals("id")) {
+			sql = "select * from headvender where id=?;";
+		}else if(column.equals("name")) {
+			sql = "select * from headvender where name=?;";
+		}
 		H_VenderDTO vDTO = null;
 		try {
 			ps = con.prepareStatement(sql);

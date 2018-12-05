@@ -5,9 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -15,59 +17,104 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class H_V_Product extends JPanel {
+import DTO_DAO.*;
+
+public class H_V_Product extends JPanel implements ActionListener {
+	// 표에 관련된 부분
+	private DefaultTableModel model = new DefaultTableModel(0, 4);
+	private JTable table = new JTable(model);
+	private JScrollPane scrollPane = new JScrollPane(table);
+	private Object[] column = { "No.", "업체ID", "이름", "가격" };
+
+	// 리벨과 텍스트필드 : 사용자가 입력하고 수정하는 부분
+	private JLabel lbNum;
+	private JTextField tfNum;
+	private JLabel lbId;
+	private JTextField tfId;
+	private JLabel lbName;
+	private JTextField tfName;
+	private JLabel lbMoney;
+	private JTextField tfMoney;
+	private JLabel lbPer;
+	private JTextField tfPer;
+	private JLabel lbPerM;
+	private JTextField tfPerM;
+
+	// 버튼
+	private JButton btAdd;
+	private JButton btModify;
+	private JButton btDelete;
+
+	// 그외
+	Object[] row;
+	H_VenderpDAO pDAO = new H_VenderpDAO(); // DAO
+	H_VenderpDTO pDTO; // DTO
+	H_V_P_worker w = new H_V_P_worker(); // 기능을 넣어놓는 클래스
+
+	// 생성자 constructor
 	public H_V_Product() {
-		
-		DefaultTableModel model = new DefaultTableModel(0, 4);
-		JTable table = new JTable(model);
-		JScrollPane scrollPane = new JScrollPane(table);
-		Object[] column = { "No.", "업체ID", "이름", "가격" };
+		tableSetting();
+		showAll();
+		labelSetting();
+		buttonSetting();
+		mouseAction();
+	}
 
-		JLabel lbNum;
-		JTextField tfNum;
-		JLabel lbId;
-		JTextField tfId;
-		JLabel lbName;
-		JTextField tfName;
-		JLabel lbMoney;
-		JTextField tfMoney;
-
-		JButton btAdd;
-		JButton btUpdate;
-		JButton btDelete;
-		
+	// 표에 관련된 설정사항
+	private void tableSetting() {
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		scrollPane.setBounds(15, 10, 500, 280);
-
+		add(scrollPane);
+		scrollPane.setVisible(true);
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
+	}
 
-		add(scrollPane);
-		scrollPane.setVisible(true);
+	// refresh 표에 전체출력해주는 메서드
+	private void showAll() {
+		tableSetting();
+		ArrayList<H_VenderpDTO> list = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			pDTO = list.get(i);
+			row = new Object[4];
+			row[0] = pDTO.getId();
+			row[1] = pDTO.getNum();
+			row[2] = pDTO.getName();
+			row[3] = pDTO.getMoney();
 
-		lbNum = new JLabel("번호");
-		lbNum.setHorizontalAlignment(SwingConstants.CENTER);
-		lbNum.setBounds(522, 20, 60, 30);
-		add(lbNum);
-		
-		tfNum = new JTextField();
-		tfNum.setColumns(10);
-		tfNum.setBounds(587, 20, 150, 30);
-		add(tfNum);
+			model.addRow(row);
+		}
+		tfId.setText("");
+		tfNum.setText("자동생성");
+		tfNum.setEditable(false);
+		tfName.setText("");
+		tfMoney.setText("");
+	}
 
+	// 라벨 및 텍스트필드 설정사항
+	private void labelSetting() {
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
-		lbId.setBounds(522, 60, 60, 30);
+		lbId.setBounds(522, 20, 60, 30);
 		add(lbId);
 
 		tfId = new JTextField();
 		tfId.setText("combo Box");
-		tfId.setBounds(587, 60, 150, 30);
+		tfId.setBounds(587, 20, 150, 30);
 		add(tfId);
 		tfId.setColumns(10);
 
+		lbNum = new JLabel("번호");
+		lbNum.setHorizontalAlignment(SwingConstants.CENTER);
+		lbNum.setBounds(522, 60, 60, 30);
+		add(lbNum);
+
+		tfNum = new JTextField();
+		tfNum.setColumns(10);
+		tfNum.setBounds(587, 60, 150, 30);
+		add(tfNum);
 
 		lbName = new JLabel("이름");
 		lbName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -80,7 +127,7 @@ public class H_V_Product extends JPanel {
 		tfName.setBounds(587, 100, 150, 30);
 		add(tfName);
 
-		lbMoney = new JLabel("가격");
+		lbMoney = new JLabel("매입가");
 		lbMoney.setHorizontalAlignment(SwingConstants.CENTER);
 		lbMoney.setBounds(522, 140, 60, 30);
 		add(lbMoney);
@@ -90,68 +137,84 @@ public class H_V_Product extends JPanel {
 		tfMoney.setBounds(587, 140, 150, 30);
 		add(tfMoney);
 
-		Object[] row = new Object[4];
+		lbPer = new JLabel("이윤");
+		lbPer.setHorizontalAlignment(SwingConstants.CENTER);
+		lbPer.setBounds(522, 180, 60, 30);
+		add(lbPer);
+		
+		tfPer = new JTextField();
+		tfPer.setColumns(10);
+		tfPer.setBounds(587, 180, 150, 30);
+		add(tfPer);
+		
+		lbPerM = new JLabel("발주가");
+		lbPerM.setHorizontalAlignment(SwingConstants.CENTER);
+		lbPerM.setBounds(522, 180, 60, 30);
+		add(lbPerM);
+				
+		tfPerM = new JTextField();
+		tfPerM.setColumns(10);
+		tfPerM.setBounds(587, 180, 150, 30);
+		add(tfPerM);
+		tfPerM.setText(""+Integer.parseInt(tfMoney.getText())*Integer.parseInt(tfPer.getText()));
+	}
+
+	// 버튼에 관련된 설정사항
+	private void buttonSetting() {
 		btAdd = new JButton("추가");
 		btAdd.setBounds(527, 246, 70, 30);
 		add(btAdd);
-		btAdd.addActionListener(new ActionListener() {
+		btAdd.addActionListener(this);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				row[0] = tfNum.getText();
-				row[1] = tfId.getText();
-				row[2] = tfName.getText();
-				row[3] = tfMoney.getText();
-				
-				model.addRow(row);
-			}
-		});
-		
+		btModify = new JButton("수정");
+		btModify.setBounds(605, 246, 70, 30);
+		add(btModify);
+		btModify.addActionListener(this);
+
+		btDelete = new JButton("삭제");
+		btDelete.setBounds(683, 246, 70, 30);
+		add(btDelete);
+		btDelete.addActionListener(this);
+	}
+
+	// 마우스 액션에 관한 메서드
+	private void mouseAction() {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int i  = table.getSelectedRow();
+				int i = table.getSelectedRow();
 				tfId.setText(model.getValueAt(i, 0).toString());
 				tfNum.setText(model.getValueAt(i, 1).toString());
 				tfName.setText(model.getValueAt(i, 2).toString());
 				tfMoney.setText(model.getValueAt(i, 3).toString());
 			}
 		});
+	}
 
-		btUpdate = new JButton("수정");
-		btUpdate.setBounds(605, 246, 70, 30);
-		add(btUpdate);
-		btUpdate.addActionListener(new ActionListener() {
+	// 버튼 액션에 관한 메서드
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btAdd) {
+			pDTO = new H_VenderpDTO();
+			// id는 자동생성
+			pDTO.setId(tfId.getText());
+			pDTO.setNum(Integer.parseInt(tfName.getText()));
+			pDTO.setName(tfName.getText());
+			pDTO.setMoney(Integer.parseInt(tfMoney.getText()));
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int i = table.getSelectedRow();
-				if(i>=0) {
-					model.setValueAt(tfId.getText(), i, 0);
-					model.setValueAt(tfNum.getText(), i, 1);
-					model.setValueAt(tfName.getText(), i, 2);
-					model.setValueAt(tfMoney.getText(), i, 3);
-				}else {
-					System.out.println("Update Error");
-				}
+			int rs = pDAO.insertVenderpInfo(pDTO);
+			if (rs == 0) {
+				System.out.println("H_Vender insert실패");
+			} else {
+				System.out.println("H_Vender insert성공");
 			}
-		});
+			showAll();
+		}
+		if (e.getSource() == btModify) {
 
-		btDelete = new JButton("삭제");
-		btDelete.setBounds(683, 246, 70, 30);
-		add(btDelete);
-		btDelete.addActionListener(new ActionListener() {
+		}
+		if (e.getSource() == btDelete) {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int i = table.getSelectedRow();
-				if(i>=0){
-					model.removeRow(i);
-				}else {
-					System.out.println("Delete Error");
-				}
-			}
-		});
-
+		}
 	}
 }

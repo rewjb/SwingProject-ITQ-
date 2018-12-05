@@ -156,7 +156,13 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 );
 
-insert into bodyorder values (default,'daum','d-1',1,default,'1','');
+create table asd(
+name varchar(15) not null
+);
+select * from bodyorder;
+select * from asd;
+insert into asd values ("유주빈");
+insert into bodyorder values (default,'안녕?','d-1',1,default,'1','');
 insert into bodyorder values (default,'daum','d-2',12,default,'1','');
 insert into bodyorder values (default,'daum','d-1',13,default,'1','');
 insert into bodyorder values (default,'daum','d-1',14,default,'1','');

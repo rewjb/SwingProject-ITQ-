@@ -273,9 +273,9 @@ public class H_V_Company extends JPanel implements ActionListener {
 			
 			int rs = vDAO.updateVenderInfo(vDTO);
 			if (rs == 0) {
-				System.out.println("update실패");
+				System.out.println("H_Vender update실패");
 			} else {
-				System.out.println("update성공");
+				System.out.println("H_Vender update성공");
 			}
 			showAll();
 		}
@@ -283,9 +283,9 @@ public class H_V_Company extends JPanel implements ActionListener {
 			String id = tfId.getText();
 			int rs = vDAO.deleteVenderInfo(id);
 			if (rs == 0) {
-				System.out.println("delete실패");
+				System.out.println("H_Vender delete실패");
 			} else {
-				System.out.println("delete성공");
+				System.out.println("H_Vender delete성공");
 			}
 			showAll();
 		}

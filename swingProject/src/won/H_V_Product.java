@@ -194,7 +194,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	// 버튼 액션에 관한 메서드
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btAdd) {
+		if (e.getSource() == btAdd) { //add, insert
 			pDTO = new H_VenderpDTO();
 			// id는 자동생성
 			pDTO.setId(tfId.getText());
@@ -204,17 +204,34 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			int rs = pDAO.insertVenderpInfo(pDTO);
 			if (rs == 0) {
-				System.out.println("H_Vender insert실패");
+				System.out.println("H_Venderp insert실패");
 			} else {
-				System.out.println("H_Vender insert성공");
+				System.out.println("H_Venderp insert성공");
 			}
 			showAll();
 		}
-		if (e.getSource() == btModify) {
-
+		if (e.getSource() == btModify) { //modify, update ==> 가격만 수정 가능
+			pDTO = new H_VenderpDTO();
+			pDTO.setNum(Integer.parseInt(tfName.getText()));
+			pDTO.setMoney(Integer.parseInt(tfMoney.getText()));
+			
+			int rs = pDAO.updateVenderpInfo(pDTO);
+			if (rs == 0) {
+				System.out.println("H_Venderp update실패");
+			} else {
+				System.out.println("H_Venderp update성공");
+			}
+			showAll();
 		}
 		if (e.getSource() == btDelete) {
-
+			int num = Integer.parseInt(tfNum.getText());
+			int rs = pDAO.deleteVenderpInfo(num);
+			if (rs == 0) {
+				System.out.println("H_Venderp delete실패");
+			} else {
+				System.out.println("H_Venderp delete성공");
+			}
+			showAll();
 		}
 	}
 }

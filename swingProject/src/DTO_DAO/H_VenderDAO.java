@@ -59,6 +59,7 @@ public class H_VenderDAO {
 			// 4. SQL문 실행 요청
 			rs = ps.executeUpdate();
 		} catch (Exception e) {
+			System.out.println("insertVenderInfo() 오류");
 			e.printStackTrace();
 		}
 		return rs;
@@ -77,7 +78,7 @@ public class H_VenderDAO {
 			
 			rs = ps.executeUpdate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println("updateVenderInfo() 오류");
 			e.printStackTrace();
 		}
 		return rs;
@@ -102,7 +103,8 @@ public class H_VenderDAO {
 				vDTO.setComNum(rs.getString(4));
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("selectVenderInfo() 오류");
+			e.printStackTrace();
 		}
 		return vDTO;
 	}// end selectVenderInfo
@@ -151,6 +153,7 @@ public class H_VenderDAO {
 			ps.setString(1, id);
 			rs = ps.executeUpdate();
 		} catch (Exception e) {
+			System.out.println("deleteVenderInfo() 오류");
 			e.printStackTrace();
 		}
 		return rs;

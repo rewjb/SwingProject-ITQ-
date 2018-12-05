@@ -12,8 +12,8 @@ import DTO_DAO.H_VenderDAO;
 import DTO_DAO.H_VenderDTO;
 
 public class H_V_C_worker {
-	H_VenderDAO vDao = new H_VenderDAO();
-	H_VenderDTO vDto;
+	H_VenderDAO vDAO = new H_VenderDAO();
+	H_VenderDTO vDTO;
 	ArrayList<H_VenderDTO> list = new ArrayList<>();
 
 	private static char id0 = 'A';
@@ -40,12 +40,12 @@ public class H_V_C_worker {
 		}
 		
 		checkInput(name,comNum);
-		vDto.setId(id+id0+id1);
-		vDto.setName(name);
+		vDTO.setId(id+id0+id1);
+		vDTO.setName(name);
 //		vDto.setcomNum(comNum);
-		vDto.setTel(tel);
+		vDTO.setTel(tel);
 		
-		vDao.insertVenderInfo();
-		list = vDao.selectALLVenderInfo();
+		vDAO.insertVenderInfo(vDTO);
+		list = vDAO.selectALLVenderInfo();
 	}
 }

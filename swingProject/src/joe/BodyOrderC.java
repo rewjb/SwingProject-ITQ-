@@ -309,7 +309,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 			for (int i = 0; i < selects.length; i++) {
 				System.out.println(selects[i]);
 				if(model2.getValueAt(selects[i], 4)==null) {
-					                                                                                                                                                                                                                                                                                                             
 				}
 			}
 			

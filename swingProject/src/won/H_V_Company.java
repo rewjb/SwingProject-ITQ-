@@ -26,7 +26,7 @@ import DTO_DAO.*;
 
 public class H_V_Company extends JPanel implements ActionListener {
 	// 표에 관련된 부분
-	private DefaultTableModel model = new DefaultTableModel(0, 4);
+	private DefaultTableModel model;
 	private JTable table = new JTable(model);
 	private JScrollPane scrollPane = new JScrollPane(table);
 	private Object[] column = { "업체ID.", "업체명", "사업자번호", "연락처" };
@@ -63,15 +63,15 @@ public class H_V_Company extends JPanel implements ActionListener {
 
 	// 생성자 construct
 	public H_V_Company() {
-		tableSetting();
-		showAll();
 		labelSetting();
 		buttonSetting();
+		showAll();
 		mouseAction();
 	}
 
 	// 표에 관련된 설정사항
 	private void tableSetting() {
+		model = new DefaultTableModel(0, 4);
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		add(scrollPane);
@@ -84,7 +84,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 	// refresh 표에 전체 출력해주는 메서드
 	private void showAll() {
 		tableSetting();
-		ArrayList<H_VenderDTO> list = new ArrayList<>();
+		ArrayList<H_VenderDTO> list = vDAO.selectALLVenderInfo();
 		for (int i = 0; i < list.size(); i++) {
 			vDTO = list.get(i);
 			row = new Object[4];
@@ -113,22 +113,22 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private void labelSetting() {
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
-		lbId.setBounds(522, 60, 60, 30);
+		lbId.setBounds(522, 20, 60, 30);
 		add(lbId);
 
 		tfId = new JTextField();
-		tfId.setBounds(587, 60, 150, 30);
+		tfId.setBounds(587, 20, 150, 30);
 		add(tfId);
 		tfId.setColumns(10);
 
 		lbName = new JLabel("업체명");
 		lbName.setHorizontalAlignment(SwingConstants.CENTER);
-		lbName.setBounds(522, 20, 60, 30);
+		lbName.setBounds(522, 60, 60, 30);
 		add(lbName);
 
 		tfName = new JTextField();
 		tfName.setColumns(10);
-		tfName.setBounds(587, 20, 150, 30);
+		tfName.setBounds(587, 60, 150, 30);
 		add(tfName);
 
 		lbCNum0 = new JLabel("사업자번호");
@@ -244,10 +244,12 @@ public class H_V_Company extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btAdd) { //add, insert
-			if(w.checkInput(tfName.getText())) {
+//			if(w.checkInput(tfName.getText())) {
 				vDTO = new H_VenderDTO();	
 				//id는 자동생성
-				vDTO.setId(w.makeId(id));
+				String setId = w.makeId(id);
+				vDTO.setId(setId);
+//				vDTO.setId(tfId.getText());
 				vDTO.setName(tfName.getText());
 				String tel = tfTel0.getText()+"-"+tfTel1.getText()+"-"+tfTel2.getText();
 				vDTO.setTel(tel);
@@ -263,7 +265,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 				showAll();
 			}else {
 				JOptionPane.showMessageDialog(null, "업체명 중복!");
-			}
+//			}
 		}
 		if (e.getSource() == btModify) { //modify, update
 			vDTO = new H_VenderDTO();

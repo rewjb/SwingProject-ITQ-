@@ -48,7 +48,7 @@ public class H_VenderDAO {
 	public int insertVenderInfo(H_VenderDTO vDTO) {
 		connectDB();
 		int rs = 0;
-		sql = "INSERT INTO headvender VLAUES(?,?,?,?);";
+		sql = "INSERT INTO headvender VALUES(?,?,?,?);";
 		try {
 			// 3. SQL문 객체화
 			ps = con.prepareStatement(sql);

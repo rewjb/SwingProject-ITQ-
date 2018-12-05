@@ -34,10 +34,10 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JTextField tfName;
 	private JLabel lbMoney;
 	private JTextField tfMoney;
-	private JLabel lbPer;
-	private JTextField tfPer;
-	private JLabel lbPerM;
-	private JTextField tfPerM;
+//	private JLabel lbPer;
+//	private JTextField tfPer;
+//	private JLabel lbPerM;
+//	private JTextField tfPerM;
 
 	// 버튼
 	private JButton btAdd;
@@ -85,11 +85,11 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			model.addRow(row);
 		}
-		tfId.setText("");
-		tfNum.setText("자동생성");
-		tfNum.setEditable(false);
-		tfName.setText("");
-		tfMoney.setText("");
+//		tfId.setText("");
+//		tfNum.setText("자동생성");
+//		tfNum.setEditable(false);
+//		tfName.setText("");
+//		tfMoney.setText("");
 	}
 
 	// 라벨 및 텍스트필드 설정사항
@@ -136,26 +136,26 @@ public class H_V_Product extends JPanel implements ActionListener {
 		tfMoney.setBounds(587, 140, 150, 30);
 		add(tfMoney);
 
-		lbPer = new JLabel("이윤");
-		lbPer.setHorizontalAlignment(SwingConstants.CENTER);
-		lbPer.setBounds(522, 180, 60, 30);
-		add(lbPer);
-		
-		tfPer = new JTextField();
-		tfPer.setColumns(10);
-		tfPer.setBounds(587, 180, 150, 30);
-		add(tfPer);
-		
-		lbPerM = new JLabel("발주가");
-		lbPerM.setHorizontalAlignment(SwingConstants.CENTER);
-		lbPerM.setBounds(522, 180, 60, 30);
-		add(lbPerM);
-				
-		tfPerM = new JTextField();
-		tfPerM.setColumns(10);
-		tfPerM.setBounds(587, 180, 150, 30);
-		add(tfPerM);
-		tfPerM.setText(""+Integer.parseInt(tfMoney.getText())*Integer.parseInt(tfPer.getText()));
+//		lbPer = new JLabel("이윤");
+//		lbPer.setHorizontalAlignment(SwingConstants.CENTER);
+//		lbPer.setBounds(522, 180, 60, 30);
+//		add(lbPer);
+//		
+//		tfPer = new JTextField();
+//		tfPer.setColumns(10);
+//		tfPer.setBounds(587, 180, 150, 30);
+//		add(tfPer);
+//		
+//		lbPerM = new JLabel("발주가");
+//		lbPerM.setHorizontalAlignment(SwingConstants.CENTER);
+//		lbPerM.setBounds(522, 180, 60, 30);
+//		add(lbPerM);
+//				
+//		tfPerM = new JTextField();
+//		tfPerM.setColumns(10);
+//		tfPerM.setBounds(587, 180, 150, 30);
+//		add(tfPerM);
+//		tfPerM.setText(""+Integer.parseInt(tfMoney.getText())*Integer.parseInt(tfPer.getText()));
 	}
 
 	// 버튼에 관련된 설정사항

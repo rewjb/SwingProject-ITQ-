@@ -158,9 +158,8 @@ public class B_OrderDAO {
 		try {
 			connectDB();
 			sql = "insert into bodyorder value (default,?,?,?,default,'','')";
-
 			ps = con.prepareStatement(sql);
-
+			
 			ps.setString(1, id);
 			ps.setString(2, name);
 			ps.setInt(3, quantity);

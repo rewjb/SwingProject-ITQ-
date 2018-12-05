@@ -109,6 +109,7 @@ show tables;
 ----- 전체 테이블 삭제--------
 select * from bodyorder;
 select * from bodystock;
+select * from bodysales;
 select * from bodysales  order by date desc; 
 특정 날짜 + 날짜를 내림차순으로 전체 가져오기
 SELECT id,name FROM headvender;

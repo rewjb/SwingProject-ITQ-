@@ -69,6 +69,7 @@ id varchar(10) not null,
 num int auto_increment unique,
 name varchar(10) not null,  
 money int,
+이익률 
 foreign key (id) references headvender(id) on delete cascade
 );
 

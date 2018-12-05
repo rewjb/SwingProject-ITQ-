@@ -51,7 +51,7 @@ pw varchar(10) not null,
 ownername varchar(10) not null,
 tel varchar(15) not null,
 comnum varchar(15) not null,
-addr varchar(50) unique not null,
+addr varchar(50) not null,
 alias varchar(20) not null
 );
 -----------상단은 이미 함-----------

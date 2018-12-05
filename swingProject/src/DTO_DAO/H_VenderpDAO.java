@@ -128,8 +128,8 @@ public class H_VenderpDAO {
 			}//end while
 		} catch (Exception e) {
 			System.out.println("selectALLVenderpInfo() 오류");
-		}
-
+			e.printStackTrace();
+		}//end try catch
 		return list;
 	}// end selectALLVenderpInfo
 

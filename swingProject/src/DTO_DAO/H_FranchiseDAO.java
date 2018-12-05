@@ -75,8 +75,25 @@ public class H_FranchiseDAO {
 	
 	// wonHn
 	//가맹점 정보 입력메서드
-	public void insertFranchiseInfo() {		
+	public int insertFranchiseInfo(H_FranchiseDTO fDTO) {		
 		connectDB();
+		int rs = 0;
+		sql = "INSERT INTO headfranchise VALUES( ?,?, ?,?, ?,?, ?);";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, fDTO.getId());
+			ps.setString(2, fDTO.getPw());
+			ps.setString(3, fDTO.getOwnername());
+			ps.setString(4, fDTO.getTel());
+			ps.setString(5, fDTO.getComnum());
+			ps.setString(6, fDTO.getAddr());
+			ps.setString(7, fDTO.getAlias());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return rs;
+		
 	//	sql = "insert into headfranchise values ('"+ id +"','" + pw + "','"+ ownername 
 	//				+ "','" + tel + "','" + comnum + "','"+ addr + "','" + alias + "');";					
 	}//end insertFranchiseInfo()

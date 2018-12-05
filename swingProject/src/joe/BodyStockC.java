@@ -36,12 +36,17 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 			return false;
 		};
 	};
-	private JTable listTable1 = new JTable(model1);
-//	{
-//		public boolean isCellEditable(int row, int column) {
-//			return false;
-//		};
-//	};
+	private JTable listTable1 = new JTable(model1)
+	{
+		public boolean isCellEditable(int row, int column) {
+			if (column==0) {
+				return false;
+			} else {
+				return true;
+			}
+			
+		};
+	};
 
 	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -52,15 +57,18 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 
 	String id = "조광재";
 	private final JLabel lblNewLabel = new JLabel("\uBBF8\uD655\uC778\uC7AC\uACE0 \uAD00\uB9AC");
-	private final JLabel label = new JLabel("\uD655\uC778\uC7AC\uACE0 \uAD00\uB9AC");
+	private final JLabel label = new JLabel("\uD1B5\uD569\uC7AC\uACE0 \uAD00\uB9AC");
 
 	public BodyStockC() {
+//		for (int i = 0; i < model1.getRowCount(); i++) { 잘모르겠다.
+//			listTable1.isCellEditable(i, 1);
+//	}
 		setLayout(null);
 		setSize(781, 360);
 		setBackground(Color.BLUE);
 
 		button = new JButton("미확인 재고");
-		button_1 = new JButton("확인 재고");
+		button_1 = new JButton("\uD1B5\uD569 \uC7AC\uACE0");
 
 		button.setBounds(47, 309, 107, 35);
 		button_1.setBounds(443, 309, 101, 34);
@@ -74,7 +82,7 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 		listTable1.getTableHeader().setReorderingAllowed(false);
 		model1.setColumnIdentifiers(new Object[] { "식자재", "수량" });
 
-		
+	
 		button_2 = new JButton("\uD655\uC778");
 		button_2.setBounds(193, 309, 107, 35);
 

@@ -30,7 +30,8 @@ import javax.swing.JPanel;
 // 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
 public class BodyFrame extends JFrame implements BBQBody, ActionListener {
-
+	
+	
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
 	JToggleButton StockBtn = new JToggleButton("재고관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");

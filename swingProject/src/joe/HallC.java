@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.B_OrderDAO;
 import DTO_DAO.B_SalesDAO;
+import DTO_DAO.B_StockDAO;
 import inter.BBQBody;
 import inter.BodyHall;
 import javax.swing.JLabel;
@@ -140,7 +141,14 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	Object temp = null;
 
 	//메뉴별로 가격을 담아둘 변수
+	int chickenF = 0;
+	int chickenH = 0;
+	int chickenS = 0;
+	int side = 0;
+	int priceSum = 0;
+	int chickenSum;
 	
+	int count;
 
 	
 	String[] menu = new String[] { "후라이드", "양념", "간장", "음료" };
@@ -194,7 +202,6 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 		jframe.setVisible(false);
 
-		//bg = new ButtonGroup();
 
 		button1 = new JButton("계산");
 		button1.setBounds(68, 166, 60, 24);
@@ -232,22 +239,16 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 		model5.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 5번테이블 컬럼
 		model6.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 6번테이블 컬럼
 
-		//bg.add(jb);
-		//bg.add(jb1);
 		add(jb4);
 		add(jb5);
 		add(scroll1);
-		//bg.add(jb2);
 		add(jb3);
 		add(scroll3);
 		add(scroll2);
-		//bg.add(jb3);
 		add(jb2);
 		add(scroll4);
-		//bg.add(jb4);
 		add(jb1);
 		add(scroll5);
-		//bg.add(jb5);
 		add(jb);
 		add(scroll6);
 		add(button1);
@@ -279,15 +280,6 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// System.out.println((String)combo.getSelectedItem());콤보박스 선택값 출력
-		int chickenF = 0;
-		int chickenH = 0;
-		int chickenS = 0;
-		int side = 0;
-		int PriceSum = chickenS + chickenH + chickenS + side;
-		
-		int count=0;
-		
-		
 		
 		if (e.getSource() == jb) {
 			jframe.setVisible(true);
@@ -319,43 +311,53 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				JOptionPane.showMessageDialog(null, "주문목록이 없습니다.");
 			}else {
 				while (true) {
-
 					DefaultTableModel temp2 = key.get(temp);
 					temp2.insertRow(0, new Object[] { model.getValueAt(0, 0), model.getValueAt(0, 1) });
 					model.removeRow(0);
-
 					
 					if (model.getValueAt(0, 0) == null) {
 						break;
 					}
-					
 				}
 			}
 
 		} else if (e.getSource() == button1) {// 1번테이블 계산
+			
 			for (int i = 0; i >= 0; i++) {
 				if (model1.getValueAt(0, 0) == null) {
 					count = 0;
 					break;
 				}
-				int cPrice = Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
-				int sPrice = Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 2000;
-
 				if (model1.getValueAt(i-count, 0).equals("후라이드")) {
-					chickenF += cPrice;
+					chickenF += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model1.getValueAt(i-count, 0).equals("양념")) {
-					chickenH += cPrice;
+					chickenH += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model1.getValueAt(i-count, 0).equals("간장")) {
-					chickenS += cPrice;
+					chickenS += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model1.getValueAt(i-count, 0).equals("음료")) {
-					side += sPrice;
+					side += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 2000;
+					priceSum += side;
 				}
 				model1.removeRow(i-count);
 				count++;
 			}
-			if(PriceSum!=0) {
-			B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
+			if (priceSum!=0) {
+				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				priceSum = 0;
+				chickenSum = 0;
+				chickenF = 0;
+				chickenH = 0;
+				chickenS = 0;
+				side = 0;
 			}
+
 		} else if (e.getSource() == button2) {// 2번테이블 계산
 			for (int i = 0; i >= 0; i++) {
 				if (model2.getValueAt(0, 0) == null) {
@@ -365,19 +367,34 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 				if (model2.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model2.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model2.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenS;
+					chickenSum += chickenS; 
 				} else if (model2.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 2000;
+					priceSum += side;
 				}
 				model2.removeRow(i-count);
 				count++;
 			}
-			if(PriceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
-				}
+			if (priceSum!=0) {
+				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
+				priceSum = 0;
+				chickenF = 0;
+				chickenH = 0;
+				chickenS = 0;
+				side = 0;
+			}
+
 		} else if (e.getSource() == button3) {// 3번테이블 계산
 			for (int i = 0; i >= 0; i++) {
 				if (model3.getValueAt(0, 0) == null) {
@@ -387,19 +404,33 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 				if (model3.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model3.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model3.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model3.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 2000;
+					priceSum += side;
 				}
 				model3.removeRow(i-count);
 				count++;
 			}
-			if(PriceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
-				}
+			if (priceSum!=0) {
+				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
+				priceSum = 0;
+				chickenF = 0;
+				chickenH = 0;
+				chickenS = 0;
+				side = 0;
+			}
 		} else if (e.getSource() == button4) {// 4번테이블 계산
 			for (int i = 0; i >= 0; i++) {
 				if (model4.getValueAt(0, 0) == null) {
@@ -409,19 +440,33 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 				if (model4.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model4.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model4.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model4.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 2000;
+					priceSum += side;
 				}
 				model4.removeRow(i-count);
 				count++;
 			}
-			if(PriceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
-				}
+			if (priceSum!=0) {
+				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
+				priceSum = 0;
+				chickenF = 0;
+				chickenH = 0;
+				chickenS = 0;
+				side = 0;
+			}
 		} else if (e.getSource() == button5) {// 5번테이블 계산
 			for (int i = 0; i >= 0; i++) {
 				if (model5.getValueAt(0, 0) == null) {
@@ -431,19 +476,33 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 				if (model5.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model5.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model5.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model5.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 2000;
+					priceSum += side;
 				}
 				model5.removeRow(i-count);
 				count++;
 			}
-			if(PriceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
-				}
+			if (priceSum!=0) {
+				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
+				priceSum = 0;
+				chickenF = 0;
+				chickenH = 0;
+				chickenS = 0;
+				side = 0;
+			}
 		} else if (e.getSource() == button6) {// 6번테이블 계산
 			for (int i = 0; i >= 0; i++) {
 				if (model6.getValueAt(i-count, 0) == null) {
@@ -453,19 +512,33 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 				if (model6.getValueAt(i-count, 0).equals("후라이드")) {
 					chickenF += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenF;
+					chickenSum += chickenF;
 				} else if (model6.getValueAt(i-count, 0).equals("양념")) {
 					chickenH += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenH;
+					chickenSum += chickenH;
 				} else if (model6.getValueAt(i-count, 0).equals("간장")) {
 					chickenS += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
+					priceSum += chickenS;
+					chickenSum += chickenS;
 				} else if (model6.getValueAt(i-count, 0).equals("음료")) {
 					side += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 2000;
+					priceSum += side;
 				}
 				model6.removeRow(i-count);
 				count++;
 			}
-			if(PriceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, PriceSum, chickenF, chickenH, chickenS, side);
-				}
+			if (priceSum!=0) {
+				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				chickenSum = 0;
+				priceSum = 0;
+				chickenF = 0;
+				chickenH = 0;
+				chickenS = 0;
+				side = 0;
+			}
 		} else if (e.getSource() == button7) {// 선택하기 버튼 누를시
 			if(!(textfiled.getText().equals(""))) {
 			model.insertRow(0, new Object[] { (String) combo.getSelectedItem(), textfiled.getText() });

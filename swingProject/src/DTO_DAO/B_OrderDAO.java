@@ -52,7 +52,7 @@ public class B_OrderDAO {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, uniqueNum);
 			ps.executeUpdate();
-			
+
 			ps.close();
 			con.close();
 		} catch (Exception e) {
@@ -60,7 +60,6 @@ public class B_OrderDAO {
 		}
 	}// checkUpdate:메서드 종료
 
-	
 	public ArrayList<B_OrderDTO> selectAllPlusAlias() {
 		ArrayList<B_OrderDTO> orderlist = new ArrayList<>();
 		ResultSet rs = null;
@@ -102,7 +101,7 @@ public class B_OrderDAO {
 		}
 		return orderlist;
 	}
-	
+
 	// 가맹점에서 사용할 select문 담당자 : 조광재
 	public ArrayList<B_OrderDTO> selectAll() {
 		ArrayList<B_OrderDTO> orderlist = new ArrayList<>();
@@ -159,9 +158,8 @@ public class B_OrderDAO {
 		try {
 			connectDB();
 			sql = "insert into bodyorder value (default,?,?,?,default,'','')";
-
 			ps = con.prepareStatement(sql);
-
+			
 			ps.setString(1, id);
 			ps.setString(2, name);
 			ps.setInt(3, quantity);
@@ -288,8 +286,7 @@ public class B_OrderDAO {
 
 			rn = ps.executeUpdate();
 			System.out.println("가맹점확인 업데이트 체크 : " + rn);
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -300,30 +297,24 @@ public class B_OrderDAO {
 			}
 		}
 	}
-	
+
 	public void orderDelete(int num) {
-	int rn = 0;
+		int rn = 0;
 		try {
+			System.out.println("d");
 			connectDB();
 			sql = "delete from bodyorder where num = " + num + "";
 			ps = con.prepareStatement(sql);
+			System.out.println(ps);
 			rn = ps.executeUpdate();
 			System.out.println("딜리트 확인" + rn);
-			
+			con.close();
+			ps.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
+
 		}
-		
-		
-		
 	}
-	
-	
-	
+
 }// 클래스 끝

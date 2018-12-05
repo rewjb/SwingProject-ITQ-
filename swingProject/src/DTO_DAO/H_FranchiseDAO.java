@@ -75,45 +75,118 @@ public class H_FranchiseDAO {
 	
 	// wonHn
 	//가맹점 정보 입력메서드
-	public void insertFranchiseInfo() {		
+	public int insertFranchiseInfo(H_FranchiseDTO fDTO) {		
 		connectDB();
-	//	sql = "insert into headfranchise values ('"+ id +"','" + pw + "','"+ ownername 
-	//				+ "','" + tel + "','" + comnum + "','"+ addr + "','" + alias + "');";					
+		int rs = 0;
+		sql = "INSERT INTO headfranchise VALUES( ?,?, ?,?, ?,?, ?);";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, fDTO.getId());
+			ps.setString(2, fDTO.getPw());
+			ps.setString(3, fDTO.getOwnername());
+			ps.setString(4, fDTO.getTel());
+			ps.setString(5, fDTO.getComnum());
+			ps.setString(6, fDTO.getAddr());
+			ps.setString(7, fDTO.getAlias());
+			
+			rs = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("insertFranchiseInfo() 오류");
+			e.printStackTrace();
+		}
+		return rs;
 	}//end insertFranchiseInfo()
 
 	// wonHn
 	//가맹점 정보 수정메서드 : 전화번호와 가맹점주 이름만 변경 가능합니다.
-	//	*입력값을 어떻게 구분할껀지 정해야함*
-	public void updateFranchiseInfo() {		
+	public int updateFranchiseInfo(H_FranchiseDTO fDTO) {		
 		connectDB();
-	//	sql = "update headfranchise set ownername='" + ownerName + "' where id = '"+ id +"';";	
-	//	sql = "update headfranchise set tel='" + tel + "' where id = '"+ id +"';";	
-	//	sql = "update headfranchise set ownername='" + ownerName + "' tel='" + tel
-	//												+ "' where id = '"+아이디+"';";	
-	}//end insertFranchiseInfo()
+		int rs = 0;
+		sql = "UPDATE headfranchise SET ownername = ? , tel = ? WHERE id = ?;";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, fDTO.getOwnername());
+			ps.setString(2, fDTO.getTel());
+			ps.setString(3, fDTO.getId());
+		}catch (Exception e) {
+			System.out.println("updateFranchiseInfo 오류");
+			e.printStackTrace();
+		}
+	return rs;
+	}//end updateFranchiseInfo()
 	
 	// wonHn
 	//가맹점정보 한줄 출력메서드 
-	public void selectFranchiseInfo() {		
+	public H_FranchiseDTO selectFranchiseInfo(String id) {		
 		connectDB();
-	//	sql = "select * from headfranchise where id'" + id + "';";
+		sql = "select * from headfranchise where id = ?;";
+		H_FranchiseDTO fDTO = null;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				fDTO = new H_FranchiseDTO();
+				fDTO.setId(rs.getString(1));
+				fDTO.setPw(rs.getString(2));
+				fDTO.setOwnername(rs.getString(3));
+				fDTO.setTel(rs.getString(4));
+				fDTO.setComnum(rs.getString(5));
+				fDTO.setAddr(rs.getString(6));
+				fDTO.setAlias(rs.getString(7));
+			}//end while
+		} catch (Exception e) {
+			System.out.println("selectFranchiseInfo() 오류");
+			e.printStackTrace();
+		}
+		return fDTO;
 	}//end selectFranchiseInfo()
 	
 	// wonHn
 	//가맹점 정보 전체 출력메서드
-	public void selectALLFranchiseInfo() {	
+	public ArrayList<H_FranchiseDTO> selectALLFranchiseInfo() {	
 		connectDB();
-	//	sql = "select * from headfranchise;";
+		H_FranchiseDTO fDTO = null;
+		ArrayList<H_FranchiseDTO> list = new ArrayList<>();
+		sql = "SELECT * FROM headfranchise;";
+		try {
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				fDTO = new H_FranchiseDTO();
+				fDTO.setId(rs.getString(1));
+				fDTO.setPw(rs.getString(2));
+				fDTO.setOwnername(rs.getString(3));
+				fDTO.setTel(rs.getString(4));
+				fDTO.setComnum(rs.getString(5));
+				fDTO.setAddr(rs.getString(6));
+				fDTO.setAlias(rs.getString(7));
+				
+				list.add(fDTO);
+			}//end while
+		} catch (Exception e) {
+			System.out.println("selectALLFranchiseInfo() 오류");
+			e.printStackTrace();
+		}
+		return list;
 	}//end selectALLFranchiseInfo
 	
 	// wonHn
 	//가맹점 정보 삭제메서드
-	public void deleteFranchiseInfo() {		
+	public int deleteFranchiseInfo(String id) {		
 		connectDB();
-	//	sql = "delete from headmember where id='" + id + "';"	
+		int rs = 0;
+		sql = "DELETE FROM headfranchise WHERE id = ?;";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeUpdate();
+		}catch (Exception e) {
+			System.out.println("deleteFranchiseInfo() 오류");
+			e.printStackTrace();
+		}
+		
+		return rs;
 	}//end deleteFranchiseInfo()
-	
-	
-	
 
 }

@@ -35,17 +35,11 @@ public class H_VenderDTO {
 	
 	
 	
-	//수정확인중.... 20181203
 	//default 생성자
 	public H_VenderDTO() {
-
 	}
 	
 	//모든 값을 받는 생성자.
-	
-	
-
-	
 	public H_VenderDTO(String id, String name, String tel, String comNum) {
 		super();
 		this.id = id;

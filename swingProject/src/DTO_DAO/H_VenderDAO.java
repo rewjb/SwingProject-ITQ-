@@ -9,10 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import com.mysql.jdbc.Statement;
 
 public class H_VenderDAO {
 	private String url = "jdbc:mysql://localhost:3306/bbq";
@@ -46,24 +45,72 @@ public class H_VenderDAO {
 
 	// wonHn
 	// 업체정보 입력메서드
-	public void insertVenderInfo() {
+	public int insertVenderInfo(H_VenderDTO vDTO) {
 		connectDB();
-		// sql = "insert into headvender values ('" + id + "', '" + name + "', '" + tel
-		// +"');";
+		int rs = 0;
+		sql = "INSERT INTO headvender VALUES(?,?,?,?);";
+		try {
+			// 3. SQL문 객체화
+			ps = con.prepareStatement(sql);
+			ps.setString(1, vDTO.getId());
+			ps.setString(2, vDTO.getName());
+			ps.setString(3, vDTO.getTel());
+			ps.setString(4, vDTO.getComNum());
+			// 4. SQL문 실행 요청
+			rs = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("insertVenderInfo() 오류");
+			e.printStackTrace();
+		}
+		return rs;
 	}// end insertVenderInfo()
 
 	// wonHn
 	// 업체정보 수정 메서드 : 전화번호만 수정할예정입니다.
-	public void updateVenderInfo() {
+	public int updateVenderInfo(H_VenderDTO vDTO) {
 		connectDB();
-		// sql = "update headvender set tel='" + tel + "' where id = '"+ id +"';";
+		int rs = 0;
+		sql = "UPDATE headvender SET tel = ? WHERE id = ?;";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, vDTO.getTel());
+			ps.setString(2, vDTO.getId());
+			
+			rs = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("updateVenderInfo() 오류");
+			e.printStackTrace();
+		}
+		return rs;
 	}// end updateVenderInfo()
 
 	// wonHn
 	// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
-	public void selectVenderInfo() {
+	public H_VenderDTO selectVenderInfo(String column, String input) {
 		connectDB();
-		// sql = "select * from headvender where id='" + id + "';"
+		if(column.equals("id")) {
+			sql = "select * from headvender where id=?;";
+		}else if(column.equals("name")) {
+			sql = "select * from headvender where name=?;";
+		}
+		H_VenderDTO vDTO = null;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, input);
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				vDTO = new H_VenderDTO();
+				vDTO.setId(rs.getString(1));
+				vDTO.setName(rs.getString(2));
+				vDTO.setTel(rs.getString(3));
+				vDTO.setComNum(rs.getString(4));
+			}
+		} catch (Exception e) {
+			System.out.println("selectVenderInfo() 오류");
+			e.printStackTrace();
+		}
+		return vDTO;
 	}// end selectVenderInfo
 
 	// 이름을 오름차순으로 모든 벤더정보를 갖고오는 메서드입니다.
@@ -83,8 +130,8 @@ public class H_VenderDAO {
 				venderDTO = new H_VenderDTO();
 				venderDTO.setId(result.getString(1));
 				venderDTO.setName(result.getString(2));
-				venderDTO.setComNum(result.getString(3));
 				venderDTO.setTel(result.getString(4));
+				venderDTO.setComNum(result.getString(3));
 				list.add(venderDTO);
 			} // list에 DTO 넣기
 
@@ -100,10 +147,19 @@ public class H_VenderDAO {
 
 	// wonHn
 	// 업체정보 삭제 메서드
-	public void deleteVenderInfo() {
+	public int deleteVenderInfo(String id) {
 		connectDB();
-		// sql = "delete from headmember where id='" + id + "';"
-
+		int rs = 0;
+		sql = "DELETE FROM headvender WHERE id = ?;";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("deleteVenderInfo() 오류");
+			e.printStackTrace();
+		}
+		return rs;
 	}// end deleteVenderInfo
 
 }// 클래스 종료

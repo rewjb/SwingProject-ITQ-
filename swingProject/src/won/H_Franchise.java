@@ -49,7 +49,7 @@ public class H_Franchise extends JPanel implements HeadFranchise {
 			public void actionPerformed(ActionEvent e) {
 //				새로 창을 띄워서 연결...
 //				row[0] = "가맹점ID";
-//				row[1] = "pw";
+//				row[1] = "pw";S
 //				row[2] = "점주명";
 //				String s = "연락처0" + "연락처1" + "연락처2";
 //				row[3] = s;

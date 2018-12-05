@@ -66,6 +66,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	private JButton bt4;// 발주목록 지우기 버튼
 	private JButton bt5;// 발주 하기전 목록 전체 지우기
 	private JButton btJego;// 재고 목록
+	private JButton btDelete;
 
 	private JComboBox jCom;// 토글버튼의 기능을 사용할 수 있게 해주는 버튼 그룹
 	private JTextField jf;
@@ -85,6 +86,9 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	// private DefaultTableCellRenderer celAlignCenter = new
 	// DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
+	
+	
+	  
 
 	public BodyOrderC() {// 생성자
 
@@ -148,12 +152,12 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 		bt3 = new JButton("\uBC1C\uC8FC \uBAA9\uB85D");
 		bt3.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		bt3.setBounds(299, 340, 106, 23);
+		bt3.setBounds(253, 340, 103, 23);
 		add(bt3);
 
 		bt4 = new JButton("\uBAA9\uB85D \uC9C0\uC6B0\uAE30");
 		bt4.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		bt4.setBounds(417, 340, 113, 23);
+		bt4.setBounds(355, 340, 110, 23);
 		add(bt4);
 
 		bt5 = new JButton("\uBAA9\uB85D\uC9C0\uC6B0\uAE30");
@@ -165,6 +169,11 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		btJego.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		btJego.setBounds(642, 340, 113, 23);
 		add(btJego);
+		
+		btDelete = new JButton("\uBC1C\uC8FC \uCDE8\uC18C");
+		btDelete.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		btDelete.setBounds(465, 340, 103, 23);
+		add(btDelete);
 
 		bt.addActionListener(this);
 		bt1.addActionListener(this);
@@ -173,6 +182,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		bt4.addActionListener(this);
 		bt5.addActionListener(this);
 		btJego.addActionListener(this);
+		btDelete.addActionListener(this);
 
 		label = new JLabel("\uBC1C\uC8FC");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -185,6 +195,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		label_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
 		label_1.setBounds(381, 51, 57, 20);
 		add(label_1);
+		
 
 		setVisible(false);
 	}
@@ -293,7 +304,16 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 				
 			}
 			
-
+		} else if (e.getSource() == btDelete) {//발주취소 버튼 작업중
+			int[] selects =  listTable2.getSelectedRows();
+			for (int i = 0; i < selects.length; i++) {
+				System.out.println(selects[i]);
+				if(model2.getValueAt(selects[i], 4)==null) {
+					                                                                                                                                                                                                                                                                                                             
+				}
+			}
+			
+			
 		}
 	}// 액션 리스터 끝
 }// 클래스끝

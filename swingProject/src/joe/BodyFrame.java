@@ -124,7 +124,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
 	}// actionPerformed 메서드 끝
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		new BodyFrame();
 	}// main 메서드 종료
 

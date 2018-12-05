@@ -301,12 +301,14 @@ public class B_OrderDAO {
 		}
 	}
 	
-	public void orderDelete() {
+	public void orderDelete(int num) {
+	int rn = 0;
 		try {
 			connectDB();
-			sql = " ";
-			
-			
+			sql = "delete from bodyorder where num = " + num + "";
+			ps = con.prepareStatement(sql);
+			rn = ps.executeUpdate();
+			System.out.println("딜리트 확인" + rn);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

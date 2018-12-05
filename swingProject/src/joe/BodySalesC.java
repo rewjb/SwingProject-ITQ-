@@ -2,6 +2,7 @@ package joe;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,6 +11,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.B_SalesDAO;
+import DTO_DAO.B_SalesDTO;
 import DTO_DAO.B_StockDAO;
 import inter.BBQBody;
 import inter.BodySales;
@@ -173,58 +175,27 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		
+		
 		if (e.getSource() == btnNewButton_1) {
-
+			int size = B_SalesDAO.getInstance().menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText()).size();
+			 ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance().menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText());
 			if (model.getValueAt(0, 0) == null) {
 
-				for (int j = 0; j < B_SalesDAO.getInstance()
-						.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-						.size(); j++) {
-					if (!(B_SalesDAO.getInstance()
-							.menuAllSelect(
-									textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-							.get(j).getChickenF() == 0)) {
-						model.insertRow(0, new Object[] { "후라이드", (B_SalesDAO.getInstance()
-								.menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-								.get(j).getChickenF()) / 20000,
-								B_SalesDAO.getInstance()
-										.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-"
-												+ textField_2.getText())
-										.get(j).getChickenF(),
-								B_SalesDAO.getInstance().menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-										.get(j).getDate() });
-					} else if (!(B_SalesDAO.getInstance()
-							.menuAllSelect(
-									textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-							.get(j).getChickenH() == 0)) {
-						model.insertRow(0, new Object[] { "양념", (B_SalesDAO.getInstance()
-								.menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-								.get(j).getChickenH()) / 20000,
-								B_SalesDAO.getInstance()
-										.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-"
-												+ textField_2.getText())
-										.get(j).getChickenH(),
-								B_SalesDAO.getInstance().menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-										.get(j).getDate() });
-					} else if (!(B_SalesDAO.getInstance()
-							.menuAllSelect(
-									textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-							.get(j).getChickenS() == 0)) {
-						model.insertRow(0, new Object[] { "간장", (B_SalesDAO.getInstance()
-								.menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-								.get(j).getChickenS()) / 20000,
-								B_SalesDAO.getInstance()
-										.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-"
-												+ textField_2.getText())
-										.get(j).getChickenS(),
-								B_SalesDAO.getInstance().menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-										.get(j).getDate() });
+				for (int j = 0; j < size; j++) {
+					if (!(salesDTO.get(j).getChickenF() == 0)) {
+						model.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
+								salesDTO.get(j).getChickenF(),
+								salesDTO.get(j).getDate()});
+					} else if (!(salesDTO.get(j).getChickenH() == 0)) {
+						model.insertRow(0, new Object[] { "양념", (salesDTO.get(j).getChickenH()) / 20000,
+								salesDTO.get(j).getChickenH(),
+								salesDTO.get(j).getDate()});
+					} else if (!(salesDTO.get(j).getChickenS() == 0)) {
+						model.insertRow(0, new Object[] { "간장", (salesDTO.get(j).getChickenS()) / 20000,
+								salesDTO.get(j).getChickenS(),
+								salesDTO.get(j).getDate()});
 					}
 
 				}
@@ -233,54 +204,19 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 					model.removeRow(0);
 				}
 
-				for (int j = 0; j < B_SalesDAO.getInstance()
-						.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-						.size(); j++) {
-					if (!(B_SalesDAO.getInstance()
-							.menuAllSelect(
-									textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-							.get(j).getChickenF() == 0)) {
-						model.insertRow(0, new Object[] { "후라이드", (B_SalesDAO.getInstance()
-								.menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-								.get(j).getChickenF()) / 20000,
-								B_SalesDAO.getInstance()
-										.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-"
-												+ textField_2.getText())
-										.get(j).getChickenF(),
-								B_SalesDAO.getInstance().menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-										.get(j).getDate() });
-					} else if (!(B_SalesDAO.getInstance()
-							.menuAllSelect(
-									textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-							.get(j).getChickenH() == 0)) {
-						model.insertRow(0, new Object[] { "양념", (B_SalesDAO.getInstance()
-								.menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-								.get(j).getChickenH()) / 20000,
-								B_SalesDAO.getInstance()
-										.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-"
-												+ textField_2.getText())
-										.get(j).getChickenH(),
-								B_SalesDAO.getInstance().menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-										.get(j).getDate() });
-					} else if (!(B_SalesDAO.getInstance()
-							.menuAllSelect(
-									textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-							.get(j).getChickenS() == 0)) {
-						model.insertRow(0, new Object[] { "간장", (B_SalesDAO.getInstance()
-								.menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-								.get(j).getChickenS()) / 20000,
-								B_SalesDAO.getInstance()
-										.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-"
-												+ textField_2.getText())
-										.get(j).getChickenS(),
-								B_SalesDAO.getInstance().menuAllSelect(
-										textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText())
-										.get(j).getDate() });
+				for (int j = 0; j < size; j++) {
+					if (!(salesDTO.get(j).getChickenF() == 0)) {
+						model.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
+								salesDTO.get(j).getChickenF(),
+								salesDTO.get(j).getDate()});
+					} else if (!(salesDTO.get(j).getChickenH() == 0)) {
+						model.insertRow(0, new Object[] { "양념", (salesDTO.get(j).getChickenH()) / 20000,
+								salesDTO.get(j).getChickenH(),
+								salesDTO.get(j).getDate()});
+					} else if (!(salesDTO.get(j).getChickenS() == 0)) {
+						model.insertRow(0, new Object[] { "간장", (salesDTO.get(j).getChickenS()) / 20000,
+								salesDTO.get(j).getChickenS(),
+								salesDTO.get(j).getDate()});
 					}
 
 				}

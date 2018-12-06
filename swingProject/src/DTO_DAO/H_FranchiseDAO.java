@@ -166,11 +166,13 @@ public class H_FranchiseDAO {
 	// wonHn
 	//가맹점 정보 전체 출력메서드
 	public ArrayList<H_FranchiseDTO> selectALLFranchiseInfo() {	
-		connectDB();
-		H_FranchiseDTO fDTO = null;
-		ArrayList<H_FranchiseDTO> list = new ArrayList<>();
-		sql = "SELECT * FROM headfranchise;";
+		ArrayList<H_FranchiseDTO> list = null;
 		try {
+			connectDB();
+			sql = "SELECT * FROM headfranchise;";
+			
+			list = new ArrayList<>();
+			H_FranchiseDTO fDTO = null;
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				fDTO = new H_FranchiseDTO();

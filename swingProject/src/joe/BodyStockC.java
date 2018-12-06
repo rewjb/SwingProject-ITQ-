@@ -82,7 +82,7 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 		model1.setColumnIdentifiers(new Object[] { "식자재", "수량" });
 
 	
-		button_2 = new JButton("\uD655\uC778");
+		button_2 = new JButton("\uAC00\uB9F9\uC810 \uD655\uC778");
 		button_2.setBounds(193, 309, 107, 35);
 
 		button.addActionListener(this);

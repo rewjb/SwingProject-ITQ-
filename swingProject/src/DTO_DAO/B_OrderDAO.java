@@ -308,12 +308,23 @@ public class B_OrderDAO {
 			System.out.println(ps);
 			rn = ps.executeUpdate();
 			System.out.println("딜리트 확인" + rn);
-			con.close();
-			ps.close();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
+		}finally {
+			try {
+				
+				if (con!=null) {
+					con.close();
+				}
+				if (ps!=null) {
+					ps.close();
+				}
+			} catch (Exception e2) {
+				
+			}
 		}
 	}
 

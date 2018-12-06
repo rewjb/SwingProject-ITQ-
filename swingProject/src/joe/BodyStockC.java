@@ -60,12 +60,12 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 	private final JLabel label = new JLabel("\uD1B5\uD569\uC7AC\uACE0 \uAD00\uB9AC");
 
 	public BodyStockC() {
-//		for (int i = 0; i < model1.getRowCount(); i++) { 잘모르겠다.
+//		for (int i = 0; i < model1.getRowCount(); i++) { 잘모르겠다 나중에 알아봐야 겠음.
 //			listTable1.isCellEditable(i, 1);
 //	}
 		setLayout(null);
 		setSize(781, 360);
-		setBackground(Color.BLUE);
+		//setBackground(Color.BLUE);
 
 		button = new JButton("미확인 재고");
 		button_1 = new JButton("\uD1B5\uD569 \uC7AC\uACE0");
@@ -175,9 +175,6 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 					}
 				}
 					
-					
-
-
 			}
 
 		} else if (e.getSource() == button_1) {// 확인재고 버튼 기능

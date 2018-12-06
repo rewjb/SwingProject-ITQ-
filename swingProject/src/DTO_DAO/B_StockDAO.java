@@ -56,7 +56,8 @@ public class B_StockDAO {
 			e.printStackTrace();
 		}finally {
 			try {
-				
+				if (con!=null) {con.close();}
+				if (ps!=null) {ps.close();}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

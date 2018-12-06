@@ -70,7 +70,6 @@ id varchar(10) not null,
 num int auto_increment unique,
 name varchar(10) not null,  
 money int,
-이익률 
 foreign key (id) references headvender(id) on delete cascade
 );
 
@@ -85,11 +84,10 @@ date TIMESTAMP DEFAULT NOW(),
 confirm varchar(10)
 );
 
-
+drop database bbq;
 ------------------------------구분선---------------------------------
 
 foreign key (A) references ????(B) on delete cascade
-
 
 ------------------------------구분선---------------------------------
 desc bodyorder;
@@ -106,7 +104,6 @@ drop table bodystock;
 drop table headOrder;
 drop table headstock;
 
-show tables;
 ----- 전체 테이블 삭제--------
 select * from bodyorder;
 select * from bodystock;
@@ -129,7 +126,7 @@ select * from
 select * from headFranchise;
 select * from bodyorder ORDER BY DATE DESC;
 날짜로 솔트~
-select name from bodyorder where date like '%2018-11-28%';
+select name,date from bodyorder where date like '%2018-12-05%' or date like '%2018-12-06%';
 특정 날짜로 검색하기!!!
 SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) and (hconfirm='') ORDER BY DATE DESC;
 위에는 가맹점의 발주 중에 확인안한 리스트 갖고오기! / 담당자 : 유주빈

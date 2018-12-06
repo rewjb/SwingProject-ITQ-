@@ -90,6 +90,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 	public BodyOrderC() {// 생성자
 
+		
 		setLayout(null);
 		setSize(781, 399);
 
@@ -244,7 +245,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 				}
 			}
 		} else if (e.getSource() == bt1) {// 발주버튼 기능
-
 			int i = 0;
 
 			while (true) {

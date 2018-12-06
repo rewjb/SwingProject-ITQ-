@@ -87,7 +87,6 @@ public class H_StockDAO {
 				stockDTO.setQuantity(result.getInt("quantity"));
 				list.add(stockDTO);
 			}
-
 			con.close();
 			ps.close();
 			result.close();

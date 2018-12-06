@@ -89,7 +89,6 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		bodySalesBtn.addActionListener(this);
 
 		setLayout(null);
-		setBackground(Color.GREEN);
 		setBounds(0, 0, 770, 358);
 
 		franSalesLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));

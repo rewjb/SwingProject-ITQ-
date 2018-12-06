@@ -155,6 +155,15 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 );
 
+<<<<<<< HEAD
+create table asd(
+name varchar(15) not null
+);
+select * from headstock;
+select * from asd;
+insert into asd values ("유주빈");
+insert into bodyorder values (default,'안녕?','d-1',1,default,'1','');
+=======
 insert into bodyorder values (default,'닭','닭',10,default,'1','');
 insert into bodyorder values (default,'콜라','d-1',1,default,'1','');
 insert into bodyorder values (default,'사이다','d-1',1,default,'1','');
@@ -162,6 +171,7 @@ insert into bodyorder values (default,'','d-1',1,default,'1','');
 insert into bodyorder values (default,'콜라','d-1',1,default,'1','');
 insert into bodyorder values (default,'콜라','d-1',1,default,'1','');
 insert into bodyorder values (default,'daum','d-1',1,default,'1','');
+>>>>>>> branch 'master' of https://github.com/rewjb/SwingProject-ITQ-.git
 insert into bodyorder values (default,'daum','d-2',12,default,'1','');
 insert into bodyorder values (default,'daum','d-1',13,default,'1','');
 insert into bodyorder values (default,'daum','d-1',14,default,'1','');

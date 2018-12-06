@@ -23,14 +23,14 @@ public class H_VenderDTO {
 	public String getTel() {
 		return tel;
 	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 	public String getComNum() {
 		return comNum;
 	}
 	public void setComNum(String comNum) {
 		this.comNum = comNum;
-	}
-	public void setTel(String tel) {
-		this.tel = tel;
 	}
 	
 	

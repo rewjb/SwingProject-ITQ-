@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class B_OrderDAO {
 
-	private String url = "jdbc:mysql://localhost:3306/bbq";
+	private String url = "jdbc:mysql://localhost:3306/bbq?useUnicode=true&characterEncoding=utf8";
 	// 데이터 베이스 url
 	private String user = "root";
 	// mysql root 계정 아이디

@@ -48,7 +48,7 @@ public class H_VenderDAO {
 	public int insertVenderInfo(H_VenderDTO vDTO) {
 		connectDB();
 		int rs = 0;
-		sql = "INSERT INTO headvender VLAUES(?,?,?,?);";
+		sql = "INSERT INTO headvender VALUES(?,?,?,?);";
 		try {
 			// 3. SQL문 객체화
 			ps = con.prepareStatement(sql);
@@ -86,9 +86,13 @@ public class H_VenderDAO {
 
 	// wonHn
 	// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
-	public H_VenderDTO selectVenderInfo(String input) {
+	public H_VenderDTO selectVenderInfo(String column, String input) {
 		connectDB();
-		sql = "select * from headvender where id=?;";
+		if(column.equals("id")) {
+			sql = "select * from headvender where id=?;";
+		}else if(column.equals("name")) {
+			sql = "select * from headvender where name=?;";
+		}
 		H_VenderDTO vDTO = null;
 		try {
 			ps = con.prepareStatement(sql);
@@ -110,7 +114,6 @@ public class H_VenderDAO {
 	}// end selectVenderInfo
 
 	// 이름을 오름차순으로 모든 벤더정보를 갖고오는 메서드입니다.
-	// 이거 한나씨깨서 만드신 메서드인데 안에 제가 내용 채웠어요~
 	// 반환 타입이 H_VenderDTO를 담고 있는 ArrayList 타입입니다~
 	// 수정일 : 2018-12-03
 	public ArrayList<H_VenderDTO> selectALLVenderInfo() {
@@ -127,8 +130,8 @@ public class H_VenderDAO {
 				venderDTO = new H_VenderDTO();
 				venderDTO.setId(result.getString(1));
 				venderDTO.setName(result.getString(2));
-				venderDTO.setTel(result.getString(4));
-				venderDTO.setComNum(result.getString(3));
+				venderDTO.setTel(result.getString(3));
+				venderDTO.setComNum(result.getString(4));
 				list.add(venderDTO);
 			} // list에 DTO 넣기
 

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -38,17 +39,21 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
+	
 
 	JPanel mainPanel = new JPanel();
 	
-	H_Stock_InOut H_stock = new H_Stock_InOut();
+	H_Stock_InOut h_stock = new H_Stock_InOut();
 	//재고관리 객체 생성
-	H_CheckOrder H_checkOrder = new H_CheckOrder();
+	H_CheckOrder h_checkOrder = new H_CheckOrder();
 	//가맹점 발주체크 객체생성
-	H_Order H_order = new H_Order();
+	H_Order h_order = new H_Order();
 	//발주넣기
+	H_Salses h_salses = new H_Salses();
 	
 	public HeadFrame() {
+		
+		setTitle("BBQ 관리자 계정 : root");
 		
 		//20 간격 !
 		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
@@ -62,9 +67,10 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		mainPanel.setLayout(null);
 		
 		//메인 판넬에 추가중 ..
-		mainPanel.add(H_stock);
-		mainPanel.add(H_checkOrder);
-		mainPanel.add(H_order);
+		mainPanel.add(h_stock);
+		mainPanel.add(h_checkOrder);
+		mainPanel.add(h_order);
+		mainPanel.add(h_salses);
 		
 
 		btnGroup.add(F_OrderCheckBtn);
@@ -112,25 +118,33 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
-			show(H_checkOrder);
-			hide(H_stock);
-			hide(H_order);
+			show(h_checkOrder);
+			hide(h_stock);
+			hide(h_order);
+			hide(h_salses);
 		} else
 		if (e.getSource() == OrderBtn) {//본사 발주관리
-			show(H_order);
-			hide(H_stock);
-			hide(H_checkOrder);
+			show(h_order);
+			hide(h_stock);
+			hide(h_checkOrder);
+			hide(h_salses);
 		} else
 		if (e.getSource() == StockBtn) {//재고 입출고 관리
-			show(H_stock);
-			hide(H_checkOrder);
-			hide(H_order);
+			show(h_stock);
+			hide(h_checkOrder);
+			hide(h_order);
+			hide(h_salses);
 		} else
 		if (e.getSource() == VenderBtn) {//업체관리
 		} else
 		if (e.getSource() == FranchiseBtn) {//가맹점 관리
 		} else
 		if (e.getSource() == SalesBtn) {//매출관리
+			show(h_salses);
+			hide(h_order);
+			hide(h_checkOrder);
+			hide(h_stock);
+			
 		}
 
 	}// actionPerformed 메서드 끝

@@ -132,7 +132,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 		insertArrayBtn();
 		// 버튼 배치 메서드
-
+		
 		pNameBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
 		kindOfBox.addItem("입고");
 		kindOfBox.addItem("출고");

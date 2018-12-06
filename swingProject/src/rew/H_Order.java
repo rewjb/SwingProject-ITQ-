@@ -318,7 +318,6 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		setLayout(null);
 		setBackground(Color.PINK);
 		setBounds(0, 0, 770, 358);
-		setSize(770, 358);
 		confirmOrderBtn.setBounds(435, 133, 60, 20);
 
 		add(confirmOrderBtn);

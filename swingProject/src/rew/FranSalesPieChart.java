@@ -17,10 +17,10 @@ import org.jfree.ui.RefineryUtilities;
 
 public class FranSalesPieChart extends JPanel {
 	
-	private PieDataset dataset = createDataset();
+	private DefaultPieDataset dataset = new DefaultPieDataset();
 	// 파이 데이터 셋! 메서드로 만들었다!
 	
-	JFreeChart chart = createChart(dataset);
+	JFreeChart chart = createChart("dd");
 	// JFreeChart! ChartPanel에 들어가기전 최종 차트!
 	
 	private ChartPanel chartPanel = new ChartPanel(chart);
@@ -28,26 +28,24 @@ public class FranSalesPieChart extends JPanel {
 
 	public FranSalesPieChart() {
 		chartPanel.setBounds(0, 0, 284, 274);
-		
+		createDataset();
 		add(chartPanel);
 		setLayout(null);
 		setBounds(0, 0, 284, 274);
 	}//생성자 종료
 
-	private PieDataset createDataset() {
-		final DefaultPieDataset dataset = new DefaultPieDataset();
+	private void createDataset() {
 		// DefaultCategoryDataset bar에서 사용한 데이터 셋!
 		// 파이그래프에 전용 데이터 셋이 있는 것 가다..
-
-		dataset.setValue("A", 30);
+		dataset.setValue("chi", 60);
 		dataset.setValue("B", new Double(27.5));
 		dataset.setValue("C", new Double(17.5));
-		return dataset;
 	}//createDataset() : 메서드 종료
 
-	private JFreeChart createChart(final PieDataset dataset) {
+	private JFreeChart createChart(String franName) {
 		// 다른 예제에 나오는 ChartFactory(차트 공장)을 사용하였다! 여기에는 다양한 차트가 존재
-		JFreeChart chart = ChartFactory.createPieChart("fran name", // chart title
+		franName= "aa";
+		JFreeChart chart = ChartFactory.createPieChart(franName, // chart title
 				dataset, // dataset
 				true, // 하위에 항목 사용
 				true, // 툴팁 사용 여부

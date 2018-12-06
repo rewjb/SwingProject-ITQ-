@@ -122,4 +122,78 @@ public class B_SalesDAO {
 
 	}
 
+	public ArrayList<Integer> selectFranSalesYear(String id, String year) {
+		ArrayList<Integer> SalesMonth = new ArrayList<>();
+		String date;
+		try {
+			connectDB();
+			ResultSet result = null;
+				for (int i = 0; i < 9; i++) {
+					date =  year+"-0" + (1 + i);
+					sql = "select id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
+					ps = con.prepareStatement(sql);
+					ps.setString(1, id);
+					result = ps.executeQuery();
+					if (result.next()) {
+						SalesMonth.add(result.getInt(2));
+					}else {
+						SalesMonth.add(0);
+					}
+				}
+
+				for (int i = 0; i < 3; i++) {
+					date = year+"-"+String.valueOf(10 + i);
+					sql = "select id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
+					ps = con.prepareStatement(sql);
+					ps.setString(1, id);
+					result = ps.executeQuery();
+					if (result.next()) {
+						SalesMonth.add(result.getInt(2));
+					}else {
+						SalesMonth.add(0);
+					}
+				}
+
+			con.close();
+			ps.close();
+			result.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("B_SalesDAO-selectFranSalesMonth() 에러");
+		}
+		return SalesMonth;
+	} // selectFranSalesMonth : 메서드 끝
+	
+	public ArrayList<Integer> selectFranSalesMonth(String id, String year , String month) {
+		ArrayList<Integer> SalesMonth = new ArrayList<>();
+		String date;
+		try {
+			connectDB();
+			ResultSet result = null;
+			try {
+					date =  year+"-0" + (1 );
+					sql = "SELECT id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
+					ps = con.prepareStatement(sql);
+					ps.setString(1, id);
+					result = ps.executeQuery();
+					if (result.next()) {
+						SalesMonth.add(result.getInt(2));
+					}else {
+						SalesMonth.add(0);
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("B_SalesDAO-selectFranSalesMonth() 내부 에러");
+			}
+
+			con.close();
+			ps.close();
+			result.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("B_SalesDAO-selectFranSalesMonth() 에러");
+		}
+		return SalesMonth;
+	} // selectFranSalesMonth : 메서드 끝
+
 }// DAO클래스 끝

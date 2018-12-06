@@ -712,5 +712,48 @@ select * from headstock;
 
 SELECT headvenderp.name,headvender.name FROM headvenderp,headvender WHERE (headvender.id=headvenderp.id) and headvenderp.name='apple'  ORDER BY headvender.name;
 
->>>>>>> branch 'master' of https://github.com/rewjb/SwingProject-ITQ-.git
->>>>>>> branch 'master' of https://github.com/rewjb/SwingProject-ITQ-
+insert into headFranchise values ('daum','123','AAA','010-xxxx-xxxx','408-81-123123','Seoul Geumcheon','bbq-d');
+insert into headFranchise values ('naver','123','BBB','010-xxxx-xxxx','408-81-456456','Seoul Geumcheon-1','bbq-n');
+insert into headFranchise values ('google','123','CCC','010-xxxx-xxxx','408-81-789789','Seoul Geumcheon-2','bbq-g');
+insert into headFranchise values (아이디,비밀번호,가맹점 대표,전화번호,사업자번호,주소,가맹점 이름);
+
+
+insert into bodysales values (default,'daum',default,1,20000,6000,0,0);
+insert into bodysales values (default,'daum','2018-12-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-11-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-10-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-09-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-08-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-07-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-06-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-05-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-04-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-03-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-02-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'daum','2018-01-06 10:11',1,1,1,1,1);
+insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
+
+select * from bodysales;
+insert into bodysales values (  자동값, 가맹아이디,날짜자동,총금액,후라이드,양념,간장,사이드);
+
+select bodysales.id, headFranchise.alias, SUM(bodysales.money) from bodysales,headFranchise where and bodysales.id='daum'and date like '%2018-01%';
+select bodysales.id,SUM(bodysales.money) from bodysales where bodysales.id='naver'and bodysales.date like '%2018-01%' GROUP BY bodysales.id;
+
+--select bodysales.id from (select id from headFranchise where alias='bbq-n') as temp,bodysales where headFranchise.id=temp.id ;
+--select  temp.id from (select id from headFranchise where alias='bbq-n') as temp ;
+--select id from headFranchise where alias='bbq-n';
+
+select id,SUM(money) from bodysales where id='naver' and date like '%2018-01%' GROUP BY id;
+
+"SELECT name,SUM(quantity) AS quantity FROM headstock GROUP BY name;";here date like '%2018-11-28%';
+drop table bodysales;
+create table bodysales(
+num int auto_increment primary key,
+id varchar(10) not null,
+date TIMESTAMP DEFAULT NOW(),
+money int not null,
+chickenF int,
+chickenH int,
+chickenS int,
+side int
+);

@@ -13,6 +13,7 @@ date TIMESTAMP DEFAULT NOW(),
 hconfirm varchar(10),
 bconfirm varchar(10)
 );
+
 -----------상단은 이미 함-----------
 =가맹점 매출내역=
 create table bodysales(

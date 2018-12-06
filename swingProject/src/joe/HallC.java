@@ -32,7 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class HallC extends JPanel implements ActionListener, BodyHall {
-	String id = "1";// 로그인시 넘어올 아이디 임시 테스트용
+	
 
 	// 테이블 버튼
 	private JButton jb;// 1번테이블 버튼
@@ -348,8 +348,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				count++;
 			}
 			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
 				priceSum = 0;
 				chickenSum = 0;
 				chickenF = 0;
@@ -385,8 +385,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				count++;
 			}
 			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
 				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
@@ -422,8 +422,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				count++;
 			}
 			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
 				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
@@ -458,8 +458,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				count++;
 			}
 			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
 				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
@@ -494,8 +494,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				count++;
 			}
 			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
 				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;
@@ -530,8 +530,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 				count++;
 			}
 			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(id, "d-1", -chickenSum/20000);//작업중
+				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
 				chickenSum = 0;
 				priceSum = 0;
 				chickenF = 0;

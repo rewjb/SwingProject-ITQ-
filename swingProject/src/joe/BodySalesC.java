@@ -182,7 +182,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		
 		
 		
-		if (e.getSource() == btnNewButton_1) {
+		if (e.getSource() == btnNewButton_1) {//검색을 통한 매출 
 			int size = B_SalesDAO.getInstance().menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText()).size();
 			 ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance().menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText());
 			if (model.getValueAt(0, 0) == null) {
@@ -227,8 +227,11 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 
 			}
 
-		} else if (e.getSource() == button) {
-
+		} else if (e.getSource() == button) {//매출 종합
+			int m = model.getRowCount();
+			for (int i = 0; i < m; i++) {//작업중
+				
+			}
 		}
 	}// 액션리스너 끝
 }// 클래스 끝

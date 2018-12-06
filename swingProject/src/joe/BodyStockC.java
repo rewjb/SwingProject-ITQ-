@@ -55,7 +55,6 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 	B_OrderDAO orderDAO = B_OrderDAO.getInstance();
 	B_StockDAO stockDAO = B_StockDAO.getInstance();
 
-	String id = "조광재";
 	private final JLabel lblNewLabel = new JLabel("\uBBF8\uD655\uC778\uC7AC\uACE0 \uAD00\uB9AC");
 	private final JLabel label = new JLabel("\uD1B5\uD569\uC7AC\uACE0 \uAD00\uB9AC");
 
@@ -144,7 +143,7 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 				JOptionPane.showMessageDialog(null, "확인할 목록이 없습니다.");
 			} else {// 표에 미확인 재고가 있으면 확인할 수 있습니다.
 				for (int i = 0; i < orderDAO.hCheckSelect().size(); i++) {// 확인버튼 누를때 발주dB에 있는 데이터를 재고 DB로 옮기는 반복문
-					stockDAO.insertStock(id, orderDAO.hCheckSelect().get(i).getName(),
+					stockDAO.insertStock(BodyFrame.id, orderDAO.hCheckSelect().get(i).getName(),
 							orderDAO.hCheckSelect().get(i).getQuantity());
 				}
 //				for (int i = 0; i < orderDAO.hCheckSelect().size(); i++) {

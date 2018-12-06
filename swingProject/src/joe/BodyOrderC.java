@@ -34,7 +34,6 @@ import javax.swing.JButton;
 public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 	// 콤보박스 안에 들어갈 목록
-	String a = "1";// 로그인하면 오는 아이디 = > 임시 테스트용입니다.
 
 	private JLabel j;
 	private JLabel j1;
@@ -253,7 +252,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 				}
 				String test2 = (String) model.getValueAt(i, 0);
 				int test3 = Integer.parseInt((String) model.getValueAt(i, 1));
-				B_OrderDAO.getInstance().orderInsert(a, test2, test3);
+				B_OrderDAO.getInstance().orderInsert(BodyFrame.id, test2, test3);
 				model.removeRow(0);
 			}
 

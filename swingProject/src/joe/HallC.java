@@ -124,8 +124,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 	// 스크롤바
 	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 주문하기
-																												// 테이블
-																												// 스크롤바
+																									// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	private JScrollPane scroll1 = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 1번테이블 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -168,7 +167,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 
 	
 	String[] menu = new String[] { "후라이드", "양념", "간장", "음료" };//메뉴 리스트
-
+	
 	public HallC() {//생성자
 		 
 		bg = new ButtonGroup();

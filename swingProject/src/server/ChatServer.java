@@ -21,7 +21,6 @@ public class ChatServer extends Thread {
 		try {
 			ServerSocket s_socket = new ServerSocket(8000);
 			// 서버소켓 번호를 8000번으로 설정하였다.
-
 			while (true) {// 무한 루프
 
 				Socket c_socket = s_socket.accept();

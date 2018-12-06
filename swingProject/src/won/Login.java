@@ -1,4 +1,9 @@
 package won;
+/*
+ * 2018-12-06
+ * 로그인 페이지 입니다.
+ * 계정 조회는 L_worker에서 하고 DB는 H_FranchasDAO DTO를 같이 사용할 예정입니다.
+ */
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -162,7 +167,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 			pU.setVisible(false);
 		}
 		if(e.getSource() == btLoginR) {
-			HeadFrame hf = new HeadFrame();
+			rew.HeadFrame hf = new HeadFrame();
 			//rew 일단 패키지에 headFrame에 걸어놨습니다.
 		}
 		if(e.getSource() == btLoginU) {

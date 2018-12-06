@@ -29,7 +29,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private DefaultTableModel model;
 	private JTable table = new JTable(model);
 	private JScrollPane scrollPane = new JScrollPane(table);
-	private Object[] column = { "업체ID.", "업체명", "사업자번호", "연락처" };
+	private Object[] column = { "업체ID.", "업체명", "연락처", "사업자번호" };
 
 	// 라벨과 텍스트필드 : 사용자가 입력하고 수정하는 부분
 	private JLabel lbId;
@@ -89,9 +89,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 			vDTO = list.get(i);
 			row = new Object[4];
 			row[0] = vDTO.getId();
-			if(i==(list.size()-1)) {
-				id = vDTO.getId();	//마지막 인덱스일때 id값 받아놓기.
-			}
+			id = w.findLastId(id, vDTO.getId());
 			row[1] = vDTO.getName();
 			row[2] = vDTO.getTel();
 			row[3] = vDTO.getComNum();
@@ -101,12 +99,19 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfId.setText("자동생성");
 		tfId.setEditable(false);
 		tfName.setText("");
+		tfName.setEditable(true);
 		tfTel0.setText("");
 		tfTel1.setText("");
 		tfTel2.setText("");
+		tfTel0.setEditable(true);
+		tfTel1.setEditable(true);
+		tfTel2.setEditable(true);
 		tfCNum0.setText("");
 		tfCNum1.setText("");
 		tfCNum2.setText("");
+		tfCNum0.setEditable(true);
+		tfCNum1.setEditable(true);
+		tfCNum2.setEditable(true);
 	}
 
 	// 라벨 및 텍스트필드 설정사항
@@ -130,66 +135,66 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfName.setColumns(10);
 		tfName.setBounds(587, 60, 150, 30);
 		add(tfName);
+		
+		lbTel0 = new JLabel("연락처");
+		lbTel0.setHorizontalAlignment(SwingConstants.CENTER);
+		lbTel0.setBounds(522, 100, 60, 30);
+		add(lbTel0);
+		
+		tfTel0 = new JTextField();
+		tfTel0.setColumns(3);
+		tfTel0.setBounds(587, 100, 40, 30);
+		add(tfTel0);
+		
+		lbTel1 = new JLabel("-");
+		lbTel1.setHorizontalAlignment(SwingConstants.CENTER);
+		lbTel1.setBounds(627, 100, 10, 30);
+		add(lbTel1);
+		
+		tfTel1 = new JTextField();
+		tfTel1.setColumns(4);
+		tfTel1.setBounds(637, 100, 45, 30);
+		add(tfTel1);
+		
+		lbTel2 = new JLabel("-");
+		lbTel2.setHorizontalAlignment(SwingConstants.CENTER);
+		lbTel2.setBounds(682, 100, 10, 30);
+		add(lbTel2);
+		
+		tfTel2 = new JTextField();
+		tfTel2.setColumns(4);
+		tfTel2.setBounds(692, 100, 45, 30);
+		add(tfTel2);
 
 		lbCNum0 = new JLabel("사업자번호");
 		lbCNum0.setHorizontalAlignment(SwingConstants.CENTER);
-		lbCNum0.setBounds(522, 100, 60, 30);
+		lbCNum0.setBounds(522, 140, 60, 30);
 		add(lbCNum0);
 
 		tfCNum0 = new JTextField();
 		tfCNum0.setColumns(3);
-		tfCNum0.setBounds(587, 100, 30, 30);
+		tfCNum0.setBounds(587, 140, 30, 30);
 		add(tfCNum0);
 
 		lbCNum1 = new JLabel("-");
 		lbCNum1.setHorizontalAlignment(SwingConstants.CENTER);
-		lbCNum1.setBounds(617, 100, 10, 30);
+		lbCNum1.setBounds(617, 140, 10, 30);
 		add(lbCNum1);
 
 		tfCNum1 = new JTextField();
 		tfCNum1.setColumns(4);
-		tfCNum1.setBounds(627, 100, 30, 30);
+		tfCNum1.setBounds(627, 140, 30, 30);
 		add(tfCNum1);
 
 		lbCNum2 = new JLabel("-");
 		lbCNum2.setHorizontalAlignment(SwingConstants.CENTER);
-		lbCNum2.setBounds(657, 100, 10, 30);
+		lbCNum2.setBounds(657, 140, 10, 30);
 		add(lbCNum2);
 
 		tfCNum2 = new JTextField();
 		tfCNum2.setColumns(4);
-		tfCNum2.setBounds(667, 100, 70, 30);
+		tfCNum2.setBounds(667, 140, 70, 30);
 		add(tfCNum2);
-
-		lbTel0 = new JLabel("연락처");
-		lbTel0.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTel0.setBounds(522, 140, 60, 30);
-		add(lbTel0);
-
-		tfTel0 = new JTextField();
-		tfTel0.setColumns(3);
-		tfTel0.setBounds(587, 140, 40, 30);
-		add(tfTel0);
-
-		lbTel1 = new JLabel("-");
-		lbTel1.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTel1.setBounds(627, 140, 10, 30);
-		add(lbTel1);
-
-		tfTel1 = new JTextField();
-		tfTel1.setColumns(4);
-		tfTel1.setBounds(637, 140, 45, 30);
-		add(tfTel1);
-
-		lbTel2 = new JLabel("-");
-		lbTel2.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTel2.setBounds(682, 140, 10, 30);
-		add(lbTel2);
-
-		tfTel2 = new JTextField();
-		tfTel2.setColumns(4);
-		tfTel2.setBounds(692, 140, 45, 30);
-		add(tfTel2);
 
 	}
 
@@ -247,9 +252,8 @@ public class H_V_Company extends JPanel implements ActionListener {
 //			if(w.checkInput(tfName.getText())) {
 				vDTO = new H_VenderDTO();	
 				//id는 자동생성
-				String setId = w.makeId(id);
+				String setId = w.makeId(id);	//자동생성 메서드
 				vDTO.setId(setId);
-//				vDTO.setId(tfId.getText());
 				vDTO.setName(tfName.getText());
 				String tel = tfTel0.getText()+"-"+tfTel1.getText()+"-"+tfTel2.getText();
 				vDTO.setTel(tel);
@@ -263,8 +267,8 @@ public class H_V_Company extends JPanel implements ActionListener {
 					System.out.println("H_Vender insert성공");
 				}
 				showAll();
-			}else {
-				JOptionPane.showMessageDialog(null, "업체명 중복!");
+//			}else {
+//				JOptionPane.showMessageDialog(null, "업체명 중복!");
 //			}
 		}
 		if (e.getSource() == btModify) { //modify, update

@@ -23,7 +23,7 @@ import inter.HeadFranchise;
 public class H_Franchise extends JPanel implements HeadFranchise {
 	
 	public H_Franchise() {
-		setBounds(12, 43, 770, 368);
+		setBounds(0, 0, 770, 368);
 		setLayout(null);
 
 		JButton btAdd;

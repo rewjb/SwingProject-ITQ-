@@ -45,9 +45,11 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	BodySalesC salesC = new BodySalesC();
 	BodyStockC stockC = new BodyStockC();
 	HallC hallc = new HallC();
+	static String id = "조광재";
+	
+	
 	
 	public BodyFrame() {
-		
 		// 사이즈 , 레이아웃 및 각종 설정
 		setSize(820, 450);
 		getContentPane().setLayout(null);

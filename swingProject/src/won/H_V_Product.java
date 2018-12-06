@@ -20,7 +20,7 @@ import DTO_DAO.*;
 
 public class H_V_Product extends JPanel implements ActionListener {
 	// 표에 관련된 부분
-	private DefaultTableModel model = new DefaultTableModel(0, 4);
+	private DefaultTableModel model;
 	private JTable table = new JTable(model);
 	private JScrollPane scrollPane = new JScrollPane(table);
 	private Object[] column = { "No.", "업체ID", "이름", "가격" };
@@ -52,20 +52,19 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 	// 생성자 constructor
 	public H_V_Product() {
-		tableSetting();
-		showAll();
 		labelSetting();
 		buttonSetting();
+		showAll();
 		mouseAction();
 	}
 
 	// 표에 관련된 설정사항
 	private void tableSetting() {
+		model = new DefaultTableModel(0, 4);
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
-		scrollPane.setBounds(15, 10, 500, 280);
 		add(scrollPane);
-		scrollPane.setVisible(true);
+		scrollPane.setBounds(15, 10, 500, 280);
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
@@ -85,11 +84,13 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			model.addRow(row);
 		}
-//		tfId.setText("");
-//		tfNum.setText("자동생성");
-//		tfNum.setEditable(false);
-//		tfName.setText("");
-//		tfMoney.setText("");
+		tfId.setText("");
+		tfId.setEditable(true);
+		tfNum.setText("자동생성");
+		tfNum.setEditable(false);
+		tfName.setText("");
+		tfName.setEditable(true);
+		tfMoney.setText("");
 	}
 
 	// 라벨 및 텍스트필드 설정사항
@@ -183,8 +184,11 @@ public class H_V_Product extends JPanel implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				int i = table.getSelectedRow();
 				tfId.setText(model.getValueAt(i, 0).toString());
+				tfId.setEditable(false);
 				tfNum.setText(model.getValueAt(i, 1).toString());
+				tfNum.setEditable(false);
 				tfName.setText(model.getValueAt(i, 2).toString());
+				tfName.setEditable(false);
 				tfMoney.setText(model.getValueAt(i, 3).toString());
 			}
 		});
@@ -195,9 +199,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btAdd) { //add, insert
 			pDTO = new H_VenderpDTO();
-			// id는 자동생성
 			pDTO.setId(tfId.getText());
-			pDTO.setNum(Integer.parseInt(tfName.getText()));
+			// num은 자동생성 DAO의 sql에서 null값을 넣어줄 것입니다.
 			pDTO.setName(tfName.getText());
 			pDTO.setMoney(Integer.parseInt(tfMoney.getText()));
 

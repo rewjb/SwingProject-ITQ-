@@ -90,7 +90,6 @@ public class H_V_Company extends JPanel implements ActionListener {
 			row = new Object[4];
 			row[0] = vDTO.getId();
 			id = w.findLastId(id, vDTO.getId());
-			System.out.println("showAll id : " +id);
 			row[1] = vDTO.getName();
 			row[2] = vDTO.getTel();
 			row[3] = vDTO.getComNum();
@@ -100,12 +99,19 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfId.setText("자동생성");
 		tfId.setEditable(false);
 		tfName.setText("");
+		tfName.setEditable(true);
 		tfTel0.setText("");
 		tfTel1.setText("");
 		tfTel2.setText("");
+		tfTel0.setEditable(true);
+		tfTel1.setEditable(true);
+		tfTel2.setEditable(true);
 		tfCNum0.setText("");
 		tfCNum1.setText("");
 		tfCNum2.setText("");
+		tfCNum0.setEditable(true);
+		tfCNum1.setEditable(true);
+		tfCNum2.setEditable(true);
 	}
 
 	// 라벨 및 텍스트필드 설정사항
@@ -246,8 +252,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 //			if(w.checkInput(tfName.getText())) {
 				vDTO = new H_VenderDTO();	
 				//id는 자동생성
-				System.out.println("add() id : "+w.makeId(id));
-				String setId = w.makeId(id);
+				String setId = w.makeId(id);	//자동생성 메서드
 				vDTO.setId(setId);
 				vDTO.setName(tfName.getText());
 				String tel = tfTel0.getText()+"-"+tfTel1.getText()+"-"+tfTel2.getText();

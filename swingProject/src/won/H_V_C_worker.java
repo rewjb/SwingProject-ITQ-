@@ -12,12 +12,30 @@ import DTO_DAO.*;
 public class H_V_C_worker {
 	H_VenderDAO vDAO = new H_VenderDAO();
 	H_VenderDTO vDTO;
-	
-	//id 생성 메서드 - 같은 패키지 내에서만 동작함
+
+	// 마지막 아이디 가져오는 메서드
+	protected String findLastId(String id, String input) {
+		if (input == null || id == null) {
+		} else {
+			char id0 = id.charAt(0);
+			char id1 = id.charAt(1);
+			char ipId0 = input.charAt(0);
+			char ipId1 = input.charAt(1);
+
+			if (id0 >= ipId0) {
+				if (id1 > ipId1) {
+					return id;
+				}
+			}
+		}
+		return input;
+	}
+
+	// id 생성 메서드 - 같은 패키지 내에서만 동작함
 	protected String makeId(String id) {
-		if(id == null) {
+		if (id == null) {
 			id = "AA";
-		}else {
+		} else {
 			char id0 = id.charAt(0);
 			char id1 = id.charAt(1);
 			if (id1 == 'Z') {
@@ -25,10 +43,11 @@ public class H_V_C_worker {
 				id0++;
 			}
 			id1++;
-			id = ""+id0+id1;
+			id = "" + id0 + id1;
 		}
 		return id;
 	}
+
 //	
 //	//이름 중복확인 할 경우...
 //	protected boolean checkInput(String name) {
@@ -41,16 +60,29 @@ public class H_V_C_worker {
 //	}
 //
 //	테스트...!	
+//	String id;
+
 //	public H_V_C_worker() {
-//		String id = "";
-//		System.out.println(id);
-//		String id1 = makeId(id);
-//		System.out.println(id1);
-//		String id2 = makeId(id1);
-//		System.out.println(id2);
-//		String id3 = makeId(id2);
-//		System.out.println(id3);
+//		String input = "AA";
+//		System.out.println("시작 아이디" + id);
+//		System.out.println("시작 인풋" + input);
+//		while (true) {
+//			System.out.println("ㅡㅡㅡ");
+//			id = findLastId(id, input);
+//			input = makeId(input);
+//			System.out.println("id" + id);
+//			System.out.println("input" + input);
+//			if (id != null) {
+//				if (id.equals("ZZ")) {
+//					break;
+//				}
+//			}
+//
+//		}
+//		System.out.println("끝...! "+id);
+//
 //	}
+//
 //	public static void main(String[] args) {
 //		H_V_C_worker w = new H_V_C_worker();
 //	}

@@ -45,10 +45,8 @@ public class H_FranchiseDAO {
 			sql = "SELECT * FROM headFranchise ORDER BY alias;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
-
 			ArrayList<H_FranchiseDTO> franchiseArray = new ArrayList<H_FranchiseDTO>();
 			// 업체 내용의 DTO를 담을 ArrayList 선언
-
 			while (result.next()) { // 1번째 데이터 선택
 				franchiseArray.add(new H_FranchiseDTO(null, null, null, result.getString(4), null, result.getString(6),
 						result.getString(7)));
@@ -70,6 +68,26 @@ public class H_FranchiseDAO {
 			return null;
 		}
 	}// select_tel:메서드 끝
+	
+	public String selectFranchiseID(String alias) {		
+		connectDB();
+		sql = "select id from headfranchise where alias= ?;";
+		H_FranchiseDTO fDTO = null;
+		String  id=null;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, alias);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				id = rs.getString(1);
+			}//end while
+			
+		} catch (Exception e) {
+			System.out.println("H_FranchiseDAO-selectFranchiseID() 오류");
+			e.printStackTrace();
+		}
+		return id;
+	}//end selectFranchiseInfo()
 	
 //	-------------------------------------------------------------------------------------
 	
@@ -146,12 +164,15 @@ public class H_FranchiseDAO {
 	// wonHn
 	//가맹점 정보 전체 출력메서드
 	public ArrayList<H_FranchiseDTO> selectALLFranchiseInfo() {	
-		connectDB();
-		H_FranchiseDTO fDTO = null;
-		ArrayList<H_FranchiseDTO> list = new ArrayList<>();
-		sql = "SELECT * FROM headfranchise;";
+		ArrayList<H_FranchiseDTO> list = null;
 		try {
+			connectDB();
+			sql = "SELECT * FROM headfranchise;";
+			ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
+			
+			list = new ArrayList<>();
+			H_FranchiseDTO fDTO = null;
 			while(rs.next()) {
 				fDTO = new H_FranchiseDTO();
 				fDTO.setId(rs.getString(1));

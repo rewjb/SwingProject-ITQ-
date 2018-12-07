@@ -222,7 +222,6 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		add(totalStockLabel);
 
 		setLayout(null);
-		setBackground(Color.GRAY);
 		setBounds(0, 0, 770, 358);
 		setSize(770, 358);
 

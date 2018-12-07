@@ -73,7 +73,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	// refresh 표에 전체출력해주는 메서드
 	private void showAll() {
 		tableSetting();
-		ArrayList<H_VenderpDTO> list = new ArrayList<>();
+		ArrayList<H_VenderpDTO> list = pDAO.selectALLVenderpInfo();
 		for (int i = 0; i < list.size(); i++) {
 			pDTO = list.get(i);
 			row = new Object[4];

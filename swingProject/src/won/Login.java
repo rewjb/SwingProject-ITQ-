@@ -14,6 +14,7 @@ import inter.BBQ;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -34,16 +35,23 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	private JButton btLoginR;	//관리자 로그인버튼
 	private JButton btLoginU;	//관리자 로그인버튼
 	
-	private JTextField tfId;
-	private JPasswordField tfPw;
-	private JLabel lbId;
-	private JLabel lbPw;
+	//입력필드
+	private JPasswordField tfRPw;
 
+	private JLabel lbUId;
+	private JLabel lbUPw;
+	private JTextField tfUId;
+	private JPasswordField tfUPw;
+	
+	//그외
+	L_worker w = new L_worker();
+
+	//생성자
 	public Login() {
 		
-		mainPSetting();
-		subPSetting();
-		loginRootPageSetting();
+		//mainPSetting();
+		//subPSetting();
+		//loginRootPageSetting();
 		loginUserPageSetting();
 		
 		
@@ -53,6 +61,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		
 	}// 생성자 종료
 	
+	//메인세팅
 	private void mainPSetting() {
 		getContentPane().setLayout(null);
 
@@ -67,7 +76,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		setSize(800, 450);
 		setResizable(false);
 	}
-	
+	//서브 판넬 세팅
 	private void subPSetting() {
 		pLogin = new JPanel();
 		pLogin.setBounds(70, 30, 660, 360);
@@ -87,6 +96,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		btUser.addActionListener(this);
 	}
 	
+	//관리자 로그인 판넬 세팅
 	private void loginRootPageSetting() {
 		pR = new JPanel();
 		pR.setBounds(250, 80, 300, 300);
@@ -99,10 +109,10 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		lbImg.setIcon(new ImageIcon(""));
 		pR.add(lbImg);
 		
-		tfPw = new JPasswordField();
-		tfPw.setBounds(70, 190, 160, 25);
-		pR.add(tfPw);
-		tfPw.setColumns(10);
+		tfRPw = new JPasswordField();
+		tfRPw.setBounds(70, 190, 160, 25);
+		pR.add(tfRPw);
+		tfRPw.setColumns(10);
 		
 		btLoginR = new JButton("Login");
 		btLoginR.setBounds(100, 230, 100, 25);
@@ -110,31 +120,31 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		btLoginR.addActionListener(this);
 	}
 	
+	//가맹점 로그인 판넬 세팅
 	private void loginUserPageSetting() {
 		pU = new JPanel();
 		pU.setBounds(250, 80, 300, 300);
 		getContentPane().add(pU);
 		pU.setLayout(null);
 		
-		lbId = new JLabel("ID");
-		lbId.setHorizontalAlignment(SwingConstants.CENTER);
-		lbId.setBounds(30, 98, 50, 25);
-		pU.add(lbId);
+		lbUId = new JLabel("Id");
+		lbUId.setHorizontalAlignment(SwingConstants.CENTER);
+		lbUId.setBounds(30, 98, 50, 25);
+		pU.add(lbUId);
 		
-		tfId = new JTextField();
-		tfId.setBounds(80, 98, 150, 25);
-		pU.add(tfId);
-		tfPw.setColumns(10);
+		tfUId = new JTextField();
+		tfUId.setBounds(80, 98, 150, 25);
+		pU.add(tfUId);
 		
-		lbPw = new JLabel("Pw");
-		lbPw.setHorizontalAlignment(SwingConstants.CENTER);
-		lbPw.setBounds(30, 133, 50, 25);
-		pU.add(lbPw);
+		lbUPw = new JLabel("Pw");
+		lbUPw.setHorizontalAlignment(SwingConstants.CENTER);
+		lbUPw.setBounds(30, 133, 50, 25);
+		pU.add(lbUPw);
 
-		tfPw = new JPasswordField();
-		tfPw.setBounds(80, 133, 150, 25);
-		pU.add(tfPw);
-		tfPw.setColumns(10);
+		tfUPw = new JPasswordField();
+		tfUPw.setBounds(80, 133, 150, 25);
+		pU.add(tfUPw);
+		tfUPw.setColumns(10);
 		
 		btLoginU = new JButton("Login");
 		btLoginU.setBounds(100, 178, 100, 25);
@@ -167,11 +177,20 @@ public class Login extends JFrame implements BBQ, ActionListener{
 			pU.setVisible(false);
 		}
 		if(e.getSource() == btLoginR) {
-			rew.HeadFrame hf = new HeadFrame();
-			//rew 일단 패키지에 headFrame에 걸어놨습니다.
+			if(w.checkRpw("root", tfRPw.getText())) {
+				HeadFrame hf = new HeadFrame();
+				//rew패키지 안에 있는 headFrame에 걸어놨습니다.
+			}else {
+				JOptionPane.showMessageDialog(null, "관리자 비밀번호 확인해주세요.");
+			}
 		}
 		if(e.getSource() == btLoginU) {
-			BodyFrame bf = new BodyFrame();
+			if(w.checkUpw(tfUId.getText(), tfUPw.getText())) {
+				BodyFrame bf = new BodyFrame();
+			}else {
+				JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요.");
+			}
+			
 		}
 	}
 }// 클래스 종료

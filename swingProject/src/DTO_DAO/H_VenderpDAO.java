@@ -111,11 +111,14 @@ public class H_VenderpDAO {
 	// wonHn
 	// 재료정보 전체 출력메서드 : 처음부터 마지막 인덱스 값까지 한줄 출력메서드를 돌려줄 예정입니다.
 	public ArrayList<H_VenderpDTO> selectALLVenderpInfo() {
-		connectDB();
-		H_VenderpDTO pDTO = null;
-		ArrayList<H_VenderpDTO> list = new ArrayList<>();
-		sql = "SELECT * FROM headvenderp;";
+		ArrayList<H_VenderpDTO> list = null;
 		try {
+			connectDB();
+			sql = "SELECT * FROM headvenderp;";
+			ps = con.prepareStatement(sql);
+
+			list = new ArrayList<>();
+			H_VenderpDTO pDTO;
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				pDTO = new H_VenderpDTO();
@@ -123,13 +126,15 @@ public class H_VenderpDAO {
 				pDTO.setNum(rs.getInt(2));
 				pDTO.setName(rs.getString(3));
 				pDTO.setMoney(rs.getInt(4));
-				
+
 				list.add(pDTO);
-			}//end while
+			} // end while
 		} catch (Exception e) {
 			System.out.println("selectALLVenderpInfo() 오류");
 			e.printStackTrace();
-		}//end try catch
+		} finally {
+			
+		} // end try catch
 		return list;
 	}// end selectALLVenderpInfo
 

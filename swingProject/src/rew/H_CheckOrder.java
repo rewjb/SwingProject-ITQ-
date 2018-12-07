@@ -153,7 +153,6 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		add(orderScroll);
 
 		setLayout(null);
-		setBackground(Color.gray);
 		setBounds(0, 0, 770, 358);
 		setVisible(false);// 마지막에는 false로 변경
 

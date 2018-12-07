@@ -1,14 +1,14 @@
 package won;
+/*
+ * 2018-12-07 
+ * wonHn
+ * 틀 작업은 다 끝났습니다. 버튼에 기능 들어가있습니다.
+ * 아이디 자동생성 및 중복확인 기능, 주소 관련 처리는 아직 들어가지 않았습니다.
+ * 
+ */
 
 import java.awt.Color;
 import java.awt.Component;
-/*
- * 2018-11-30 
- * wonHn
- * 틀만 작업 끝난 상태입니다. 버튼에 기능 넣지 않았습니다.
- * 추가 수정은 새로운 창을 띄울 예정입니다.
- * 
- */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,47 +41,65 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	JButton btAdd;
 	JButton btModify;
 	JButton btDelete;
-	
-	//새로 올리는 다이얼로그에 올라갈 구성요소들
-	private JDialog d;
+
+	// 정보입력창에 올라갈 구성요소들
+	private JFrame f = new JFrame();
+
 	private JLabel lbId;
 	private JTextField tfId;
 	private JLabel lbPw;
 	private JTextField tfPw;
+	private JLabel lbON;
+	private JTextField tfON;
 	private JLabel lbCNum0;
 	private JTextField tfCNum0;
-	private JTextField tfCNum1;
-	private JTextField tfCNum2;
 	private JLabel lbCNum1;
+	private JTextField tfCNum1;
 	private JLabel lbCNum2;
+	private JTextField tfCNum2;
 	private JLabel lbTel0;
 	private JTextField tfTel0;
-	private JTextField tfTel1;
-	private JTextField tfTel2;
 	private JLabel lbTel1;
+	private JTextField tfTel1;
 	private JLabel lbTel2;
-	private JTextField tfON;
+	private JTextField tfTel2;
+	private JLabel lbAddr0;
 	private JTextField tfAddr0;
 	private JTextField tfAddr1;
+	private JLabel lbAllias;
 	private JTextField tfAllias;
 
 	// 그 외
-	Object[] row;
+	Object[] row; // 테이블에 올릴 column이름 배열
 	H_FranchiseDAO fDAO = new H_FranchiseDAO();
 	H_FranchiseDTO fDTO;
+	JButton btInAdd; // 팝업했을때 버튼
+	JButton btsetEmpty;
+	JButton btInModify;
+	JButton btsetBefore;
+
+	int i; // 표를 클릭했을때 받아놓는 인덱스 값
 
 	// 생성자 construct
 	public H_Franchise() {
+		setBounds(0, 0, 770, 368);
+		setLayout(null);
+
 		buttonSetting();
 		showAll();
+		innerFrameSetting();
 		mouseAction();
-		
-		setVisible(true);
+
+		setVisible(false);
+		f.setVisible(false);
 	} // end constructor
 
 	// 표에 관련된 설정사항
 	private void tableSetting() {
-		model = new DefaultTableModel(0, 8);
+		model = new DefaultTableModel(0, 8) {@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}};
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		add(scrollPane);
@@ -127,140 +145,161 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		add(btDelete);
 		btDelete.addActionListener(this);
 	}// end buttonSetting()
-	
-	private void dialogSetting(){
-		d.setTitle("테스트지만 잘되면 걍 올리려고용~~~");
-		setSize(310, 420);
-		d.setLayout(null);
-		
+
+	// 정보입력창 설정
+	private void innerFrameSetting() {
+		f = new JFrame();
+		f.setBounds(0, 0, 310, 420);
+		f.getContentPane().setLayout(null);
+
 		lbId = new JLabel("가맹점ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
 		lbId.setBounds(10, 20, 60, 30);
-		d.add(lbId);
+		f.getContentPane().add(lbId);
 
 		tfId = new JTextField();
 		tfId.setBounds(75, 20, 150, 30);
-		d.add(tfId);
+		f.getContentPane().add(tfId);
 		tfId.setColumns(10);
 
 		lbPw = new JLabel("비밀번호");
 		lbPw.setHorizontalAlignment(SwingConstants.CENTER);
 		lbPw.setBounds(10, 60, 60, 30);
-		d.add(lbPw);
+		f.getContentPane().add(lbPw);
 
 		tfPw = new JTextField();
 		tfPw.setColumns(10);
 		tfPw.setBounds(75, 60, 150, 30);
-		d.add(tfPw);
-		
-		JLabel lbON = new JLabel("점주명");
+		f.getContentPane().add(tfPw);
+
+		lbON = new JLabel("점주명");
 		lbON.setHorizontalAlignment(SwingConstants.CENTER);
 		lbON.setBounds(10, 100, 60, 30);
-		d.add(lbON);
-		
+		f.getContentPane().add(lbON);
+
 		tfON = new JTextField();
 		tfON.setColumns(10);
 		tfON.setBounds(75, 100, 95, 30);
-		d.add(tfON);
-		
+		f.getContentPane().add(tfON);
+
 		lbTel0 = new JLabel("연락처");
 		lbTel0.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTel0.setBounds(10, 140, 60, 30);
-		d.add(lbTel0);
-		
+		f.getContentPane().add(lbTel0);
+
 		tfTel0 = new JTextField();
 		tfTel0.setColumns(3);
 		tfTel0.setBounds(75, 140, 40, 30);
-		d.add(tfTel0);
-		
+		f.getContentPane().add(tfTel0);
+
 		lbTel1 = new JLabel("-");
 		lbTel1.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTel1.setBounds(115, 140, 10, 30);
-		d.add(lbTel1);
-		
+		f.getContentPane().add(lbTel1);
+
 		tfTel1 = new JTextField();
 		tfTel1.setColumns(4);
 		tfTel1.setBounds(125, 140, 45, 30);
-		d.add(tfTel1);
-		
+		f.getContentPane().add(tfTel1);
+
 		lbTel2 = new JLabel("-");
 		lbTel2.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTel2.setBounds(170, 140, 10, 30);
-		d.add(lbTel2);
-		
+		f.getContentPane().add(lbTel2);
+
 		tfTel2 = new JTextField();
 		tfTel2.setColumns(4);
 		tfTel2.setBounds(180, 140, 45, 30);
-		d.add(tfTel2);
+		f.getContentPane().add(tfTel2);
 
 		lbCNum0 = new JLabel("사업자번호");
 		lbCNum0.setHorizontalAlignment(SwingConstants.CENTER);
 		lbCNum0.setBounds(10, 180, 60, 30);
-		d.add(lbCNum0);
+		f.getContentPane().add(lbCNum0);
 
 		tfCNum0 = new JTextField();
 		tfCNum0.setColumns(3);
 		tfCNum0.setBounds(75, 180, 30, 30);
-		d.add(tfCNum0);
+		f.getContentPane().add(tfCNum0);
 
 		lbCNum1 = new JLabel("-");
 		lbCNum1.setHorizontalAlignment(SwingConstants.CENTER);
 		lbCNum1.setBounds(105, 180, 10, 30);
-		d.add(lbCNum1);
+		f.getContentPane().add(lbCNum1);
 
 		tfCNum1 = new JTextField();
 		tfCNum1.setColumns(4);
 		tfCNum1.setBounds(115, 180, 30, 30);
-		d.add(tfCNum1);
+		f.getContentPane().add(tfCNum1);
 
 		lbCNum2 = new JLabel("-");
 		lbCNum2.setHorizontalAlignment(SwingConstants.CENTER);
 		lbCNum2.setBounds(145, 180, 10, 30);
-		d.add(lbCNum2);
+		f.getContentPane().add(lbCNum2);
 
 		tfCNum2 = new JTextField();
 		tfCNum2.setColumns(4);
 		tfCNum2.setBounds(155, 180, 70, 30);
-		d.add(tfCNum2);
-		
-		JLabel lbAddr0 = new JLabel("매장주소");
+		f.getContentPane().add(tfCNum2);
+
+		lbAddr0 = new JLabel("매장주소");
 		lbAddr0.setHorizontalAlignment(SwingConstants.CENTER);
 		lbAddr0.setBounds(10, 220, 60, 30);
-		d.add(lbAddr0);
-		
+		f.getContentPane().add(lbAddr0);
+
 		tfAddr0 = new JTextField();
 		tfAddr0.setText("combo box");
 		tfAddr0.setColumns(10);
 		tfAddr0.setBounds(75, 220, 197, 30);
-		d.add(tfAddr0);
-		
+		f.getContentPane().add(tfAddr0);
+
 		tfAddr1 = new JTextField();
 		tfAddr1.setColumns(10);
 		tfAddr1.setBounds(75, 260, 197, 30);
-		d.add(tfAddr1);
-		
-		JLabel lbAllias = new JLabel("별칭");
+		f.getContentPane().add(tfAddr1);
+
+		lbAllias = new JLabel("별칭");
 		lbAllias.setHorizontalAlignment(SwingConstants.CENTER);
 		lbAllias.setBounds(10, 300, 60, 30);
-		d.add(lbAllias);
-		
+		f.getContentPane().add(lbAllias);
+
 		tfAllias = new JTextField();
 		tfAllias.setColumns(10);
 		tfAllias.setBounds(75, 300, 150, 30);
-		d.add(tfAllias);
+		f.getContentPane().add(tfAllias);
+
+		btInAdd = new JButton("추가");
+		btInAdd.setBounds(30, 340, 115, 31);
+		f.getContentPane().add(btInAdd);
+		btInAdd.addActionListener(this);
+
+		btInModify = new JButton("수정");
+		btInModify.setBounds(30, 340, 115, 31);
+		f.getContentPane().add(btInModify);
+		btInModify.addActionListener(this);
+
+		btsetEmpty = new JButton("초기화");
+		btsetEmpty.setBounds(157, 340, 115, 31);
+		f.getContentPane().add(btsetEmpty);
+		btsetEmpty.addActionListener(this);
 		
-		d.setVisible(false);
+		btsetBefore = new JButton("초기화");
+		btsetBefore.setBounds(157, 340, 115, 31);
+		f.getContentPane().add(btsetBefore);
+		btsetBefore.addActionListener(this);
+
+		f.setVisible(false);
 	}
 
 	// 마우스 액션에 관한 메서드
 	private void mouseAction() {
+
 		// 클릭한 테이블의 row인덱스값 읽어오기
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int i = table.getSelectedRow();
+				i = table.getSelectedRow();
 //				tfId.setText(model.getValueAt(i, 0).toString());
-
 			}
 		});
 	}// end mouseAction()
@@ -268,17 +307,129 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	// 버튼 액션에 관한 메서드
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btAdd) { // add, insert
-			dialogSetting();
-			d.setVisible(true);
+		if (e.getSource() == btAdd) { // add setting
+			f.setVisible(true);
+			btInAdd.setVisible(true);
+			btsetEmpty.setVisible(true);
+			btInModify.setVisible(false);
+			btsetBefore.setVisible(false);
+
+			setEmpty();
 		}
-		if (e.getSource() == btModify) { //modify, update
-			dialogSetting();
-			d.setVisible(true);
+		if (e.getSource() == btModify) { // modify setting
+			f.setVisible(true);
+			btInAdd.setVisible(false);
+			btsetEmpty.setVisible(false);
+			btInModify.setVisible(true);
+			btsetBefore.setVisible(true);
+
+			setBefore();
 		}
-		if(e.getSource() == btDelete) {
-			d.setVisible(true);
+		if (e.getSource() == btDelete) { // delete, delete
+			String id = model.getValueAt(i, 0).toString();
+			int rs = fDAO.deleteFranchiseInfo(id);
+			if (rs == 0) {
+				System.out.println("H_Franchise delete실패");
+			} else {
+				System.out.println("H_Franchise delete성공");
+			}
+			showAll();
 		}
+		if (e.getSource() == btInAdd) { // add, insert
+			fDTO = new H_FranchiseDTO();
+			fDTO.setId(tfId.getText());
+			fDTO.setPw(tfPw.getText());
+			fDTO.setOwnername(tfON.getText());
+			String tel = tfTel0.getText() + "-" + tfTel1.getText() + "-" + tfTel2.getText();
+			fDTO.setTel(tel);
+			String cNum = tfCNum0.getText() + "-" + tfCNum1.getText() + "-" + tfCNum2.getText();
+			fDTO.setComnum(cNum);
+			fDTO.setAddr(tfAddr0.getText());
+			fDTO.setAlias(tfAllias.getText());
+
+			int rs = fDAO.insertFranchiseInfo(fDTO);
+
+			if (rs == 0) {
+				System.out.println("H_Franchise insert실패");
+			} else {
+				System.out.println("H_Franchise insert성공");
+			}
+			showAll();
+		}
+		if (e.getSource() == btInModify) { // modify, update
+			fDTO = new H_FranchiseDTO();
+			fDTO.setId(tfId.getText());
+			fDTO.setOwnername(tfON.getText());
+			String tel = tfTel0.getText() + "-" + tfTel1.getText() + "-" + tfTel2.getText();
+			fDTO.setTel(tel);
+
+			int rs = fDAO.updateFranchiseInfo(fDTO);
+
+			if (rs == 0) {
+				System.out.println("H_Franchise update실패");
+			} else {
+				System.out.println("H_Franchise update성공");
+			}
+			showAll();
+
+		}
+		if (e.getSource() == btsetEmpty) { // 비워놓기
+			setEmpty();
+		}
+		if (e.getSource() == btsetBefore) { // 초기화
+			setBefore();
+		}
+	}
+
+	// 입력 창을 텅 비워주는 메서드
+	private void setEmpty() {
+		tfId.setText("");
+		tfPw.setText("");
+		tfON.setText("");
+		tfTel0.setText("");
+		tfTel1.setText("");
+		tfTel2.setText("");
+		tfCNum0.setText("");
+		tfCNum1.setText("");
+		tfCNum2.setText("");
+		tfAddr0.setText("");
+		tfAddr1.setText("");
+		tfAllias.setText("");
+
+		tfId.setEditable(true); // 수정 가능하게
+		tfPw.setEditable(true);
+		tfCNum0.setEditable(true);
+		tfCNum1.setEditable(true);
+		tfCNum2.setEditable(true);
+		tfAddr0.setEditable(true);
+		tfAddr1.setEditable(true);
+		tfAllias.setEditable(true);
+	}
+
+	// 수정하기 전 모습으로 돌려주는 메서드
+	private void setBefore() {
+		tfId.setText(model.getValueAt(i, 0).toString());
+		tfId.setEditable(false); // 수정 불가능하게
+		tfPw.setText(model.getValueAt(i, 1).toString());
+		tfPw.setEditable(false);
+		tfON.setText(model.getValueAt(i, 2).toString());
+		String[] tel = (model.getValueAt(i, 3).toString()).split("-");
+		tfTel0.setText(tel[0]);
+		tfTel1.setText(tel[1]);
+		tfTel2.setText(tel[2]);
+		String[] cNum = (model.getValueAt(i, 4).toString()).split("-");
+		tfCNum0.setText(cNum[0]);
+		tfCNum1.setText(cNum[1]);
+		tfCNum2.setText(cNum[2]);
+		tfCNum0.setEditable(false);
+		tfCNum1.setEditable(false);
+		tfCNum2.setEditable(false);
+		tfAddr0.setText(model.getValueAt(i, 5).toString());
+//		tfAddr1.setText(model.getValueAt(i, 6).toString());
+		tfAddr0.setEditable(false);
+		tfAddr1.setEditable(false);
+		tfAllias.setText(model.getValueAt(i, 7).toString());
+		tfAllias.setEditable(false);
 	}
 
 	// BBQHead 인터페이스 구현으로 강제생성된 show / hide메서드

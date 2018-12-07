@@ -37,6 +37,24 @@ public class H_Vender extends JPanel implements HeadVender {
 		setBounds(0, 0, 770, 368);
 		setLayout(null);
 
+		buttonSetting();
+
+		paneVdC = new H_V_Company();
+		paneVdC.setBounds(0, 20, 770, 315);
+		add(paneVdC);
+		paneVdC.setLayout(null);
+
+		paneVdP = new H_V_Product();
+		paneVdP.setBounds(0, 20, 770, 315);
+		add(paneVdP);
+		paneVdP.setLayout(null);
+
+		paneVdC.setVisible(false);
+		
+		setVisible(false);
+	}
+	
+	private void buttonSetting() {
 		btVdC = new JButton("업체");
 		add(btVdC);
 		btVdC.setBounds(300, 0, 80, 20);
@@ -60,20 +78,6 @@ public class H_Vender extends JPanel implements HeadVender {
 				paneVdP.setVisible(true);
 			}
 		});
-
-		paneVdC = new H_V_Company();
-		paneVdC.setBounds(0, 20, 770, 315);
-		add(paneVdC);
-		paneVdC.setLayout(null);
-
-		paneVdP = new H_V_Product();
-		paneVdP.setBounds(0, 20, 770, 315);
-		add(paneVdP);
-		paneVdP.setLayout(null);
-
-		paneVdC.setVisible(false);
-		
-		setVisible(false);
 	}
 
 

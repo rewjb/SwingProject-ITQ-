@@ -260,30 +260,30 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
 			
 			if (model2.getValueAt(0, 0) == null) {
-				for (int i = 0; i < B_OrderDAO.getInstance().selectAll().size(); i++) {
+				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(BodyFrame.id).size(); i++) {
 					model2.insertRow(i,
 							new Object[] { 
-									B_OrderDAO.getInstance().selectAll().get(i).getName(),
-									B_OrderDAO.getInstance().selectAll().get(i).getQuantity(),
-									B_OrderDAO.getInstance().selectAll().get(i).getDate(),
-									B_OrderDAO.getInstance().selectAll().get(i).gethComfirm()
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getName(),
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getQuantity(),
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate(),
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm()
 									});
-									list.add(B_OrderDAO.getInstance().selectAll().get(i).getNum());
+									list.add(B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getNum());
 				}
 
 			} else {
-				for (int i = 0; i < B_OrderDAO.getInstance().selectAll().size(); i++) {
+				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(BodyFrame.id).size(); i++) {
 					model2.removeRow(0);
 				}
-				for (int i = 0; i < B_OrderDAO.getInstance().selectAll().size(); i++) {
+				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(BodyFrame.id).size(); i++) {
 					model2.insertRow(i,
 							new Object[] {
-									B_OrderDAO.getInstance().selectAll().get(i).getName(),
-									B_OrderDAO.getInstance().selectAll().get(i).getQuantity(),
-									B_OrderDAO.getInstance().selectAll().get(i).getDate(),
-									B_OrderDAO.getInstance().selectAll().get(i).gethComfirm(),
-									B_OrderDAO.getInstance().selectAll().get(i).getNum()});
-					list.add(B_OrderDAO.getInstance().selectAll().get(i).getNum());
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getName(),
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getQuantity(),
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate(),
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm(),
+									B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getNum()});
+					list.add(B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getNum());
 				}
 
 			}
@@ -292,7 +292,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 			if (model2.getValueAt(0, 0) == null) {
 				
 			} else {
-				for (int i = 0; i < B_OrderDAO.getInstance().selectAll().size(); i++) {
+				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(BodyFrame.id).size(); i++) {
 					model2.removeRow(0);
 				}
 
@@ -308,18 +308,18 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 			}
 		} else if (e.getSource() == btJego) {//재고 확인 버튼
 			if (model1.getValueAt(0, 0)==null) {//model1의 첫번째 줄에 아무값도 없으면 재고를 가져온다
-				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll().size(); j++) {
-					model1.insertRow(j, new Object[] { B_StockDAO.getInstance().stockSelectAll().get(j).getName(),
-							B_StockDAO.getInstance().stockSelectAll().get(j).getQuantity() });
+				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); j++) {
+					model1.insertRow(j, new Object[] { B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getName(),
+							B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getQuantity() });
 				}
 				
 			}else {
-				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll().size(); i++) {
+				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); i++) {
 					model1.removeRow(0);
 				}
-				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll().size(); j++) {
-					model1.insertRow(j, new Object[] { B_StockDAO.getInstance().stockSelectAll().get(j).getName(),
-							B_StockDAO.getInstance().stockSelectAll().get(j).getQuantity() });
+				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); j++) {
+					model1.insertRow(j, new Object[] { B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getName(),
+							B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getQuantity() });
 				}
 				
 			}

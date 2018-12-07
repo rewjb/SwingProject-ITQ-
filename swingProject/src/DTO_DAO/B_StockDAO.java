@@ -67,17 +67,16 @@ public class B_StockDAO {
 	
 	
 	//재고에 있는 물품 확인
-	public ArrayList<B_StockDTO> stockSelectAll() {
+	public ArrayList<B_StockDTO> stockSelectAll(String id) {
 		ArrayList<B_StockDTO> stockDTO =  new ArrayList<>();
 		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "select id,name,sum(quantity) as quantity from bodystock group by name";
+			sql = "select name,sum(quantity) as quantity from bodystock where id = '"+id+"' group by name";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				String id = rs.getString("id");
 				String name = rs.getString("name");
 				int quantity = rs.getInt("quantity");
 				

@@ -103,19 +103,19 @@ public class B_OrderDAO {
 	}
 
 	// 가맹점에서 사용할 select문 담당자 : 조광재
-	public ArrayList<B_OrderDTO> selectAll() {
+	public ArrayList<B_OrderDTO> selectAll(String id) {
 		ArrayList<B_OrderDTO> orderlist = new ArrayList<>();
 		ResultSet rs = null;
 
 		try {
 			connectDB();
-			sql = "SELECT * from bodyorder";
+			sql = "SELECT * from bodyorder where id = "+id+"";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 				int num = rs.getInt("num");
-				String id = rs.getString("id");
+				id = rs.getString("id");
 				String name = rs.getString("name");
 				int quantity = rs.getInt("quantity");
 				String date = rs.getString("date");

@@ -106,12 +106,15 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
 			hide(H_vender);
+			hide(H_franchise);
 		} else
 		if (e.getSource() == OrderBtn) {//본사 발주관리
 			hide(H_vender);
+			hide(H_franchise);
 		} else
 		if (e.getSource() == StockBtn) {//재고 입출고 관리
 			hide(H_vender);
+			hide(H_franchise);
 		} else
 		if (e.getSource() == VenderBtn) {//업체관리
 			show(H_vender);
@@ -123,6 +126,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		} else
 		if (e.getSource() == SalesBtn) {//매출관리
 			hide(H_vender);
+			hide(H_franchise);
 		}
 
 	}// actionPerformed 메서드 끝

@@ -5,13 +5,9 @@ package won;
  * 1205 완료했습니다. 이후 DB와 같이 연동해서 테스트 해야 합니다.
  */
 
-import java.util.ArrayList;
 
-import DTO_DAO.*;
 
 public class H_V_C_worker {
-	H_VenderDAO vDAO = new H_VenderDAO();
-	H_VenderDTO vDTO;
 
 	// 마지막 아이디 가져오는 메서드
 	protected String findLastId(String id, String input) {

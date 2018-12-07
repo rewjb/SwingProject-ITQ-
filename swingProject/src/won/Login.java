@@ -127,7 +127,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		getContentPane().add(pU);
 		pU.setLayout(null);
 		
-		lbUId = new JLabel("UId");
+		lbUId = new JLabel("Id");
 		lbUId.setHorizontalAlignment(SwingConstants.CENTER);
 		lbUId.setBounds(30, 98, 50, 25);
 		pU.add(lbUId);
@@ -136,7 +136,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		tfUId.setBounds(80, 98, 150, 25);
 		pU.add(tfUId);
 		
-		lbUPw = new JLabel("UPw");
+		lbUPw = new JLabel("Pw");
 		lbUPw.setHorizontalAlignment(SwingConstants.CENTER);
 		lbUPw.setBounds(30, 133, 50, 25);
 		pU.add(lbUPw);
@@ -187,8 +187,6 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		if(e.getSource() == btLoginU) {
 			if(w.checkUpw(tfUId.getText(), tfUPw.getText())) {
 				BodyFrame bf = new BodyFrame();
-			}else {
-				JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요.");
 			}
 			
 		}

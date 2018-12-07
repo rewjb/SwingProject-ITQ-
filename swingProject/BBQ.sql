@@ -137,7 +137,7 @@ SELECT * FROM headFranchise ORDER BY alias;
 SELECT * from bodyorder WHERE num=10;
 SELECT * FROM headorder ORDER BY  headorder.date DESC;
 위에는 가맹점의 이름과 연락처 갖고오기! / 담당자 : 유주빈
-
+select id,name,sum(quantity) as quantity from bodystock where id ='조광재' group by name ;
 ;
 SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY DATE DESC;
 

@@ -7,6 +7,8 @@ import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.time.temporal.JulianFields;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,16 +36,20 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.ItemSelectable;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class HallC extends JPanel implements ActionListener, BodyHall {
+public class HallC extends JPanel implements ActionListener, BodyHall,ItemListener {
 	
 	//버튼그룹
 	private ButtonGroup bg;
 	// 계산방법 다이얼로그
 	private JDialog dialog = new JDialog();
+	// 결제방법 선택한 후 결제 버튼
+	private JButton paymenBt;
 	//체크할 수 있는 라디오 버튼
 	private JRadioButton radiobt;
 	private JRadioButton radiobt1;
@@ -174,6 +180,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 		
 		radiobt = new JRadioButton("카드");
 		radiobt1 = new JRadioButton("현금");
+		paymenBt = new JButton("결제");
+		
 		
 		bg.add(radiobt);
 		bg.add(radiobt1);
@@ -249,13 +257,16 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 		
 		//다이얼 로그 설정
 		dialog.setTitle("계산방법");
-		dialog.setLayout(new FlowLayout());
+		dialog.setLayout(null);
 		dialog.setBounds(250, 295, 300, 300);
 		dialog.setVisible(false);
 		dialog.add(radiobt);
 		dialog.add(radiobt1);
+		dialog.add(paymenBt);
 		
-		
+		radiobt.setBounds(80, 10, 70, 50);
+		radiobt1.setBounds(150, 10, 70, 50);
+		paymenBt.setBounds(110, 180, 70, 30);
 		
 		//버튼 위치 지정
 		jb.setBounds(91, 27, 97, 28);
@@ -310,6 +321,8 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 		button5.addActionListener(this);// 5번 테이블 계산
 		button6.addActionListener(this);// 6번 테이블 계산
 		button7.addActionListener(this);// 선택하기 버튼 누를때
+		radiobt.addItemListener(this);
+		radiobt1.addItemListener(this);
 
 		setVisible(false);
 	}
@@ -596,5 +609,13 @@ public class HallC extends JPanel implements ActionListener, BodyHall {
 	@Override
 	public void hide(BBQBody bbqBody) {
 		((Component) bbqBody).setVisible(false);
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (radiobt.isSelected()) {
+			JOptionPane.showMessageDialog(null, "핑신");
+		}
+			
 	}
 }

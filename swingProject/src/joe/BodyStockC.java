@@ -162,15 +162,15 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 						model1.removeRow(0);
 
 					}
-					for (int i = 0; i < stockDAO.stockSelectAll().size(); i++) {
-						model1.insertRow(0, new Object[] { stockDAO.stockSelectAll().get(i).getName(),
-								stockDAO.stockSelectAll().get(i).getQuantity() });
+					for (int i = 0; i < stockDAO.stockSelectAll(BodyFrame.id).size(); i++) {
+						model1.insertRow(0, new Object[] { stockDAO.stockSelectAll(BodyFrame.id).get(i).getName(),
+								stockDAO.stockSelectAll(BodyFrame.id).get(i).getQuantity() });
 					}
 				} else {
 
-					for (int i = 0; i < stockDAO.stockSelectAll().size(); i++) {
-						model1.insertRow(0, new Object[] { stockDAO.stockSelectAll().get(i).getName(),
-								stockDAO.stockSelectAll().get(i).getQuantity() });
+					for (int i = 0; i < stockDAO.stockSelectAll(BodyFrame.id).size(); i++) {
+						model1.insertRow(0, new Object[] { stockDAO.stockSelectAll(BodyFrame.id).get(i).getName(),
+								stockDAO.stockSelectAll(BodyFrame.id).get(i).getQuantity() });
 					}
 				}
 					
@@ -182,15 +182,15 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 					model1.removeRow(0);
 
 				}
-				for (int i = 0; i < stockDAO.stockSelectAll().size(); i++) {
-					model1.insertRow(0, new Object[] { stockDAO.stockSelectAll().get(i).getName(),
-							stockDAO.stockSelectAll().get(i).getQuantity() });
+				for (int i = 0; i < stockDAO.stockSelectAll(BodyFrame.id).size(); i++) {
+					model1.insertRow(0, new Object[] { stockDAO.stockSelectAll(BodyFrame.id).get(i).getName(),
+							stockDAO.stockSelectAll(BodyFrame.id).get(i).getQuantity() });
 				}
 			} else {
 
-				for (int i = 0; i < stockDAO.stockSelectAll().size(); i++) {
-					model1.insertRow(0, new Object[] { stockDAO.stockSelectAll().get(i).getName(),
-							stockDAO.stockSelectAll().get(i).getQuantity() });
+				for (int i = 0; i < stockDAO.stockSelectAll(BodyFrame.id).size(); i++) {
+					model1.insertRow(0, new Object[] { stockDAO.stockSelectAll(BodyFrame.id).get(i).getName(),
+							stockDAO.stockSelectAll(BodyFrame.id).get(i).getQuantity() });
 				}
 			}
 		}

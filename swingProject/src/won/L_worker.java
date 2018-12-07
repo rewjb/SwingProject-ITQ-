@@ -26,7 +26,7 @@ public class L_worker {
 
 	// wonHn
 	// 가맹점 아이디 확인하는 메서드
-	private boolean checkUid(String id) {
+	protected boolean checkUid(String id) {
 		fDTO = fDAO.selectFranchiseInfo(id);
 		if (fDTO != null) {	//fDTO반환값이 있을때만 실행
 			return true;
@@ -41,6 +41,7 @@ public class L_worker {
 			fDTO.getPw().equals(pw);
 			return true;
 		}
+		JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요.");
 		return false;
 	}
 }

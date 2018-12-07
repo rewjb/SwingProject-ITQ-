@@ -108,8 +108,6 @@ public class H_FranchiseDAO {
 			ps.setString(7, fDTO.getAlias());
 			
 			rs = ps.executeUpdate();
-			con.close();
-			ps.close();
 		} catch (Exception e) {
 			System.out.println("insertFranchiseInfo() 오류");
 			e.printStackTrace();
@@ -170,10 +168,11 @@ public class H_FranchiseDAO {
 		try {
 			connectDB();
 			sql = "SELECT * FROM headfranchise;";
+			ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
 			
 			list = new ArrayList<>();
 			H_FranchiseDTO fDTO = null;
-			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				fDTO = new H_FranchiseDTO();
 				fDTO.setId(rs.getString(1));

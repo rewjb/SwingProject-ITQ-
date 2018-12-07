@@ -31,7 +31,6 @@ public class BodySalesDataChart extends JPanel{
 		
 		
 		
-		
 	}
 
 }

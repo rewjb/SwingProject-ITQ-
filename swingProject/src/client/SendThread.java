@@ -31,6 +31,7 @@ public class SendThread extends Thread{
 			ChatClient.UserID = tmpbuf.readLine();//이거 실전에서는 삭제
 			//아이디 지정하는 거임
 			
+//			sendWriter.print();
 			sendWriter.println("IDhighkrs12345" + id);
 			//?? 이거 암호화하는건가 .. ?
 			//이거 아이디 입력하면 서버에 주는 거네 ..

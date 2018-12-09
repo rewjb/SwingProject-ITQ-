@@ -176,9 +176,9 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 					
 			}
 
-		} else if (e.getSource() == button_1) {// 확인재고 버튼 기능
+		} else if (e.getSource() == button_1) {// 통합재고 버튼 기능
 			if (!(model1.getValueAt(0, 0) == null)) {
-				for (int i = 0; !(model1.getValueAt(0, 0) == null); i++) {// 확인재고 버튼을 누를때마다 실시간으로 업데이트 하기위해 표를 지워주는 반복문
+				for (int i = 0; !(model1.getValueAt(0, 0) == null); i++) {// 통합재고 버튼을 누를때마다 실시간으로 업데이트 하기위해 표를 지워주는 반복문
 					model1.removeRow(0);
 
 				}

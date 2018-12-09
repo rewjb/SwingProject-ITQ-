@@ -126,6 +126,8 @@ public class H_FranchiseDAO {
 			ps.setString(1, fDTO.getOwnername());
 			ps.setString(2, fDTO.getTel());
 			ps.setString(3, fDTO.getId());
+			
+			rs = ps.executeUpdate();
 		}catch (Exception e) {
 			System.out.println("updateFranchiseInfo 오류");
 			e.printStackTrace();

@@ -49,9 +49,9 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	//생성자
 	public Login() {
 		
-		//mainPSetting();
-		//subPSetting();
-		//loginRootPageSetting();
+		mainPSetting();
+		subPSetting();
+		loginRootPageSetting();
 		loginUserPageSetting();
 		
 		
@@ -187,8 +187,6 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		if(e.getSource() == btLoginU) {
 			if(w.checkUpw(tfUId.getText(), tfUPw.getText())) {
 				BodyFrame bf = new BodyFrame();
-			}else {
-				JOptionPane.showMessageDialog(null, "비밀번호를 확인해주세요.");
 			}
 			
 		}

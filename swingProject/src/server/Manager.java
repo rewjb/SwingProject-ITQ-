@@ -17,7 +17,9 @@ public class Manager extends Thread {
 		try {
 			BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(c_socket.getInputStream()));
 			PrintWriter sendWriter = new PrintWriter(c_socket.getOutputStream());
-			String inputStr = "";
+			String inputStr ;
+			String sendMessage ;
+			int sendMemberNum;
 
 			while (true) {
 
@@ -33,12 +35,32 @@ public class Manager extends Thread {
 						}
 					}
 					if (exist) {
+						ServerFrame.room.get(inputStr).add(sendWriter);
 						sendWriter.print("CHroom\ntrue\n");
 						sendWriter.flush();
 					} else {
 						sendWriter.print("CHroom\nfalse\n");
 						sendWriter.flush();
 					}
+				} // 클라이언트가 방에 입장하였을때
+
+				if (inputStr.equals("Msend")) {
+					// Msend\n사용자이름\n방이름\n보낼메시지
+					inputStr="";
+					while (inputBuffer.ready()) {
+						inputStr += inputBuffer.readLine()+"/";
+					}
+					//sendMessage 의 0번 : 사용자 이름
+					//sendMessage 의 1번 : 방 이름
+					//sendMessage 의 2번 : 보낼메세지
+					System.out.println(inputStr.split("/")[1]);
+					sendMemberNum = ServerFrame.room.get(inputStr.split("/")[1]).size();
+					for (int j = 0; j < sendMemberNum; j++) {
+						ServerFrame.room.get(inputStr.split("/")[1]).get(j).print("Msend\n"+inputStr+"\n");
+						System.out.println("클라이언트에 보내기 직전");
+						ServerFrame.room.get(inputStr.split("/")[1]).get(j).flush();
+					}
+
 				}
 
 			} // while문 종료

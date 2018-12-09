@@ -19,13 +19,12 @@ public class Server extends Thread {
 				Socket c_socket = s_socket.accept();
 				// 접속을 시도하는 소켓
 				
-				Set roomSet = ServerFrame.room.keySet();
 				String roomListStr = null;
 				roomListStr = "Lsend\n"; // 이것이 처음 열어보는 사람의 구분 문자!
 				// 서비스타입/방이름/아이디>> 서비스타입(Msend,Lsend)
-				int temp = roomSet.size();
+				int temp = ServerFrame.model.getRowCount();
 				for (int i = 0; i < temp; i++) {
-					roomListStr += roomSet.toArray()[i] + "\n";
+					roomListStr += ServerFrame.model.getValueAt(i, 0)+"abcd0731"+ServerFrame.model.getValueAt(i, 1) + "\n";
 				}
 				PrintWriter sendWriter = new PrintWriter(c_socket.getOutputStream());
 				sendWriter.print(roomListStr);

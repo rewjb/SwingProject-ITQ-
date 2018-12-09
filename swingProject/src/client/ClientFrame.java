@@ -42,9 +42,6 @@ public class ClientFrame extends JFrame implements ActionListener {
 	private JButton joinRommBtn = new JButton("입장");
 	private JButton exitBtn = new JButton("종료");
 
-	public static HashMap<String, ArrayList<PrintWriter>> room = new HashMap<>();
-	// <방제목 , 방에 접속한 고객의 printWriter>
-
 	public static JPanel selectRoomPanel = new JPanel();
 	public static JPanel chattingPanel = new JPanel();
 
@@ -53,37 +50,34 @@ public class ClientFrame extends JFrame implements ActionListener {
 	private JButton exitChattingRoomBtn = new JButton("나가기");
 	private JTextField inputText = new JTextField();
 	private JLabel roomLabel = new JLabel();
-	private JTextArea historyArea = new JTextArea();
+	public static JTextArea historyArea = new JTextArea();
 
 	private Clinet clinet = new Clinet();
-	
-	private String nowRoomName;
-	
-	PrintWriter sendWriter ; 
+
+	public static String nowRoomName;
+
+	private PrintWriter sendWriter;
+
+	private String userName = "임시";
 
 	public ClientFrame() {
 
 		clinet.start();
-		
-		
+
 		exitChattingRoomBtn.setBounds(75, 295, 97, 23);
-		inputText.setBounds(12, 265,220, 23);
+		inputText.setBounds(12, 265, 220, 23);
 		roomLabel.setBounds(12, 2, 220, 23);
 		historyArea.setBounds(12, 30, 220, 230);
-		
-		
+
 		inputText.setHorizontalAlignment(JTextField.RIGHT);
 		historyArea.setEditable(false);
 		roomLabel.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		chattingPanel.add(exitChattingRoomBtn);
 		chattingPanel.add(inputText);
 		chattingPanel.add(roomLabel);
 		chattingPanel.add(historyArea);
-		
-		
 
-		Set<String> a = room.keySet();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		joinRommBtn.setBounds(12, 260, 97, 23);
@@ -92,6 +86,8 @@ public class ClientFrame extends JFrame implements ActionListener {
 
 		joinRommBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
+		inputText.addActionListener(this);
+		exitChattingRoomBtn.addActionListener(this);
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
@@ -109,14 +105,14 @@ public class ClientFrame extends JFrame implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) { // 2번 클릭 시
-					nowRoomName=(String) table.getValueAt(table.getSelectedRow(), 0);
-					roomLabel.setText("방 제목 : "+nowRoomName);
-					sendWriter.print("CHroom\n"+nowRoomName+"\n");
+					nowRoomName = (String) table.getValueAt(table.getSelectedRow(), 0);
+					roomLabel.setText("방 제목 : " + nowRoomName);
+					sendWriter.print("CHroom\n" + nowRoomName + "\n");
 					sendWriter.flush();
 				}
-
 			}
 		});
+//		this.addWindowListener(new );
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
@@ -127,7 +123,6 @@ public class ClientFrame extends JFrame implements ActionListener {
 		selectRoomPanel.setBounds(0, 0, 250, 350);
 		chattingPanel.setBounds(0, 0, 250, 350);
 		chattingPanel.setLayout(null);
-
 
 		selectRoomPanel.add(joinRommBtn);
 		selectRoomPanel.add(exitBtn);
@@ -144,12 +139,21 @@ public class ClientFrame extends JFrame implements ActionListener {
 		setVisible(true);
 	}// 생성자 종료
 
-	public static void main(String[] args) {
-		new ClientFrame();
-	}// main:메서드 종료
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == inputText) {
+			sendWriter.print("Msend\n"+userName+"\n"+nowRoomName+"\n"+inputText.getText()+"\n");
+		    inputText.setText(null);
+			sendWriter.flush();  
+		}//메세지 전송
+		
+		if (e.getSource()==exitChattingRoomBtn) {
+			historyArea.setText(null);
+			sendWriter.print("EXroom\n" + nowRoomName + "\n");
+			sendWriter.flush();
+			
+		}
+
 	}// actionPerformed:메서드 종료
 
 	class Clinet extends Thread {
@@ -170,6 +174,10 @@ public class ClientFrame extends JFrame implements ActionListener {
 
 		}// run : 메서드 종료
 	}// Server : 클래스 종료
+
+	public static void main(String[] args) {
+		new ClientFrame();
+	}// main:메서드 종료
 
 }// 클래스 종료
 

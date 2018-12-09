@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 public class ServerFrame extends JFrame implements ActionListener {
 
-	private DefaultTableModel model = new DefaultTableModel(0, 2);
+	public static DefaultTableModel model = new DefaultTableModel(0, 2);
 	private JTable table = new JTable(model) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
@@ -52,11 +52,12 @@ public class ServerFrame extends JFrame implements ActionListener {
 
 	Server server= new Server();
 	
+	
+	
 	public ServerFrame() {
 		
 		server.start();
 
-		Set<String> a = room.keySet();
 		textField.setColumns(10);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -132,7 +133,7 @@ public class ServerFrame extends JFrame implements ActionListener {
 		}
 		if (temp) {
 			room.put(textField.getText(), new ArrayList<PrintWriter>());
-			model.insertRow(0, new Object[] { textField.getText() });
+			model.insertRow(0, new Object[] { textField.getText(),0 });
 			textField.setText("");
 			plusRoomForm.dispose();
 		} else {

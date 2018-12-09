@@ -37,6 +37,10 @@ public class ClientReceive extends Thread {
 
 				if (inputStr.equals("Lsend")) {
 					inputStr = ""; // 초기화
+					
+					ClientFrame.selectRoomPanel.setVisible(true);
+					ClientFrame.chattingPanel.setVisible(false);
+					
 					while (inputBuffer.ready()) {
 						inputStr += inputBuffer.readLine() + "/";
 					}

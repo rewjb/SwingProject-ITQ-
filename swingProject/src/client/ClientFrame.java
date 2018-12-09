@@ -109,12 +109,10 @@ public class ClientFrame extends JFrame implements ActionListener {
 					roomLabel.setText("방 제목 : " + nowRoomName);
 					sendWriter.print("CHroom\n" + nowRoomName + "\n");
 					sendWriter.flush();
-					
 				}
-
 			}
 		});
-//		this.ad  작업중
+//		this.addWindowListener(new );
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
@@ -153,6 +151,7 @@ public class ClientFrame extends JFrame implements ActionListener {
 			historyArea.setText(null);
 			sendWriter.print("EXroom\n" + nowRoomName + "\n");
 			sendWriter.flush();
+			
 		}
 
 	}// actionPerformed:메서드 종료

@@ -112,7 +112,6 @@ public class FranSalesBarChart extends JPanel {
 	}// 가맹점 월별 데이터 보여주기 메서드
 
 	public void dayChartShow(String franName, String year, String month) {
-
 		int count = dataSet.getColumnCount();
 
 		for (int i = 0; i < count; i++) {

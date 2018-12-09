@@ -87,6 +87,7 @@ public class ClientFrame extends JFrame implements ActionListener {
 		joinRommBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
 		inputText.addActionListener(this);
+		exitChattingRoomBtn.addActionListener(this);
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
@@ -113,6 +114,7 @@ public class ClientFrame extends JFrame implements ActionListener {
 
 			}
 		});
+//		this.ad  작업중
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
@@ -145,7 +147,12 @@ public class ClientFrame extends JFrame implements ActionListener {
 			sendWriter.print("Msend\n"+userName+"\n"+nowRoomName+"\n"+inputText.getText()+"\n");
 		    inputText.setText(null);
 			sendWriter.flush();  
+		}//메세지 전송
 		
+		if (e.getSource()==exitChattingRoomBtn) {
+			historyArea.setText(null);
+			sendWriter.print("EXroom\n" + nowRoomName + "\n");
+			sendWriter.flush();
 		}
 
 	}// actionPerformed:메서드 종료

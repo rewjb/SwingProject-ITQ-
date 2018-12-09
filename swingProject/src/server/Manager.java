@@ -53,11 +53,10 @@ public class Manager extends Thread {
 					//sendMessage 의 0번 : 사용자 이름
 					//sendMessage 의 1번 : 방 이름
 					//sendMessage 의 2번 : 보낼메세지
-					System.out.println(inputStr.split("/")[1]);
 					sendMemberNum = ServerFrame.room.get(inputStr.split("/")[1]).size();
+					System.out.println(sendMemberNum);
 					for (int j = 0; j < sendMemberNum; j++) {
 						ServerFrame.room.get(inputStr.split("/")[1]).get(j).print("Msend\n"+inputStr+"\n");
-						System.out.println("클라이언트에 보내기 직전");
 						ServerFrame.room.get(inputStr.split("/")[1]).get(j).flush();
 					}
 

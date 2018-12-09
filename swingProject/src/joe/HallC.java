@@ -174,7 +174,6 @@ public class HallC extends JPanel implements ActionListener, BodyHall,ItemListen
 	String[] menu = new String[] { "후라이드", "양념", "간장", "음료" };//메뉴 리스트
 	
 	public HallC() {//생성자
-		 
 		bg = new ButtonGroup();
 		
 		radiobt = new JRadioButton("카드");

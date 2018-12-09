@@ -167,7 +167,6 @@ public class HallC extends JPanel implements ActionListener, BodyHall,ItemListen
 	int chickenS = 0;
 	int side = 0;
 	int priceSum = 0;
-	int chickenSum;
 	
 	int count;
 
@@ -327,6 +326,52 @@ public class HallC extends JPanel implements ActionListener, BodyHall,ItemListen
 		setVisible(false);
 	}
 
+	public void inputSales(DefaultTableModel tableMdel) {
+		
+		for (int i = 0; i >= 0; i++) {
+			if (tableMdel.getValueAt(0, 0) == null) {
+				count = 0;
+				break;
+			}
+			if (tableMdel.getValueAt(i-count, 0).equals("후라이드")) {
+				chickenF += Integer.parseInt((String) tableMdel.getValueAt(i-count, 1)) * 20000;
+				priceSum += chickenF;
+			} else if (tableMdel.getValueAt(i-count, 0).equals("양념")) {
+				chickenH += Integer.parseInt((String) tableMdel.getValueAt(i-count, 1)) * 20000;
+				priceSum += chickenH;
+			} else if (tableMdel.getValueAt(i-count, 0).equals("간장")) {
+				chickenS += Integer.parseInt((String) tableMdel.getValueAt(i-count, 1)) * 20000;
+				priceSum += chickenS;
+			} else if (tableMdel.getValueAt(i-count, 0).equals("음료")) {
+				side += Integer.parseInt((String) tableMdel.getValueAt(i-count, 1)) * 2000;
+				priceSum += side;
+			}
+			tableMdel.removeRow(i-count);
+			count++;
+		}
+		if (priceSum!=0) {
+			B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
+			if (chickenF!=0) {
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "닭", -chickenF/20000);
+			}
+			if (chickenH!=0) {
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "닭", -chickenH/20000);
+			}
+			if (chickenS!=0) {
+				B_StockDAO.getInstance().insertStock(BodyFrame.id, "닭", -chickenS/20000);
+			}
+			priceSum = 0;
+			chickenF = 0;
+			chickenH = 0;
+			chickenS = 0;
+			side = 0;
+		}
+		
+	}
+	
+	
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// System.out.println((String)combo.getSelectedItem());콤보박스 선택값 출력
@@ -374,224 +419,27 @@ public class HallC extends JPanel implements ActionListener, BodyHall,ItemListen
 		} else if (e.getSource() == button1) {// 1번테이블 계산
 			dialog.setVisible(true);
 			jframe.setVisible(false);
-			
-			
-			for (int i = 0; i >= 0; i++) {
-				if (model1.getValueAt(0, 0) == null) {
-					count = 0;
-					break;
-				}
-				if (model1.getValueAt(i-count, 0).equals("후라이드")) {
-					chickenF += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenF;
-					chickenSum += chickenF;
-				} else if (model1.getValueAt(i-count, 0).equals("양념")) {
-					chickenH += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenH;
-					chickenSum += chickenH;
-				} else if (model1.getValueAt(i-count, 0).equals("간장")) {
-					chickenS += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenS;
-					chickenSum += chickenS;
-				} else if (model1.getValueAt(i-count, 0).equals("음료")) {
-					side += Integer.parseInt((String) model1.getValueAt(i-count, 1)) * 2000;
-					priceSum += side;
-				}
-				model1.removeRow(i-count);
-				count++;
-			}
-			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
-				priceSum = 0;
-				chickenSum = 0;
-				chickenF = 0;
-				chickenH = 0;
-				chickenS = 0;
-				side = 0;
-			}
-
+			inputSales(model1);
 		} else if (e.getSource() == button2) {// 2번테이블 계산
-			for (int i = 0; i >= 0; i++) {
-				if (model2.getValueAt(0, 0) == null) {
-					count = 0;
-					break;
-				}
-
-				if (model2.getValueAt(i-count, 0).equals("후라이드")) {
-					chickenF += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenF;
-					chickenSum += chickenF;
-				} else if (model2.getValueAt(i-count, 0).equals("양념")) {
-					chickenH += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenH;
-					chickenSum += chickenH;
-				} else if (model2.getValueAt(i-count, 0).equals("간장")) {
-					chickenS += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenS;
-					chickenSum += chickenS; 
-				} else if (model2.getValueAt(i-count, 0).equals("음료")) {
-					side += Integer.parseInt((String) model2.getValueAt(i-count, 1)) * 2000;
-					priceSum += side;
-				}
-				model2.removeRow(i-count);
-				count++;
-			}
-			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
-				chickenSum = 0;
-				priceSum = 0;
-				chickenF = 0;
-				chickenH = 0;
-				chickenS = 0;
-				side = 0;
-			}
-
+			dialog.setVisible(true);
+			jframe.setVisible(false);
+			inputSales(model2);
 		} else if (e.getSource() == button3) {// 3번테이블 계산
-			for (int i = 0; i >= 0; i++) {
-				if (model3.getValueAt(0, 0) == null) {
-					count = 0;
-					break;
-				}
-
-				if (model3.getValueAt(i-count, 0).equals("후라이드")) {
-					chickenF += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenF;
-					chickenSum += chickenF;
-				} else if (model3.getValueAt(i-count, 0).equals("양념")) {
-					chickenH += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenH;
-					chickenSum += chickenH;
-				} else if (model3.getValueAt(i-count, 0).equals("간장")) {
-					chickenS += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenS;
-					chickenSum += chickenS;
-				} else if (model3.getValueAt(i-count, 0).equals("음료")) {
-					side += Integer.parseInt((String) model3.getValueAt(i-count, 1)) * 2000;
-					priceSum += side;
-				}
-				model3.removeRow(i-count);
-				count++;
-			}
-			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
-				chickenSum = 0;
-				priceSum = 0;
-				chickenF = 0;
-				chickenH = 0;
-				chickenS = 0;
-				side = 0;
-			}
+			dialog.setVisible(true);
+			jframe.setVisible(false);
+			inputSales(model3);
 		} else if (e.getSource() == button4) {// 4번테이블 계산
-			for (int i = 0; i >= 0; i++) {
-				if (model4.getValueAt(0, 0) == null) {
-					count = 0;
-					break;
-				}
-
-				if (model4.getValueAt(i-count, 0).equals("후라이드")) {
-					chickenF += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenF;
-					chickenSum += chickenF;
-				} else if (model4.getValueAt(i-count, 0).equals("양념")) {
-					chickenH += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenH;
-					chickenSum += chickenH;
-				} else if (model4.getValueAt(i-count, 0).equals("간장")) {
-					chickenS += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenS;
-					chickenSum += chickenS;
-				} else if (model4.getValueAt(i-count, 0).equals("음료")) {
-					side += Integer.parseInt((String) model4.getValueAt(i-count, 1)) * 2000;
-					priceSum += side;
-				}
-				model4.removeRow(i-count);
-				count++;
-			}
-			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
-				chickenSum = 0;
-				priceSum = 0;
-				chickenF = 0;
-				chickenH = 0;
-				chickenS = 0;
-				side = 0;
-			}
+			dialog.setVisible(true);
+			jframe.setVisible(false);
+			inputSales(model4);
 		} else if (e.getSource() == button5) {// 5번테이블 계산
-			for (int i = 0; i >= 0; i++) {
-				if (model5.getValueAt(0, 0) == null) {
-					count = 0;
-					break;
-				}
-
-				if (model5.getValueAt(i-count, 0).equals("후라이드")) {
-					chickenF += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenF;
-					chickenSum += chickenF;
-				} else if (model5.getValueAt(i-count, 0).equals("양념")) {
-					chickenH += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenH;
-					chickenSum += chickenH;
-				} else if (model5.getValueAt(i-count, 0).equals("간장")) {
-					chickenS += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenS;
-					chickenSum += chickenS;
-				} else if (model5.getValueAt(i-count, 0).equals("음료")) {
-					side += Integer.parseInt((String) model5.getValueAt(i-count, 1)) * 2000;
-					priceSum += side;
-				}
-				model5.removeRow(i-count);
-				count++;
-			}
-			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
-				chickenSum = 0;
-				priceSum = 0;
-				chickenF = 0;
-				chickenH = 0;
-				chickenS = 0;
-				side = 0;
-			}
+			dialog.setVisible(true);
+			jframe.setVisible(false);
+			inputSales(model5);
 		} else if (e.getSource() == button6) {// 6번테이블 계산
-			for (int i = 0; i >= 0; i++) {
-				if (model6.getValueAt(i-count, 0) == null) {
-					count = 0;
-					break;
-				}
-
-				if (model6.getValueAt(i-count, 0).equals("후라이드")) {
-					chickenF += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenF;
-					chickenSum += chickenF;
-				} else if (model6.getValueAt(i-count, 0).equals("양념")) {
-					chickenH += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenH;
-					chickenSum += chickenH;
-				} else if (model6.getValueAt(i-count, 0).equals("간장")) {
-					chickenS += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 20000;
-					priceSum += chickenS;
-					chickenSum += chickenS;
-				} else if (model6.getValueAt(i-count, 0).equals("음료")) {
-					side += Integer.parseInt((String) model6.getValueAt(i-count, 1)) * 2000;
-					priceSum += side;
-				}
-				model6.removeRow(i-count);
-				count++;
-			}
-			if (priceSum!=0) {
-				B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "d-1", -chickenSum/20000);//작업중
-				chickenSum = 0;
-				priceSum = 0;
-				chickenF = 0;
-				chickenH = 0;
-				chickenS = 0;
-				side = 0;
-			}
+			dialog.setVisible(true);
+			jframe.setVisible(false);
+			inputSales(model6);
 		} else if (e.getSource() == button7) {// 선택하기 버튼 누를시
 			if(!(textfiled.getText().equals(""))) {
 			model.insertRow(0, new Object[] { (String) combo.getSelectedItem(), textfiled.getText() });

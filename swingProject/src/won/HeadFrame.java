@@ -44,6 +44,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	JPanel mainPanel = new JPanel();
 	H_Vender H_vender = new H_Vender();
 	H_Franchise H_franchise = new H_Franchise();
+	
 
 	public HeadFrame() {
 		//20 간격 !

@@ -1,6 +1,7 @@
 
-package rew;
+package head;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.editor.DefaultLogAxisEditor;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
@@ -22,13 +24,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-/**
- * A simple demonstration application showing how to create a bar chart overlaid
- * with a line chart.
- */
 public class FranSalesBarChart extends JPanel {
 
-	DefaultCategoryDataset dataSet  ;
+	DefaultCategoryDataset dataSet;
 
 	CategoryItemRenderer renderer = new BarRenderer();
 	// 카테고리 아이템 런더를 만들어서
@@ -94,35 +92,55 @@ public class FranSalesBarChart extends JPanel {
 
 	public void monthChartShow(String franName, String year, ArrayList<Integer> intList) {
 
-		dataSet= new DefaultCategoryDataset();
-		
-		
-		int count = dataSet.getColumnCount();
-		
+		dataSet = new DefaultCategoryDataset();
+
 		chart.setTitle(franName + "점 " + year + "년 " + "매출 현황");
 
-		for (int i = 0; i < count; i++) {
-			dataSet.removeColumn(0);
-		} // 기존 데이터 날리기
-
-		count = intList.size();
-
 		for (int i = 0; i < 12; i++) {
-			dataSet.addValue(intList.get(i), franName, String.valueOf(1 + i) + "월");
+			dataSet.addValue(intList.get(i), franName, String.valueOf(1 + i)+"월");
 		} // 12월까지 입력
-		
-		// 데이터를 기준으로 만원단위로 넣어야 함.
-//		dataSet.setValue(50, "가맹점", "12월");
+
 		plot.setDataset(dataSet);
 	}// 가맹점 월별 데이터 보여주기 메서드
 
-	public void dayChartShow(String franName, String year, String month) {
+	public void dayChartShow(String franName, String year, String month, ArrayList<Integer> intList) {
 
-		int count = dataSet.getColumnCount();
+		int count = intList.size();
+		int tem = 1;
+		int sum = 0;
+		ArrayList<Integer> tempList = new ArrayList<>();
+		dataSet = new DefaultCategoryDataset();
 
+		// 1 2 3 4 5 6 7 8 9 
+		
 		for (int i = 0; i < count; i++) {
-			dataSet.removeColumn(count);
-		} // 기존 데이터 날리기
-	}// 가맹점 일별 데이터 보여주기 메서드
+			if (!(tem%4==0)) {
+				sum += intList.get(i);
+				++tem;
+				if (i == (count - 1)) {
+					tempList.add(sum);
+				}
+			} else {
+				tempList.add(sum);
+				sum = 0;
+				tem = 1;
+			}
+		}
+
+		tem = tempList.size();
+		
+		chart.setTitle(franName + "점 " + year + "년 " + month + "월 " + "매출 현황");
+
+		for (int i = 0; i < tem; i++) {
+			if ((tem-1)==i && !(count%4==0)) {
+				dataSet.addValue(tempList.get(i), franName, String.valueOf(count + "일"));
+			}else {
+				dataSet.addValue(tempList.get(i), franName, String.valueOf((4*i+4) + "일"));
+			}
+			
+		} // 12월까지 입력
+
+		plot.setDataset(dataSet);
+	}// 가맹점 월별 데이터 보여주기 메서드
 
 }// 클래스 종료

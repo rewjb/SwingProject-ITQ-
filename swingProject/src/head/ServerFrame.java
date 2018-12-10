@@ -1,4 +1,4 @@
-package server;
+package head;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,7 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
-public class ServerFrame extends JFrame implements ActionListener {
+public class ServerFrame extends JDialog implements ActionListener {
 
 	public static DefaultTableModel model = new DefaultTableModel(0, 2);
 	private JTable table = new JTable(model) {
@@ -50,7 +50,7 @@ public class ServerFrame extends JFrame implements ActionListener {
 	private final JButton button_2 = new JButton("완료");
 	private final JTextField textField = new JTextField();
 
-	Server server= new Server();
+	StartServer server= new StartServer();
 	
 	
 	
@@ -59,7 +59,6 @@ public class ServerFrame extends JFrame implements ActionListener {
 		server.start();
 
 		textField.setColumns(10);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		plusRoomForm.setLayout(new BorderLayout());
 		plusRoomForm.setSize(100, 80);
@@ -98,7 +97,7 @@ public class ServerFrame extends JFrame implements ActionListener {
 		setResizable(false);
 		setTitle("관리자");
 		setSize(250, 350);
-		setVisible(true);
+		setVisible(false);
 	}// 생성자 종료
 
 	public static void main(String[] args) {

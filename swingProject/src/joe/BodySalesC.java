@@ -217,14 +217,14 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 				}
 			}
 
-			for (int j = 0; j < 4; j++) {
+			for (int j = 0; j < 4; j++) {//합계를 낼때 빈칸은 null값이 되기때문에 0값을 넣어준다.
 				if (model2.getValueAt(0, j)==null) {
 					model2.setValueAt(0, 0, j);
 				}
 			}
 			
 			
-			if (model2.getValueAt(0, 4) == null) {// 합계
+			if (model2.getValueAt(0, 4) == null) {// 전체 합계
 				model2.setValueAt((int) model2.getValueAt(0, 0) + (int) model2.getValueAt(0, 1)
 						+ (int) model2.getValueAt(0, 2) + (int) model2.getValueAt(0, 3), 0, 4);
 			}
@@ -255,6 +255,10 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 			if (!(textField.getText().equals("")) && textField_1.getText().equals("")) {
 				value = B_SalesDAO.getInstance().selectFranSalesYear(BodyFrame.id, textField.getText());
 				bodySalesDataChart.monthChart(textField.getText(), value);
+			}else if (!(textField.getText().equals("")) && !(textField_1.getText().equals(""))) {
+				value = B_SalesDAO.getInstance().selectFranSalesMonth(BodyFrame.id, textField.getText(), textField_1.getText());
+				bodySalesDataChart.dayChart(textField.getText(),textField_1.getText(), value);
+				
 			}
 
 		}

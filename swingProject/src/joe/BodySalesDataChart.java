@@ -64,4 +64,28 @@ public class BodySalesDataChart extends JPanel{
 		
 	}
 	
+	
+	public void dayChart(String year, String month ,ArrayList<Integer> intList ) {
+		
+		
+		int count = dataSet.getColumnCount();
+		chart.setTitle(year + "년" + month + "월 매출현황");
+		
+		for (int i = 0; i < count; i++) {
+			dataSet.removeColumn(0);
+		} // 기존 데이터 날리기
+		
+		for (int i = 0; i < 12; i++) {
+			dataSet.addValue(intList.get(i),BodyFrame.id, String.valueOf(1 + i) + "일");
+		} // 12월까지 입력
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 }

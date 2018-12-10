@@ -123,67 +123,35 @@ public class B_SalesDAO {
 	}
 
 	public ArrayList<Integer> selectFranSalesYear(String id, String year) {
-		ArrayList<Integer> SalesMonth = new ArrayList<>();
+		ArrayList<Integer> salesMonth = new ArrayList<>();
 		String date;
 		try {
 			connectDB();
 			ResultSet result = null;
-				for (int i = 0; i < 9; i++) {
-					date =  year+"-0" + (1 + i);
-					sql = "select id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
-					ps = con.prepareStatement(sql);
-					ps.setString(1, id);
-					result = ps.executeQuery();
-					if (result.next()) {
-						SalesMonth.add(result.getInt(2));
-					}else {
-						SalesMonth.add(0);
-					}
+			for (int i = 0; i < 9; i++) {
+				date = year + "-0" + (1 + i);
+				sql = "select id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, id);
+				result = ps.executeQuery();
+				if (result.next()) {
+					salesMonth.add(result.getInt(2));
+				} else {
+					salesMonth.add(0);
 				}
+			}
 
-				for (int i = 0; i < 3; i++) {
-					date = year+"-"+String.valueOf(10 + i);
-					sql = "select id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
-					ps = con.prepareStatement(sql);
-					ps.setString(1, id);
-					result = ps.executeQuery();
-					if (result.next()) {
-						SalesMonth.add(result.getInt(2));
-					}else {
-						SalesMonth.add(0);
-					}
+			for (int i = 0; i < 3; i++) {
+				date = year + "-" + String.valueOf(10 + i);
+				sql = "select id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, id);
+				result = ps.executeQuery();
+				if (result.next()) {
+					salesMonth.add(result.getInt(2));
+				} else {
+					salesMonth.add(0);
 				}
-
-			con.close();
-			ps.close();
-			result.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("B_SalesDAO-selectFranSalesMonth() 에러");
-		}
-		return SalesMonth;
-	} // selectFranSalesMonth : 메서드 끝
-	
-	public ArrayList<Integer> selectFranSalesMonth(String id, String year , String month) {
-		ArrayList<Integer> SalesMonth = new ArrayList<>();
-		String date;
-		try {
-			connectDB();
-			ResultSet result = null;
-			try {
-					date =  year+"-0" + (1 );
-					sql = "SELECT id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
-					ps = con.prepareStatement(sql);
-					ps.setString(1, id);
-					result = ps.executeQuery();
-					if (result.next()) {
-						SalesMonth.add(result.getInt(2));
-					}else {
-						SalesMonth.add(0);
-					}
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("B_SalesDAO-selectFranSalesMonth() 내부 에러");
 			}
 
 			con.close();
@@ -193,7 +161,108 @@ public class B_SalesDAO {
 			e.printStackTrace();
 			System.out.println("B_SalesDAO-selectFranSalesMonth() 에러");
 		}
-		return SalesMonth;
+		return salesMonth;
+	} // selectFranSalesMonth : 메서드 끝
+
+	public ArrayList<Integer> selectFranSalesMonth(String id, String year, String month) {
+		ArrayList<Integer> salesDay = new ArrayList<>();
+		String date;
+		try {
+			connectDB();
+			int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+			int month2 = Integer.parseInt(month);
+			ResultSet result = null;
+			for (int i = 0; i < days[month2 - 1]; i++) {
+				if (String.valueOf(i + 1).length() == 1) {
+					if (month.length() == 1) {
+						month = "0" + month;
+					}
+					date = year + "-" + month + "-" + "0" + (i + 1);
+					sql = "SELECT id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
+					ps = con.prepareStatement(sql);
+					ps.setString(1, id);
+					result = ps.executeQuery();
+					if (result.next()) {
+						salesDay.add(result.getInt(2));
+					} else {
+						salesDay.add(0);
+					}
+				} else {
+					if (month.length() == 1) {
+						month = "0" + month;
+					}
+					date = year + "-" + month + "-" + (i + 1);
+					sql = "SELECT id,SUM(money) from bodysales where id=? and date like '%" + date + "%' GROUP BY id;";
+					ps = con.prepareStatement(sql);
+					ps.setString(1, id);
+					result = ps.executeQuery();
+					if (result.next()) {
+						salesDay.add(result.getInt(2));
+					} else {
+						salesDay.add(0);
+					}
+				}
+			}
+			con.close();
+			ps.close();
+			result.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("B_SalesDAO-selectFranSalesMonth() 내부 에러");
+		}
+		return salesDay;
+	} // selectFranSalesMonth : 메서드 끝
+
+	public ArrayList<Integer> selectFranSalePie(String id) {
+		ArrayList<Integer> salesList = new ArrayList<>();
+		// 메뉴에 따른 총 매출 리스트
+		String[] menu = new String[] { "chickenF", "chickenH", "chickenS" };
+		// 치킨 메뉴 배열
+
+		try {
+			connectDB();
+			ResultSet result = null;
+
+				sql = "SELECT id,SUM(chickenF) from bodysales where id=? GROUP BY id;";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, id);
+				result = ps.executeQuery();
+				if (result.next()) {
+					salesList.add(result.getInt(2));
+				}else {
+					salesList.add(0);
+				}
+				
+
+				sql = "SELECT id,SUM(chickenH) from bodysales where id=? GROUP BY id;";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, id);
+				result = ps.executeQuery();
+				if (result.next()) {
+					salesList.add(result.getInt(2));
+				}else {
+					salesList.add(0);
+				}
+				
+
+				sql = "SELECT id,SUM(chickenS) from bodysales where id=? GROUP BY id;";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, id);
+				result = ps.executeQuery();
+				if (result.next()) {
+					salesList.add(result.getInt(2));
+				}else {
+					salesList.add(0);
+				}
+			
+			con.close();
+			ps.close();
+			result.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+		return salesList;
 	} // selectFranSalesMonth : 메서드 끝
 
 }// DAO클래스 끝

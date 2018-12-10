@@ -1,4 +1,4 @@
-package client;
+package body;
 
 import java.awt.Component;
 import java.io.BufferedReader;
@@ -32,7 +32,6 @@ public class ClientReceive extends Thread {
 					inputStr = inputBuffer.readLine();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "서버와의 연결이 끊겼습니다.");
-					System.exit(0);
 				}
 
 				if (inputStr.equals("Lsend")) {
@@ -64,7 +63,7 @@ public class ClientReceive extends Thread {
 						ClientFrame.chattingPanel.setVisible(true);
 						ClientFrame.selectRoomPanel.setVisible(false);
 					} else {
-						JOptionPane.showConfirmDialog(null, "존재하지 않는 방입니다.");
+						JOptionPane.showMessageDialog(null, "존재하지 않는 방입니다.");
 					}
 				} // 방에 대한 허가여부를 받는 메세지
 

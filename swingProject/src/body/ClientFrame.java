@@ -1,4 +1,4 @@
-package client;
+package body;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class ClientFrame extends JFrame implements ActionListener {
+public class ClientFrame extends JDialog implements ActionListener {
 
 	public static DefaultTableModel model = new DefaultTableModel(0, 2);
 	private JTable table = new JTable(model) {
@@ -58,11 +58,14 @@ public class ClientFrame extends JFrame implements ActionListener {
 
 	private PrintWriter sendWriter;
 
-	private String userName = "임시";
+	private String userName = "유주빈";
 
 	public ClientFrame() {
 
 		clinet.start();
+		//이것이 가장 먼저 위에 있어야 한다.
+		startClient();
+		//시작과 동시에 메세지를 보냄!
 
 		exitChattingRoomBtn.setBounds(75, 295, 97, 23);
 		inputText.setBounds(12, 265, 220, 23);
@@ -139,19 +142,25 @@ public class ClientFrame extends JFrame implements ActionListener {
 		setVisible(true);
 	}// 생성자 종료
 
+	private void startClient() {
+		//서버에 처음 접속 할때!
+		sendWriter.print("Start\n"+userName+"\n");
+		sendWriter.flush();
+	}// 채팅서비스에 입장!
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == inputText) {
-			sendWriter.print("Msend\n"+userName+"\n"+nowRoomName+"\n"+inputText.getText()+"\n");
-		    inputText.setText(null);
-			sendWriter.flush();  
-		}//메세지 전송
-		
-		if (e.getSource()==exitChattingRoomBtn) {
+			sendWriter.print("Msend\n" + userName + "\n" + nowRoomName + "\n" + inputText.getText() + "\n");
+			inputText.setText(null);
+			sendWriter.flush();
+		} // 메세지 전송
+
+		if (e.getSource() == exitChattingRoomBtn) {
 			historyArea.setText(null);
 			sendWriter.print("EXroom\n" + nowRoomName + "\n");
 			sendWriter.flush();
-			
+
 		}
 
 	}// actionPerformed:메서드 종료
@@ -169,6 +178,8 @@ public class ClientFrame extends JFrame implements ActionListener {
 				clientReceive.start();
 			} catch (Exception e) {
 				System.out.println("내부 Server 클래스 오류");
+				JOptionPane.showMessageDialog(null, "서버와의 연결에 실패하셨습니다.");
+				dispose();
 				e.printStackTrace();
 			}
 

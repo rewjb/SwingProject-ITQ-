@@ -1,4 +1,4 @@
-package server;
+package head;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,9 +7,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Set;
 
-public class Manager extends Thread {
+public class ServerManager extends Thread {
 
 	Socket c_socket;
+	String id;
 
 	@Override
 	public void run() {

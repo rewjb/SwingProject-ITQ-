@@ -1,11 +1,16 @@
 package head;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 import inter.BBQHead;
@@ -34,23 +39,56 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	JToggleButton VenderBtn = new JToggleButton("업체관리");
 	JToggleButton FranchiseBtn = new JToggleButton("가맹점관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
+	JButton chattingBtn = new JButton("채팅관리");
 
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
 
+	CardLayout card = new CardLayout();
+
 	JPanel mainPanel = new JPanel();
+	H_Vender H_vender = new H_Vender();
+	H_Franchise H_franchise = new H_Franchise();
+	H_Order h_order = new H_Order();
+	H_Stock_InOut h_stock = new H_Stock_InOut();
+	H_CheckOrder h_checkOrder = new H_CheckOrder();
+	H_Salses h_salses = new H_Salses();
+	
+	ImageIcon img = new ImageIcon("logo.png");
+	JLabel logoLabel = new JLabel(img);
+	JLabel serviceInfo = new JLabel(img);
+	
+	ServerFrame serverFrame = new ServerFrame();
+	
+	int xpos;
+	int ypos;
+	Dimension point = Toolkit.getDefaultToolkit().getScreenSize();
+	
+
 
 	public HeadFrame() {
-		//20 간격 !
-		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
-		OrderBtn.setBounds(143, 20, 90, 23);
-		StockBtn.setBounds(234, 20, 110, 23);
-		VenderBtn.setBounds(345, 20, 90, 23);
-		FranchiseBtn.setBounds(436, 20, 100, 23);
-		SalesBtn.setBounds(537, 20, 90, 23);
+		// 20 간격 !
+		F_OrderCheckBtn.setBounds(12, 60, 130, 23);
+		OrderBtn.setBounds(143, 60, 90, 23);
+		StockBtn.setBounds(234, 60, 110, 23);
+		VenderBtn.setBounds(345, 60, 90, 23);
+		FranchiseBtn.setBounds(436, 60, 100, 23);
+		SalesBtn.setBounds(537, 60, 90, 23);
+		chattingBtn.setBounds(700, 10, 90, 23);
 
-		mainPanel.setBounds(12, 53, 770, 358);
-		mainPanel.setLayout(null);
+		mainPanel.setBounds(12, 85, 770, 368);
+		mainPanel.setLayout(card);
+		
+		logoLabel.setBounds(10, 10, 107, 46);
+		
+		serverFrame.setLocationRelativeTo(this);
+
+		mainPanel.add(H_vender);
+		mainPanel.add(H_franchise);
+		mainPanel.add(h_order);
+		mainPanel.add(h_stock);
+		mainPanel.add(h_checkOrder);
+		mainPanel.add(h_salses);
 
 		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
@@ -65,8 +103,11 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		getContentPane().add(VenderBtn);
 		getContentPane().add(FranchiseBtn);
 		getContentPane().add(SalesBtn);
+		getContentPane().add(logoLabel);
+		getContentPane().add(chattingBtn);
 
 		getContentPane().add(mainPanel);
+		mainPanel.setLayout(null);
 
 		F_OrderCheckBtn.addActionListener(this);
 		OrderBtn.addActionListener(this);
@@ -74,11 +115,17 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		VenderBtn.addActionListener(this);
 		FranchiseBtn.addActionListener(this);
 		SalesBtn.addActionListener(this);
+		chattingBtn.addActionListener(this);
+		
+		F_OrderCheckBtn.doClick();
 
 		// 사이즈 , 레이아웃 및 각종 설정
+		setSize(800, 500);
+		xpos = (int) (point.getWidth()/2 - getWidth()/2);
+		ypos =  (int) (point.getHeight()/2 - getHeight()/2);
+		setLocation(xpos, ypos);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 450);
 		setResizable(false);
 		setVisible(true);
 	}// 생성자 종료
@@ -95,19 +142,54 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
-		} else
-		if (e.getSource() == OrderBtn) {//본사 발주관리
-		} else
-		if (e.getSource() == StockBtn) {//재고 입출고 관리
-		} else
-		if (e.getSource() == VenderBtn) {//업체관리
-		} else
-		if (e.getSource() == FranchiseBtn) {//가맹점 관리
-		} else
-		if (e.getSource() == SalesBtn) {//매출관리
+		if (e.getSource() == F_OrderCheckBtn) {// 가맹점 발주관리
+			show(h_checkOrder);
+			hide(h_stock);
+			hide(h_order);
+			hide(h_salses);
+			hide(H_vender);
+			hide(H_franchise);
+		} else if (e.getSource() == OrderBtn) {// 본사 발주관리
+			show(h_order);
+			hide(h_checkOrder);
+			hide(h_stock);
+			hide(h_salses);
+			hide(H_vender);
+			hide(H_franchise);
+		} else if (e.getSource() == StockBtn) {// 재고 입출고 관리
+			show(h_stock);
+			hide(h_order);
+			hide(h_salses);
+			hide(h_checkOrder);
+			hide(H_vender);
+			hide(H_franchise);
+		} else if (e.getSource() == VenderBtn) {// 업체관리
+			show(H_vender);
+			hide(h_checkOrder);
+			hide(h_stock);
+			hide(h_order);
+			hide(h_salses);
+			hide(H_franchise);
+		} else if (e.getSource() == FranchiseBtn) {// 가맹점 관리
+			show(H_franchise);
+			hide(h_checkOrder);
+			hide(h_stock);
+			hide(h_order);
+			hide(h_salses);
+			hide(H_vender);
+		} else if (e.getSource() == SalesBtn) {// 매출관리
+			hide(h_checkOrder);
+			hide(h_stock);
+			hide(h_order);
+			show(h_salses);
+			hide(H_vender);
+			hide(H_franchise);
 		}
-
+		
+		if (e.getSource()==chattingBtn) {//채팅서버 관리
+			serverFrame.setVisible(true);
+		}
+		
 	}// actionPerformed 메서드 끝
 
 	public static void main(String[] args) {

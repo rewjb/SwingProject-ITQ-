@@ -747,6 +747,15 @@ insert into bodysales values (default,'daum','2018-02-06 10:11',1,1,1,1,1);
 insert into bodysales values (default,'daum','2018-01-06 10:11',1,1,1,1,1);
 insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
 
+insert into bodysales values (default,'naver','2018-01-01 10:11',1,1,1,1,1);
+insert into bodysales values (default,'naver','2018-01-04 10:11',1,1,1,1,1);
+insert into bodysales values (default,'naver','2018-01-0 10:11',1,1,1,1,1);
+insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
+insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
+insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
+insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
+insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
+
 select * from bodysales;
 insert into bodysales values (  자동값, 가맹아이디,날짜자동,총금액,후라이드,양념,간장,사이드);
 
@@ -758,6 +767,11 @@ select bodysales.id,SUM(bodysales.money) from bodysales where bodysales.id='nave
 --select id from headFranchise where alias='bbq-n';
 
 select id,SUM(money) from bodysales where id='naver' and date like '%2018-01%' GROUP BY id;
+
+
+SELECT id,SUM(chickenF) from bodysales where id='naver' GROUP BY id;
+SELECT id,SUM(?) from bodysales where id=? GROUP BY id;
+SELECT * from bodysales;
 
 "SELECT name,SUM(quantity) AS quantity FROM headstock GROUP BY name;";here date like '%2018-11-28%';
 drop table bodysales;

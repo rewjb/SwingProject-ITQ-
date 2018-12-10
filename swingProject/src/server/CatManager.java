@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientManagerThread extends Thread{
+public class CatManager extends Thread{
 
 	private Socket m_socket;
 	private String m_ID;

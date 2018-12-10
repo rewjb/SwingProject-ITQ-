@@ -36,22 +36,14 @@ public class BodySalesDataChart extends JPanel{
 	public BodySalesDataChart() {
 		
 		plot.setDataset(dataSet);
-		
 		plot.setRenderer(renderer);
-		
 		plot.setDomainAxis(categoryAxis);
-		
 		plot.setRangeAxis(NumberAxis);
-		
 		plot.setOrientation(PlotOrientation.VERTICAL);
-		
 		plot.setDomainGridlinesVisible(true);
-		
 		plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.STANDARD);
-		
 		chartPanel.setBounds(0, 0, 450, 275);
 		add(chartPanel);
-		
 		setLayout(null);
 		setBounds(0, 0, 450, 275);
 		
@@ -70,11 +62,6 @@ public class BodySalesDataChart extends JPanel{
 			dataSet.addValue(intList.get(i),BodyFrame.id, String.valueOf(1 + i) + "월");
 		} // 12월까지 입력
 		
-		
-		
-		
 	}
-	
-	
 	
 }

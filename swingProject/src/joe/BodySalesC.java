@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 public class BodySalesC extends JPanel implements BodySales, ActionListener {
 
-	private DefaultTableModel model = new DefaultTableModel(17, 4);//
+	private DefaultTableModel model = new DefaultTableModel(0, 4);//
 	private DefaultTableModel model2 = new DefaultTableModel(0, 5);//
 	private DefaultTableModel model3 = new DefaultTableModel(0, 2);//
 
@@ -41,20 +41,11 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 			return false;
 		};
 	};
-	private JTable popularMenu = new JTable(model3) {// 인기 순위 테이블
-		public boolean isCellEditable(int row, int column) {
-			return false;
-		};
-	};
 
 	private JScrollPane scroll = new JScrollPane(salesTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, //
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);// 전체 매출 스크롤
 	private JScrollPane scroll2 = new JScrollPane(salesTableResult, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, //
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);// 매출 종합 스크롤
-	private JScrollPane scroll3 = new JScrollPane(popularMenu, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, //
-			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);// 인기 순위 스크롤
-
-	private JButton button_1;// 인기순위
 	private JButton button;// 매출 종합
 	private JTextField textField;// 첫번째 날짜 입력칸
 	private JTextField textField_1;// 두번째 날짜 입력칸
@@ -66,10 +57,6 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		// jpanel레이아웃 사이즈 배경설정
 		setLayout(null);
 		setSize(790, 364);
-		//setBackground(Color.YELLOW);
-
-		// 스크롤 사이즈 설정
-		scroll3.setBounds(382, 214, 150, 84);
 		scroll2.setBounds(382, 70, 314, 60);
 		scroll.setBounds(30, 70, 314, 228);
 
@@ -82,13 +69,11 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 
 		// 버튼 객체 생성
 		button = new JButton("\uB9E4\uCD9C \uC885\uD569");
-		button_1 = new JButton("\uC778\uAE30\uC21C\uC704");
 		btnNewButton_1 = new JButton("\uAC80\uC0C9");
 		// 선택버튼 폰트설정
 		btnNewButton_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		// 버튼 위치 지정
 		button.setBounds(500, 135, 90, 23);
-		button_1.setBounds(409, 304, 90, 23);
 		btnNewButton_1.setBounds(287, 37, 57, 23);
 
 		// 각 텍스트 필드 위치지정
@@ -116,48 +101,36 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		// 각 컴포턴트 jpanel에 더하기
 		add(lblNewLabel);
 		add(btnNewButton_1);
-		add(scroll3);
 		add(scroll2);
 		add(scroll);
 		add(button);
-
-		add(button_1);
-
-		// 각 버튼 액션리스너 기능 사용
-		button_1.addActionListener(this);
 		btnNewButton_1.addActionListener(this);
 		button.addActionListener(this);
-		
-		JLabel lblNewLabel_2 = new JLabel("\uC778\uAE30\uC21C\uC704");
-		lblNewLabel_2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(426, 189, 57, 15);
-		add(lblNewLabel_2);
-		
+
 		JLabel label_1 = new JLabel("\uB9E4\uCD9C\uC885\uD569");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		label_1.setBounds(510, 45, 57, 15);
 		add(label_1);
-		
+
 		JLabel label_2 = new JLabel("\uB9E4\uCD9C \uAC80\uC0C9");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		label_2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		label_2.setBounds(146, 12, 67, 15);
 		add(label_2);
-		
+
 		JLabel label_3 = new JLabel("\uB144");
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		label_3.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		label_3.setBounds(112, 41, 57, 15);
 		add(label_3);
-		
+
 		JLabel label = new JLabel("\uC6D4");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		label.setBounds(168, 41, 57, 15);
 		add(label);
-		
+
 		JLabel label_4 = new JLabel("\uC77C");
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		label_4.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
@@ -177,60 +150,102 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		((Component) bbqBody).setVisible(false);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		
-		
-		if (e.getSource() == btnNewButton_1) {//검색을 통한 매출 
-			int size = B_SalesDAO.getInstance().menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText()).size();
-			 ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance().menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText());
-			if (model.getValueAt(0, 0) == null) {
-
-				for (int j = 0; j < size; j++) {
-					if (!(salesDTO.get(j).getChickenF() == 0)) {
-						model.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
-								salesDTO.get(j).getChickenF(),
-								salesDTO.get(j).getDate().substring(0, 19)});
-					} else if (!(salesDTO.get(j).getChickenH() == 0)) {
-						model.insertRow(0, new Object[] { "양념", (salesDTO.get(j).getChickenH()) / 20000,
-								salesDTO.get(j).getChickenH(),
-								salesDTO.get(j).getDate().substring(0, 19)});
-					} else if (!(salesDTO.get(j).getChickenS() == 0)) {
-						model.insertRow(0, new Object[] { "간장", (salesDTO.get(j).getChickenS()) / 20000,
-								salesDTO.get(j).getChickenS(),
-								salesDTO.get(j).getDate().substring(0, 19)});
-					}
-
-				}
-			} else {
-				for (int i = 0; !(model.getValueAt(0, 0) == null); i++) {
-					model.removeRow(0);
-				}
-
-				for (int j = 0; j < size; j++) {
-					if (!(salesDTO.get(j).getChickenF() == 0)) {
-						model.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
-								salesDTO.get(j).getChickenF(),
-								salesDTO.get(j).getDate().substring(0, 19)});
-					} else if (!(salesDTO.get(j).getChickenH() == 0)) {
-						model.insertRow(0, new Object[] { "양념", (salesDTO.get(j).getChickenH()) / 20000,
-								salesDTO.get(j).getChickenH(),
-								salesDTO.get(j).getDate().substring(0, 19)});
-					} else if (!(salesDTO.get(j).getChickenS() == 0)) {
-						model.insertRow(0, new Object[] { "간장", (salesDTO.get(j).getChickenS()) / 20000,
-								salesDTO.get(j).getChickenS(),
-								salesDTO.get(j).getDate().substring(0, 19)});
-					}
-
-				}
-
+	public void searchSales() {
+		int size = B_SalesDAO.getInstance()
+				.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText()).size();
+		ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
+				.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText());
+		for (int j = 0; j < size; j++) {
+			if (!(salesDTO.get(j).getChickenF() == 0)) {
+				model.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
+						salesDTO.get(j).getChickenF(), salesDTO.get(j).getDate().substring(0, 19) });
+			} else if (!(salesDTO.get(j).getChickenH() == 0)) {
+				model.insertRow(0, new Object[] { "양념", (salesDTO.get(j).getChickenH()) / 20000,
+						salesDTO.get(j).getChickenH(), salesDTO.get(j).getDate().substring(0, 19) });
+			} else if (!(salesDTO.get(j).getChickenS() == 0)) {
+				model.insertRow(0, new Object[] { "간장", (salesDTO.get(j).getChickenS()) / 20000,
+						salesDTO.get(j).getChickenS(), salesDTO.get(j).getDate().substring(0, 19) });
 			}
 
-		} else if (e.getSource() == button) {//매출 종합
-			int m = model.getRowCount();
-			for (int i = 0; i < m; i++) {//작업중
-				
+		}
+	}
+
+	public void salesResult() {
+		int count = model.getRowCount();
+		for (int i = 0; i < count; i++) {// 작업중
+			if (model.getValueAt(i, 0).equals("후라이드")) {// 후라이드치킨 종합
+				if (model2.getRowCount() == 0) {
+					model2.insertRow(0, new Object[] {});
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 0);
+				} else {
+					model2.setValueAt(
+							(int) model2.getValueAt(0, 0) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							0, 0);
+				}
+
+			} else if (model.getValueAt(i, 0).equals("양념")) {// 양념치킨 종합
+				if (model2.getRowCount() == 0) {
+					model2.insertRow(0, new Object[] {});
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 1);
+				} else if (model2.getValueAt(0, 1) == null) {
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 1);
+				} else {
+					model2.setValueAt(
+							(int) model2.getValueAt(0, 1) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							0, 1);
+				}
+			} else if (model.getValueAt(i, 0).equals("간장")) {// 간장치킨 종합
+				if (model2.getRowCount() == 0) {
+					model2.insertRow(0, new Object[] {});
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 2);
+				} else if (model2.getValueAt(0, 1) == null) {
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 2);
+				} else {
+					model2.setValueAt(
+							(int) model2.getValueAt(0, 2) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							0, 2);
+				}
+			} else {// 음료 종합
+				if (model2.getRowCount() == 0) {
+					model2.insertRow(0, new Object[] {});
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 3);
+				} else if (model2.getValueAt(0, 3) == null) {
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 3);
+				} else {
+					model2.setValueAt(
+							(int) model2.getValueAt(0, 3) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							0, 3);
+				}
+			}
+
+			if (model2.getValueAt(0, 4) == null) {
+				model2.setValueAt((int) model2.getValueAt(0, 0) + (int) model2.getValueAt(0, 1)
+						+ (int) model2.getValueAt(0, 2) + (int) model2.getValueAt(0, 3), 0, 4);
+			}
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if (e.getSource() == btnNewButton_1) {// 검색을 통한 매출
+			if (model.getRowCount() == 0) {
+				searchSales();
+			} else {
+				int count = model.getRowCount();
+				System.out.println(count);
+				for (int i = 0; i < count; i++) {
+					model.removeRow(0);
+				}
+				searchSales();
+			}
+
+		} else if (e.getSource() == button) {// 매출 종합
+			if (model2.getRowCount() == 0) {
+				salesResult();
+			} else {
+				model2.removeRow(0);
+				salesResult();
 			}
 		}
 	}// 액션리스너 끝

@@ -27,7 +27,7 @@ public class ChatServer extends Thread {
 				// 무한루프 안에서 서버소켓은 신호가 오기를 기다린다.
 				// 신호가 끊어지더라도 반응하는 것 같다..
 
-				ClientManagerThread c_thread = new ClientManagerThread();
+				CatManager c_thread = new CatManager();
 				// ClientManagerThread 스레드를 호출하였다. 여기에는 무슨 기능이 있을까?
 				// 1. setSocket메서드 : 서버소켓.accept() 로 온 클라이언트 소켓을 잡아둔다.
 				//

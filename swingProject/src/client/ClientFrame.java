@@ -1,25 +1,33 @@
 package client;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.swing.JButton;
-import javax.swing.JTextField;
-
 public class ClientFrame extends JFrame implements ActionListener {
 
-	private DefaultTableModel model = new DefaultTableModel(0, 2);
+	public static DefaultTableModel model = new DefaultTableModel(0, 2);
 	private JTable table = new JTable(model) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
@@ -31,62 +39,146 @@ public class ClientFrame extends JFrame implements ActionListener {
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 발주내용의 스크롤 기능 객체
 
-	private JButton btnNewButton = new JButton("입장");
-	private JButton button_1 = new JButton("종료");
+	private JButton joinRommBtn = new JButton("입장");
+	private JButton exitBtn = new JButton("종료");
 
-	HashMap<String, ArrayList<PrintWriter>> room = new HashMap<>();;
+	public static JPanel selectRoomPanel = new JPanel();
+	public static JPanel chattingPanel = new JPanel();
 
-	private final JTextField textField = new JTextField();
+	private Socket c_socket;
 
-	ChatClient ChatClient = new ChatClient();
+	private JButton exitChattingRoomBtn = new JButton("나가기");
+	private JTextField inputText = new JTextField();
+	private JLabel roomLabel = new JLabel();
+	public static JTextArea historyArea = new JTextArea();
 
-	String name = "유주빈";
+	private Clinet clinet = new Clinet();
+
+	public static String nowRoomName;
+
+	private PrintWriter sendWriter;
+
+	private String userName = "임시";
 
 	public ClientFrame() {
 
-		ChatClient.name = name;
-		ChatClient.start();
+		clinet.start();
 
-		textField.setColumns(10);
+		exitChattingRoomBtn.setBounds(75, 295, 97, 23);
+		inputText.setBounds(12, 265, 220, 23);
+		roomLabel.setBounds(12, 2, 220, 23);
+		historyArea.setBounds(12, 30, 220, 230);
+
+		inputText.setHorizontalAlignment(JTextField.RIGHT);
+		historyArea.setEditable(false);
+		roomLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		chattingPanel.add(exitChattingRoomBtn);
+		chattingPanel.add(inputText);
+		chattingPanel.add(roomLabel);
+		chattingPanel.add(historyArea);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		btnNewButton.setBounds(12, 288, 97, 23);
-		scroll.setBounds(12, 10, 220, 268);
-		button_1.setBounds(135, 288, 97, 23);
-		textField.setBounds(10, 20, 97, 23);
+		joinRommBtn.setBounds(12, 260, 97, 23);
+		scroll.setBounds(12, 10, 220, 240);
+		exitBtn.setBounds(135, 260, 97, 23);
 
-		btnNewButton.addActionListener(this);
-		button_1.addActionListener(this);
+		joinRommBtn.addActionListener(this);
+		exitBtn.addActionListener(this);
+		inputText.addActionListener(this);
+		exitChattingRoomBtn.addActionListener(this);
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
 		table.getTableHeader().setResizingAllowed(false);
 		table.getTableHeader().setReorderingAllowed(false);
-		getContentPane().add(btnNewButton);
-		getContentPane().add(button_1);
+		getContentPane().add(joinRommBtn);
+		getContentPane().add(exitBtn);
 		getContentPane().add(scroll);
 
 		getContentPane().setLayout(null);
 
+		joinRommBtn.addActionListener(this);
+		exitBtn.addActionListener(this);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) { // 2번 클릭 시
+					nowRoomName = (String) table.getValueAt(table.getSelectedRow(), 0);
+					roomLabel.setText("방 제목 : " + nowRoomName);
+					sendWriter.print("CHroom\n" + nowRoomName + "\n");
+					sendWriter.flush();
+				}
+			}
+		});
+//		this.addWindowListener(new );
+
+		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
+
+		table.getTableHeader().setResizingAllowed(false);
+		table.getTableHeader().setReorderingAllowed(false);
+
+		selectRoomPanel.setLayout(null);
+		selectRoomPanel.setBounds(0, 0, 250, 350);
+		chattingPanel.setBounds(0, 0, 250, 350);
+		chattingPanel.setLayout(null);
+
+		selectRoomPanel.add(joinRommBtn);
+		selectRoomPanel.add(exitBtn);
+		selectRoomPanel.add(scroll);
+
+		chattingPanel.setVisible(false);
+
+		setLayout(null);
+		add(selectRoomPanel);
+		add(chattingPanel);
 		setResizable(false);
-		setTitle("가맹점");
+		setTitle("클라이언트");
 		setSize(250, 350);
 		setVisible(true);
 	}// 생성자 종료
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		if (e.getSource() == btnNewButton) {
-			System.out.println("입장");
-
-		} else if (e.getSource() == button_1) {
-			System.out.println("종료");
+		if (e.getSource() == inputText) {
+			sendWriter.print("Msend\n"+userName+"\n"+nowRoomName+"\n"+inputText.getText()+"\n");
+		    inputText.setText(null);
+			sendWriter.flush();  
+		}//메세지 전송
+		
+		if (e.getSource()==exitChattingRoomBtn) {
+			historyArea.setText(null);
+			sendWriter.print("EXroom\n" + nowRoomName + "\n");
+			sendWriter.flush();
+			
 		}
 
 	}// actionPerformed:메서드 종료
 
+	class Clinet extends Thread {
+
+		@Override
+		public void run() {
+			super.run();
+			try {
+				c_socket = new Socket("127.0.0.1", 8000);
+				// 기준이 되는 서버소켓 선언
+				sendWriter = new PrintWriter(c_socket.getOutputStream());
+				ClientReceive clientReceive = new ClientReceive(c_socket);
+				clientReceive.start();
+			} catch (Exception e) {
+				System.out.println("내부 Server 클래스 오류");
+				e.printStackTrace();
+			}
+
+		}// run : 메서드 종료
+	}// Server : 클래스 종료
+
 	public static void main(String[] args) {
 		new ClientFrame();
 	}// main:메서드 종료
+
 }// 클래스 종료
+
+// 아이디,방이름,위치(로비 or 방)>>

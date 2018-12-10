@@ -106,13 +106,12 @@ public class FranSalesBarChart extends JPanel {
 		for (int i = 0; i < 12; i++) {
 			dataSet.addValue(intList.get(i), franName, String.valueOf(1 + i) + "월");
 		} // 12월까지 입력
-
+		
 		// 데이터를 기준으로 만원단위로 넣어야 함.
 //		dataSet.setValue(50, "가맹점", "12월");
 	}// 가맹점 월별 데이터 보여주기 메서드
 
 	public void dayChartShow(String franName, String year, String month) {
-
 		int count = dataSet.getColumnCount();
 
 		for (int i = 0; i < count; i++) {

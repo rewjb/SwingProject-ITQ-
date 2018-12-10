@@ -173,7 +173,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 	public void salesResult() {
 		int count = model.getRowCount();
 		for (int i = 0; i < count; i++) {// 작업중
-			if (model.getValueAt(i, 0).equals("후라이드")) {
+			if (model.getValueAt(i, 0).equals("후라이드")) {// 후라이드치킨 종합
 				if (model2.getRowCount() == 0) {
 					model2.insertRow(0, new Object[] {});
 					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 0);
@@ -183,7 +183,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 							0, 0);
 				}
 
-			} else if (model.getValueAt(i, 0).equals("양념")) {
+			} else if (model.getValueAt(i, 0).equals("양념")) {// 양념치킨 종합
 				if (model2.getRowCount() == 0) {
 					model2.insertRow(0, new Object[] {});
 					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 1);
@@ -194,7 +194,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 							(int) model2.getValueAt(0, 1) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
 							0, 1);
 				}
-			} else if (model.getValueAt(i, 0).equals("간장")) {
+			} else if (model.getValueAt(i, 0).equals("간장")) {// 간장치킨 종합
 				if (model2.getRowCount() == 0) {
 					model2.insertRow(0, new Object[] {});
 					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 2);
@@ -205,13 +205,22 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 							(int) model2.getValueAt(0, 2) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
 							0, 2);
 				}
-			} else {
-//				if (model2.getRowCount()==0) {
-//					model2.insertRow(0,new Object[] {});
-//					model2.setValueAt((int)model.getValueAt(i, 1)*(int)model.getValueAt(i, 2), 0, 0);
-//				}else {
-//					model2.setValueAt((int)model2.getValueAt(0, 3)+(int)model.getValueAt(i, 1)*(int)model.getValueAt(i, 2), 0, 0);
-//				}
+			} else {// 음료 종합
+				if (model2.getRowCount() == 0) {
+					model2.insertRow(0, new Object[] {});
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 3);
+				} else if (model2.getValueAt(0, 3) == null) {
+					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 3);
+				} else {
+					model2.setValueAt(
+							(int) model2.getValueAt(0, 3) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							0, 3);
+				}
+			}
+
+			if (model2.getValueAt(0, 4) == null) {
+				model2.setValueAt((int) model2.getValueAt(0, 0) + (int) model2.getValueAt(0, 1)
+						+ (int) model2.getValueAt(0, 2) + (int) model2.getValueAt(0, 3), 0, 4);
 			}
 		}
 	}

@@ -5,7 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -26,7 +31,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private DefaultTableModel model;
 	private JTable table = new JTable(model);
 	private JScrollPane scrollPane = new JScrollPane(table);
-	private Object[] column = { "업체ID", "No.", "이름", "가격" };
+	private Object[] column = { "업체ID", "No.", "재료명", "입고가", "이윤", "발주가" };
 
 	// 리벨과 텍스트필드 : 사용자가 입력하고 수정하는 부분
 	private JLabel lbNum;
@@ -57,9 +62,9 @@ public class H_V_Product extends JPanel implements ActionListener {
 	H_VenderDAO vDAO = new H_VenderDAO(); // 업체 DAO
 	H_VenderDTO vDTO; // 업체DTO
 	boolean cbNtf = false; // 콤보박스 사용여부 확인
-	String id;	//콤보박스 선택된값 담아두는 변수
-	String[] pName;
-
+	String id;		//콤보박스 선택된 id 담아두는 변수
+	String name;	//콤보박스 선택된 name 담아두는 변수
+	
 	// 생성자 constructor
 	public H_V_Product() {
 		labelSetting();
@@ -100,13 +105,14 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			model.addRow(row);
 		}
-		cbId.setVisible(true);
 		cbNtf = true;
+		cbId.setVisible(true);
 		tfId.setVisible(false);
 		tfNum.setText("자동생성");
 		tfNum.setEditable(false);
 		tfName.setText("");
-		tfName.setEditable(true);
+		cbName.setVisible(true);
+		tfName.setVisible(false);
 		tfMoney.setText("");
 	}
 
@@ -124,11 +130,41 @@ public class H_V_Product extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
-				id = (String) cb.getSelectedItem();
+				name = (String) cb.getSelectedItem();
 			}
 		});
 		add(cbId);
 	}
+	
+	//메뉴이름 콤보박스에 담아주는 메서드
+	private void comboPName() {
+//		String path = "\\txt\\";
+		try {
+			Scanner sc = new Scanner(new File("H_VenderpName.txt"));
+			Writer f = new FileWriter("H_VenderpName.txt");
+			Vector vec = new Vector();
+			while(sc.hasNextLine()) {
+				vec.add(sc.nextLine());
+			}
+			cbName = new JComboBox<H_VenderDTO>(vec);
+			cbName.setBounds(587, 100, 150, 30);
+			cbName.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JComboBox cb = (JComboBox) e.getSource();
+					id = (String) cb.getSelectedItem();
+				}
+			});
+			add(cbName);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//메뉴이름 수정 삭제해주는 메서드
+	
 
 	// 라벨 및 텍스트필드 설정사항
 	private void labelSetting() {
@@ -158,12 +194,15 @@ public class H_V_Product extends JPanel implements ActionListener {
 		lbName.setHorizontalAlignment(SwingConstants.CENTER);
 		lbName.setBounds(522, 100, 60, 30);
 		add(lbName);
-
+		
+		comboPName();
 		tfName = new JTextField();
 		tfName.setText("comboBox");
 		tfName.setColumns(10);
 		tfName.setBounds(587, 100, 150, 30);
 		add(tfName);
+		cbName.setVisible(true);
+		tfId.setVisible(false);
 
 		lbMoney = new JLabel("매입가");
 		lbMoney.setHorizontalAlignment(SwingConstants.CENTER);
@@ -221,13 +260,15 @@ public class H_V_Product extends JPanel implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = table.getSelectedRow();
-				cbId.setVisible(false);
 				cbNtf = false;
+				cbId.setVisible(false);
 				tfId.setVisible(true);
 				tfId.setText(model.getValueAt(i, 0).toString());
 				tfId.setEditable(false);
 				tfNum.setText(model.getValueAt(i, 1).toString());
 				tfNum.setEditable(false);
+				cbName.setVisible(false);
+				tfName.setVisible(true);
 				tfName.setText(model.getValueAt(i, 2).toString());
 				tfName.setEditable(false);
 				tfMoney.setText(model.getValueAt(i, 3).toString());
@@ -243,7 +284,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 				pDTO = new H_VenderpDTO();
 			    pDTO.setId(id);	//combobox에 선택된 값을 받아옵니다.
 				// num은 자동생성 DAO의 sql에서 null값을 넣어줄 것입니다.
-				pDTO.setName(tfName.getText());
+				pDTO.setName(name); //combobox에 선택된 값을 받아옵니다.
 				pDTO.setMoney(Integer.parseInt(tfMoney.getText()));
 				
 				int rs = pDAO.insertVenderpInfo(pDTO);

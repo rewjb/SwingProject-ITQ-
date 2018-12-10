@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -44,10 +46,10 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JComboBox cbName;
 	private JLabel lbMoney;
 	private JTextField tfMoney;
-//	private JLabel lbPer;
-//	private JTextField tfPer;
-//	private JLabel lbPerM;
-//	private JTextField tfPerM;
+	private JLabel lbPer;
+	private JTextField tfPer;
+	private JLabel lbPerM;
+	private JTextField tfPerM;
 
 	// 버튼
 	private JButton btAdd;
@@ -64,6 +66,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 	boolean cbNtf = false; // 콤보박스 사용여부 확인
 	String id;		//콤보박스 선택된 id 담아두는 변수
 	String name;	//콤보박스 선택된 name 담아두는 변수
+	HashMap<String, String> namePer = new HashMap<>(); //name에 해당하는 이윤 담아놓은 컬렉션
+	String[] np;
 	
 	// 생성자 constructor
 	public H_V_Product() {
@@ -97,11 +101,24 @@ public class H_V_Product extends JPanel implements ActionListener {
 		ArrayList<H_VenderpDTO> list = pDAO.selectALLVenderpInfo();
 		for (int i = 0; i < list.size(); i++) {
 			pDTO = list.get(i);
-			row = new Object[4];
+			row = new Object[6];
 			row[0] = pDTO.getId();
 			row[1] = pDTO.getNum();
 			row[2] = pDTO.getName();
 			row[3] = pDTO.getMoney();
+			Scanner sc;
+			try {
+				sc = new Scanner(new File("H_VenderpName.txt"));
+				while(sc.hasNextLine()) {
+					np = sc.nextLine().split("-");
+					if(np[0].equals(pDTO.getName())) {
+						row[4] = np[1];
+						row[5] = (int)(pDTO.getMoney()*(1+Double.parseDouble(np[1])));
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			model.addRow(row);
 		}
@@ -122,6 +139,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		ArrayList<H_VenderDTO> list = vDAO.selectIdAllVenderInfo();
 		for (int i = 0; i < list.size(); i++) {
 			vec.add(list.get(i).getId());
+			id = list.get(0).getId();
 		}
 		cbId = new JComboBox<H_VenderDTO>(vec);
 		cbId.setBounds(587, 20, 150, 30);
@@ -130,7 +148,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
-				name = (String) cb.getSelectedItem();
+				id = (String) cb.getSelectedItem();
 			}
 		});
 		add(cbId);
@@ -141,25 +159,33 @@ public class H_V_Product extends JPanel implements ActionListener {
 //		String path = "\\txt\\";
 		try {
 			Scanner sc = new Scanner(new File("H_VenderpName.txt"));
-			Writer f = new FileWriter("H_VenderpName.txt");
-			Vector vec = new Vector();
+			Vector vec = new Vector<>();
+			int idx = 0;
 			while(sc.hasNextLine()) {
-				vec.add(sc.nextLine());
+				np = sc.nextLine().split("-");
+				if(idx == 0) {	//아무것도 선택 안했을때는 첫번째 콤보박스 항목을 기본으로 선택
+					name = np[0];
+					idx++;
+				}
+				namePer.put(np[0], np[1]);
+				vec.add(np[0]);	//콤보박스에는 이름만 출력해주기.
 			}
-			cbName = new JComboBox<H_VenderDTO>(vec);
+			cbName = new JComboBox(vec);
 			cbName.setBounds(587, 100, 150, 30);
 			cbName.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					JComboBox cb = (JComboBox) e.getSource();
-					id = (String) cb.getSelectedItem();
+					name = (String) cb.getSelectedItem();
+					tfPer.setText(namePer.get(name));
+
 				}
 			});
 			add(cbName);
+			sc.close();
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -197,7 +223,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 		
 		comboPName();
 		tfName = new JTextField();
-		tfName.setText("comboBox");
 		tfName.setColumns(10);
 		tfName.setBounds(587, 100, 150, 30);
 		add(tfName);
@@ -214,26 +239,28 @@ public class H_V_Product extends JPanel implements ActionListener {
 		tfMoney.setBounds(587, 140, 150, 30);
 		add(tfMoney);
 
-//		lbPer = new JLabel("이윤");
-//		lbPer.setHorizontalAlignment(SwingConstants.CENTER);
-//		lbPer.setBounds(522, 180, 60, 30);
-//		add(lbPer);
-//		
-//		tfPer = new JTextField();
-//		tfPer.setColumns(10);
-//		tfPer.setBounds(587, 180, 150, 30);
-//		add(tfPer);
-//		
-//		lbPerM = new JLabel("발주가");
-//		lbPerM.setHorizontalAlignment(SwingConstants.CENTER);
-//		lbPerM.setBounds(522, 180, 60, 30);
-//		add(lbPerM);
-//				
-//		tfPerM = new JTextField();
-//		tfPerM.setColumns(10);
-//		tfPerM.setBounds(587, 180, 150, 30);
-//		add(tfPerM);
-//		tfPerM.setText(""+Integer.parseInt(tfMoney.getText())*Integer.parseInt(tfPer.getText()));
+		lbPer = new JLabel("이윤");
+		lbPer.setHorizontalAlignment(SwingConstants.CENTER);
+		lbPer.setBounds(522, 180, 60, 30);
+		add(lbPer);
+		
+		tfPer = new JTextField();
+		tfPer.setColumns(10);
+		tfPer.setBounds(587, 180, 150, 30);
+		tfPer.setEditable(false);
+		tfPer.setText(namePer.get(name));
+		add(tfPer);
+		
+		lbPerM = new JLabel("발주가");
+		lbPerM.setHorizontalAlignment(SwingConstants.CENTER);
+		lbPerM.setBounds(522, 220, 60, 30);
+		add(lbPerM);
+				
+		tfPerM = new JTextField();
+		tfPerM.setColumns(10);
+		tfPerM.setBounds(587, 220, 150, 30);
+		tfPerM.setEditable(false);
+		add(tfPerM);
 	}
 
 	// 버튼에 관련된 설정사항
@@ -249,7 +276,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		btModify.addActionListener(this);
 
 		btDelete = new JButton("삭제");
-		btDelete.setBounds(683, 270, 70, 30);
+		btDelete.setBounds(683, 275, 70, 30);
 		add(btDelete);
 		btDelete.addActionListener(this);
 	}
@@ -271,7 +298,11 @@ public class H_V_Product extends JPanel implements ActionListener {
 				tfName.setVisible(true);
 				tfName.setText(model.getValueAt(i, 2).toString());
 				tfName.setEditable(false);
-				tfMoney.setText(model.getValueAt(i, 3).toString());
+				String m = model.getValueAt(i, 3).toString();
+				tfMoney.setText(m);
+				tfPer.setText(namePer.get(name));
+				double d = Integer.parseInt(m)*(1+Double.parseDouble(namePer.get(name)));
+				tfPerM.setText(""+d);
 			}
 		});
 	}

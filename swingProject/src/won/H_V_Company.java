@@ -78,7 +78,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		add(scrollPane);
-		scrollPane.setBounds(15, 10, 500, 280);
+		scrollPane.setBounds(15, 10, 500, 300);
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
@@ -204,17 +204,17 @@ public class H_V_Company extends JPanel implements ActionListener {
 	// 버튼에 관련된 설정사항
 	private void buttonSetting() {
 		btAdd = new JButton("추가");
-		btAdd.setBounds(527, 246, 70, 30);
+		btAdd.setBounds(527, 275, 70, 30);
 		add(btAdd);
 		btAdd.addActionListener(this);
 
 		btModify = new JButton("수정");
-		btModify.setBounds(605, 246, 70, 30);
+		btModify.setBounds(605, 275, 70, 30);
 		add(btModify);
 		btModify.addActionListener(this);
 
 		btDelete = new JButton("삭제");
-		btDelete.setBounds(683, 246, 70, 30);
+		btDelete.setBounds(683, 275, 70, 30);
 		add(btDelete);
 		btDelete.addActionListener(this);
 	}

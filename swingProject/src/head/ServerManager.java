@@ -25,6 +25,8 @@ public class ServerManager extends Thread {
 
 			int sendMemberNum;
 
+
+			
 			while (true) {
 
 				try {

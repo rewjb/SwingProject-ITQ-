@@ -118,9 +118,6 @@ public class B_SalesDAO {
 		}
 	}
 
-	public void menuUpdate(int num) {
-
-	}
 
 	public ArrayList<Integer> selectFranSalesYear(String id, String year) {
 		ArrayList<Integer> salesMonth = new ArrayList<>();

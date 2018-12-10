@@ -156,15 +156,32 @@ hconfirm varchar(10),
 bconfirm varchar(10)
 );
 
-<<<<<<< HEAD
-create table asd(
-name varchar(15) not null
+create table bodysales(
+num int auto_increment primary key,
+id varchar(10) not null,
+date TIMESTAMP DEFAULT NOW(),
+money int not null,
+chickenF int,
+chickenH int,
+chickenS int,
+side int
 );
-select * from headstock;
-select * from asd;
-insert into asd values ("유주빈");
-insert into bodyorder values (default,'안녕?','d-1',1,default,'1','');
-=======
+
+insert into bodysales values (default,'조광재','2018-11-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-10-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-09-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-08-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-07-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-06-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-05-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-04-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-03-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-02-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-01-01','60000','20000','20000','20000','0');
+
+
+
+
 insert into bodyorder values (default,'닭','닭',10,default,'1','');
 insert into bodyorder values (default,'콜라','d-1',1,default,'1','');
 insert into bodyorder values (default,'사이다','d-1',1,default,'1','');
@@ -243,8 +260,7 @@ select * from headstock;
 
 SELECT headvenderp.name,headvender.name FROM headvenderp,headvender WHERE (headvender.id=headvenderp.id) and headvenderp.name='apple'  ORDER BY headvender.name;
 
-=======
-<<<<<<< HEAD
+
 create database BBQ;
 
 유통기한..고민..

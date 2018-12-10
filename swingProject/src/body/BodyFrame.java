@@ -4,10 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
+
+import inter.BBQBody;
 import inter.BBQHead;
 import javax.swing.JPanel;
 
@@ -26,91 +29,105 @@ import javax.swing.JPanel;
 // 아래의 4번은 제작한 모든  Jpanel을 3번까지의 과정을 거친 후 4번을 실행한다.
 // 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
-public class BodyFrame extends JFrame implements BBQHead, ActionListener {
-
-	JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리");
+public class BodyFrame extends JFrame implements BBQBody, ActionListener {
+	
+	
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
-	JToggleButton StockBtn = new JToggleButton("입-출고관리");
-	JToggleButton VenderBtn = new JToggleButton("업체관리");
-	JToggleButton FranchiseBtn = new JToggleButton("가맹점관리");
+	JToggleButton StockBtn = new JToggleButton("재고관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
+	JToggleButton hallButton = new JToggleButton("홀");
 
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
 
 	JPanel mainPanel = new JPanel();
-
+	BodyOrderC orderC = new BodyOrderC();
+	BodySalesC salesC = new BodySalesC();
+	BodyStockC stockC = new BodyStockC();
+	HallC hallc = new HallC();
+	static String id = "조광재";
+	
+	
+	
 	public BodyFrame() {
-		//20 간격 !
-		F_OrderCheckBtn.setBounds(12, 20, 130, 23);
-		OrderBtn.setBounds(143, 20, 90, 23);
-		StockBtn.setBounds(234, 20, 110, 23);
-		VenderBtn.setBounds(345, 20, 90, 23);
-		FranchiseBtn.setBounds(436, 20, 100, 23);
-		SalesBtn.setBounds(537, 20, 90, 23);
+		// 사이즈 , 레이아웃 및 각종 설정
+		setSize(820, 450);
+		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		// 20 간격 !
+		OrderBtn.setBounds(12, 30, 90, 23);
+		StockBtn.setBounds(102, 30, 90, 23);
+		SalesBtn.setBounds(193, 30, 90, 23);
+		hallButton.setBounds(671, 30, 90, 23);
+		
 
-		mainPanel.setBounds(12, 53, 770, 358);
+		mainPanel.setBounds(12, 53, 790, 364);
 		mainPanel.setLayout(null);
-
-		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
-		btnGroup.add(VenderBtn);
-		btnGroup.add(FranchiseBtn);
 		btnGroup.add(SalesBtn);
+		btnGroup.add(hallButton);
 
-		getContentPane().add(F_OrderCheckBtn);
 		getContentPane().add(OrderBtn);
 		getContentPane().add(StockBtn);
-		getContentPane().add(VenderBtn);
-		getContentPane().add(FranchiseBtn);
 		getContentPane().add(SalesBtn);
-
+		getContentPane().add(hallButton);
+		mainPanel.add(orderC);
+		mainPanel.add(hallc);
+		mainPanel.add(salesC);
+		mainPanel.add(stockC);
+		
 		getContentPane().add(mainPanel);
 
-		F_OrderCheckBtn.addActionListener(this);
 		OrderBtn.addActionListener(this);
 		StockBtn.addActionListener(this);
-		VenderBtn.addActionListener(this);
-		FranchiseBtn.addActionListener(this);
 		SalesBtn.addActionListener(this);
+		hallButton.addActionListener(this);
 
-		// 사이즈 , 레이아웃 및 각종 설정
-		getContentPane().setLayout(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 450);
-		setResizable(false);
+		
 		setVisible(true);
 	}// 생성자 종료
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 show 오버라이딩
-	public void show(BBQHead bbqBody) {
+	public void show(BBQBody bbqBody) {
 		((Component) bbqBody).setVisible(true);
 	}// show 메서드 끝
 
 	@Override // 인터페이스 BBQHead로부터 받은 메서드 hide 오버라이딩
-	public void hide(BBQHead bbqBody) {
+	public void hide(BBQBody bbqBody) {
 		((Component) bbqBody).setVisible(false);
 	}// hide 메서드 끝
 
 	@Override // 인터페이스 ActionListener로부터 받은 메서드 hide 오버라이딩
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == F_OrderCheckBtn) {//가맹점 발주관리
-		} else
-		if (e.getSource() == OrderBtn) {//본사 발주관리
-		} else
-		if (e.getSource() == StockBtn) {//재고 입출고 관리
-		} else
-		if (e.getSource() == VenderBtn) {//업체관리
-		} else
-		if (e.getSource() == FranchiseBtn) {//가맹점 관리
-		} else
-		if (e.getSource() == SalesBtn) {//매출관리
+
+		if (e.getSource() == OrderBtn) {// 본사 발주관리
+			show(orderC);
+			hide(salesC);
+			hide(hallc);
+			hide(stockC);
+		} else if (e.getSource() == StockBtn) {// 재고 입출고 관리
+			show(stockC);
+			hide(orderC);
+			hide(salesC);
+			hide(hallc);
+		} else if (e.getSource() == SalesBtn) {// 매출관리
+			show(salesC);
+			hide(orderC);
+			hide(hallc);
+			hide(stockC);
+		} else if (e.getSource()== hallButton) {// 홀 관리 
+			show(hallc);
+			hide(orderC);
+			hide(stockC);
+			hide(salesC);
 		}
 
 	}// actionPerformed 메서드 끝
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		new BodyFrame();
 	}// main 메서드 종료
 

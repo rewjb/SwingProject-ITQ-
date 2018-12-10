@@ -1,4 +1,4 @@
-package joe;
+package body;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,35 +46,35 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);// 전체 매출 스크롤
 	private JScrollPane scroll2 = new JScrollPane(salesTableResult, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, //
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);// 매출 종합 스크롤
-	private JButton button;// 매출 종합
 	private JTextField textField;// 첫번째 날짜 입력칸
 	private JTextField textField_1;// 두번째 날짜 입력칸
 	private JTextField textField_2;// 세번째 날짜 입력칸
 	private JLabel lblNewLabel;// 날짜검색
 	private JButton btnNewButton_1;// 선택버튼
+	private BodySalesDataChart bodySalesDataChart = new BodySalesDataChart();
+
+	private ArrayList<Integer> value;// 월별 매출 갖고 오는 리스트
 
 	public BodySalesC() {// 생성자
 		// jpanel레이아웃 사이즈 배경설정
 		setLayout(null);
 		setSize(790, 364);
-		scroll2.setBounds(382, 70, 314, 60);
-		scroll.setBounds(30, 70, 314, 228);
+		scroll2.setBounds(439, 27, 314, 60);
+		scroll.setBounds(30, 70, 314, 273);
 
 		// 각 표 컬럼 설정
 		model.setColumnIdentifiers(new Object[] { "메뉴", "수량", "합계", "날짜" });
 		model2.setColumnIdentifiers(new Object[] { "후라이드", "양념", "간장", "음료", "합계" });
 		model3.setColumnIdentifiers(new Object[] { "순위", "메뉴" });
 
-		salesTable.getColumnModel().getColumn(3).setPreferredWidth(200);// 표 특정 컬럼 길이 증가
-
-		// 버튼 객체 생성
-		button = new JButton("\uB9E4\uCD9C \uC885\uD569");
+		salesTable.getColumnModel().getColumn(3).setPreferredWidth(200);
 		btnNewButton_1 = new JButton("\uAC80\uC0C9");
 		// 선택버튼 폰트설정
 		btnNewButton_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		// 버튼 위치 지정
-		button.setBounds(500, 135, 90, 23);
 		btnNewButton_1.setBounds(287, 37, 57, 23);
+		bodySalesDataChart.setSize(422, 281);
+		// 그래프 위치 지정
+		bodySalesDataChart.setLocation(350, 86);
 
 		// 각 텍스트 필드 위치지정
 		textField = new JTextField();
@@ -103,14 +103,13 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		add(btnNewButton_1);
 		add(scroll2);
 		add(scroll);
-		add(button);
+		add(bodySalesDataChart);
 		btnNewButton_1.addActionListener(this);
-		button.addActionListener(this);
 
 		JLabel label_1 = new JLabel("\uB9E4\uCD9C\uC885\uD569");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		label_1.setBounds(510, 45, 57, 15);
+		label_1.setBounds(564, 8, 57, 15);
 		add(label_1);
 
 		JLabel label_2 = new JLabel("\uB9E4\uCD9C \uAC80\uC0C9");
@@ -150,7 +149,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		((Component) bbqBody).setVisible(false);
 	}
 
-	public void searchSales() {
+	public void searchSales() {// 매출 검색 메서드
 		int size = B_SalesDAO.getInstance()
 				.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText()).size();
 		ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
@@ -170,7 +169,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		}
 	}
 
-	public void salesResult() {
+	public void salesResult() {// 종합매출 메서드
 		int count = model.getRowCount();
 		for (int i = 0; i < count; i++) {// 작업중
 			if (model.getValueAt(i, 0).equals("후라이드")) {// 후라이드치킨 종합
@@ -218,11 +217,18 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 				}
 			}
 
-			if (model2.getValueAt(0, 4) == null) {
+		}
+		for (int j = 0; j < 4; j++) {//합계를 낼때 빈칸은 null값이 되기때문에 0값을 넣어준다.
+			if (model2.getValueAt(0, j)==null) {
+				model2.setValueAt(0, 0, j);
+			}
+		}
+			
+			
+			if (model2.getValueAt(0, 4) == null) {// 전체 합계
 				model2.setValueAt((int) model2.getValueAt(0, 0) + (int) model2.getValueAt(0, 1)
 						+ (int) model2.getValueAt(0, 2) + (int) model2.getValueAt(0, 3), 0, 4);
 			}
-		}
 	}
 
 	@Override
@@ -239,14 +245,22 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 				}
 				searchSales();
 			}
-
-		} else if (e.getSource() == button) {// 매출 종합
 			if (model2.getRowCount() == 0) {
 				salesResult();
 			} else {
 				model2.removeRow(0);
 				salesResult();
 			}
+
+			if (!(textField.getText().equals("")) && textField_1.getText().equals("")) {
+				value = B_SalesDAO.getInstance().selectFranSalesYear(BodyFrame.id, textField.getText());
+				bodySalesDataChart.monthChart(textField.getText(), value);
+			}else if (!(textField.getText().equals("")) && !(textField_1.getText().equals(""))) {
+				value = B_SalesDAO.getInstance().selectFranSalesMonth(BodyFrame.id, textField.getText(), textField_1.getText());
+				bodySalesDataChart.dayChart(textField.getText(),textField_1.getText(), value);
+				
+			}
+
 		}
 	}// 액션리스너 끝
 }// 클래스 끝

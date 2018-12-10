@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import joe.BodyFrame;
+import body.BodyFrame;
 import rew.HeadFrame;
 
 public class Login extends JFrame implements BBQ, ActionListener{

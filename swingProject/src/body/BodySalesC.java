@@ -1,4 +1,4 @@
-package joe;
+package body;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

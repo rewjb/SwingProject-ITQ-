@@ -5,26 +5,35 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.Set;
 
 public class ServerManager extends Thread {
 
 	Socket c_socket;
 	String id;
+	PrintWriter sendWriter;
+	String sendMessage;
 
 	@Override
 	public void run() {
 		super.run();
 		try {
 			BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(c_socket.getInputStream()));
-			PrintWriter sendWriter = new PrintWriter(c_socket.getOutputStream());
+			sendWriter = new PrintWriter(c_socket.getOutputStream());
 			String inputStr;
-			String sendMessage;
+
 			int sendMemberNum;
 
 			while (true) {
 
 				inputStr = inputBuffer.readLine();
+
+				if (inputStr.equals("Start")) { // 처음 접속시 !
+					id = inputBuffer.readLine();
+					sendRoomList(sendWriter);
+					ServerFrame.allMemberList.add(sendWriter);
+				} // 처음 접속 시도때 아이디를 받는다.
 
 				if (inputStr.equals("CHroom")) {
 					inputStr = inputBuffer.readLine();
@@ -63,7 +72,6 @@ public class ServerManager extends Thread {
 					// sendMessage 의 1번 : 방 이름
 					// sendMessage 의 2번 : 보낼메세지
 					sendMemberNum = ServerFrame.room.get(inputStr.split("/")[1]).size();
-					System.out.println(sendMemberNum);
 					for (int j = 0; j < sendMemberNum; j++) {
 						ServerFrame.room.get(inputStr.split("/")[1]).get(j).print("Msend\n" + inputStr + "\n");
 						ServerFrame.room.get(inputStr.split("/")[1]).get(j).flush();
@@ -73,27 +81,27 @@ public class ServerManager extends Thread {
 				if (inputStr.equals("EXroom")) {
 					inputStr = inputBuffer.readLine();
 					ServerFrame.room.get(inputStr).remove(sendWriter);
+					System.out.println(ServerFrame.room.get(inputStr).size());
 
 					int roomCount = ServerFrame.model.getRowCount();
 					for (int i = 0; i < roomCount; i++) {
 						if (inputStr.equals(ServerFrame.model.getValueAt(i, 0))) {
-							int tempMeberCount = (int) ServerFrame.model.getValueAt(i, 1) - 1 ;
+							int tempMeberCount = (int) ServerFrame.model.getValueAt(i, 1) - 1;
 							ServerFrame.model.setValueAt(tempMeberCount, i, 1);
 						}
-					}// 방에서 나갈 시 관리자 화면에서 사람 수가 변한다.
+					} // 방에서 나갈 시 관리자 화면에서 사람 수가 변한다.
 
-					//사람 수가 변하고나면 모든 클라이언트에게도 전달을 해준다.
-					String roomListStr = null;
-					roomListStr = "Lsend\n";
-					int temp = ServerFrame.model.getRowCount();
+					// 사람 수가 변하고나면 모든 클라이언트에게도 전달을 해준다.
+					int temp = ServerFrame.allMemberList.size();
+					System.out.println(temp);
+					PrintWriter tempPrint;
 					for (int i = 0; i < temp; i++) {
-						roomListStr += ServerFrame.model.getValueAt(i, 0) + "abcd0731"
-								+ ServerFrame.model.getValueAt(i, 1) + "\n";
+						tempPrint = ServerFrame.allMemberList.get(i);
+						sendRoomList(tempPrint);
 					}
-					sendWriter.print(roomListStr);
-					sendWriter.flush();
 
 				}
+
 
 			} // while문 종료
 
@@ -106,9 +114,16 @@ public class ServerManager extends Thread {
 		c_socket = _socket;
 	}// set_socket() : 메서드 종료
 
-	private void sendRoomList() {
-	}// sendRoomList() : 메서드 종료
-
+	private void sendRoomList(PrintWriter sendWriter) {
+		sendMessage = "RoomList\n";
+		// 초기화
+		int temp = ServerFrame.model.getRowCount();
+		// 임시 int 값 , 생성된 방의 갯수 삽입
+		for (int i = 0; i < temp; i++) {
+			sendMessage += ServerFrame.model.getValueAt(i, 0) + "/" + ServerFrame.model.getValueAt(i, 1) + "\n";
+		} // sendRoomList() : 메서드 종료
+		sendWriter.print(sendMessage);
+		sendWriter.flush();
+		// 방 리스트 보내기
+	}
 }// 클래스 종료
-
-//아이디,방이름,위치(로비 or 방)>>

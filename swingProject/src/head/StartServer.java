@@ -17,7 +17,6 @@ public class StartServer extends Thread {
 			while (true) {
 				Socket c_socket = s_socket.accept();
 				// 접속을 시도하는 소켓
-
 				ServerManager clientGuide = new ServerManager();
 				clientGuide.set_socket(c_socket);
 				clientGuide.start();

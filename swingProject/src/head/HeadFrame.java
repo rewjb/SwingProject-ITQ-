@@ -58,13 +58,11 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	JLabel logoLabel = new JLabel(img);
 	JLabel serviceInfo = new JLabel(img);
 	
-	ServerFrame serverFrame = new ServerFrame();
-	
 	int xpos;
 	int ypos;
 	Dimension point = Toolkit.getDefaultToolkit().getScreenSize();
 	
-
+	ServerFrame serverFrame = new ServerFrame();
 
 	public HeadFrame() {
 		// 20 간격 !

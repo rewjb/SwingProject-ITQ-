@@ -46,15 +46,16 @@ public class ServerFrame extends JDialog implements ActionListener {
 	public static HashMap<String, ArrayList<PrintWriter>> room = new HashMap<>();
 	// <방제목 , 방에 접속한 고객의 printWriter>
 
+	public static ArrayList<PrintWriter> allMemberList = new ArrayList<>();
+
 	private JDialog plusRoomForm = new JDialog(this, "방 제목 설정", false);
 	private final JButton button_2 = new JButton("완료");
 	private final JTextField textField = new JTextField();
 
-	StartServer server= new StartServer();
-	
-	
+	StartServer server = new StartServer();
+
 	public ServerFrame() {
-		
+
 		server.start();
 
 		textField.setColumns(10);
@@ -99,10 +100,6 @@ public class ServerFrame extends JDialog implements ActionListener {
 		setVisible(false);
 	}// 생성자 종료
 
-	public static void main(String[] args) {
-		new ServerFrame();
-	}// main:메서드 종료
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNewButton) {
@@ -113,6 +110,7 @@ public class ServerFrame extends JDialog implements ActionListener {
 			// 삭제 => 테이블에서 선택한 방 삭제
 			deleteRoom();
 		} else if (e.getSource() == button_1) { // 종료되는 리스너
+			dispose();
 		} else if (e.getSource() == button_2 || e.getSource() == textField) {
 			// 엔터 + 완료 = > 동일 이름의 방이 없으면 생성
 			createRoom();
@@ -131,9 +129,25 @@ public class ServerFrame extends JDialog implements ActionListener {
 		}
 		if (temp) {
 			room.put(textField.getText(), new ArrayList<PrintWriter>());
-			model.insertRow(0, new Object[] { textField.getText(),0 });
+			model.insertRow(0, new Object[] { textField.getText(), 0 });
 			textField.setText("");
 			plusRoomForm.dispose();
+
+			count = allMemberList.size();
+			
+			String tempStr = "RoomList\n";
+			// 초기화
+			int tempInt = ServerFrame.model.getRowCount();
+			// 임시 int 값 , 생성된 방의 갯수 삽입
+			for (int i = 0; i < tempInt; i++) {
+				tempStr += ServerFrame.model.getValueAt(i, 0) + "/" + ServerFrame.model.getValueAt(i, 1) + "\n";
+			} // sendRoomList() : 메서드 종료
+
+			for (int i = 0; i < count; i++) {
+				allMemberList.get(i).print(tempStr);
+				allMemberList.get(i).flush();
+			}
+
 		} else {
 			JOptionPane.showMessageDialog(this, "이미 존재합니다.");
 			textField.setText("");
@@ -144,14 +158,39 @@ public class ServerFrame extends JDialog implements ActionListener {
 	public void deleteRoom() {
 		// 방을 삭제하는 메서드
 		int count = table.getSelectedRowCount();
+		String tempStr;
 		if (count == 1) {
+			tempStr = (String) model.getValueAt(table.getSelectedRow(), 0);
+			// 내가 지울려고 선택한 방 이름
+			count = allMemberList.size();
+			// 총 접속 회원 수
+			System.out.println(count);
+			for (int i = 0; i < count; i++) {
+				allMemberList.get(i).print("Delete\n" + tempStr + "\n");
+				allMemberList.get(i).flush();
+			} // 모든 사용자에게 방의 삭제를 알림
+
 			room.remove((String) table.getValueAt(table.getSelectedRow(), 0));
 			model.removeRow(table.getSelectedRow());
+
+			tempStr = "RoomList\n";
+			// 초기화
+			int tempInt = ServerFrame.model.getRowCount();
+			// 임시 int 값 , 생성된 방의 갯수 삽입
+			for (int i = 0; i < tempInt; i++) {
+				tempStr += ServerFrame.model.getValueAt(i, 0) + "/" + ServerFrame.model.getValueAt(i, 1) + "\n";
+			} // sendRoomList() : 메서드 종료
+
+			System.out.println(tempStr);
+
+			for (int i = 0; i < count; i++) {
+				allMemberList.get(i).print(tempStr);
+				allMemberList.get(i).flush();
+			} // 모든 사용자에게 방의 삭제를 알림
+
 		} else {
 			JOptionPane.showMessageDialog(this, "하나만 선택해 주세요.");
 		}
 	}// deleteRoom() : 메서드 종료
 
-
 }// 클래스 종료
-

@@ -41,12 +41,11 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 			return false;
 		};
 	}; // 가맹점의 발주 리스트(확인하지 않은..)를 넣을 Jtable / 오면서 셀을
-	// 수정여부 메서드를 무조건 false값으로 리턴
-	
+		// 수정여부 메서드를 무조건 false값으로 리턴
+
 	private JScrollPane orderScroll = new JScrollPane(orderListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 발주내용의 스크롤 기능 객체
-	
 
 	private DefaultTableModel venderListModel = new DefaultTableModel(0, 2);
 	private JTable venderListTable = new JTable(venderListModel) {
@@ -54,11 +53,10 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 			return false;
 		};
 	}; // 업체 연락처 보는 테이블
-	
+
 	private JScrollPane vendereScroll = new JScrollPane(venderListTable,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	//업체 연락처 테이블 스크롤
-
+	// 업체 연락처 테이블 스크롤
 
 	private DefaultTableModel orderPlusListModel = new DefaultTableModel(0, 5);
 	private JTable orderPlusListTable = new JTable(orderPlusListModel) {
@@ -66,23 +64,21 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 			return false;
 		};
 	}; // 가맹점의 연락처 목록보기
-	
 
-	
 	private JScrollPane orderPlusScroll = new JScrollPane(orderPlusListTable,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	//발주 추가 테이블의 스크롤
-	
+	// 발주 추가 테이블의 스크롤
+
 	private DefaultTableModel stockListModel = new DefaultTableModel(0, 2);
 	private JTable stockListTable = new JTable(stockListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
 	}; // 업체 연락처 보는 테이블
-	
-	private JScrollPane stockScroll = new JScrollPane(stockListTable,
-			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	//업체 연락처 테이블 스크롤
+
+	private JScrollPane stockScroll = new JScrollPane(stockListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	// 업체 연락처 테이블 스크롤
 
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
@@ -157,7 +153,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		venderInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		venderInfoLabel.setText("업체 연락처");
-		
+
 		stockInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		stockInfoLabel.setText("재고확인");
 
@@ -183,7 +179,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		pNameBox.setBounds(12, 23, 100, 20);
 		pVenderBox.setBounds(122, 23, 100, 20);
 		// 이거 위에 2개는 콤보박스
-		
+
 //		orderPlusListTable.getColumnModel().seted 작업중
 
 		orderListLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -209,31 +205,30 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		assignBtnIndex();
 		// 초기 인덱스 번호에 따른 버튼 속성 부여
-		
+
 		venderInsert();
 		// 업체들 전화번호 갖고오는 메서드
 
 		orderListTable.getTableHeader().setResizingAllowed(false);
 		orderListTable.getTableHeader().setReorderingAllowed(false);
-		// 발주테이블의 헤더를 얻어서 사이즈 수정 불가 ,  컬럼 이동 금지  및 사이즈조절 금지
+		// 발주테이블의 헤더를 얻어서 사이즈 수정 불가 , 컬럼 이동 금지 및 사이즈조절 금지
 
 		venderListTable.getTableHeader().setResizingAllowed(false);
 		venderListTable.getTableHeader().setReorderingAllowed(false);
-		// 업체테이블의 헤더를 얻어서 사이즈 수정 불가, / 컬럼 이동 금지  및 사이즈조절 금지
+		// 업체테이블의 헤더를 얻어서 사이즈 수정 불가, / 컬럼 이동 금지 및 사이즈조절 금지
 
 		orderPlusListTable.getTableHeader().setResizingAllowed(false);
 		orderPlusListTable.getTableHeader().setReorderingAllowed(false);
-		// 발주품목 추가 테이블의 헤더를 얻어서 사이즈 수정 불가, / 컬럼 이동 금지  및 사이즈조절 금지
-		
+		// 발주품목 추가 테이블의 헤더를 얻어서 사이즈 수정 불가, / 컬럼 이동 금지 및 사이즈조절 금지
+
 		stockListTable.getTableHeader().setResizingAllowed(false);
 		stockListTable.getTableHeader().setReorderingAllowed(false);
-		// 재고확인 테이블의 헤더를 얻어서.., / 컬럼 이동 금지  및 사이즈조절 금지
+		// 재고확인 테이블의 헤더를 얻어서.., / 컬럼 이동 금지 및 사이즈조절 금지
 
-		
 		venderListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
-		orderListModel.setColumnIdentifiers(new String[] { "업체", "발주품목", "수량", "금액", "발주일"});
+		orderListModel.setColumnIdentifiers(new String[] { "업체", "발주품목", "수량", "금액", "발주일" });
 		orderPlusListModel.setColumnIdentifiers(new String[] { "발주품목", "업체", "가격정보", "수량", "총금액" });
-	    stockListModel.setColumnIdentifiers(new String[] { "품목", "현재고/완료재고"});
+		stockListModel.setColumnIdentifiers(new String[] { "품목", "현재고/완료재고" });
 
 		orderListTable.getColumnModel().getColumn(4).setPreferredWidth(180);
 		stockListTable.getColumnModel().getColumn(1).setPreferredWidth(130);
@@ -508,7 +503,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 			// H_OrderDTO를 담을 리스트
 			int[] a = orderListTable.getSelectedRows();
 			System.out.println(a);
-			
+
 			H_OrderDTO tempDTO;
 			int num = orderPlusListTable.getRowCount(); // 왜 ..그러지 ..?
 			for (int i = 0; i < num; i++) {
@@ -570,13 +565,12 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 	}// 이 메서드는 정의하지 않습니다.
 
 	public void venderInsert() {
-		
+
 		ArrayList<H_VenderDTO> list = h_venderDAO.selectALLVenderInfo();
-		
-		for (int i = 0; i <list.size(); i++) {
-			venderListModel.insertRow(0, new Object[] {list.get(i).getName(),list.get(i).getTel()});
+
+		for (int i = 0; i < list.size(); i++) {
+			venderListModel.insertRow(0, new Object[] { list.get(i).getName(), list.get(i).getTel() });
 		}
-	
-		
+
 	}
 }// 클래스 끝

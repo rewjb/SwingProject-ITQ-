@@ -165,7 +165,7 @@ public class B_OrderDAO {
 			ps.setInt(3, quantity);
 
 			rn = ps.executeUpdate();
-			System.out.println(rn);
+			System.out.println("발주완료" + rn);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -305,7 +305,6 @@ public class B_OrderDAO {
 			connectDB();
 			sql = "delete from bodyorder where num = " + num + "";
 			ps = con.prepareStatement(sql);
-			System.out.println(ps);
 			rn = ps.executeUpdate();
 			System.out.println("딜리트 확인" + rn);
 			

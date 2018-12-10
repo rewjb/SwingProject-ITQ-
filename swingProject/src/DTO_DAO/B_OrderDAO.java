@@ -314,7 +314,6 @@ public class B_OrderDAO {
 
 		}finally {
 			try {
-				
 				if (con!=null) {
 					con.close();
 				}

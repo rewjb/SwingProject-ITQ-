@@ -167,6 +167,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		ptotalPriceField.setHorizontalAlignment(SwingConstants.RIGHT);
 		ptotalPriceField.setBounds(384, 23, 111, 20);
 		ptotalPriceField.setEditable(false);
+		
 
 		stockInfoLabel.setBounds(625, 160, 80, 15);
 		venderInfoLabel.setBounds(625, 7, 80, 15);

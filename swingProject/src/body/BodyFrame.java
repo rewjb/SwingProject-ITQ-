@@ -37,6 +37,8 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
 	JToggleButton hallButton = new JToggleButton("홀");
 
+	
+	JButton btnNewButton = new JButton("채팅관리");
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
 
@@ -60,7 +62,8 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		OrderBtn.setBounds(12, 30, 90, 23);
 		StockBtn.setBounds(102, 30, 90, 23);
 		SalesBtn.setBounds(193, 30, 90, 23);
-		hallButton.setBounds(671, 30, 90, 23);
+		hallButton.setBounds(609, 30, 90, 23);
+		btnNewButton.setBounds(705, 30, 97, 23);
 		
 
 		mainPanel.setBounds(12, 53, 790, 364);
@@ -80,7 +83,11 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		mainPanel.add(stockC);
 		
 		getContentPane().add(mainPanel);
-
+		getContentPane().add(btnNewButton);
+		
+	
+	
+		btnNewButton.addActionListener(this);
 		OrderBtn.addActionListener(this);
 		StockBtn.addActionListener(this);
 		SalesBtn.addActionListener(this);
@@ -124,11 +131,15 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 			hide(stockC);
 			hide(salesC);
 		}
+		
+		if (e.getSource()==btnNewButton) {
+			//채팅창 접속
+			new ClientFrame(id).setLocationRelativeTo(this);;
+		}
 
 	}// actionPerformed 메서드 끝
 
 	public static void main(String[] args) throws Exception {
 		new BodyFrame();
 	}// main 메서드 종료
-
 }// 클래스 종료

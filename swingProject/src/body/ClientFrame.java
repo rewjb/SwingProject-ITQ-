@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class ClientFrame extends JFrame implements ActionListener {
+public class ClientFrame extends JDialog implements ActionListener {
 
 	public static DefaultTableModel model = new DefaultTableModel(0, 2);
 	private JTable table = new JTable(model) {
@@ -58,12 +60,13 @@ public class ClientFrame extends JFrame implements ActionListener {
 
 	private PrintWriter sendWriter;
 
-	private String userName = "유주빈";
-
-	public ClientFrame() {
+	private String userName ;
+	public ClientFrame(String id) {
 		clinet.start();
 		//이것이 가장 먼저 위에 있어야 한다.
 
+		 userName=id;
+		
 		exitChattingRoomBtn.setBounds(75, 295, 97, 23);
 		inputText.setBounds(12, 265, 220, 23);
 		roomLabel.setBounds(12, 2, 220, 23);
@@ -111,7 +114,6 @@ public class ClientFrame extends JFrame implements ActionListener {
 				}
 			}
 		});
-//		this.addWindowListener(new );
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
@@ -129,8 +131,6 @@ public class ClientFrame extends JFrame implements ActionListener {
 
 		chattingPanel.setVisible(false);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		setLayout(null);
 		add(selectRoomPanel);
 		add(chattingPanel);
@@ -189,9 +189,6 @@ public class ClientFrame extends JFrame implements ActionListener {
 		}// run : 메서드 종료
 	}// Server : 클래스 종료
 
-	public static void main(String[] args) {
-		new ClientFrame();
-	}// main:메서드 종료
 
 }// 클래스 종료
 

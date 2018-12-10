@@ -21,13 +21,16 @@ public class ServerManager extends Thread {
 		try {
 			BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(c_socket.getInputStream()));
 			sendWriter = new PrintWriter(c_socket.getOutputStream());
-			String inputStr;
+			String inputStr = null;
 
 			int sendMemberNum;
 
 			while (true) {
 
-				inputStr = inputBuffer.readLine();
+				try {
+					inputStr = inputBuffer.readLine();
+				} catch (Exception e) {
+				}
 
 				if (inputStr.equals("Start")) { // 처음 접속시 !
 					id = inputBuffer.readLine();
@@ -102,6 +105,15 @@ public class ServerManager extends Thread {
 
 				}
 
+				System.out.println(inputStr);
+				
+				if (inputStr.equals("EXchatting")) {
+					//나가기 
+					System.out.println("dd");
+					ServerFrame.allMemberList.remove(sendMessage);
+					c_socket.close();
+					inputBuffer.close();
+				}
 
 			} // while문 종료
 

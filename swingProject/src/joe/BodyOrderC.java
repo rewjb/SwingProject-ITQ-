@@ -80,7 +80,9 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	private JLabel label;
 	private JLabel label_1;
-	private ArrayList<Integer> listNum;
+	private ArrayList<Integer> listNum;//발주 목록을 볼 때 각행별 고유 num을 담고 있는 리스트
+	private JTextField textField;//식자재 단가입력란
+	private int[] selects;//발주 취소시 다중선택을 받는 배열
 
 	// Jtable의 스크롤 기능 객체 w
 	// private DefaultTableCellRenderer celAlignCenter = new
@@ -222,9 +224,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		((Component) bbqBody).setVisible(false);
 	}
 
-	private ArrayList<Integer> list = new ArrayList<>();
-	private JTextField textField;
-	private int[] selects;
 
 	public void orderList() {//발주목록 보는 메서드 
 		listNum = new ArrayList<>();

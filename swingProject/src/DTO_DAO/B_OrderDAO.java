@@ -109,7 +109,7 @@ public class B_OrderDAO {
 
 		try {
 			connectDB();
-			sql = "SELECT * from bodyorder where id = "+id+"";
+			sql = "SELECT * from bodyorder where id = '"+id+"'";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 

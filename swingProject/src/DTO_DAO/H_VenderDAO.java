@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 public class H_VenderDAO {
 	private String url = "jdbc:mysql://localhost:3306/bbq";
 	// 데이터 베이스 url
@@ -75,7 +74,7 @@ public class H_VenderDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, vDTO.getTel());
 			ps.setString(2, vDTO.getId());
-			
+
 			rs = ps.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("updateVenderInfo() 오류");
@@ -88,18 +87,18 @@ public class H_VenderDAO {
 	// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
 	public H_VenderDTO selectVenderInfo(String column, String input) {
 		connectDB();
-		if(column.equals("id")) {
+		if (column.equals("id")) {
 			sql = "select * from headvender where id=?;";
-		}else if(column.equals("name")) {
+		} else if (column.equals("name")) {
 			sql = "select * from headvender where name=?;";
 		}
 		H_VenderDTO vDTO = null;
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, input);
-			
+
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				vDTO = new H_VenderDTO();
 				vDTO.setId(rs.getString(1));
 				vDTO.setName(rs.getString(2));
@@ -112,6 +111,33 @@ public class H_VenderDAO {
 		}
 		return vDTO;
 	}// end selectVenderInfo
+		// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
+	public ArrayList<H_VenderDTO> selectIdAllVenderInfo() {
+		try {
+			connectDB();
+			sql = "SELECT id FROM  headvender  ORDER BY  name;";
+			ps = con.prepareStatement(sql);
+			ResultSet result = ps.executeQuery();
+
+			ArrayList<H_VenderDTO> list = new ArrayList<>();
+			H_VenderDTO venderDTO;
+
+			while (result.next()) {
+				venderDTO = new H_VenderDTO();
+				venderDTO.setId(result.getString(1));
+				list.add(venderDTO);
+			} // list에 DTO 넣기
+
+			con.close();
+			ps.close();
+			result.close();
+			return list;
+		} catch (Exception e) {
+			System.out.println("H_VenderDAO-");
+			return null;
+		}
+	}// end selectALLVenderInfo
+
 
 	// 이름을 오름차순으로 모든 벤더정보를 갖고오는 메서드입니다.
 	// 반환 타입이 H_VenderDTO를 담고 있는 ArrayList 타입입니다~

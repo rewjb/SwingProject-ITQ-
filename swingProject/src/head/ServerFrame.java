@@ -53,7 +53,6 @@ public class ServerFrame extends JDialog implements ActionListener {
 	StartServer server= new StartServer();
 	
 	
-	
 	public ServerFrame() {
 		
 		server.start();

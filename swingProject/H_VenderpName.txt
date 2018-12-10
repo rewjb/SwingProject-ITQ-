@@ -1,4 +1,5 @@
-APPLE-0.25
-BANANA-0.07
-CHICHEN-0.09
-KIWI-0.18
+Apple-0.32
+Cherry-0.25
+Kiwi-0.15
+Peach-0.29
+Banana-0.22

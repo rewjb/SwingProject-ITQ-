@@ -199,44 +199,44 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 			if (model.getValueAt(i, 0).equals("후라이드")) {// 후라이드치킨 종합
 				if (model2.getRowCount() == 0) {
 					model2.insertRow(0, new Object[] {});
-					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 0);
+					model2.setValueAt((int) model.getValueAt(i, 2), 0, 0);
 				} else {
 					model2.setValueAt(
-							(int) model2.getValueAt(0, 0) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							(int) model2.getValueAt(0, 0) + (int) model.getValueAt(i, 2),
 							0, 0);
 				}
 
 			} else if (model.getValueAt(i, 0).equals("양념")) {// 양념치킨 종합
 				if (model2.getRowCount() == 0) {
 					model2.insertRow(0, new Object[] {});
-					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 1);
+					model2.setValueAt((int) model.getValueAt(i, 2), 0, 1);
 				} else if (model2.getValueAt(0, 1) == null) {
-					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 1);
+					model2.setValueAt((int) model.getValueAt(i, 2), 0, 1);
 				} else {
 					model2.setValueAt(
-							(int) model2.getValueAt(0, 1) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							(int) model2.getValueAt(0, 1) + (int) model.getValueAt(i, 2),
 							0, 1);
 				}
 			} else if (model.getValueAt(i, 0).equals("간장")) {// 간장치킨 종합
 				if (model2.getRowCount() == 0) {
 					model2.insertRow(0, new Object[] {});
-					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 2);
+					model2.setValueAt((int) model.getValueAt(i, 2), 0, 2);
 				} else if (model2.getValueAt(0, 1) == null) {
-					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 2);
+					model2.setValueAt((int) model.getValueAt(i, 2), 0, 2);
 				} else {
 					model2.setValueAt(
-							(int) model2.getValueAt(0, 2) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							(int) model2.getValueAt(0, 2) + (int) model.getValueAt(i, 2),
 							0, 2);
 				}
-			} else {// 음료 종합
+			} else if(model.getValueAt(i, 0).equals("음료")){// 음료 종합
 				if (model2.getRowCount() == 0) {
 					model2.insertRow(0, new Object[] {});
-					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 3);
+					model2.setValueAt((int) model.getValueAt(i, 2), 0, 3);
 				} else if (model2.getValueAt(0, 3) == null) {
-					model2.setValueAt((int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2), 0, 3);
+					model2.setValueAt((int) model.getValueAt(i, 2), 0, 3);
 				} else {
 					model2.setValueAt(
-							(int) model2.getValueAt(0, 3) + (int) model.getValueAt(i, 1) * (int) model.getValueAt(i, 2),
+							(int) model2.getValueAt(0, 3) + (int) model.getValueAt(i, 2),
 							0, 3);
 				}
 			}
@@ -264,7 +264,6 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 				searchSales();
 			} else {
 				int count = model.getRowCount();
-				System.out.println(count);
 				for (int i = 0; i < count; i++) {
 					model.removeRow(0);
 				}

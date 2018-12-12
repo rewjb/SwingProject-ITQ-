@@ -374,7 +374,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 					arr2.add(read[1]);
 					System.out.println(arr2.get(0));
 				}
-				
 				for (int j = 0; j < arr.size(); j++) {
 					System.out.println(jCom.getSelectedItem().equals(arr.get(j)));
 					if (jCom.getSelectedItem().equals(arr.get(j))) {

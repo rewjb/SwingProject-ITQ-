@@ -241,6 +241,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm() });
 			}
 		} else {
+			
 			for (int i = 0; i < a; i++) {
 				model2.removeRow(0);
 			}

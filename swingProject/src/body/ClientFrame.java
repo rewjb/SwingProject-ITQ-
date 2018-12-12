@@ -41,7 +41,6 @@ public class ClientFrame extends JDialog implements ActionListener {
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 발주내용의 스크롤 기능 객체
 
-	private JButton joinRommBtn = new JButton("입장");
 	private JButton exitBtn = new JButton("종료");
 
 	public static JPanel selectRoomPanel = new JPanel();
@@ -62,10 +61,11 @@ public class ClientFrame extends JDialog implements ActionListener {
 
 	private String userName ;
 	public ClientFrame(String id) {
+		
 		clinet.start();
 		//이것이 가장 먼저 위에 있어야 한다.
 
-		 userName=id;
+		userName=id;
 		
 		exitChattingRoomBtn.setBounds(75, 295, 97, 23);
 		inputText.setBounds(12, 265, 220, 23);
@@ -82,11 +82,9 @@ public class ClientFrame extends JDialog implements ActionListener {
 		chattingPanel.add(historyArea);
 
 
-		joinRommBtn.setBounds(12, 260, 97, 23);
 		scroll.setBounds(12, 10, 220, 240);
-		exitBtn.setBounds(135, 260, 97, 23);
+		exitBtn.setBounds(75, 260, 97, 23);
 
-		joinRommBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
 		inputText.addActionListener(this);
 		exitChattingRoomBtn.addActionListener(this);
@@ -95,13 +93,11 @@ public class ClientFrame extends JDialog implements ActionListener {
 
 		table.getTableHeader().setResizingAllowed(false);
 		table.getTableHeader().setReorderingAllowed(false);
-		getContentPane().add(joinRommBtn);
 		getContentPane().add(exitBtn);
 		getContentPane().add(scroll);
 
 		getContentPane().setLayout(null);
 
-		joinRommBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -125,7 +121,6 @@ public class ClientFrame extends JDialog implements ActionListener {
 		chattingPanel.setBounds(0, 0, 250, 350);
 		chattingPanel.setLayout(null);
 
-		selectRoomPanel.add(joinRommBtn);
 		selectRoomPanel.add(exitBtn);
 		selectRoomPanel.add(scroll);
 
@@ -137,13 +132,12 @@ public class ClientFrame extends JDialog implements ActionListener {
 		setResizable(false);
 		setTitle("클라이언트");
 		setSize(250, 350);
-		setVisible(true);
+		setVisible(false);
 	}// 생성자 종료
 
 	private void startClient() {
-		//서버에 처음 접속 할때!
-//		sendWriter.print("Start\n"+userName+"\n");
-//		sendWriter.flush();
+		sendWriter.print("Start\n"+userName+"\n");
+		sendWriter.flush();
 	}// 채팅서비스에 입장!
 
 	@Override
@@ -162,6 +156,11 @@ public class ClientFrame extends JDialog implements ActionListener {
 			chattingPanel.setVisible(false);
 
 		}
+		
+		if (e.getSource()==exitBtn) {
+			dispose();
+		}
+		
 
 	}// actionPerformed:메서드 종료
 

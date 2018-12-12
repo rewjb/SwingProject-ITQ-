@@ -31,8 +31,7 @@ public class ServerManager extends Thread {
 
 				try {
 					inputStr = inputBuffer.readLine();
-				} catch (Exception e) {
-				}
+		
 
 				if (inputStr.equals("Start")) { // 처음 접속시 !
 					id = inputBuffer.readLine();
@@ -65,6 +64,14 @@ public class ServerManager extends Thread {
 						sendWriter.print("CHroom\nfalse\n");
 						sendWriter.flush();
 					}
+					
+					int temp = ServerFrame.allMemberList.size();
+					PrintWriter tempPrint;
+					for (int i = 0; i < temp; i++) {
+						tempPrint = ServerFrame.allMemberList.get(i);
+						sendRoomList(tempPrint);
+					}
+					
 				} // 클라이언트가 방에 입장하였을때
 
 				if (inputStr.equals("Msend")) {
@@ -98,7 +105,6 @@ public class ServerManager extends Thread {
 
 					// 사람 수가 변하고나면 모든 클라이언트에게도 전달을 해준다.
 					int temp = ServerFrame.allMemberList.size();
-					System.out.println(temp);
 					PrintWriter tempPrint;
 					for (int i = 0; i < temp; i++) {
 						tempPrint = ServerFrame.allMemberList.get(i);
@@ -107,7 +113,6 @@ public class ServerManager extends Thread {
 
 				}
 
-				System.out.println(inputStr);
 				
 				if (inputStr.equals("EXchatting")) {
 					//나가기 
@@ -115,6 +120,12 @@ public class ServerManager extends Thread {
 					ServerFrame.allMemberList.remove(sendMessage);
 					c_socket.close();
 					inputBuffer.close();
+				}
+				
+				} catch (Exception e) {
+					c_socket.close();
+					inputBuffer.close();
+					break;
 				}
 
 			} // while문 종료

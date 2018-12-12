@@ -30,14 +30,12 @@ import javax.swing.JPanel;
 // 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
 public class BodyFrame extends JFrame implements BBQBody, ActionListener {
-	
-	
+
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
 	JToggleButton StockBtn = new JToggleButton("재고관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
 	JToggleButton hallButton = new JToggleButton("홀");
 
-	
 	JButton btnNewButton = new JButton("채팅관리");
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
@@ -47,12 +45,17 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	BodySalesC salesC = new BodySalesC();
 	BodyStockC stockC = new BodyStockC();
 	HallC hallc = new HallC();
-	public static String id = "";
-	
-	
-	
-	public BodyFrame() {
+	public static String id ;
+
+	ClientFrame clientFrame;
+
+	public BodyFrame(String id) {
 		// 사이즈 , 레이아웃 및 각종 설정
+		this.id = id;
+
+		clientFrame = new ClientFrame(id);
+		clientFrame.setLocationRelativeTo(this);
+
 		setSize(820, 450);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
@@ -64,7 +67,6 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		SalesBtn.setBounds(193, 30, 90, 23);
 		hallButton.setBounds(609, 30, 90, 23);
 		btnNewButton.setBounds(705, 30, 97, 23);
-		
 
 		mainPanel.setBounds(12, 53, 790, 364);
 		mainPanel.setLayout(null);
@@ -81,19 +83,16 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		mainPanel.add(hallc);
 		mainPanel.add(salesC);
 		mainPanel.add(stockC);
-		
+
 		getContentPane().add(mainPanel);
 		getContentPane().add(btnNewButton);
-		
-	
-	
+
 		btnNewButton.addActionListener(this);
 		OrderBtn.addActionListener(this);
 		StockBtn.addActionListener(this);
 		SalesBtn.addActionListener(this);
 		hallButton.addActionListener(this);
 
-		
 		setVisible(true);
 	}// 생성자 종료
 
@@ -125,21 +124,18 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 			hide(orderC);
 			hide(hallc);
 			hide(stockC);
-		} else if (e.getSource()== hallButton) {// 홀 관리 
+		} else if (e.getSource() == hallButton) {// 홀 관리
 			show(hallc);
 			hide(orderC);
 			hide(stockC);
 			hide(salesC);
 		}
-		
-		if (e.getSource()==btnNewButton) {
-			//채팅창 접속
-			new ClientFrame(id).setLocationRelativeTo(this);;
+
+		if (e.getSource() == btnNewButton) {
+			// 채팅창 접속
+			clientFrame.setVisible(true);
 		}
 
 	}// actionPerformed 메서드 끝
 
-	public static void main(String[] args) throws Exception {
-		new BodyFrame();
-	}// main 메서드 종료
 }// 클래스 종료

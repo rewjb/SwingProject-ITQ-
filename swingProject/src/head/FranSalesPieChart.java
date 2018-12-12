@@ -49,6 +49,8 @@ public class FranSalesPieChart extends JPanel {
 		chart.setTitle(name);
 		// DefaultCategoryDataset bar에서 사용한 데이터 셋!
 		// 파이그래프에 전용 데이터 셋이 있는 것 가다..
+		
+		
 		dataset.setValue("chickenF", list.get(0)); // 후라이드 치킨 
 		dataset.setValue("chickenH", list.get(1)); // 양념 치킨
 		dataset.setValue("chickenS", list.get(2)); // 간장 치킨

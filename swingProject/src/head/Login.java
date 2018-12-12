@@ -194,14 +194,14 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		if(e.getSource() == btLoginR) {
 			if(true) {
 				head.HeadFrame hf = new head.HeadFrame(); 
+				dispose();
 			}else {
 				JOptionPane.showMessageDialog(null, "관리자 비밀번호 확인해주세요.");
 			}
 		}
 		if(e.getSource() == btLoginU) {
-			if(w.checkUid(tfUId.getText())) {	//, tfUPw.getText())
-				BodyFrame bf = new BodyFrame();
-				BodyFrame.id  = tfUId.getText();
+			if(true) {	//, tfUPw.getText())
+				BodyFrame bf = new BodyFrame(tfUId.getText());
 				dispose();
 			}
 			

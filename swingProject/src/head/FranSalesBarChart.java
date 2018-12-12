@@ -93,18 +93,15 @@ public class FranSalesBarChart extends JPanel {
 	public void monthChartShow(String franName, String year, ArrayList<Integer> intList) {
 
 		dataSet = new DefaultCategoryDataset();
-		
-		
 
 		chart.setTitle(franName + "점 " + year + "년 " + "매출 현황");
 
-		if (franName==null) {
-			franName="미지정";
+		if (franName == null) {
+			franName = "미지정";
 		}
-		
-		
+
 		for (int i = 0; i < 12; i++) {
-			dataSet.addValue(intList.get(i),franName, String.valueOf(1 + i)+"월");
+			dataSet.addValue(intList.get(i), franName, String.valueOf(1 + i) + "월");
 		} // 12월까지 입력
 
 		plot.setDataset(dataSet);
@@ -113,40 +110,32 @@ public class FranSalesBarChart extends JPanel {
 	public void dayChartShow(String franName, String year, String month, ArrayList<Integer> intList) {
 
 		int count = intList.size();
-		int tem = 1;
+		int tem = 0;
 		int sum = 0;
 		ArrayList<Integer> tempList = new ArrayList<>();
 		dataSet = new DefaultCategoryDataset();
 
-		// 1 2 3 4 5 6 7 8 9 
-		
 		for (int i = 0; i < count; i++) {
-			if (!(tem%4==0)) {
-				sum += intList.get(i);
-				++tem;
-				if (i == (count - 1)) {
-					tempList.add(sum);
-				}
-			} else {
+			sum += intList.get(i);
+			System.out.println((i + 1) + "일 매출 :" + intList.get(i));
+			++tem;
+			if (tem == 4) {
 				tempList.add(sum);
+				tem = 0;
 				sum = 0;
-				tem = 1;
 			}
 		}
 
+		if (count > 28) {
+			tempList.add(sum);
+		}
+
 		tem = tempList.size();
-		
+
 		chart.setTitle(franName + "점 " + year + "년 " + month + "월 " + "매출 현황");
-
 		for (int i = 0; i < tem; i++) {
-			if ((tem-1)==i && !(count%4==0)) {
-				dataSet.addValue(tempList.get(i), franName, String.valueOf(count + "일"));
-			}else {
-				dataSet.addValue(tempList.get(i), franName, String.valueOf((4*i+4) + "일"));
-			}
-			
-		} // 12월까지 입력
-
+			dataSet.addValue(tempList.get(i), franName, String.valueOf(1 + 4 * i + "일"));
+		}
 		plot.setDataset(dataSet);
 	}// 가맹점 월별 데이터 보여주기 메서드
 

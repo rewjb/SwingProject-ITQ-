@@ -85,7 +85,6 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	private JPanel factoryArrange = new JPanel();
 	// 공장 배치도 panel
 	private JButton[] PointBtn = new JButton[20];
-	// 버튼의 20개 배열 선언
 
 	private JLabel inInfoLabel = new JLabel("입고 정보");
 	private JLabel outIInfoLabel = new JLabel("출고 정보");
@@ -144,8 +143,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		factoryIInfoLabel.setBounds(249, 10, 80, 15);
 		totalStockLabel.setBounds(643, 10, 57, 15);
 
-		inStockScroll.setBounds(10, 220, 369, 128);
-		outStockScroll.setBounds(389, 220, 369, 128);
+		inStockScroll.setBounds(10, 220, 369, 114);
+		outStockScroll.setBounds(389, 220, 369, 114);
 		stockScroll.setBounds(572, 25, 186, 170);
 		inputStockScroll.setBounds(10, 20, 200, 145);
 
@@ -224,6 +223,10 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		setLayout(null);
 		setBounds(0, 0, 770, 358);
 		setSize(770, 358);
+		
+		
+
+
 
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝
@@ -358,7 +361,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		} // inputConfirm:버튼 if문 종료
 
 		// TODO Auto-generated method stub
-
+		
 	}// actionPerformed:메서드 종료
 
 	@Override
@@ -464,5 +467,4 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 					new Object[] {totalStockList.get(i).getName(),totalStockList.get(i).getQuantity()});
 		}
 	}// insertInOutTotalStockHistoryList:메서드 종료
-
 }// 클래스 끝

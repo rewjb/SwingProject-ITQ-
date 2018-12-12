@@ -202,6 +202,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		if(e.getSource() == btLoginU) {
 			if(true) {
 				BodyFrame bf = new BodyFrame();
+				dispose();
 			}
 			
 		}

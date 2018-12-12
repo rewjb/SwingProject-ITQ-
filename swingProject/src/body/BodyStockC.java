@@ -121,19 +121,19 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button) {// 미확인재고 버튼 기능
 			if(model.getValueAt(0, 0)==null) {
-				for (int i = 0; i < orderDAO.hCheckSelect().size(); i++) {// 본사만 확인 한 재고들을 보여주는 반복문
-					model.insertRow(0, new Object[] { orderDAO.hCheckSelect().get(i).getName(),
-							orderDAO.hCheckSelect().get(i).getQuantity(), orderDAO.hCheckSelect().get(i).gethComfirm(),
-							orderDAO.hCheckSelect().get(i).getbComfirm() });
+				for (int i = 0; i < orderDAO.hCheckSelect(BodyFrame.id).size(); i++) {// 본사만 확인 한 재고들을 보여주는 반복문
+					model.insertRow(0, new Object[] { orderDAO.hCheckSelect(BodyFrame.id).get(i).getName(),
+							orderDAO.hCheckSelect(BodyFrame.id).get(i).getQuantity(), orderDAO.hCheckSelect(BodyFrame.id).get(i).gethComfirm(),
+							orderDAO.hCheckSelect(BodyFrame.id).get(i).getbComfirm() });
 				}
 			}else {
 				for (int i = 0; !(model.getValueAt(0, 0)==null); i++) {
 					model.removeRow(0);
 				}
-				for (int i = 0; i < orderDAO.hCheckSelect().size(); i++) {
-					model.insertRow(0, new Object[] { orderDAO.hCheckSelect().get(i).getName(),
-							orderDAO.hCheckSelect().get(i).getQuantity(), orderDAO.hCheckSelect().get(i).gethComfirm(),
-							orderDAO.hCheckSelect().get(i).getbComfirm() });
+				for (int i = 0; i < orderDAO.hCheckSelect(BodyFrame.id).size(); i++) {
+					model.insertRow(0, new Object[] { orderDAO.hCheckSelect(BodyFrame.id).get(i).getName(),
+							orderDAO.hCheckSelect(BodyFrame.id).get(i).getQuantity(), orderDAO.hCheckSelect(BodyFrame.id).get(i).gethComfirm(),
+							orderDAO.hCheckSelect(BodyFrame.id).get(i).getbComfirm() });
 				}
 			}
 			
@@ -142,9 +142,9 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 			if (model.getValueAt(0, 0) == null) {// 표에 미확인재고들이 없으면 확인할수없습니다.
 				JOptionPane.showMessageDialog(null, "확인할 목록이 없습니다.");
 			} else {// 표에 미확인 재고가 있으면 확인할 수 있습니다.
-				for (int i = 0; i < orderDAO.hCheckSelect().size(); i++) {// 확인버튼 누를때 발주dB에 있는 데이터를 재고 DB로 옮기는 반복문
-					stockDAO.insertStock(BodyFrame.id, orderDAO.hCheckSelect().get(i).getName(),
-							orderDAO.hCheckSelect().get(i).getQuantity());
+				for (int i = 0; i < orderDAO.hCheckSelect(BodyFrame.id).size(); i++) {// 확인버튼 누를때 발주dB에 있는 데이터를 재고 DB로 옮기는 반복문
+					stockDAO.insertStock(BodyFrame.id, orderDAO.hCheckSelect(BodyFrame.id).get(i).getName(),
+							orderDAO.hCheckSelect(BodyFrame.id).get(i).getQuantity());
 				}
 //				for (int i = 0; i < orderDAO.hCheckSelect().size(); i++) {
 //					model.removeRow(0);

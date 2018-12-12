@@ -185,19 +185,19 @@ public class B_OrderDAO {
 	}
 
 	// 본사 확인 값이 존재하는 테이블만 가져오는 메서드
-	public ArrayList<B_OrderDTO> hCheckSelect() {
+	public ArrayList<B_OrderDTO> hCheckSelect(String id) {
 		ArrayList<B_OrderDTO> hOrderDTO = new ArrayList<>();
 		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "select * from bodyorder where hconfirm != ''and bconfirm =''";
+			sql = "select * from bodyorder where hconfirm != ''and bconfirm =''and id ='"+id+"'";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 
 				int num = rs.getInt("num");
-				String id = rs.getString("id");
+				 id = rs.getString("id");
 				String name = rs.getString("name");
 				int quantity = rs.getInt("quantity");
 				String date = rs.getString("date");

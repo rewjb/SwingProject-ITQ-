@@ -178,7 +178,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 			}
 			cbName = new JComboBox(vec);
 			cbName.setBounds(587, 100, 120, 30);
-			System.out.println("180 : nameO"+nameO+"name"+name);
 			cbName.addActionListener(new ActionListener() {
 
 				@Override
@@ -359,6 +358,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		nameBTSetting(); // 재료명 프레임 내 버튼 세팅
 		nameBTAction(); // 재료명 프레임 내임 버튼 액션
 
+		tfNameN.setEditable(true);
 		nameF.setVisible(true);
 
 	}
@@ -395,7 +395,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 		
-		tfNameN.setEditable(true);
+		
 	}
 
 	// 재료명 프레임 내 버튼 세팅

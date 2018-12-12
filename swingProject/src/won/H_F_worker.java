@@ -9,10 +9,12 @@ import DTO_DAO.*;
 public class H_F_worker {
 	
 	// 마지막 아이디 가져오는 메서드
-	protected String findLastId(String id, String input) {
-		if (id != null) {
-			char[] idArr = new char[5];
-			char[] inputArr = new char[5];
+	String findLastId(String id, String input) {
+		if (id == null) { //둘다 null일경우 null반환
+			return id;
+		}else {
+			char[] idArr = new char[3];
+			char[] inputArr = new char[3];
 			for (int i = 0; i < idArr.length; i++) {
 				idArr[i] = id.charAt(i);
 				inputArr[i] = input.charAt(i);
@@ -25,18 +27,22 @@ public class H_F_worker {
 	}
 
 	// id 생성 메서드 - 같은 패키지 내에서만 동작함
-	protected String makeId(String id) {
+	String makeId(String id) {
 		if (id == null) {
 			id = "aaa";
 		} else {
 			char id0 = id.charAt(0);
 			char id1 = id.charAt(1);
-			if (id1 == 'z') {
-				id1 = 'a';
-				id0++;
+			char id2 = id.charAt(2);
+			if (id2 == 'z') {
+				id2 = 'a';
+				id1++;
+				if(id1 == 'z') {
+					id1 = 'a';
+					id0++;
+				}
 			}
-			id1++;
-			id = "" + id0 + id1;
+			id = "" + id0 + id1 + id2;
 		}
 		return id;
 	}

@@ -71,7 +71,8 @@ public class H_V_Company extends JPanel implements ActionListener {
 
 	// 표에 관련된 설정사항
 	private void tableSetting() {
-		model = new DefaultTableModel(0, 4) {@Override
+		model = new DefaultTableModel(0, 4) {
+			@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}};

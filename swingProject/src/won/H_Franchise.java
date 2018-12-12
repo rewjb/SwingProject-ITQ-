@@ -13,9 +13,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -64,7 +68,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	private JLabel lbTel2;
 	private JTextField tfTel2;
 	private JLabel lbAddr0;
-	private JTextField tfAddr0;
+	private JComboBox<String> cbAddr0;
 	private JTextField tfAddr1;
 	private JLabel lbAllias;
 	private JTextField tfAllias;
@@ -77,6 +81,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	JButton btsetEmpty;
 	JButton btInModify;
 	JButton btsetBefore;
+	String addr;
 
 	int i; // 표를 클릭했을때 받아놓는 인덱스 값
 
@@ -247,12 +252,9 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		lbAddr0.setBounds(10, 220, 60, 30);
 		f.getContentPane().add(lbAddr0);
 
-		tfAddr0 = new JTextField();
-		tfAddr0.setText("combo box");
-		tfAddr0.setColumns(10);
-		tfAddr0.setBounds(75, 220, 197, 30);
-		f.getContentPane().add(tfAddr0);
-
+		comboAddr();
+		cbAddr0.setEnabled(true);
+		
 		tfAddr1 = new JTextField();
 		tfAddr1.setColumns(10);
 		tfAddr1.setBounds(75, 260, 197, 30);
@@ -290,6 +292,16 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 
 		f.setVisible(false);
 	}
+	
+	//콤보박스 설정
+	private void comboAddr() {
+			String[] city = {"서울","광주", "대구", "부산", "울산", "인천", 
+					"대전","경기","강원","충청","경상","전라","제주","그외"};
+			addr = "서울";
+			cbAddr0  = new JComboBox(city);
+			cbAddr0.setBounds(75, 220, 197, 30);
+			f.getContentPane().add(cbAddr0);
+	}
 
 	// 마우스 액션에 관한 메서드
 	private void mouseAction() {
@@ -299,7 +311,6 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				i = table.getSelectedRow();
-//				tfId.setText(model.getValueAt(i, 0).toString());
 			}
 		});
 	}// end mouseAction()
@@ -344,7 +355,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			fDTO.setTel(tel);
 			String cNum = tfCNum0.getText() + "-" + tfCNum1.getText() + "-" + tfCNum2.getText();
 			fDTO.setComnum(cNum);
-			fDTO.setAddr(tfAddr0.getText());
+			fDTO.setAddr((String)cbAddr0.getSelectedItem()+"-"+tfAddr1.getText());
 			fDTO.setAlias(tfAllias.getText());
 
 			int rs = fDAO.insertFranchiseInfo(fDTO);
@@ -392,7 +403,6 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		tfCNum0.setText("");
 		tfCNum1.setText("");
 		tfCNum2.setText("");
-		tfAddr0.setText("");
 		tfAddr1.setText("");
 		tfAllias.setText("");
 
@@ -401,7 +411,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		tfCNum0.setEditable(true);
 		tfCNum1.setEditable(true);
 		tfCNum2.setEditable(true);
-		tfAddr0.setEditable(true);
+		cbAddr0.setEnabled(true);
 		tfAddr1.setEditable(true);
 		tfAllias.setEditable(true);
 	}
@@ -424,9 +434,10 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		tfCNum0.setEditable(false);
 		tfCNum1.setEditable(false);
 		tfCNum2.setEditable(false);
-		tfAddr0.setText(model.getValueAt(i, 5).toString());
-//		tfAddr1.setText(model.getValueAt(i, 6).toString());
-		tfAddr0.setEditable(false);
+		String[] addr = (model.getValueAt(i, 5).toString()).split("-");
+		cbAddr0.setSelectedItem(addr[0]);
+		cbAddr0.setEnabled(false);
+		tfAddr1.setText(addr[1]);
 		tfAddr1.setEditable(false);
 		tfAllias.setText(model.getValueAt(i, 7).toString());
 		tfAllias.setEditable(false);

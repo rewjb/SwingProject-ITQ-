@@ -34,7 +34,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	DefaultTableModel model;
 	JTable table = new JTable(model);
 	JScrollPane scrollPane = new JScrollPane(table);
-	Object[] column = { "가맹점ID", "pw", "점주명", "연락처", "사업자번호", "주소1", "주소2", "별칭" };
+	Object[] column = { "가맹점ID", "pw", "점주명", "연락처", "사업자번호", "주소", "별칭" };
 	// DB에는 주소1에 지역이 2에 나머지 주소가 들어갈 예정입니다.
 
 	// 버튼

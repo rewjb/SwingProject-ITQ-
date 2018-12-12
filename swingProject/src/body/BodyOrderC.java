@@ -30,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Vector;
 
 import javax.swing.JTextField;
@@ -142,6 +143,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		jf = new JTextField();
 		jf.setBounds(208, 18, 80, 21);
 		add(jf);
+		
 
 		JLabel lblNewLabel = new JLabel("\uC7AC\uACE0 \uBAA9\uB85D");
 		lblNewLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
@@ -212,7 +214,14 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 
 		textField = new JTextField();
 		textField.setBounds(208, 44, 80, 21);
+		textField.setEditable(false);
 		add(textField);
+		try {
+			reader();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		JLabel lblEksrk = new JLabel("\uB2E8\uAC00");
 		lblEksrk.setHorizontalAlignment(SwingConstants.CENTER);
@@ -359,32 +368,21 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	ArrayList<String> arr = new ArrayList<>();
 	ArrayList<String> arr2 = new ArrayList<>();
 
-	public void reader() {
+	public void reader() throws Exception {
 		file = new File("H_VenderpName.txt");
-		System.out.println(file.exists());
+		Scanner sc = new Scanner(file);
 		if (file.exists()) {
-			try {
-				reader = new FileReader(file);
-				bReader = new BufferedReader(reader);
-				while (bReader.readLine() != null) {
-					System.out.println(bReader.readLine());
-					String[] read = bReader.readLine().split("-");
-					arr.add(read[0]);
-					System.out.println(arr.get(0));
-					arr2.add(read[1]);
-					System.out.println(arr2.get(0));
-				}
-				for (int j = 0; j < arr.size(); j++) {
-					System.out.println(jCom.getSelectedItem().equals(arr.get(j)));
-					if (jCom.getSelectedItem().equals(arr.get(j))) {
-						textField.setText(arr2.get(j));
-					}
-				}
-
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			while (sc.hasNextLine()) {
+				String[] read = sc.nextLine().split("-");
+				arr.add(read[0]);
+				arr2.add(read[1]);
 			}
+			for (int j = 0; j < arr.size(); j++) {
+				if (jCom.getSelectedItem().equals(arr.get(j))) {
+					textField.setText(arr2.get(j));
+				}
+			}
+
 		}
 
 	}
@@ -392,7 +390,12 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == jCom) {
-			reader();
+			try {
+				reader();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}

@@ -101,7 +101,6 @@ public class BodySalesDataChart extends JPanel {
 				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), BodyFrame.id, String.valueOf(1 + i) + "일");
 			}
 		}
-
 	}
 
 }//클래스 끝

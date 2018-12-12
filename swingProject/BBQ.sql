@@ -3,6 +3,9 @@ create database BBQ;
 
 유통기한..고민..
 
+
+c
+
 =가맹점 발주내역=
 create table bodyorder(
 num int auto_increment primary key,
@@ -228,6 +231,9 @@ insert into headvender values ('com-AAA','dbwnqls','001','02-xxx-xxx');
 insert into headvender values (아이디,회사명,사업자 번호,전화번호);
 //업체 등록 테이블
 
+SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY bodyorder.hconfirm ASC, bodyorder.DATE  DESC;
+
+SELECT  *  from  bodyorder;
                                  1     2      3  4  5     6     7
 insert into headorder values (업체명,default,발주품명,발주수량,가격,default,'');
 
@@ -772,6 +778,8 @@ select id,SUM(money) from bodysales where id='naver' and date like '%2018-01%' G
 SELECT id,SUM(chickenF) from bodysales where id='naver' GROUP BY id;
 SELECT id,SUM(?) from bodysales where id=? GROUP BY id;
 SELECT * from bodysales;
+
+drop database bbq;
 
 "SELECT name,SUM(quantity) AS quantity FROM headstock GROUP BY name;";here date like '%2018-11-28%';
 drop table bodysales;

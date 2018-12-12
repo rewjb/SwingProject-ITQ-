@@ -133,6 +133,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 	private ArrayList uniqueNum;
 	// 발주기록을 지우기 위한 유니크 넘버 갖기
 	private H_VenderDAO h_venderDAO = H_VenderDAO.getInstance();
+	private JButton reStartBtn = new JButton("새로고침");
 
 //	발주 넣는 리스트 배치 (2, 45, 560, 100)
 	public H_Order() {// 생성자 시작
@@ -167,7 +168,6 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		ptotalPriceField.setHorizontalAlignment(SwingConstants.RIGHT);
 		ptotalPriceField.setBounds(384, 23, 111, 20);
 		ptotalPriceField.setEditable(false);
-		
 
 		stockInfoLabel.setBounds(625, 160, 80, 15);
 		venderInfoLabel.setBounds(625, 7, 80, 15);
@@ -243,6 +243,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		deletemBtn2.addActionListener(this);
 		deletemBtn1.addActionListener(this);
 		confirmOrderBtn.addActionListener(this);
+		reStartBtn.addActionListener(this);
 		// 인덱스 숫자 액션리스너
 
 		plusBtn.addActionListener(this);
@@ -316,6 +317,9 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		confirmOrderBtn.setBounds(435, 133, 60, 20);
 
 		add(confirmOrderBtn);
+		reStartBtn.setBounds(668, 335, 97, 23);
+
+		add(reStartBtn);
 
 		setVisible(false);// 마지막에는 false로 변경
 
@@ -334,6 +338,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 	public void insertIntoNameBox() {// 발주품목 넣기
 		productList = venderpDAO.select_product();
 		// productList에 제품군 넣기!
+		pNameBox.removeAllItems();
 		for (int i = 0; i < productList.size(); i++) {
 			pNameBox.addItem((String) productList.get(i));
 		}
@@ -525,6 +530,13 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		} // deletemBtn : 버튼 if문 종료
 
+		if (e.getSource() == reStartBtn) {
+			orderInsert(index); 
+			insertIntoNameBox();
+			venderInsert();
+
+		}
+
 	}// actionPerformed:메서드 끝
 
 	@Override
@@ -568,6 +580,11 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 	public void venderInsert() {
 
 		ArrayList<H_VenderDTO> list = h_venderDAO.selectALLVenderInfo();
+		int count = venderListModel.getRowCount();
+
+		for (int i = 0; i < count; i++) {
+			venderListModel.removeRow(0);
+		}
 
 		for (int i = 0; i < list.size(); i++) {
 			venderListModel.insertRow(0, new Object[] { list.get(i).getName(), list.get(i).getTel() });

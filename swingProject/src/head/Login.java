@@ -199,10 +199,10 @@ public class Login extends JFrame implements BBQ, ActionListener{
 			}
 		}
 		if(e.getSource() == btLoginU) {
-			if(w.checkUpw(tfUId.getText(), tfUPw.getText())) {
+			if(w.checkUid(tfUId.getText())) {	//, tfUPw.getText())
 				BodyFrame bf = new BodyFrame();
-				
 				BodyFrame.id  = tfUId.getText();
+				dispose();
 			}
 			
 		}

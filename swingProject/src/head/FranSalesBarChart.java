@@ -98,8 +98,13 @@ public class FranSalesBarChart extends JPanel {
 
 		chart.setTitle(franName + "점 " + year + "년 " + "매출 현황");
 
+		if (franName==null) {
+			franName="미지정";
+		}
+		
+		
 		for (int i = 0; i < 12; i++) {
-			dataSet.addValue(intList.get(i), franName, String.valueOf(1 + i)+"월");
+			dataSet.addValue(intList.get(i),franName, String.valueOf(1 + i)+"월");
 		} // 12월까지 입력
 
 		plot.setDataset(dataSet);

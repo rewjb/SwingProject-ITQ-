@@ -446,6 +446,8 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 				uniqueNum.add(orderList.get((index - 1) * listNum + i).getNum());
 			}
 		}
+		
+		assignBtnIndex();
 	}// orderInsert():메서드 끝
 
 	@Override

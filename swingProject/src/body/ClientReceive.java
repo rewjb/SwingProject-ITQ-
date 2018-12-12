@@ -36,12 +36,7 @@ public class ClientReceive extends Thread {
 
 				try {
 					str = inputBuffer.readLine();
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "서버와의 연결이 끊겼습니다.");
-					inputBuffer.close();
-					my_socket.close();
-					
-				}
+			
 
 				if (str.equals("RoomList")) {
 					int temp = ClientFrame.model.getRowCount();
@@ -85,6 +80,13 @@ public class ClientReceive extends Thread {
 					}
 				} else {
 
+				}
+				
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "서버와의 연결이 끊겼습니다.");
+					inputBuffer.close();
+					my_socket.close();
+					break;
 				}
 
 			} // while문 종료

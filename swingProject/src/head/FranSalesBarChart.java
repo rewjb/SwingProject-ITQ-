@@ -93,6 +93,8 @@ public class FranSalesBarChart extends JPanel {
 	public void monthChartShow(String franName, String year, ArrayList<Integer> intList) {
 
 		dataSet = new DefaultCategoryDataset();
+		
+		
 
 		chart.setTitle(franName + "점 " + year + "년 " + "매출 현황");
 

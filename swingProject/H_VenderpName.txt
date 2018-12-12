@@ -1,5 +1,4 @@
-Apple-0.32
-Cherry-0.25
-Kiwi-0.15
-Peach-0.29
-Banana-0.22
+apple-1000
+melon-2000
+orange-4000
+banana-5000

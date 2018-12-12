@@ -53,6 +53,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 	private JButton previousBtn = new JButton("이전");
 	private JButton nowBtn = new JButton();
 	private JButton nextBtn = new JButton("다음");
+	private JButton reStartBtn = new JButton("새로고침");
 
 	private int index = 1;
 	private int count;
@@ -68,8 +69,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 
 	private JLabel title1 = new JLabel("가맹점 발주내역");
 	private JLabel title2 = new JLabel("가맹점 연락처");
-	
-	ArrayList<Integer> uniqueNum ;
+
+	ArrayList<Integer> uniqueNum;
 
 	public static int goOrder;
 
@@ -111,13 +112,14 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		nextBtn.addActionListener(this);
 		previousBtn.addActionListener(this);
 		confirmBtn.addActionListener(this);
+		reStartBtn.addActionListener(this);
 		// 인덱스 숫자 액션리스너
 
 		previousBtn.setBounds(176, 336, 60, 20);
 		nowBtn.setBounds(233, 336, 60, 20);
 		nextBtn.setBounds(293, 336, 60, 20);
 		confirmBtn.setBounds(502, 336, 60, 20);
-		;
+		reStartBtn.setBounds(668, 335, 97, 23);
 		// 버튼들의 배치
 
 		orderScroll.setBounds(2, 20, 560, 315);
@@ -151,9 +153,10 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		add(nowBtn);
 		add(nextBtn);
 		add(orderScroll);
-
+		add(reStartBtn);
 		setLayout(null);
 		setBounds(0, 0, 770, 358);
+
 		setVisible(false);// 마지막에는 false로 변경
 
 	}// 생성자 끝
@@ -186,14 +189,14 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		}
 	}// assignBtnIndex():메서드 끝
 
-	public void orderInsert(int index) { 
+	public void orderInsert(int index) {
 
 		orderList = b_orderDAO.selectAllPlusAlias();
 
 		count = orderList.size();
 
 		int temp = orderListModel.getRowCount();
-		
+
 		uniqueNum = new ArrayList<>();
 
 		for (int i = 0; i < temp; i++) {
@@ -206,7 +209,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				orderListModel.insertRow(orderListModel.getRowCount(),
 						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
 								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate(),
-								orderList.get(startNum + i).gethComfirm()});
+								orderList.get(startNum + i).gethComfirm() });
 				uniqueNum.add(orderList.get(startNum + i).getNum());
 			}
 		} else {
@@ -215,13 +218,18 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				orderListModel.insertRow(orderListModel.getRowCount(),
 						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
 								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate(),
-								orderList.get(startNum + i).gethComfirm(),orderList.get(startNum + i).gethComfirm()});
-				uniqueNum.add(orderList.get(startNum + i).getNum());  
+								orderList.get(startNum + i).gethComfirm(), orderList.get(startNum + i).gethComfirm() });
+				uniqueNum.add(orderList.get(startNum + i).getNum());
 			}
 		}
 	}// orderInsert():메서드 끝
 
 	public void aliasNtelInsert() {
+		int count = franchiseListModel.getRowCount();
+		for (int i = 0; i < count; i++) {
+			franchiseListModel.removeRow(0);
+		}
+
 		ArrayList<H_FranchiseDTO> franchiseArray = franchiseDAO.select_AliasNTel();
 		for (int i = 0; i < franchiseArray.size(); i++) {
 			franchiseListModel.insertRow(i,
@@ -269,6 +277,11 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 			}
 			orderInsert(index);
 		} // confirmBtn:버튼 액션 끝
-	}// actionPerformed:메서드 끝
 
+		if (e.getSource() == reStartBtn) {
+			aliasNtelInsert();
+			orderInsert(index);
+		}
+
+	}// actionPerformed:메서드 끝
 }// 클래스 끝

@@ -245,17 +245,17 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 				}
 				searchSales();
 			}
-			if (model2.getRowCount() == 0) {
+			if (model2.getRowCount() == 0 && !(textField.getText().equals(""))) {
 				salesResult();
-			} else {
+			} else if(!(model2.getRowCount() == 0)){
 				model2.removeRow(0);
 				salesResult();
 			}
 
-			if (!(textField.getText().equals("")) && textField_1.getText().equals("")) {
+			if (!(textField.getText().equals("")) && textField_1.getText().equals("") && !(B_SalesDAO.getInstance().selectFranSalesYear(BodyFrame.id, textField.getText()).size()==0)) {
 				value = B_SalesDAO.getInstance().selectFranSalesYear(BodyFrame.id, textField.getText());
 				bodySalesDataChart.monthChart(textField.getText(), value);
-			}else if (!(textField.getText().equals("")) && !(textField_1.getText().equals(""))) {
+			}else if (!(textField.getText().equals("")) && !(textField_1.getText().equals("")) && !(B_SalesDAO.getInstance().selectFranSalesMonth(BodyFrame.id, textField.getText(),textField_1.getText()).size()==0)) {
 				value = B_SalesDAO.getInstance().selectFranSalesMonth(BodyFrame.id, textField.getText(), textField_1.getText());
 				bodySalesDataChart.dayChart(textField.getText(),textField_1.getText(), value);
 				

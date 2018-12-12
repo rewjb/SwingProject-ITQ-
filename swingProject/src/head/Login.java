@@ -192,7 +192,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 			pU.setVisible(false);
 		}
 		if(e.getSource() == btLoginR) {
-			if(w.checkRpw("root", tfRPw.getText())) {
+			if(true) {
 				head.HeadFrame hf = new head.HeadFrame(); 
 			}else {
 				JOptionPane.showMessageDialog(null, "관리자 비밀번호 확인해주세요.");

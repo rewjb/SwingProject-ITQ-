@@ -37,19 +37,19 @@ public class B_SalesDAO {
 		}
 	}// connectDB:메서드 끝
 
-	public ArrayList<B_SalesDTO> menuAllSelect(String date) {
+	public ArrayList<B_SalesDTO> menuAllSelect(String id,String date) {
 		ArrayList<B_SalesDTO> salesDTO = new ArrayList<>();
 		ResultSet rs = null;
 
 		try {
 			connectDB();
-			sql = "select * from bodysales where date like '%" + date + "%' order by date desc";
+			sql = "select * from bodysales where id = '"+id+"' and date like '%" + date + "%' order by date desc";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 				int num = rs.getInt("num");
-				String id = rs.getString("id");
+				id = rs.getString("id");
 				date = rs.getString("date");
 				int money = rs.getInt("money");
 				int chickenF = rs.getInt("chickenF");

@@ -33,11 +33,11 @@ import javax.swing.JButton;
 
 public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 
-	// 콤보박스 안에 들어갈 목록
+	
 
 	private JLabel j;
 	private JLabel j1;
-	private DefaultTableModel model = new DefaultTableModel(0, 2);// 발주할 표
+	private DefaultTableModel model = new DefaultTableModel(0, 3);// 발주할 표
 	private DefaultTableModel model1 = new DefaultTableModel(16, 2);// 재고 목록 표
 	private DefaultTableModel model2 = new DefaultTableModel(0, 4);// 발주 목록 표
 
@@ -67,7 +67,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	private JButton btJego;// 재고 목록
 	private JButton btDelete;
 
-	private JComboBox jCom;// 토글버튼의 기능을 사용할 수 있게 해주는 버튼 그룹
+	private JComboBox jCom;//식자재 목록이 나오는 콤보박스 
 	private JTextField jf;
 
 	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 발주 테이블
@@ -115,7 +115,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		listTable1.getTableHeader().setReorderingAllowed(false);
 		listTable2.getTableHeader().setReorderingAllowed(false);
 
-		model.setColumnIdentifiers(new Object[] { "식자재", "수량" });
+		model.setColumnIdentifiers(new Object[] { "식자재", "수량", "금액" });
 		model1.setColumnIdentifiers(new Object[] { "식자재", "수량" });
 		model2.setColumnIdentifiers(new Object[] { "식자재", "수량", "발주일", "본사확인" });
 

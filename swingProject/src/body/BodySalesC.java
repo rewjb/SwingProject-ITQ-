@@ -150,10 +150,30 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 	}
 
 	public void searchSales() {// 매출 검색 메서드
+		
+		if (!(textField.getText().equals("")) && textField_1.getText().equals("")) {
+			int size = B_SalesDAO.getInstance()
+					.menuAllSelect(BodyFrame.id,textField.getText() + "-" + textField_1.getText()).size();
+			ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
+					.menuAllSelect(BodyFrame.id,textField.getText() + "-" + textField_1.getText());
+			for (int j = 0; j < size; j++) {
+				if (!(salesDTO.get(j).getChickenF() == 0)) {
+					model.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
+							salesDTO.get(j).getChickenF(), salesDTO.get(j).getDate().substring(0, 19) });
+				} else if (!(salesDTO.get(j).getChickenH() == 0)) {
+					model.insertRow(0, new Object[] { "양념", (salesDTO.get(j).getChickenH()) / 20000,
+							salesDTO.get(j).getChickenH(), salesDTO.get(j).getDate().substring(0, 19) });
+				} else if (!(salesDTO.get(j).getChickenS() == 0)) {
+					model.insertRow(0, new Object[] { "간장", (salesDTO.get(j).getChickenS()) / 20000,
+							salesDTO.get(j).getChickenS(), salesDTO.get(j).getDate().substring(0, 19) });
+				}
+
+			}
+		}else {
 		int size = B_SalesDAO.getInstance()
-				.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText()).size();
+				.menuAllSelect(BodyFrame.id,textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText()).size();
 		ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
-				.menuAllSelect(textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText());
+				.menuAllSelect(BodyFrame.id,textField.getText() + "-" + textField_1.getText() + "-" + textField_2.getText());
 		for (int j = 0; j < size; j++) {
 			if (!(salesDTO.get(j).getChickenF() == 0)) {
 				model.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
@@ -167,10 +187,14 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 			}
 
 		}
+		}
 	}
 
 	public void salesResult() {// 종합매출 메서드
 		int count = model.getRowCount();
+		if (count==0) {
+			
+		}else {
 		for (int i = 0; i < count; i++) {// 작업중
 			if (model.getValueAt(i, 0).equals("후라이드")) {// 후라이드치킨 종합
 				if (model2.getRowCount() == 0) {
@@ -229,6 +253,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 				model2.setValueAt((int) model2.getValueAt(0, 0) + (int) model2.getValueAt(0, 1)
 						+ (int) model2.getValueAt(0, 2) + (int) model2.getValueAt(0, 3), 0, 4);
 			}
+		}
 	}
 
 	@Override
@@ -252,10 +277,10 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 				salesResult();
 			}
 
-			if (!(textField.getText().equals("")) && textField_1.getText().equals("") && !(B_SalesDAO.getInstance().selectFranSalesYear(BodyFrame.id, textField.getText()).size()==0)) {
+			if (!(textField.getText().equals("")) && textField_1.getText().equals("")) {
 				value = B_SalesDAO.getInstance().selectFranSalesYear(BodyFrame.id, textField.getText());
 				bodySalesDataChart.monthChart(textField.getText(), value);
-			}else if (!(textField.getText().equals("")) && !(textField_1.getText().equals("")) && !(B_SalesDAO.getInstance().selectFranSalesMonth(BodyFrame.id, textField.getText(),textField_1.getText()).size()==0)) {
+			}else if (!(textField.getText().equals("")) && !(textField_1.getText().equals(""))) {
 				value = B_SalesDAO.getInstance().selectFranSalesMonth(BodyFrame.id, textField.getText(), textField_1.getText());
 				bodySalesDataChart.dayChart(textField.getText(),textField_1.getText(), value);
 				

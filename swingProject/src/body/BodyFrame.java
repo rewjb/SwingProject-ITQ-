@@ -47,7 +47,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	BodySalesC salesC = new BodySalesC();
 	BodyStockC stockC = new BodyStockC();
 	HallC hallc = new HallC();
-	static String id = "조광재";
+	public static String id = "";
 	
 	
 	

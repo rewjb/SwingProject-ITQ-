@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 
 import body.BodyFrame;
 import inter.BBQ;
+import rew.HeadFrame;
 
 
 public class Login extends JFrame implements BBQ, ActionListener{
@@ -192,16 +193,15 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		}
 		if(e.getSource() == btLoginR) {
 			if(true) {
-				HeadFrame hf = new HeadFrame();
-				//rew패키지 안에 있는 headFrame에 걸어놨습니다.
-				dispose();
+				head.HeadFrame hf = new head.HeadFrame(); 
 			}else {
 				JOptionPane.showMessageDialog(null, "관리자 비밀번호 확인해주세요.");
 			}
 		}
 		if(e.getSource() == btLoginU) {
-			if(true) {
+			if(w.checkUid(tfUId.getText())) {	//, tfUPw.getText())
 				BodyFrame bf = new BodyFrame();
+				BodyFrame.id  = tfUId.getText();
 				dispose();
 			}
 			

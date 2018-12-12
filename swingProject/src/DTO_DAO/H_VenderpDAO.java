@@ -67,11 +67,12 @@ public class H_VenderpDAO {
 	public int updateVenderpInfo(H_VenderpDTO pDTO) {
 		connectDB();
 		int rs = 0;
-		sql = "UPDATE headvenderp SET money = ? WHERE num = ?;";
+		sql = "UPDATE headvenderp SET name = ? money = ? WHERE num = ?;";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, pDTO.getMoney());
-			ps.setInt(2, pDTO.getNum());
+			ps.setString(1, pDTO.getName());
+			ps.setInt(2, pDTO.getMoney());
+			ps.setInt(3, pDTO.getNum());
 
 			rs = ps.executeUpdate();
 		} catch (Exception e) {

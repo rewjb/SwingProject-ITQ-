@@ -88,7 +88,6 @@ public class BodySalesDataChart extends JPanel {
 				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), BodyFrame.id, String.valueOf(1 + i) + "일");
 				
 			} // 31일까지 입력
-			
 		}else if(intList.size()==30){
 			for (int i = 0; i < 28; i+=3) {
 				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), BodyFrame.id, String.valueOf(1 + i) + "일");

@@ -222,6 +222,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 				uniqueNum.add(orderList.get(startNum + i).getNum());
 			}
 		}
+		assignBtnIndex();
 	}// orderInsert():메서드 끝
 
 	public void aliasNtelInsert() {

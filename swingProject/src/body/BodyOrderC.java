@@ -22,6 +22,13 @@ import DTO_DAO.H_VenderpDAO;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -31,9 +38,7 @@ import javax.swing.JComboBox;
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 
-public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
-
-	
+public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, ItemListener {
 
 	private JLabel j;
 	private JLabel j1;
@@ -67,8 +72,11 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 	private JButton btJego;// 재고 목록
 	private JButton btDelete;
 
-	private JComboBox jCom;//식자재 목록이 나오는 콤보박스 
+	private JComboBox jCom;// 식자재 목록이 나오는 콤보박스
 	private JTextField jf;
+	private File file;
+	private FileReader reader;
+	private BufferedReader bReader;
 
 	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 발주 테이블
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -80,9 +88,9 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	private JLabel label;
 	private JLabel label_1;
-	private ArrayList<Integer> listNum;//발주 목록을 볼 때 각행별 고유 num을 담고 있는 리스트
-	private JTextField textField;//식자재 단가입력란
-	private int[] selects;//발주 취소시 다중선택을 받는 배열
+	private ArrayList<Integer> listNum;// 발주 목록을 볼 때 각행별 고유 num을 담고 있는 리스트
+	private JTextField textField;// 식자재 단가입력란
+	private int[] selects;// 발주 취소시 다중선택을 받는 배열
 
 	// Jtable의 스크롤 기능 객체 w
 	// private DefaultTableCellRenderer celAlignCenter = new
@@ -188,6 +196,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		bt5.addActionListener(this);
 		btJego.addActionListener(this);
 		btDelete.addActionListener(this);
+		jCom.addItemListener(this);
 
 		label = new JLabel("\uBC1C\uC8FC");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -224,8 +233,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 		((Component) bbqBody).setVisible(false);
 	}
 
-
-	public void orderList() {//발주목록 보는 메서드 
+	public void orderList() {// 발주목록 보는 메서드
 		listNum = new ArrayList<>();
 		int a = B_OrderDAO.getInstance().selectAll(BodyFrame.id).size();
 		System.out.println(a);
@@ -241,7 +249,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm() });
 			}
 		} else {
-			
+
 			for (int i = 0; i < a; i++) {
 				model2.removeRow(0);
 			}
@@ -347,4 +355,45 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener {
 			orderList();
 		}
 	}// 액션 리스터 끝
+
+	ArrayList<String> arr = new ArrayList<>();
+	ArrayList<String> arr2 = new ArrayList<>();
+
+	public void reader() {
+		file = new File("H_VenderpName.txt");
+		System.out.println(file.exists());
+		if (file.exists()) {
+			try {
+				reader = new FileReader(file);
+				bReader = new BufferedReader(reader);
+				while (bReader.readLine() != null) {
+					System.out.println(bReader.readLine());
+					String[] read = bReader.readLine().split("-");
+					arr.add(read[0]);
+					System.out.println(arr.get(0));
+					arr2.add(read[1]);
+					System.out.println(arr2.get(0));
+				}
+				for (int j = 0; j < arr.size(); j++) {
+					System.out.println(jCom.getSelectedItem().equals(arr.get(j)));
+					if (jCom.getSelectedItem().equals(arr.get(j))) {
+						textField.setText(arr2.get(j));
+					}
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == jCom) {
+			reader();
+		}
+
+	}
 }// 클래스끝

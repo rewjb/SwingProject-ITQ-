@@ -170,17 +170,17 @@ chickenS int,
 side int
 );
 
-insert into bodysales values (default,'조광재','2018-11-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-10-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-09-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-08-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-07-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-06-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-05-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-04-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-03-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-02-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'조광재','2018-01-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-11-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-10-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-09-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-08-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-07-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-06-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-05-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-04-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-03-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-02-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'','2018-01-01','60000','20000','20000','20000','0');
 
 
 

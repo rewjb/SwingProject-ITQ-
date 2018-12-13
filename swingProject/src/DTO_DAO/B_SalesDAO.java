@@ -1,10 +1,12 @@
 package DTO_DAO;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class B_SalesDAO {
 
@@ -37,13 +39,13 @@ public class B_SalesDAO {
 		}
 	}// connectDB:메서드 끝
 
-	public ArrayList<B_SalesDTO> menuAllSelect(String id,String date) {
+	public ArrayList<B_SalesDTO> menuAllSelect(String id, String date) {
 		ArrayList<B_SalesDTO> salesDTO = new ArrayList<>();
 		ResultSet rs = null;
 
 		try {
 			connectDB();
-			sql = "select * from bodysales where id = '"+id+"' and date like '%" + date + "%' order by date desc";
+			sql = "select * from bodysales where id = '" + id + "' and date like '%" + date + "%' order by date desc";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
@@ -117,7 +119,6 @@ public class B_SalesDAO {
 			}
 		}
 	}
-
 
 	public ArrayList<Integer> selectFranSalesYear(String id, String year) {
 		ArrayList<Integer> salesMonth = new ArrayList<>();
@@ -220,38 +221,36 @@ public class B_SalesDAO {
 			connectDB();
 			ResultSet result = null;
 
-				sql = "SELECT id,SUM(chickenF) from bodysales where id=? GROUP BY id;";
-				ps = con.prepareStatement(sql);
-				ps.setString(1, id);
-				result = ps.executeQuery();
-				if (result.next()) {
-					salesList.add(result.getInt(2));
-				}else {
-					salesList.add(0);
-				}
-				
+			sql = "SELECT id,SUM(chickenF) from bodysales where id=? GROUP BY id;";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			result = ps.executeQuery();
+			if (result.next()) {
+				salesList.add(result.getInt(2));
+			} else {
+				salesList.add(0);
+			}
 
-				sql = "SELECT id,SUM(chickenH) from bodysales where id=? GROUP BY id;";
-				ps = con.prepareStatement(sql);
-				ps.setString(1, id);
-				result = ps.executeQuery();
-				if (result.next()) {
-					salesList.add(result.getInt(2));
-				}else {
-					salesList.add(0);
-				}
-				
+			sql = "SELECT id,SUM(chickenH) from bodysales where id=? GROUP BY id;";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			result = ps.executeQuery();
+			if (result.next()) {
+				salesList.add(result.getInt(2));
+			} else {
+				salesList.add(0);
+			}
 
-				sql = "SELECT id,SUM(chickenS) from bodysales where id=? GROUP BY id;";
-				ps = con.prepareStatement(sql);
-				ps.setString(1, id);
-				result = ps.executeQuery();
-				if (result.next()) {
-					salesList.add(result.getInt(2));
-				}else {
-					salesList.add(0);
-				}
-			
+			sql = "SELECT id,SUM(chickenS) from bodysales where id=? GROUP BY id;";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			result = ps.executeQuery();
+			if (result.next()) {
+				salesList.add(result.getInt(2));
+			} else {
+				salesList.add(0);
+			}
+
 			con.close();
 			ps.close();
 			result.close();
@@ -261,5 +260,36 @@ public class B_SalesDAO {
 		}
 		return salesList;
 	} // selectFranSalesMonth : 메서드 끝
+
+	public ArrayList<Integer> selectMonthBodySales(String year) {// 마지막 작업중
+		ArrayList<Integer> list = new ArrayList<>();
+		int sum;
+		try {
+			String[] month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
+			connectDB();
+			ResultSet rs = null;
+			int total;
+			for (int i = 0; i < month.length; i++) {
+				sql = "SELECT SUM(money) FROM bodysales WHERE date LIKE '%" + year + "-" + month[i] + "%';";
+				ps = con.prepareStatement(sql);
+				rs = ps.executeQuery();
+				total = 0;
+				
+				while (rs.next()) {
+					total += rs.getInt(1);
+				}
+				list.add(total);
+			}
+
+			rs.close();
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			System.out.println("B_SalesDAO-selectMonthBodySales 오류");
+			e.printStackTrace();
+		}
+
+		return list;
+	}// selectMonth() : 메서드 종료
 
 }// DAO클래스 끝

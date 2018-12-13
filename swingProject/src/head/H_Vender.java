@@ -37,24 +37,19 @@ public class H_Vender extends JPanel implements HeadVender {
 		setBounds(0, 0, 770, 368);
 		setLayout(null);
 
-		buttonSetting();
-
+		vCompanySetting();
+		vProductSetting();
+		
+		paneVdC.setVisible(false);
+		setVisible(false);
+	}
+	
+	private void vCompanySetting() {
 		paneVdC = new H_V_Company();
 		paneVdC.setBounds(0, 20, 770, 315);
 		add(paneVdC);
 		paneVdC.setLayout(null);
-
-		paneVdP = new H_V_Product();
-		paneVdP.setBounds(0, 20, 770, 315);
-		add(paneVdP);
-		paneVdP.setLayout(null);
-
-		paneVdC.setVisible(false);
 		
-		setVisible(false);
-	}
-	
-	private void buttonSetting() {
 		btVdC = new JButton("업체");
 		add(btVdC);
 		btVdC.setBounds(300, 0, 80, 20);
@@ -66,7 +61,14 @@ public class H_Vender extends JPanel implements HeadVender {
 				paneVdP.setVisible(false);
 			}
 		});
-
+	}
+	
+	private void vProductSetting() {
+		paneVdP = new H_V_Product();
+		paneVdP.setBounds(0, 20, 770, 315);
+		add(paneVdP);
+		paneVdP.setLayout(null);
+		
 		btVdP = new JButton("제품");
 		btVdP.setBounds(380, 0, 80, 20);
 		add(btVdP);
@@ -76,6 +78,9 @@ public class H_Vender extends JPanel implements HeadVender {
 			public void actionPerformed(ActionEvent e) {
 				paneVdC.setVisible(false);
 				paneVdP.setVisible(true);
+				//콤보박스 재설정
+				((H_V_Product) paneVdP).remove(((H_V_Product) paneVdP).cbId);
+				((H_V_Product) paneVdP).comboCId();
 			}
 		});
 	}

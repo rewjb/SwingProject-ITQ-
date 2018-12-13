@@ -1,7 +1,9 @@
 package body;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.Color;
@@ -35,6 +37,11 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	JToggleButton StockBtn = new JToggleButton("재고관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
 	JToggleButton hallButton = new JToggleButton("홀");
+	
+	ImageIcon img = new ImageIcon("logo.png");
+	JLabel logoLabel = new JLabel(img);
+	JLabel serviceInfo = new JLabel(img);
+	
 
 	JButton btnNewButton = new JButton("채팅관리");
 	ButtonGroup btnGroup = new ButtonGroup();
@@ -48,7 +55,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	public static String id ;
 
 	ClientFrame clientFrame;
-
+	
 	public BodyFrame(String id) {
 		// 사이즈 , 레이아웃 및 각종 설정
 		this.id = id;
@@ -56,20 +63,22 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		clientFrame = new ClientFrame(id);
 		clientFrame.setLocationRelativeTo(this);
 
-		setSize(820, 450);
+		setSize(820, 500);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		// 20 간격 !
-		OrderBtn.setBounds(12, 30, 90, 23);
-		StockBtn.setBounds(102, 30, 90, 23);
-		SalesBtn.setBounds(193, 30, 90, 23);
-		hallButton.setBounds(609, 30, 90, 23);
-		btnNewButton.setBounds(705, 30, 97, 23);
+		OrderBtn.setBounds(12, 66, 90, 23);
+		StockBtn.setBounds(103, 66, 90, 23);
+		SalesBtn.setBounds(192, 66, 90, 23);
+		hallButton.setBounds(615, 66, 90, 23);
+		btnNewButton.setBounds(705, 66, 97, 23);
+		logoLabel.setBounds(10, 10, 107, 46);
 
-		mainPanel.setBounds(12, 53, 790, 364);
+		mainPanel.setBounds(12, 91, 790, 364);
 		mainPanel.setLayout(null);
+		mainPanel.setBackground(Color.GRAY);
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
 		btnGroup.add(SalesBtn);
@@ -79,6 +88,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		getContentPane().add(StockBtn);
 		getContentPane().add(SalesBtn);
 		getContentPane().add(hallButton);
+		getContentPane().add(logoLabel);
 		mainPanel.add(orderC);
 		mainPanel.add(hallc);
 		mainPanel.add(salesC);
@@ -93,6 +103,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		SalesBtn.addActionListener(this);
 		hallButton.addActionListener(this);
 
+		OrderBtn.doClick(); 
 		setVisible(true);
 	}// 생성자 종료
 

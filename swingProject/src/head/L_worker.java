@@ -1,5 +1,6 @@
 package head;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -8,25 +9,55 @@ import javax.swing.JOptionPane;
  * DB는 H_FranchasDAO DTO를 같이 사용합니다.
  */
 import DTO_DAO.*;
+import body.BodyFrame;
 
 public class L_worker {
 	H_FranchiseDAO fDAO = new H_FranchiseDAO();
 	H_FranchiseDTO fDTO;
+	
+	//wonHn
+	//모든 메서드가 성공할시 페이지 띄워주는 메서드
+	JFrame findYourPage(String id, String pw) {
+		if(pickOutRoot(id,pw)) {
+			if(checkRpw(id,pw)) {
+				HeadFrame hf = new HeadFrame();
+				return hf;
+			}//관리자 비밀번호 맞을때
+		}else {
+			if(checkUid(id)) {
+				if(checkUpw(id, "1234")) {
+					BodyFrame bf = new BodyFrame(id);
+				}//사용자 비밀번호 맞을때
+			}
+		}
+		 return null;
+	}
 
+	//wonHn
+	//받아온 아이디 분류하는 메서드
+	boolean pickOutRoot(String id, String pw) {
+		if (id.equals("root")) {
+			return true; //관리자일 경우 참
+		}else {
+			return false; //관리자가 아닐경우 거짓
+		}
+	}
+	
 	// wonHn
 	// 관리자 비밀번호 확인하는 메서드
-	protected boolean checkRpw(String id, String pw) {
+	boolean checkRpw(String id, String pw) {
 		fDTO = fDAO.selectFranchiseInfo(id);
 		if (fDTO != null) {	//fDTO반환값이 있을때만 실행
 			fDTO.getPw().equals(pw);
 			return true;
 		}
+		JOptionPane.showMessageDialog(null, "관리자 비밀번호가 다릅니다");
 		return false;
 	}
 
 	// wonHn
 	// 가맹점 아이디 확인하는 메서드
-	protected boolean checkUid(String id) {
+	boolean checkUid(String id) {
 		fDTO = fDAO.selectFranchiseInfo(id);
 		if (fDTO != null) {	//fDTO반환값이 있을때만 실행
 			return true;
@@ -36,7 +67,7 @@ public class L_worker {
 	}
 
 	// 가맹점 비밀번호 확인하는 메서드
-	protected boolean checkUpw(String id,String pw) {
+	boolean checkUpw(String id,String pw) {
 		if(checkUid(id)) {
 			fDTO.getPw().equals(pw);
 			return true;

@@ -5,5 +5,8 @@
 	<classpathentry kind="lib" path="C:/Program Files/Java/mysql-connector-java-5.1.45.jar" sourcepath="C:/Users/user/.m2/repository/mysql/mysql-connector-java/5.1.45/mysql-connector-java-5.1.45-sources.jar"/>
 	<classpathentry kind="lib" path="jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="jxbrowser-6.22.1.jar"/>
+	<classpathentry kind="lib" path="jxbrowser-win64-6.22.1.jar"/>
+	<classpathentry kind="lib" path="license.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

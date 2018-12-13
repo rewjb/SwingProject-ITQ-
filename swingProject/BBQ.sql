@@ -4,7 +4,7 @@ create database BBQ;
 유통기한..고민..
 
 
-c
+
 
 =가맹점 발주내역=
 create table bodyorder(
@@ -119,6 +119,8 @@ select * from headvender;
 select * from  headOrder;
 
 select * from  headstock;
+SELECT * from bodyorder where id = 'AAA' order by hconfirm = '';
+
 
 select * from  headstock ORDER BY date;
 select name,SUM(quantity) as quantity  from headstock  where point=16  group by name;
@@ -144,6 +146,9 @@ select id,name,sum(quantity) as quantity from bodystock where id ='조광재' gr
 ;
 SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY DATE DESC;
 
+
+SELECT name,SUM(quan) FROM headorder WHERE date LIKE '%2018-12%' GROUP BY name;
+SELECT name,SUM(quantity) FROM headorder WHERE date LIKE '%2018-12%' GROUP BY name;
 update bodyorder set hconfirm = 'ck_1' where num=10;
 update 테이블명 set 컬럼명 = '변경값' where 컬럼명='해당값'
 ----- 테이블 선택--------
@@ -154,6 +159,7 @@ num int auto_increment primary key,
 id varchar(10)  not null,
 name varchar(15) not null,
 quantity int not null,
+totalmoney int not null,
 date TIMESTAMP DEFAULT NOW(),
 hconfirm varchar(10),
 bconfirm varchar(10)
@@ -170,19 +176,19 @@ chickenS int,
 side int
 );
 
-insert into bodysales values (default,'','2018-11-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-10-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-09-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-08-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-07-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-06-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-05-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-04-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-03-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-02-01','60000','20000','20000','20000','0');
-insert into bodysales values (default,'','2018-01-01','60000','20000','20000','20000','0');
+select * from s
 
-
+insert into bodysales values (default,'조광재','2018-11-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-10-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-09-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-08-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-07-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-06-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-05-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-04-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-03-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-02-01','60000','20000','20000','20000','0');
+insert into bodysales values (default,'조광재','2018-01-01','60000','20000','20000','20000','0');
 
 
 insert into bodyorder values (default,'닭','닭',10,default,'1','');
@@ -192,7 +198,6 @@ insert into bodyorder values (default,'','d-1',1,default,'1','');
 insert into bodyorder values (default,'콜라','d-1',1,default,'1','');
 insert into bodyorder values (default,'콜라','d-1',1,default,'1','');
 insert into bodyorder values (default,'daum','d-1',1,default,'1','');
->>>>>>> branch 'master' of https://github.com/rewjb/SwingProject-ITQ-.git
 insert into bodyorder values (default,'daum','d-2',12,default,'1','');
 insert into bodyorder values (default,'daum','d-1',13,default,'1','');
 insert into bodyorder values (default,'daum','d-1',14,default,'1','');
@@ -265,6 +270,8 @@ insert into headstock values ('21','out','apple',21,"asdasd122",default);
 select * from headstock;
 
 SELECT headvenderp.name,headvender.name FROM headvenderp,headvender WHERE (headvender.id=headvenderp.id) and headvenderp.name='apple'  ORDER BY headvender.name;
+
+
 
 
 create database BBQ;
@@ -762,7 +769,7 @@ insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
 insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
 insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
 
-select * from bodysales;
+select * from headorder;
 insert into bodysales values (  자동값, 가맹아이디,날짜자동,총금액,후라이드,양념,간장,사이드);
 
 select bodysales.id, headFranchise.alias, SUM(bodysales.money) from bodysales,headFranchise where and bodysales.id='daum'and date like '%2018-01%';
@@ -773,15 +780,19 @@ select bodysales.id,SUM(bodysales.money) from bodysales where bodysales.id='nave
 --select id from headFranchise where alias='bbq-n';
 
 select id,SUM(money) from bodysales where id='naver' and date like '%2018-01%' GROUP BY id;
-
+SELECT SUM(money) FROM headorder where date LIKE '%2018-11%';
+SELECT *  FROM headorder;
 
 SELECT id,SUM(chickenF) from bodysales where id='naver' GROUP BY id;
 SELECT id,SUM(?) from bodysales where id=? GROUP BY id;
 SELECT * from bodysales;
 
 drop database bbq;
+SELECT SUM(money) FROM bodysales WHERE date LIKE '%2018-12%';
+select * from bodysales;
 
-"SELECT name,SUM(quantity) AS quantity FROM headstock GROUP BY name;";here date like '%2018-11-28%';
+SELECT * FROM bodysales ;
+
 drop table bodysales;
 create table bodysales(
 num int auto_increment primary key,

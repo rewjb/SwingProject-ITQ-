@@ -134,7 +134,7 @@ public class H_VenderpDAO {
 			System.out.println("selectALLVenderpInfo() 오류");
 			e.printStackTrace();
 		} finally {
-			
+
 		} // end try catch
 		return list;
 	}// end selectALLVenderpInfo
@@ -148,6 +148,25 @@ public class H_VenderpDAO {
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, num);
+
+			rs = ps.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("deleteVenderpInfo() 오류");
+			e.printStackTrace();
+		}
+
+		return rs;
+	}// end deleteVenderpInfo
+
+	// wonHn
+	// 재료정보 삭제 메서드 - 재료명으로 삭제
+	public int deleteVenderpInfo(String name) {
+		connectDB();
+		int rs = 0;
+		sql = "DELETE FROM headvenderp WHERE name = ?;";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, name);
 
 			rs = ps.executeUpdate();
 		} catch (Exception e) {

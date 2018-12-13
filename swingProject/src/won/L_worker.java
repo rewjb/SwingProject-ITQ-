@@ -1,5 +1,6 @@
 package won;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -8,11 +9,41 @@ import javax.swing.JOptionPane;
  * DB는 H_FranchasDAO DTO를 같이 사용합니다.
  */
 import DTO_DAO.*;
+import body.BodyFrame;
 
 public class L_worker {
 	H_FranchiseDAO fDAO = new H_FranchiseDAO();
 	H_FranchiseDTO fDTO;
+	
+	
+	//wonHn
+	//모든 메서드가 성공할시 페이지 띄워주는 메서드
+	JFrame findYourPage(String id, String pw) {
+		if(pickOutRoot(id,pw)) {
+			if(checkRpw(id,pw)) {
+				HeadFrame hf = new HeadFrame();
+				return hf;
+			}//관리자 비밀번호 맞을때
+		}else {
+			if(checkUid(id)) {
+				if(checkUpw(id, "1234")) {
+					BodyFrame bf = new BodyFrame(id);
+				}//사용자 비밀번호 맞을때
+			}
+		}
+		 return null;
+	}
 
+	//wonHn
+	//받아온 아이디 분류하는 메서드
+	boolean pickOutRoot(String id, String pw) {
+		if (id.equals("root")) {
+			return true; //관리자일 경우 참
+		}else {
+			return false; //관리자가 아닐경우 거짓
+		}
+	}
+	
 	// wonHn
 	// 관리자 비밀번호 확인하는 메서드
 	boolean checkRpw(String id, String pw) {
@@ -21,6 +52,7 @@ public class L_worker {
 			fDTO.getPw().equals(pw);
 			return true;
 		}
+		JOptionPane.showMessageDialog(null, "관리자 비밀번호가 다릅니다");
 		return false;
 	}
 

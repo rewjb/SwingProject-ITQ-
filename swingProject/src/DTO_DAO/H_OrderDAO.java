@@ -57,7 +57,7 @@ public class H_OrderDAO {
 			sql = "INSERT INTO headorder VALUES (?,default,?,?,?,default,'');";
 			// 업체명,발주품명, 가격
 			ps = con.prepareStatement(sql);
-			
+
 			for (int i = 0; i < list.size(); i++) {
 				ps.setString(1, list.get(i).getVendername()); // 업체명
 				ps.setString(2, list.get(i).getName()); // 발주품명
@@ -78,8 +78,7 @@ public class H_OrderDAO {
 			sql = "SELECT * FROM headorder ORDER BY  headorder.confirm , headorder.date DESC;";
 			ps = con.prepareStatement(sql);
 			ResultSet result = ps.executeQuery();
-			
-			
+
 			ArrayList<H_OrderDTO> list = new ArrayList<>();
 			H_OrderDTO orderDTO;
 
@@ -108,15 +107,44 @@ public class H_OrderDAO {
 	public void deleteSelected(int num) {
 		try {
 			connectDB();
-			sql = "DELETE FROM headorder WHERE num="+num+";";
+			sql = "DELETE FROM headorder WHERE num=" + num + ";";
 			ps = con.prepareStatement(sql);
 			ps.executeUpdate();
-			
+
 			ps.close();
 			con.close();
 		} catch (Exception e) {
 			System.out.println("H_OrderDAO-deleteSelected 오류");
 		}
 	}// deleteSelected:메서드 종료
+
+	// 발주기록을 지우기!
+	public ArrayList<Integer> selectTotalMonthSalse(String year) {
+		ArrayList<Integer> list = new ArrayList<>();
+		try {
+			String[] month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
+			connectDB();
+			ResultSet rs=null;
+
+			for (int i = 0; i < month.length; i++) {
+				sql = "SELECT SUM(money) FROM headorder WHERE date LIKE '%" +year+"-"+month[i]+"%';";
+				ps = con.prepareStatement(sql);
+				rs=ps.executeQuery();
+				if (rs.next()) {
+					list.add(rs.getInt(1));
+				}else {
+					list.add(0);
+				}
+			}
+			rs.close();
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("H_OrderDAO-selectTotalMonthSalse 오류");
+		}
+		
+		return list;
+	}// selectTotalMonthSalse:메서드 종료
 
 }// 클래스 끝

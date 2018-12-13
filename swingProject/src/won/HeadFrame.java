@@ -9,6 +9,9 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
+
+import head.H_Franchise;
+import head.H_Vender;
 import inter.BBQHead;
 import javax.swing.JPanel;
 

@@ -15,7 +15,7 @@ public class L_worker {
 
 	// wonHn
 	// 관리자 비밀번호 확인하는 메서드
-	protected boolean checkRpw(String id, String pw) {
+	boolean checkRpw(String id, String pw) {
 		fDTO = fDAO.selectFranchiseInfo(id);
 		if (fDTO != null) {	//fDTO반환값이 있을때만 실행
 			fDTO.getPw().equals(pw);
@@ -26,7 +26,7 @@ public class L_worker {
 
 	// wonHn
 	// 가맹점 아이디 확인하는 메서드
-	protected boolean checkUid(String id) {
+	boolean checkUid(String id) {
 		fDTO = fDAO.selectFranchiseInfo(id);
 		if (fDTO != null) {	//fDTO반환값이 있을때만 실행
 			return true;
@@ -36,7 +36,7 @@ public class L_worker {
 	}
 
 	// 가맹점 비밀번호 확인하는 메서드
-	protected boolean checkUpw(String id,String pw) {
+	boolean checkUpw(String id,String pw) {
 		if(checkUid(id)) {
 			fDTO.getPw().equals(pw);
 			return true;

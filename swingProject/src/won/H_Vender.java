@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import head.H_V_Company;
+import head.H_V_Product;
 import inter.BBQHead;
 import inter.HeadVender;
 

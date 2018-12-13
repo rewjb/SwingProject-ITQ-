@@ -13,4 +13,7 @@ public class H_V_P_worker {
 	H_VenderpDTO vDTO;
 	
 
+//	public static void main(String[] args) {
+//		H_V_C_worker w = new H_V_C_worker();
+//	}
 }

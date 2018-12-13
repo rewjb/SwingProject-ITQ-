@@ -10,8 +10,7 @@ public class H_F_worker {
 	
 	// 마지막 아이디 가져오는 메서드
 	String findLastId(String id, String input) {
-		if (id == null) { //둘다 null일경우 null반환
-			return id;
+		if (id == null || input == null) {
 		}else {
 			char[] idArr = new char[3];
 			char[] inputArr = new char[3];

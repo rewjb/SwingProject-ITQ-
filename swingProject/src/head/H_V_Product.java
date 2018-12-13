@@ -31,7 +31,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private DefaultTableModel model;
 	private JTable table = new JTable(model);
 	private JScrollPane scrollPane = new JScrollPane(table);
-	private Object[] column = { "업체ID", "No.", "재료명", "입고가", "이윤", "발주가" };
+	private Object[] column = { "업체ID", "No.", "재료명", "입고가", "발주가" };
 
 	// 리벨과 텍스트필드 : 사용자가 입력하고 수정하는 부분
 	private JLabel lbNum;
@@ -43,10 +43,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JComboBox cbName;
 	private JLabel lbMoney;
 	private JTextField tfMoney;
-	private JLabel lbPer;
-	private JTextField tfPer;
-	private JLabel lbPerM;
-	private JTextField tfPerM;
+	private JLabel lbOrderM;
+	private JTextField tfOrderM;
 
 	// 버튼
 	private JButton btAdd;
@@ -65,7 +63,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private DefaultTableModel nameM;
 	private JTable nameT = new JTable(nameM);
 	private JScrollPane nameS = new JScrollPane(nameT);
-	private Object[] nameC = { "재료명", "이윤" };
+	private Object[] nameC = { "재료명", "발주가" };
 
 	// 그외
 	Object[] row;
@@ -76,8 +74,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 	H_VenderDTO vDTO; // 업체DTO
 	String id; // 콤보박스 선택된 id 담아두는 변수
 	String name; // 콤보박스 선택된 name 담아두는 변수
-	HashMap<String, String> namePer = new HashMap<>(); // name에 해당하는 이윤 담아놓은 컬렉션
-	String[] np; // 텍스트에서 이름과 이율 분리해주는 배열
+	HashMap<String, String> nameO = new HashMap<>(); // name에 해당하는 발주가격 담아놓은 컬렉션
+	String[] np; // 텍스트에서 (재료)이름과 발주가 분리해주는 배열
 	int tableIdx; // 메뉴명 추가 테이블 클릭시 해당 열의 인덱스값 받아오는 변수
 
 	// 생성자 constructor
@@ -90,7 +88,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 	// 표에 관련된 설정사항
 	private void tableSetting() {
-		model = new DefaultTableModel(0, 4) {
+		model = new DefaultTableModel(0, 5) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -123,8 +121,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 				while (sc.hasNextLine()) {
 					np = sc.nextLine().split("-");
 					if (np[0].equals(pDTO.getName())) {
-						row[4] = np[0];
-						row[5] = (int) (pDTO.getMoney() * (1 + Double.parseDouble(np[1])));
+						row[4] = np[1];
 					}
 				}
 			} catch (Exception e) {
@@ -134,23 +131,22 @@ public class H_V_Product extends JPanel implements ActionListener {
 			model.addRow(row);
 		}
 		cbId.setVisible(true);
-		tfId.setVisible(false);
+		tfId.setVisible(false);	//초기화시 업체아이디 입력받는 곳은 콤보박스로 설정
 		tfNum.setText("자동생성");
 		tfNum.setEditable(false);
-		cbName.setVisible(true);
 		tfMoney.setText("");
 	}
 
 	// 업체id 콤보박스에 담아주는 메서드
 	private void comboCId() {
-		Vector vec = new Vector();
+		Vector vec = new Vector(); //콤보박스에 vector를 넣어야 합니다..!
 		ArrayList<H_VenderDTO> list = vDAO.selectIdAllVenderInfo();
 		for (int i = 0; i < list.size(); i++) {
 			vec.add(list.get(i).getId());
 			id = list.get(0).getId();
 		}
 		cbId = new JComboBox<H_VenderDTO>(vec);
-		cbId.setBounds(587, 20, 150, 30);
+		cbId.setBounds(587, 20, 120, 30);
 		cbId.addActionListener(new ActionListener() {
 
 			@Override
@@ -159,7 +155,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 				id = (String) cb.getSelectedItem();
 			}
 		});
-		add(cbId);
+		
+		this.add(cbId);
 
 	}
 
@@ -168,6 +165,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		try {
 			Scanner sc = new Scanner(new File("H_VenderpName.txt"));
 			Vector vec = new Vector<>();
+			nameO = new HashMap<>();
 			int idx = 0;
 			while (sc.hasNextLine()) {
 				np = sc.nextLine().split("-");
@@ -175,7 +173,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 					name = np[0];
 					idx++;
 				}
-				namePer.put(np[0], np[1]);
+				nameO.put(np[0], np[1]);
 				vec.add(np[0]); // 콤보박스에는 이름만 출력해주기.
 			}
 			cbName = new JComboBox(vec);
@@ -186,7 +184,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					JComboBox cb = (JComboBox) e.getSource();
 					name = (String) cb.getSelectedItem();
-					tfPer.setText(namePer.get(name));
+					tfOrderM.setText(nameO.get(name)); //발주가 항목에 바로 값 들어가게 세팅
 				}
 			});
 			add(cbName);
@@ -240,28 +238,16 @@ public class H_V_Product extends JPanel implements ActionListener {
 		tfMoney.setBounds(587, 140, 150, 30);
 		add(tfMoney);
 
-		lbPer = new JLabel("이윤");
-		lbPer.setHorizontalAlignment(SwingConstants.CENTER);
-		lbPer.setBounds(522, 180, 60, 30);
-		add(lbPer);
+		lbOrderM = new JLabel("발주가");
+		lbOrderM.setHorizontalAlignment(SwingConstants.CENTER);
+		lbOrderM.setBounds(522, 180, 60, 30);
+		add(lbOrderM);
 
-		tfPer = new JTextField();
-		tfPer.setColumns(10);
-		tfPer.setBounds(587, 180, 150, 30);
-		tfPer.setEditable(false);
-		tfPer.setText(namePer.get(name));
-		add(tfPer);
-
-		lbPerM = new JLabel("발주가");
-		lbPerM.setHorizontalAlignment(SwingConstants.CENTER);
-		lbPerM.setBounds(522, 220, 60, 30);
-		add(lbPerM);
-
-		tfPerM = new JTextField();
-		tfPerM.setColumns(10);
-		tfPerM.setBounds(587, 220, 150, 30);
-		tfPerM.setEditable(false);
-		add(tfPerM);
+		tfOrderM = new JTextField();
+		tfOrderM.setColumns(10);
+		tfOrderM.setBounds(587, 180, 150, 30);
+		tfOrderM.setEditable(false);
+		add(tfOrderM);
 	}
 
 	// 버튼에 관련된 설정사항
@@ -295,17 +281,18 @@ public class H_V_Product extends JPanel implements ActionListener {
 				int i = table.getSelectedRow();
 				cbId.setVisible(false);
 				tfId.setVisible(true);
-				tfId.setText(model.getValueAt(i, 0).toString());
 				tfId.setEditable(false);
-				tfNum.setText(model.getValueAt(i, 1).toString());
+				tfId.setText(model.getValueAt(i, 0).toString());
+
 				tfNum.setEditable(false);
+				tfNum.setText(model.getValueAt(i, 1).toString());
+
 				cbName.setVisible(true);
 				cbName.setSelectedItem(model.getValueAt(i, 2).toString());
-				String m = model.getValueAt(i, 3).toString();
-				tfMoney.setText(m);
-				tfPer.setText(namePer.get(name));
-				double d = Integer.parseInt(m) * (1 + Double.parseDouble(namePer.get(name)));
-				tfPerM.setText("" + d);
+				
+				tfMoney.setText(model.getValueAt(i, 3).toString());
+				
+				tfOrderM.setText(model.getValueAt(i, 4).toString());
 			}
 		});
 	}
@@ -327,10 +314,12 @@ public class H_V_Product extends JPanel implements ActionListener {
 				System.out.println("H_Venderp insert성공");
 			}
 			showAll();
+			
 		}
 		if (e.getSource() == btModify) { // modify, update ==> 가격만 수정 가능
 			pDTO = new H_VenderpDTO();
 			pDTO.setNum(Integer.parseInt(tfNum.getText()));
+			pDTO.setName(name);
 			pDTO.setMoney(Integer.parseInt(tfMoney.getText()));
 
 			int rs = pDAO.updateVenderpInfo(pDTO);
@@ -369,6 +358,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		nameBTSetting(); // 재료명 프레임 내 버튼 세팅
 		nameBTAction(); // 재료명 프레임 내임 버튼 액션
 
+		tfNameN.setEditable(true);
 		nameF.setVisible(true);
 
 	}
@@ -404,6 +394,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 	// 재료명 프레임 내 버튼 세팅
@@ -444,10 +436,10 @@ public class H_V_Product extends JPanel implements ActionListener {
 					while (sc.hasNextLine()) {
 						s += sc.nextLine() + "\r\n";
 					}
-					System.out.println(s);
 					Writer w = new FileWriter("H_VenderpName.txt");
+					s += tfNameN.getText() + "-" + tfNameP.getText();
+					System.out.println(s);
 					w.write(s);
-					w.write(tfNameN.getText() + "-" + tfNameP.getText());
 					sc.close();
 					w.close();
 				} catch (Exception e) {
@@ -465,6 +457,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 				String s = "";
 				try {
 					sc = new Scanner(new File("H_VenderpName.txt"));
+
 					int i = -1;
 					while (sc.hasNextLine()) {
 						i++;
@@ -522,7 +515,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				comboPName();
+				System.out.println("dd");
 				nameF.dispose();
 			}
 		});
@@ -534,6 +527,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				tableIdx = nameT.getSelectedRow();
+				tfNameN.setEditable(false);
 				tfNameN.setText(nameM.getValueAt(tableIdx, 0).toString());
 				tfNameP.setText(nameM.getValueAt(tableIdx, 1).toString());
 			}

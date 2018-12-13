@@ -181,7 +181,7 @@ public class B_OrderDAO {
 				e2.printStackTrace();
 			}
 		}
-	}
+	}// orderInsert() : 메서드 종료
 
 	// 본사 확인 값이 존재하는 테이블만 가져오는 메서드
 	public ArrayList<B_OrderDTO> hCheckSelect(String id) {
@@ -325,4 +325,72 @@ public class B_OrderDAO {
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void selectMonth(String year) {
+		ArrayList<Integer> list = new ArrayList<>();
+		try {
+			String[] month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
+			connectDB();
+			ResultSet rs=null;
+
+			for (int i = 0; i < month.length; i++) {
+				sql = "SELECT name,SUM(money) FROM headorder WHERE date LIKE '%" +year+"-"+month[i]+"%' GROUP BY name;";
+				ps = con.prepareStatement(sql);
+				rs=ps.executeQuery();
+				if (rs.next()) {
+					list.add(rs.getInt(1));
+				}else {
+					list.add(0);
+				}
+			}
+			rs.close();
+			ps.close();
+			con.close();
+		} catch (Exception e) {
+			System.out.println("H_OrderDAO-selectTotalMonthSalse 오류");
+		}
+		
+		return list;
+	}// orderInsert() : 메서드 종료
 }// 클래스 끝

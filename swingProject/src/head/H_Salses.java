@@ -45,6 +45,10 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 	private JComboBox yearComboBox = new JComboBox();
 	private JComboBox monthComboBox = new JComboBox();
 	private JComboBox franSelectJComboBox = new JComboBox();
+	
+	private JComboBox headSalesYearComboBox = new JComboBox();
+	private JLabel headSalesLabel = new JLabel("월별 본사 매입 및 매출  , 가맹점 총매출");
+	private JLabel headSelectJLabel = new JLabel("년");
 
 	private JLabel franSalesLabel = new JLabel("가맹점 매출");
 	private JLabel yearLabel = new JLabel("년");
@@ -85,7 +89,11 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		for (int i = 0; i < 12; i++) {
 			monthComboBox.addItem(String.valueOf(i + 1));
 		}
-
+		
+		for (int i = 0; i < 10; i++) {
+			headSalesYearComboBox.addItem(String.valueOf(2018 - i));
+		}
+		
 		monthRadio.addItemListener(this);
 		dayRadio.addItemListener(this);
 		headSalesBtn.addActionListener(this);
@@ -118,11 +126,19 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		bodySalesBtn.setBounds(566, 335, 111, 23);
 		headSalesBtn.setBounds(673, 335, 97, 23);
 		franSalesBarChart.setSize(450, 275);
+		
+		headSalesYearComboBox.setBounds(178, 32, 86, 21);
+		headSalesLabel.setBounds(110, 10, 250, 15);
+		headSelectJLabel.setBounds(266, 35, 20, 15);
 
 		franSalesBarChart.setLocation(12, 59);
 		franSalesPieChart.setLocation(474, 59);
 		
+		bodyPan.setBounds(0, 0, 770, 358);
 		bodyPan.setLayout(null);
+		
+		headPan.setBounds(0, 0, 770, 358);
+		headPan.setLayout(null);
 
 		bodyPan.add(franSalesBarChart);
 		bodyPan.add(franSalesPieChart);
@@ -136,11 +152,18 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		bodyPan.add(franSelectJLabel);
 		bodyPan.add(franSelectJComboBox);
 		bodyPan.add(label);
-		bodyPan.add(headSalesBtn);
-		bodyPan.add(bodySalesBtn);
+		
+		headPan.add(headSelectJLabel);
+		headPan.add(headSalesYearComboBox);
+		headPan.add(headSalesLabel);
+		
+		add(headSalesBtn);
+		add(bodySalesBtn);
 
-		bodyPan.setBounds(0, 0, 770, 358);
+		add(headPan);
 		add(bodyPan);
+		
+		bodySalesBtn.doClick();
 
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝
@@ -164,8 +187,15 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		headSalesBtn 가맹점 매출 버튼
-//		bodySalesBtn 본사 매출 버튼
+		
+		if (e.getSource()==bodySalesBtn ) { //가맹점 매출 버튼
+			bodyPan.setVisible(true);
+			headPan.setVisible(false);
+		}else if (e.getSource()==headSalesBtn) { //본사 매출 버튼
+			headPan.setVisible(true);
+			bodyPan.setVisible(false);
+		}
+		
 
 	}// actionPerformed:메서드 종료
 

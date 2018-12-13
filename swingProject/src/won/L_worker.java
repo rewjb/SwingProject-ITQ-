@@ -15,6 +15,7 @@ public class L_worker {
 	H_FranchiseDAO fDAO = new H_FranchiseDAO();
 	H_FranchiseDTO fDTO;
 	
+	
 	//wonHn
 	//모든 메서드가 성공할시 페이지 띄워주는 메서드
 	JFrame findYourPage(String id, String pw) {

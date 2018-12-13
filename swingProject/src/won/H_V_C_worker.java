@@ -10,7 +10,7 @@ package won;
 public class H_V_C_worker {
 
 	// 마지막 아이디 가져오는 메서드
-	protected String findLastId(String id, String input) {
+	String findLastId(String id, String input) {
 		if (input == null || id == null) {
 		} else {
 			char id0 = id.charAt(0);
@@ -28,7 +28,7 @@ public class H_V_C_worker {
 	}
 
 	// id 생성 메서드 - 같은 패키지 내에서만 동작함
-	protected String makeId(String id) {
+	String makeId(String id) {
 		if (id == null) {
 			id = "AA";
 		} else {
@@ -44,39 +44,43 @@ public class H_V_C_worker {
 		return id;
 	}
 
-//	
-//	//이름 중복확인 할 경우...
-//	protected boolean checkInput(String name) {
-//		vDTO = vDAO.selectVenderInfo("name",name);
-//		if(vDTO == null) {
-//			return true;
-//		}else {
-//			return false;
-//		}
-//	}
-//
-//	테스트...!	
-//	String id;
+	// 2자리 숫자만 받아오는 메서드
+	void twoFigures(String s) {
+		int a = Integer.parseInt(s);
+		if(a>9&&a<100) {
+			System.out.println("2자리수 맞음");
+		}
+		System.out.println("2자리수 아님");
+	}
+	
+	// 3자리 숫자만 받아오는 메서드
+	void threeFigures(String s) {
+		int a = Integer.parseInt(s);
+		if(a>99&&a<1000) {
+			System.out.println("세자리수 맞음");
+		}
+		System.out.println("세자리수 아님");
+	}
+	
+	// 4자리 숫자만 받아오는 메서드
+	void fourFigures(String s) {
+		int a = Integer.parseInt(s);
+		if(a>999 && a<10000) {
+			System.out.println("네자리수 맞음");
+		}
+		System.out.println("네자리수 아님");
+	}
+	
+	// 5자리 숫자만 받아오는 메서드
+	void fiveFigures(String s) {
+		int a = Integer.parseInt(s);
+		if(a>9999 && a<100000) {
+			System.out.println("다섯자리 수 맞음");
+		}
+		System.out.println("다섯자리 아님");
+	}
 
 //	public H_V_C_worker() {
-//		String input = "AA";
-//		System.out.println("시작 아이디" + id);
-//		System.out.println("시작 인풋" + input);
-//		while (true) {
-//			System.out.println("ㅡㅡㅡ");
-//			id = findLastId(id, input);
-//			input = makeId(input);
-//			System.out.println("id" + id);
-//			System.out.println("input" + input);
-//			if (id != null) {
-//				if (id.equals("ZZ")) {
-//					break;
-//				}
-//			}
-//
-//		}
-//		System.out.println("끝...! "+id);
-//
 //	}
 //
 //	public static void main(String[] args) {

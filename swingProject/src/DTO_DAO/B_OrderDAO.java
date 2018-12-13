@@ -391,6 +391,6 @@ public class B_OrderDAO {
 			System.out.println("H_OrderDAO-selectTotalMonthSalse 오류");
 		}
 		
-		return list;
+//		return list;
 	}// orderInsert() : 메서드 종료
 }// 클래스 끝

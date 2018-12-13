@@ -22,7 +22,6 @@ import javax.swing.SwingConstants;
 
 import body.BodyFrame;
 import inter.BBQ;
-import rew.HeadFrame;
 
 
 public class Login extends JFrame implements BBQ, ActionListener{

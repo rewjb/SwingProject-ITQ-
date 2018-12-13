@@ -9,6 +9,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,26 +27,13 @@ import javax.swing.SwingConstants;
 
 import body.BodyFrame;
 import inter.BBQ;
+import java.awt.Font;
+import java.awt.Color;
 
 
 public class Login extends JFrame implements BBQ, ActionListener{
-	//판넬
-	private JPanel pLogin;	//관리자,가맹점 선택
-	private JPanel pR;		//관리자 로그인 화면
-	private JPanel pU;		//가맹점 로그인 화면
+	private JButton btLoginU;	//로그인버튼
 
-	//버튼
-	private JButton btHome;	//홈버튼
-	private JButton btRoot;	//관리자계정 로그인화면 선택버튼
-	private JButton btUser; //가맹점계정 로그인 화면 선택버튼
-	private JButton btLoginR;	//관리자 로그인버튼
-	private JButton btLoginU;	//관리자 로그인버튼
-	
-	//입력필드
-	private JPasswordField tfRPw;
-
-	private JLabel lbUId;
-	private JLabel lbUPw;
 	private JTextField tfUId;
 	private JPasswordField tfUPw;
 	
@@ -51,116 +43,83 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	int ypos;
 	
 	Dimension point = Toolkit.getDefaultToolkit().getScreenSize();
+	private JLabel lbLogin;
 
 	//생성자
 	public Login() {
-		
+		getContentPane().setBackground(Color.PINK);
 		mainPSetting();
-		subPSetting();
-		loginRootPageSetting();
 		loginUserPageSetting();
-		
 	
 		xpos = (int) (point.getWidth()/2 - getWidth()/2);
 		ypos =  (int) (point.getHeight()/2 - getHeight()/2);
 		setLocation(xpos, ypos);
 		
-		
 		setVisible(true);
-		pR.setVisible(false);
-		pU.setVisible(false);
 		
 	}// 생성자 종료
 	
 	//메인세팅
 	private void mainPSetting() {
 		getContentPane().setLayout(null);
-
-		//홈버튼
-		btHome = new JButton("Home");
-		btHome.setBounds(700, 10, 80, 40);
-		btHome.addActionListener(this);
-		btHome.setVisible(false);
-		
-		getContentPane().add(btHome);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 450);
+		setSize(290, 420);
 		setResizable(false);
 	}
-	//서브 판넬 세팅
-	private void subPSetting() {
-		pLogin = new JPanel();
-		pLogin.setBounds(70, 30, 660, 360);
-		getContentPane().add(pLogin);
-		pLogin.setLayout(null);
-		
-		btRoot = new JButton("관리자");
-		btRoot.setLocation(100, 50);
-		btRoot.setSize(200, 250);
-		pLogin.add(btRoot);
-		btRoot.addActionListener(this);
-		
-		btUser = new JButton("가맹점");
-		btUser.setLocation(350, 50);
-		btUser.setSize(200, 250);
-		pLogin.add(btUser);
-		btUser.addActionListener(this);
-	}
-	
-	//관리자 로그인 판넬 세팅
-	private void loginRootPageSetting() {
-		pR = new JPanel();
-		pR.setBounds(250, 80, 300, 300);
-		getContentPane().add(pR);
-		pR.setLayout(null);
-		
-		JLabel lbImg = new JLabel("이미지올릴예정");
-		lbImg.setSize(100, 150);
-		lbImg.setLocation(100, 10);
-		lbImg.setIcon(new ImageIcon(""));
-		pR.add(lbImg);
-		
-		tfRPw = new JPasswordField();
-		tfRPw.setBounds(70, 190, 160, 25);
-		pR.add(tfRPw);
-		tfRPw.setColumns(10);
-		
-		btLoginR = new JButton("Login");
-		btLoginR.setBounds(100, 230, 100, 25);
-		pR.add(btLoginR);
-		btLoginR.addActionListener(this);
-	}
-	
-	//가맹점 로그인 판넬 세팅
+
+	//판넬 세팅
 	private void loginUserPageSetting() {
-		pU = new JPanel();
-		pU.setBounds(250, 80, 300, 300);
-		getContentPane().add(pU);
-		pU.setLayout(null);
-		
-		lbUId = new JLabel("Id");
-		lbUId.setHorizontalAlignment(SwingConstants.CENTER);
-		lbUId.setBounds(30, 98, 50, 25);
-		pU.add(lbUId);
 		
 		tfUId = new JTextField();
-		tfUId.setBounds(80, 98, 150, 25);
-		pU.add(tfUId);
+		tfUId.setBounds(50, 230, 180, 32);
+		tfUId.setText("아이디를 입력하세요.");
+		tfUId.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tfUId.setText("");
+			}
+		});
+		getContentPane().add(tfUId);
 		
-		lbUPw = new JLabel("Pw");
-		lbUPw.setHorizontalAlignment(SwingConstants.CENTER);
-		lbUPw.setBounds(30, 133, 50, 25);
-		pU.add(lbUPw);
-
 		tfUPw = new JPasswordField();
-		tfUPw.setBounds(80, 133, 150, 25);
-		pU.add(tfUPw);
-		tfUPw.setColumns(10);
+		tfUPw.setBounds(50, 265, 180, 32);
+		tfUPw.setText("비밀번호를 입력하세요.");
+		tfUPw.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				tfUPw.setText("");
+			}
+		});
+		tfUPw.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tfUPw.setText("");
+			}
+		});
+		getContentPane().add(tfUPw);
 		
 		btLoginU = new JButton("Login");
-		btLoginU.setBounds(100, 178, 100, 25);
-		pU.add(btLoginU);
+		btLoginU.setBounds(50, 310, 180, 35);
+		getContentPane().add(btLoginU);
 		btLoginU.addActionListener(this);
+		
+		JLabel lbLogo = new JLabel("");
+		lbLogo.setIcon(new ImageIcon("logoSmall.png"));
+		lbLogo.setBounds(10, 10, 55, 25);
+		getContentPane().add(lbLogo);
+		
+		lbLogin = new JLabel("");
+		lbLogin.setIcon(new ImageIcon("login.png"));
+		lbLogin.setBounds(90, 110, 100, 85);
+		getContentPane().add(lbLogin);
 	}
 
 	public static void main(String[] args) {
@@ -169,32 +128,6 @@ public class Login extends JFrame implements BBQ, ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btRoot) {
-			btHome.setVisible(true);
-			pLogin.setVisible(false);
-			pR.setVisible(true);
-			pU.setVisible(false);
-		}
-		if(e.getSource() == btUser) {
-			btHome.setVisible(true);
-			pLogin.setVisible(false);
-			pR.setVisible(false);
-			pU.setVisible(true);
-		}
-		if(e.getSource() == btHome) {
-			btHome.setVisible(false);
-			pLogin.setVisible(true);
-			pR.setVisible(false);
-			pU.setVisible(false);
-		}
-		if(e.getSource() == btLoginR) {
-			if(true) {
-				head.HeadFrame hf = new head.HeadFrame(); 
-				dispose();
-			}else {
-				JOptionPane.showMessageDialog(null, "관리자 비밀번호 확인해주세요.");
-			}
-		}
 		if(e.getSource() == btLoginU) {
 			if(true) {	//, tfUPw.getText())
 				BodyFrame bf = new BodyFrame(tfUId.getText());

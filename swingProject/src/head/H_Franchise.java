@@ -1,7 +1,10 @@
 package head;
 /*
- * 2018-12-13
- * 자잘한 수정 남아있습니다.
+ * 2018-12-07 
+ * wonHn
+ * 틀 작업은 다 끝났습니다. 버튼에 기능 들어가있습니다.
+ * 아이디 자동생성 및 중복확인 기능, 주소 관련 처리는 아직 들어가지 않았습니다.
+ * 
  */
 
 import java.awt.Color;
@@ -181,6 +184,8 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		tfPw = new JTextField();
 		tfPw.setColumns(10);
 		tfPw.setBounds(75, 60, 150, 30);
+		tfPw.setText("1234");
+		tfPw.setEditable(false);
 		f.getContentPane().add(tfPw);
 
 		lbON = new JLabel("점주명");
@@ -368,7 +373,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			fDTO = new H_FranchiseDTO();
 			System.out.println(w.makeId(id));
 			fDTO.setId(w.makeId(id));
-			fDTO.setPw(tfPw.getText());
+			fDTO.setPw("1234"); //비밀번호 그냥설정
 			fDTO.setOwnername(tfON.getText());
 			String tel = tfTel0.getText() + "-" + tfTel1.getText() + "-" + tfTel2.getText();
 			fDTO.setTel(tel);

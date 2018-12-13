@@ -146,6 +146,9 @@ select id,name,sum(quantity) as quantity from bodystock where id ='조광재' gr
 ;
 SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyorder.id=headFranchise.id) ORDER BY DATE DESC;
 
+
+SELECT name,SUM(quan) FROM headorder WHERE date LIKE '%2018-12%' GROUP BY name;
+
 update bodyorder set hconfirm = 'ck_1' where num=10;
 update 테이블명 set 컬럼명 = '변경값' where 컬럼명='해당값'
 ----- 테이블 선택--------
@@ -156,6 +159,7 @@ num int auto_increment primary key,
 id varchar(10)  not null,
 name varchar(15) not null,
 quantity int not null,
+totalmoney int not null,
 date TIMESTAMP DEFAULT NOW(),
 hconfirm varchar(10),
 bconfirm varchar(10)
@@ -183,8 +187,6 @@ insert into bodysales values (default,'조광재','2018-04-01','60000','20000','
 insert into bodysales values (default,'조광재','2018-03-01','60000','20000','20000','20000','0');
 insert into bodysales values (default,'조광재','2018-02-01','60000','20000','20000','20000','0');
 insert into bodysales values (default,'조광재','2018-01-01','60000','20000','20000','20000','0');
-
-
 
 
 insert into bodyorder values (default,'닭','닭',10,default,'1','');
@@ -267,6 +269,8 @@ insert into headstock values ('21','out','apple',21,"asdasd122",default);
 select * from headstock;
 
 SELECT headvenderp.name,headvender.name FROM headvenderp,headvender WHERE (headvender.id=headvenderp.id) and headvenderp.name='apple'  ORDER BY headvender.name;
+
+
 
 
 create database BBQ;
@@ -775,7 +779,8 @@ select bodysales.id,SUM(bodysales.money) from bodysales where bodysales.id='nave
 --select id from headFranchise where alias='bbq-n';
 
 select id,SUM(money) from bodysales where id='naver' and date like '%2018-01%' GROUP BY id;
-
+SELECT SUM(money) FROM headorder where date LIKE '%2018-11%';
+SELECT *  FROM headorder;
 
 SELECT id,SUM(chickenF) from bodysales where id='naver' GROUP BY id;
 SELECT id,SUM(?) from bodysales where id=? GROUP BY id;

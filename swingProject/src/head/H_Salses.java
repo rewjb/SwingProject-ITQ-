@@ -45,6 +45,10 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 	private JComboBox yearComboBox = new JComboBox();
 	private JComboBox monthComboBox = new JComboBox();
 	private JComboBox franSelectJComboBox = new JComboBox();
+	
+	private JComboBox headSalesYearComboBox = new JComboBox();
+	private JLabel headSalesLabel = new JLabel("월별 본사 매입 및 매출  , 가맹점 총매출");
+	private JLabel headSelectJLabel = new JLabel("년");
 
 	private JLabel franSalesLabel = new JLabel("가맹점 매출");
 	private JLabel yearLabel = new JLabel("년");
@@ -58,13 +62,16 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 	private ArrayList<H_FranchiseDTO> h_franList;
 	// 가맹점 선택하는 콤보박스에 넣을 데이터 DTO리스느
 
-	private FranSalesBarChart franSalesBarChart = new FranSalesBarChart();
+	private BodySalesBarChart franSalesBarChart = new BodySalesBarChart();
 	// 가맹점 막대그래프 판넬 객체
-	private FranSalesPieChart franSalesPieChart = new FranSalesPieChart();
-	String franId;
+	private BodySalesPieChart franSalesPieChart = new BodySalesPieChart();
+	private String franId;
 	// 프랜차이즈 이름을 넣고 아이디를 얻어오는 문자열
-	ArrayList<Integer> value;
+	private ArrayList<Integer> value;
 	// 월별 매출 갖고오는 list
+
+	private JPanel bodyPan = new JPanel();
+	private JPanel headPan = new JPanel();
 
 	public H_Salses() {
 
@@ -82,7 +89,11 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		for (int i = 0; i < 12; i++) {
 			monthComboBox.addItem(String.valueOf(i + 1));
 		}
-
+		
+		for (int i = 0; i < 10; i++) {
+			headSalesYearComboBox.addItem(String.valueOf(2018 - i));
+		}
+		
 		monthRadio.addItemListener(this);
 		dayRadio.addItemListener(this);
 		headSalesBtn.addActionListener(this);
@@ -91,10 +102,9 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		yearComboBox.addItemListener(this);
 		franSelectJComboBox.addItemListener(this);
 
-		
 		monthRadio.doClick();
 		showPieChart();
-		
+
 		setLayout(null);
 		setBounds(0, 0, 770, 358);
 
@@ -116,25 +126,44 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		bodySalesBtn.setBounds(566, 335, 111, 23);
 		headSalesBtn.setBounds(673, 335, 97, 23);
 		franSalesBarChart.setSize(450, 275);
+		
+		headSalesYearComboBox.setBounds(178, 32, 86, 21);
+		headSalesLabel.setBounds(110, 10, 250, 15);
+		headSelectJLabel.setBounds(266, 35, 20, 15);
 
 		franSalesBarChart.setLocation(12, 59);
 		franSalesPieChart.setLocation(474, 59);
+		
+		bodyPan.setBounds(0, 0, 770, 358);
+		bodyPan.setLayout(null);
+		
+		headPan.setBounds(0, 0, 770, 358);
+		headPan.setLayout(null);
 
-		add(franSalesBarChart);
-		add(franSalesPieChart);
-
-		add(monthComboBox);
-		add(yearComboBox);
-		add(dayRadio);
-		add(yearLabel);
-		add(monthLabel);
-		add(monthRadio);
-		add(franSalesLabel);
-		add(franSelectJLabel);
-		add(franSelectJComboBox);
-		add(label);
+		bodyPan.add(franSalesBarChart);
+		bodyPan.add(franSalesPieChart);
+		bodyPan.add(monthComboBox);
+		bodyPan.add(yearComboBox);
+		bodyPan.add(dayRadio);
+		bodyPan.add(yearLabel);
+		bodyPan.add(monthLabel);
+		bodyPan.add(monthRadio);
+		bodyPan.add(franSalesLabel);
+		bodyPan.add(franSelectJLabel);
+		bodyPan.add(franSelectJComboBox);
+		bodyPan.add(label);
+		
+		headPan.add(headSelectJLabel);
+		headPan.add(headSalesYearComboBox);
+		headPan.add(headSalesLabel);
+		
 		add(headSalesBtn);
 		add(bodySalesBtn);
+
+		add(headPan);
+		add(bodyPan);
+		
+		bodySalesBtn.doClick();
 
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝
@@ -158,8 +187,15 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		headSalesBtn 가맹점 매출 버튼
-//		bodySalesBtn 본사 매출 버튼
+		
+		if (e.getSource()==bodySalesBtn ) { //가맹점 매출 버튼
+			bodyPan.setVisible(true);
+			headPan.setVisible(false);
+		}else if (e.getSource()==headSalesBtn) { //본사 매출 버튼
+			headPan.setVisible(true);
+			bodyPan.setVisible(false);
+		}
+		
 
 	}// actionPerformed:메서드 종료
 

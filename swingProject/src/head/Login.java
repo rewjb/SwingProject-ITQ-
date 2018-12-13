@@ -13,17 +13,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 import body.BodyFrame;
 import inter.BBQ;
@@ -129,11 +125,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btLoginU) {
-			if(true) {	//, tfUPw.getText())
-				BodyFrame bf = new BodyFrame(tfUId.getText());
-				dispose();
-			}
-			
+			w.findYourPage(tfUId.getText(), tfUPw.getText());
 		}
 	}
 }// 클래스 종료

@@ -77,7 +77,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	H_VenderDTO vDTO; // 업체DTO
 	String id; // 콤보박스 선택된 id 담아두는 변수
 	String name; // 콤보박스 선택된 name 담아두는 변수
-	HashMap<String, String> nameO = new HashMap<>(); // name에 해당하는 발주가격 담아놓은 컬렉션
+	HashMap<String, String> nameO; // name에 해당하는 발주가격 담아놓은 컬렉션
 	String[] np; // 텍스트에서 (재료)이름과 발주가 분리해주는 배열
 	int tableIdx; // 메뉴명 추가 테이블 클릭시 해당 열의 인덱스값 받아오는 변수
 
@@ -572,6 +572,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				remove(cbName);
 				comboPName();
 				nameF.dispose();

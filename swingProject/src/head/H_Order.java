@@ -82,6 +82,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
+	
 
 	private JButton previousBtn = new JButton();
 	private JButton nowBtn = new JButton();
@@ -191,6 +192,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		pNameBox.addItemListener(this);
 		pVenderBox.addItemListener(this);
 		// 콤보박스 액션리스너
+		
 		pQuantityField.getDocument().addDocumentListener(this);
 
 		insertIntoNameBox();
@@ -264,7 +266,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
 		// 가운데 정렬 설정의 객체
-
+		
 		for (int i = 0; i < 5; i++) {
 			orderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅

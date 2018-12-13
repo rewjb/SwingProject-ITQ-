@@ -76,8 +76,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	private JComboBox jCom;// 식자재 목록이 나오는 콤보박스
 	private JTextField jf;
 	private File file;
-	private FileReader reader;
-	private BufferedReader bReader;
 
 	private JScrollPane scroll = new JScrollPane(listTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 발주 테이블
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -92,6 +90,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	private ArrayList<Integer> listNum;// 발주 목록을 볼 때 각행별 고유 num을 담고 있는 리스트
 	private JTextField textField;// 식자재 단가입력란
 	private int[] selects;// 발주 취소시 다중선택을 받는 배열
+	private ArrayList<String> arr = new ArrayList<>();//파일입출력용 리스트  (-앞뒤로 스플릿해서 [0]을 갖고있음)
+	private ArrayList<String> arr2 = new ArrayList<>();//파일입출력용 리스트 2 (-앞뒤로 스플릿해서 [1]을 갖고있음)
 
 	// Jtable의 스크롤 기능 객체 w
 	// private DefaultTableCellRenderer celAlignCenter = new
@@ -271,11 +271,29 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 			}
 		}
 	}
+	
+	
+	public void reader() throws Exception {//단가를 가져오는 메서드 (파일 입출력)
+		file = new File("H_VenderpName.txt");
+		Scanner sc = new Scanner(file);
+		if (file.exists()) {
+			while (sc.hasNextLine()) {
+				String[] read = sc.nextLine().split("-");
+				arr.add(read[0]);
+				arr2.add(read[1]);
+			}
+			for (int j = 0; j < arr.size(); j++) {
+				if (jCom.getSelectedItem().equals(arr.get(j))) {
+					textField.setText(arr2.get(j));
+				}
+			}
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == bt) {// 선택버튼기능
-			model.insertRow(0, new Object[] { (String) jCom.getSelectedItem(), jf.getText() });
+			model.insertRow(0, new Object[] { (String) jCom.getSelectedItem(), jf.getText(),(Integer.parseInt(jf.getText())*Integer.parseInt(textField.getText()))});
 		} else if (e.getSource() == bt2) {// 삭제버튼기능
 
 			if (model.getValueAt(0, 0) == null) {
@@ -365,27 +383,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		}
 	}// 액션 리스터 끝
 
-	ArrayList<String> arr = new ArrayList<>();
-	ArrayList<String> arr2 = new ArrayList<>();
-
-	public void reader() throws Exception {
-		file = new File("H_VenderpName.txt");
-		Scanner sc = new Scanner(file);
-		if (file.exists()) {
-			while (sc.hasNextLine()) {
-				String[] read = sc.nextLine().split("-");
-				arr.add(read[0]);
-				arr2.add(read[1]);
-			}
-			for (int j = 0; j < arr.size(); j++) {
-				if (jCom.getSelectedItem().equals(arr.get(j))) {
-					textField.setText(arr2.get(j));
-				}
-			}
-
-		}
-
-	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {

@@ -101,10 +101,12 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 
 	// 표에 관련된 설정사항
 	private void tableSetting() {
-		model = new DefaultTableModel(0, 8) {@Override
-		public boolean isCellEditable(int row, int column) {
-			return false;
-		}};
+		model = new DefaultTableModel(0, 8) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		add(scrollPane);
@@ -254,7 +256,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 
 		comboAddr();
 		cbAddr0.setEnabled(true);
-		
+
 		tfAddr1 = new JTextField();
 		tfAddr1.setColumns(10);
 		tfAddr1.setBounds(75, 260, 197, 30);
@@ -284,7 +286,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		btsetEmpty.setBounds(157, 340, 115, 31);
 		f.getContentPane().add(btsetEmpty);
 		btsetEmpty.addActionListener(this);
-		
+
 		btsetBefore = new JButton("초기화");
 		btsetBefore.setBounds(157, 340, 115, 31);
 		f.getContentPane().add(btsetBefore);
@@ -292,15 +294,23 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 
 		f.setVisible(false);
 	}
-	
-	//콤보박스 설정
+
+	// 콤보박스 설정
 	private void comboAddr() {
-			String[] city = {"서울","광주", "대구", "부산", "울산", "인천", 
-					"대전","경기","강원","충청","경상","전라","제주","그외"};
-			addr = "서울";
-			cbAddr0  = new JComboBox(city);
-			cbAddr0.setBounds(75, 220, 197, 30);
-			f.getContentPane().add(cbAddr0);
+		String[] city = { "서울", "광주", "대구", "부산", "울산", "인천", 
+				"대전", "경기", "강원", "충청", "경상", "전라", "제주", "그외" };
+		addr = "서울"; // 기본값은 서울로 해놨습니다.
+		cbAddr0 = new JComboBox(city);
+		cbAddr0.setBounds(75, 220, 197, 30);
+		f.getContentPane().add(cbAddr0);
+		cbAddr0.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JComboBox cb = (JComboBox) e.getSource();
+				addr = (String) cb.getSelectedItem();
+			}
+		});
 	}
 
 	// 마우스 액션에 관한 메서드
@@ -355,7 +365,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			fDTO.setTel(tel);
 			String cNum = tfCNum0.getText() + "-" + tfCNum1.getText() + "-" + tfCNum2.getText();
 			fDTO.setComnum(cNum);
-			fDTO.setAddr((String)cbAddr0.getSelectedItem()+"-"+tfAddr1.getText());
+			fDTO.setAddr((String) cbAddr0.getSelectedItem() + "-" + tfAddr1.getText());
 			fDTO.setAlias(tfAllias.getText());
 
 			int rs = fDAO.insertFranchiseInfo(fDTO);

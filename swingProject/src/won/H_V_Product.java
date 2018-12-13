@@ -184,7 +184,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					JComboBox cb = (JComboBox) e.getSource();
 					name = (String) cb.getSelectedItem();
-					tfOrderM.setText(nameO.get(name));
+					tfOrderM.setText(nameO.get(name)); //발주가 항목에 바로 값 들어가게 세팅
 				}
 			});
 			add(cbName);

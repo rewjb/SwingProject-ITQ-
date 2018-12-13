@@ -23,7 +23,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.*;
-import won.H_V_C_worker;
 
 public class H_V_Company extends JPanel implements ActionListener {
 	// 표에 관련된 부분

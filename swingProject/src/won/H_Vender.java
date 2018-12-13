@@ -21,8 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import head.H_V_Company;
-import head.H_V_Product;
 import inter.BBQHead;
 import inter.HeadVender;
 
@@ -80,6 +78,9 @@ public class H_Vender extends JPanel implements HeadVender {
 			public void actionPerformed(ActionEvent e) {
 				paneVdC.setVisible(false);
 				paneVdP.setVisible(true);
+				//콤보박스 재설정
+				((H_V_Product) paneVdP).remove(((H_V_Product) paneVdP).cbId);
+				((H_V_Product) paneVdP).comboCId();
 			}
 		});
 	}

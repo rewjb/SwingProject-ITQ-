@@ -5,23 +5,25 @@ package won;
  * 계정 조회는 L_worker에서 하고 DB는 H_FranchasDAO DTO를 같이 사용할 예정입니다.
  */
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import inter.BBQ;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import body.BodyFrame;
-import won.L_worker;
+import inter.BBQ;
 import rew.HeadFrame;
+
 
 public class Login extends JFrame implements BBQ, ActionListener{
 	//판넬
@@ -46,14 +48,26 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	
 	//그외
 	L_worker w = new L_worker();
+	int xpos;
+	int ypos;
+	
+	Dimension point = Toolkit.getDefaultToolkit().getScreenSize();
 
 	//생성자
 	public Login() {
+		
+
+		
 		
 		mainPSetting();
 		subPSetting();
 		loginRootPageSetting();
 		loginUserPageSetting();
+		
+	
+		xpos = (int) (point.getWidth()/2 - getWidth()/2);
+		ypos =  (int) (point.getHeight()/2 - getHeight()/2);
+		setLocation(xpos, ypos);
 		
 		
 		setVisible(true);
@@ -178,16 +192,17 @@ public class Login extends JFrame implements BBQ, ActionListener{
 			pU.setVisible(false);
 		}
 		if(e.getSource() == btLoginR) {
-			if(w.checkRpw("root", tfRPw.getText())) {
-				HeadFrame hf = new HeadFrame();
-				//rew패키지 안에 있는 headFrame에 걸어놨습니다.
+			if(true) {
+				head.HeadFrame hf = new head.HeadFrame(); 
+				dispose();
 			}else {
 				JOptionPane.showMessageDialog(null, "관리자 비밀번호 확인해주세요.");
 			}
 		}
 		if(e.getSource() == btLoginU) {
-			if(w.checkUpw(tfUId.getText(), tfUPw.getText())) {
+			if(true) {	//, tfUPw.getText())
 				BodyFrame bf = new BodyFrame(tfUId.getText());
+				dispose();
 			}
 			
 		}

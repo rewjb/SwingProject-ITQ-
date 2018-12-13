@@ -25,7 +25,7 @@ public class H_F_worker {
 		return id;
 	}
 
-	// id 생성 메서드 - 같은 패키지 내에서만 동작함
+	// id 생성 메서드 - 같은 패키지 내에서만 동작함.
 	String makeId(String id) {
 		if (id == null) {
 			id = "aaa";

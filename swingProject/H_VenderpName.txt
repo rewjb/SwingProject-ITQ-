@@ -1,4 +1,5 @@
-apple-1000
 melon-2000
 orange-4000
 banana-5000
+Apple-8000
+Kiwi-9000

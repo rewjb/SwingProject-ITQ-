@@ -3,6 +3,8 @@ package head;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -17,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -38,7 +41,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JTextField tfNum;
 	private JLabel lbId;
 	private JTextField tfId;
-	private JComboBox cbId;
+	JComboBox cbId;
 	private JLabel lbName;
 	private JComboBox cbName;
 	private JLabel lbMoney;
@@ -50,6 +53,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JButton btAdd;
 	private JButton btModify;
 	private JButton btDelete;
+	private JButton btCId;
 	private JButton btName; // 재료명, 이율 수정하는 버튼
 	private JButton btRefresh;
 
@@ -67,7 +71,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 	// 그외
 	Object[] row;
-	H_V_P_worker w = new H_V_P_worker(); // 기능을 넣어놓는 클래스
 	H_VenderpDAO pDAO = new H_VenderpDAO(); // 제품 DAO
 	H_VenderpDTO pDTO; // 제품 DTO
 	H_VenderDAO vDAO = new H_VenderDAO(); // 업체 DAO
@@ -131,15 +134,15 @@ public class H_V_Product extends JPanel implements ActionListener {
 			model.addRow(row);
 		}
 		cbId.setVisible(true);
-		tfId.setVisible(false);	//초기화시 업체아이디 입력받는 곳은 콤보박스로 설정
+		tfId.setVisible(false); // 초기화시 업체아이디 입력받는 곳은 콤보박스로 설정
 		tfNum.setText("자동생성");
 		tfNum.setEditable(false);
 		tfMoney.setText("");
 	}
 
 	// 업체id 콤보박스에 담아주는 메서드
-	private void comboCId() {
-		Vector vec = new Vector(); //콤보박스에 vector를 넣어야 합니다..!
+	void comboCId() {
+		Vector vec = new Vector(); // 콤보박스에 vector를 넣어야 합니다..!
 		ArrayList<H_VenderDTO> list = vDAO.selectIdAllVenderInfo();
 		for (int i = 0; i < list.size(); i++) {
 			vec.add(list.get(i).getId());
@@ -153,9 +156,10 @@ public class H_V_Product extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
 				id = (String) cb.getSelectedItem();
+				System.out.println("list size 출력 : " + list.size());
 			}
 		});
-		
+
 		this.add(cbId);
 
 	}
@@ -184,7 +188,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 				public void actionPerformed(ActionEvent e) {
 					JComboBox cb = (JComboBox) e.getSource();
 					name = (String) cb.getSelectedItem();
-					tfOrderM.setText(nameO.get(name)); //발주가 항목에 바로 값 들어가게 세팅
+					tfOrderM.setText(nameO.get(name)); // 발주가 항목에 바로 값 들어가게 세팅
 				}
 			});
 			add(cbName);
@@ -267,6 +271,11 @@ public class H_V_Product extends JPanel implements ActionListener {
 		add(btDelete);
 		btDelete.addActionListener(this);
 
+		btCId = new JButton();
+		btCId.setBounds(710, 20, 30, 30);
+		add(btCId);
+		btCId.addActionListener(this);
+
 		btName = new JButton();
 		btName.setBounds(710, 100, 30, 30);
 		add(btName);
@@ -289,9 +298,9 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 				cbName.setVisible(true);
 				cbName.setSelectedItem(model.getValueAt(i, 2).toString());
-				
+
 				tfMoney.setText(model.getValueAt(i, 3).toString());
-				
+
 				tfOrderM.setText(model.getValueAt(i, 4).toString());
 			}
 		});
@@ -314,7 +323,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 				System.out.println("H_Venderp insert성공");
 			}
 			showAll();
-			
+
 		}
 		if (e.getSource() == btModify) { // modify, update ==> 가격만 수정 가능
 			pDTO = new H_VenderpDTO();
@@ -343,6 +352,10 @@ public class H_V_Product extends JPanel implements ActionListener {
 		if (e.getSource() == btName) {
 			nameSetting();
 		}
+
+		if (e.getSource() == btCId) {
+
+		}
 	}
 
 //----------------------------------------------------------------------------------
@@ -352,15 +365,13 @@ public class H_V_Product extends JPanel implements ActionListener {
 		nameF.setSize(293, 350);
 		nameF.getContentPane().setLayout(null);
 
+		nameTFSetting(); // 재료명 프레임 내 텍스트필드 세팅
 		nameTBSetting(); // 재료명 프레임 내 테이블 세팅
 		nameMouseAction(); // 재료명 프레임 내 마우스 액션
-		nameTFSetting(); // 재료명 프레임 내 텍스트필드 세팅
 		nameBTSetting(); // 재료명 프레임 내 버튼 세팅
 		nameBTAction(); // 재료명 프레임 내임 버튼 액션
 
-		tfNameN.setEditable(true);
 		nameF.setVisible(true);
-
 	}
 
 	// 재료명 프레임 내 테이블 세팅
@@ -394,8 +405,37 @@ public class H_V_Product extends JPanel implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
+		// 입력 가능한 상태로 바꿔주기
+		tfNameN.setEditable(true);
+	}
+
+	// 재료명 프레임 내 텍스트필드 세팅
+	private void nameTFSetting() {
+		tfNameN = new JTextField();
+		tfNameN.setText("제품명");
+		nameF.add(tfNameN);
+		tfNameN.setBounds(10, 10, 125, 30);
+		// 재료 명을 클릭했을때 한번에 비워지는 액션
+		tfNameN.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tfNameN.setText("");
+			}
+		});
+
+		tfNameP = new JTextField();
+		tfNameP.setText("발주가");
+		nameF.add(tfNameP);
+		tfNameP.setBounds(140, 10, 125, 30);
+		// 이윤 항목을 틀릭했을때 한번에 비워지는 액션
+		tfNameP.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tfNameP.setText("");
+			}
+		});
+
 	}
 
 	// 재료명 프레임 내 버튼 세팅
@@ -422,6 +462,19 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 	}
 
+	// 재료명 프레임 내 마우스 액션
+	private void nameMouseAction() {
+		nameT.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableIdx = nameT.getSelectedRow();
+				tfNameN.setEditable(false);
+				tfNameN.setText(nameM.getValueAt(tableIdx, 0).toString());
+				tfNameP.setText(nameM.getValueAt(tableIdx, 1).toString());
+			}
+		});
+	}
+
 	// 재료명 프레임 내임 버튼 액션
 	private void nameBTAction() {
 
@@ -429,23 +482,27 @@ public class H_V_Product extends JPanel implements ActionListener {
 		btNameA.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Scanner sc;
-				String s = "";
-				try {
-					sc = new Scanner(new File("H_VenderpName.txt"));
-					while (sc.hasNextLine()) {
-						s += sc.nextLine() + "\r\n";
+				if (tfNameN.equals("제품명") && tfNameP.equals("발주가")) {
+					JOptionPane.showMessageDialog(null, "입력 내용을 확인해주세요");
+				} else {
+					Scanner sc;
+					String s = "";
+					try {
+						sc = new Scanner(new File("H_VenderpName.txt"));
+						while (sc.hasNextLine()) {
+							s += sc.nextLine() + "\r\n";
+						}
+						Writer w = new FileWriter("H_VenderpName.txt");
+						s += tfNameN.getText() + "-" + tfNameP.getText();
+						System.out.println(s);
+						w.write(s);
+						sc.close();
+						w.close();
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-					Writer w = new FileWriter("H_VenderpName.txt");
-					s += tfNameN.getText() + "-" + tfNameP.getText();
-					System.out.println(s);
-					w.write(s);
-					sc.close();
-					w.close();
-				} catch (Exception e) {
-					e.printStackTrace();
+					nameTBSetting();
 				}
-				nameTBSetting();
 			}
 		});
 
@@ -515,51 +572,10 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("dd");
+				remove(cbName);
+				comboPName();
 				nameF.dispose();
 			}
 		});
 	}
-
-	// 재료명 프레임 내 마우스 액션
-	private void nameMouseAction() {
-		nameT.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				tableIdx = nameT.getSelectedRow();
-				tfNameN.setEditable(false);
-				tfNameN.setText(nameM.getValueAt(tableIdx, 0).toString());
-				tfNameP.setText(nameM.getValueAt(tableIdx, 1).toString());
-			}
-		});
-	}
-
-	// 재료명 프레임 내 텍스트필드 세팅
-	private void nameTFSetting() {
-		tfNameN = new JTextField();
-		tfNameN.setText("제품명");
-		nameF.add(tfNameN);
-		tfNameN.setBounds(10, 10, 125, 30);
-		// 재료 명을 클릭했을때 한번에 비워지는 액션
-		tfNameN.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				tfNameN.setText("");
-			}
-		});
-
-		tfNameP = new JTextField();
-		tfNameP.setText("이윤");
-		nameF.add(tfNameP);
-		tfNameP.setBounds(140, 10, 125, 30);
-		// 이윤 항목을 틀릭했을때 한번에 비워지는 액션
-		tfNameP.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				tfNameP.setText("");
-			}
-		});
-
-	}
-
 }

@@ -25,7 +25,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.*;
-import head.H_V_P_worker;
 
 public class H_V_Product extends JPanel implements ActionListener {
 	// 표에 관련된 부분

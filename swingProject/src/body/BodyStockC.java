@@ -65,7 +65,6 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 		setLayout(null);
 		setSize(781, 360);
 		//setBackground(Color.BLUE);
-
 		notCheckStockBt = new JButton("미확인 재고");
 		checkStockBt = new JButton("\uD1B5\uD569 \uC7AC\uACE0");
 

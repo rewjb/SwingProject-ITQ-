@@ -13,6 +13,10 @@ import com.teamdev.jxbrowser.chromium.events.FinishLoadingEvent;
 import com.teamdev.jxbrowser.chromium.events.LoadAdapter;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
+import DTO_DAO.B_OrderDAO;
+import DTO_DAO.B_SalesDAO;
+import DTO_DAO.H_OrderDAO;
+
 public class Main extends JFrame {
 
 	private Browser browser = new Browser();
@@ -20,6 +24,10 @@ public class Main extends JFrame {
 
 	private BrowserView browserView = new BrowserView(browser);
 	// 이것은 HTML을 Swing 형태로 받아준 browser을 화면에 배치해주는 것인가 ?
+	
+	ArrayList<Integer> headPurchase;
+	ArrayList<Integer> headSales;
+	ArrayList<Integer> totalBodySales; 
 
 	public Main() {
 
@@ -37,19 +45,32 @@ public class Main extends JFrame {
 			}
 		}); // 액션리스너 종료
 		String title = "하드웨어 판매량";
-		browser.loadHTML(inserHTML(null, null, null));
+		browser.loadHTML(inserHTML());
 		add(browserView, BorderLayout.CENTER);
 		setVisible(true);
 	}
 	
-//	ArrayList<Integer> headPurchase  ok
-//	ArrayList<Integer> headSales  ok 
-//	ArrayList<Integer> totalBodySales ok
-	public String inserHTML(ArrayList<Integer> headPurchase,ArrayList<Integer> headSales,ArrayList<Integer> totalBodySales) {
-		// 매입
-		// 매출
-		// 가맹점 총 매출
+
+	public String inserHTML() {
 		
+		System.out.println();
+		
+		headPurchase = H_OrderDAO.getInstance().selectTotalMonthSalse("2018");
+		//본사 발주목록에서 갖고온다.
+		headSales = B_OrderDAO.getInstance().selectMonthBodyOrder("2018");
+		//가맹점 발주목록에서 갖고온다.
+		totalBodySales=B_SalesDAO.getInstance().selectMonthBodySales("2018"); 
+		//가맹점 매출목록에서 갖고온다.
+		
+		for (int i = 0; i < 12; i++) {
+			System.out.println(i+"번째 출력");
+			System.out.println("본점 발주목록"+headPurchase.get(i));
+			System.out.println("가맹점 발주목록"+headSales.get(i));
+			System.out.println("가맹점 매출목록"+totalBodySales.get(i));
+		}
+		
+
+		String[] month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
 		String htmlString = "<html>\r\n" + 
 				"  <head>\r\n" + 
 				"    <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>\r\n" + 
@@ -60,17 +81,12 @@ public class Main extends JFrame {
 				"      function drawVisualization() {\r\n" + 
 				"        // Some raw data (not necessarily accurate)\r\n" + 
 				"        var data = google.visualization.arrayToDataTable([\r\n" + 
-				"          ['월', '매입', '매출', '가맹점 총 매출', 'Average'],\r\n";
+				"          ['월', '본사 매입', '본사 매출', '가맹점 총 매출'],\r\n";
 		
 		for (int i = 0; i < 12; i++) {   
-			
+			htmlString+= "['"+month[i]+"',"+headPurchase.get(i)+","+headSales.get(i)+","+totalBodySales.get(i)+"],";
 		}
 		htmlString+=
-				"          ['2004/05',  165,      938,         522,             998],\r\n" + 
-				"          ['2005/06',  135,      1120,        599,             1268],\r\n" + 
-				"          ['2006/07',  157,      1167,        587,             807],\r\n" + 
-				"          ['2007/08',  139,      1110,        615,             968],\r\n" + 
-				"          ['2008/09',  136,      691,         629,             1026]\r\n" + 
 				"        ]);\r\n" + 
 				"\r\n" + 
 				"        var options = {\r\n" + 

@@ -270,10 +270,11 @@ public class B_SalesDAO {
 			ResultSet rs = null;
 			int total;
 			for (int i = 0; i < month.length; i++) {
-				sql = "SELECT SUM(money) FROM headsales WHERE date LIKE '%" + year + "-" + month[i] + "%';";
+				sql = "SELECT SUM(money) FROM bodysales WHERE date LIKE '%" + year + "-" + month[i] + "%';";
 				ps = con.prepareStatement(sql);
 				rs = ps.executeQuery();
 				total = 0;
+				
 				while (rs.next()) {
 					total += rs.getInt(1);
 				}
@@ -284,7 +285,8 @@ public class B_SalesDAO {
 			ps.close();
 			con.close();
 		} catch (Exception e) {
-			System.out.println("H_OrderDAO-selectTotalMonthSalse 오류");
+			System.out.println("B_SalesDAO-selectMonthBodySales 오류");
+			e.printStackTrace();
 		}
 
 		return list;

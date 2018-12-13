@@ -356,7 +356,7 @@ public class B_OrderDAO {
 			ps.close();
 			con.close();
 		} catch (Exception e) {
-			System.out.println("H_OrderDAO-selectTotalMonthSalse 오류");
+			System.out.println("B_OrderDAO-selectMonthBodyOrder 오류");
 		}
 
 		return list;

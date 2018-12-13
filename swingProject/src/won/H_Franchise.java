@@ -127,6 +127,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			row = new Object[8];
 			row[0] = fDTO.getId();
 			id = w.findLastId(id, fDTO.getId());
+			System.out.println(fDTO.getId());
 			row[1] = fDTO.getPw();
 			row[2] = fDTO.getOwnername();
 			row[3] = fDTO.getTel();
@@ -135,6 +136,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			row[6] = fDTO.getAlias();
 
 			model.addRow(row);
+			System.out.println("2-->"+id);
 		}
 	}// end showAll
 
@@ -367,6 +369,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		}
 		if (e.getSource() == btInAdd) { // add, insert 가맹점 정보 입력
 			fDTO = new H_FranchiseDTO();
+			System.out.println(w.makeId(id));
 			fDTO.setId(w.makeId(id));
 			fDTO.setPw(tfPw.getText());
 			fDTO.setOwnername(tfON.getText());

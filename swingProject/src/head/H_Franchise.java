@@ -1,10 +1,7 @@
 package head;
 /*
- * 2018-12-07 
- * wonHn
- * 틀 작업은 다 끝났습니다. 버튼에 기능 들어가있습니다.
- * 아이디 자동생성 및 중복확인 기능, 주소 관련 처리는 아직 들어가지 않았습니다.
- * 
+ * 2018-12-13
+ * 자잘한 수정 남아있습니다.
  */
 
 import java.awt.Color;
@@ -127,6 +124,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			row = new Object[8];
 			row[0] = fDTO.getId();
 			id = w.findLastId(id, fDTO.getId());
+			System.out.println(fDTO.getId());
 			row[1] = fDTO.getPw();
 			row[2] = fDTO.getOwnername();
 			row[3] = fDTO.getTel();
@@ -135,6 +133,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			row[6] = fDTO.getAlias();
 
 			model.addRow(row);
+			System.out.println("2-->"+id);
 		}
 	}// end showAll
 
@@ -367,6 +366,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		}
 		if (e.getSource() == btInAdd) { // add, insert 가맹점 정보 입력
 			fDTO = new H_FranchiseDTO();
+			System.out.println(w.makeId(id));
 			fDTO.setId(w.makeId(id));
 			fDTO.setPw(tfPw.getText());
 			fDTO.setOwnername(tfON.getText());

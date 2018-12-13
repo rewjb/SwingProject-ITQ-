@@ -140,6 +140,7 @@ public class H_OrderDAO {
 			ps.close();
 			con.close();
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("H_OrderDAO-selectTotalMonthSalse 오류");
 		}
 		

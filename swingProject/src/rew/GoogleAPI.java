@@ -15,7 +15,7 @@ public class GoogleAPI {
 				"        var data = google.visualization.arrayToDataTable([\r\n" + 
 				"          ['항목', '수치'],\r\n";
 		for (int i = 0; i < list.size(); i++) {
-			htmlString += "['"+list.get(i).getName() + "',"+list.get(i).getValue()+"],\r\n";
+			htmlString += "['"+list.get(i).getName() + "' ,"+list.get(i).getValue()+"],\r\n";
 		}
 		     htmlString += 	" ]);\r\n" + 
 				"        var options = {\r\n" + 

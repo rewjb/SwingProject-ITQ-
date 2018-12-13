@@ -24,8 +24,9 @@ public class Main extends JFrame {
 	public Main() {
 
 		setSize(800, 600);
-		setVisible(true);
+		setTitle("구글차트");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 
 		browser.addLoadListener(new LoadAdapter() {
 
@@ -36,7 +37,6 @@ public class Main extends JFrame {
 				}
 			}
 		}); // 액션리스너 종료
-		setLayout(new BorderLayout());
 		String title = "하드웨어 판매량";
 		ArrayList<PieElement> list = new ArrayList<>();
 		list.add(new PieElement("모니터", 49));
@@ -45,6 +45,7 @@ public class Main extends JFrame {
 		list.add(new PieElement("어뎁터", 37));
 		browser.loadHTML(new GoogleAPI().getPiechart(title, list));
 		add(browserView, BorderLayout.CENTER);
+		setVisible(true);
 	}
 
 }

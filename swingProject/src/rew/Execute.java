@@ -6,5 +6,4 @@ public class Execute {
 		Main main = new Main();
 		System.out.println("실행");
 	}
-	
 }

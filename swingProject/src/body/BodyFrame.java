@@ -103,8 +103,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		SalesBtn.addActionListener(this);
 		hallButton.addActionListener(this);
 
-		OrderBtn.doClick();
-		
+		OrderBtn.doClick(); 
 		setVisible(true);
 	}// 생성자 종료
 

@@ -212,6 +212,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		orderLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
 		orderLabel.setBounds(90, 73, 57, 20);
 		add(orderLabel);
+		
 
 		orderListLabel = new JLabel("\uBC1C\uC8FC \uBAA9\uB85D");
 		orderListLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -250,8 +251,13 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		((Component) bbqBody).setVisible(false);
 	}
 
-	public void reservesReset() {//식자재 목록 새로고침 
-		reservesComboBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
+
+	public void reservesReset() {//식자재 목록 새로고침
+		reservesComboBox.removeAllItems();
+		int count = H_VenderpDAO.getInstance().select_product().size();
+		for (int i = 0; i <count; i++) {
+			reservesComboBox.addItem(H_VenderpDAO.getInstance().select_product().get(i));
+		}
 	}
 	
 	
@@ -296,9 +302,13 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 				fileOutPutArrayList.add(read[0]);
 				fileOutPutArrayListSecond.add(read[1]);
 			}
-			for (int j = 0; j < fileOutPutArrayList.size(); j++) {
-				if (reservesComboBox.getSelectedItem().equals(fileOutPutArrayList.get(j))) {
-					reservesTextField.setText(fileOutPutArrayListSecond.get(j));
+			if (reservesComboBox.getSelectedItem()==null) {
+				
+			}else {
+				for (int j = 0; j < fileOutPutArrayList.size(); j++) {
+					if (reservesComboBox.getSelectedItem().equals(fileOutPutArrayList.get(j))) {
+						reservesTextField.setText(fileOutPutArrayListSecond.get(j));
+					}
 				}
 			}
 		}
@@ -399,7 +409,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		} else if (e.getSource() == orderDeleteBt) {// 발주취소 버튼 작업중
 			orderDelete();
 			orderList();
-		}else if (e.getSource() == resetButton) {
+		}else if (e.getSource() == resetButton) {//새로고침 버튼눌렀을때
 			reservesReset();
 		}
 	}// 액션 리스터 끝

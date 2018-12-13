@@ -251,7 +251,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	}
 
 	public void reservesReset() {//식자재 목록 새로고침 
-		reservesComboBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
+		reservesComboBox.removeAllItems();
+		
 	}
 	
 	
@@ -399,7 +400,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		} else if (e.getSource() == orderDeleteBt) {// 발주취소 버튼 작업중
 			orderDelete();
 			orderList();
-		}else if (e.getSource() == resetButton) {
+		}else if (e.getSource() == resetButton) {//새로고침 버튼눌렀을때
 			reservesReset();
 		}
 	}// 액션 리스터 끝

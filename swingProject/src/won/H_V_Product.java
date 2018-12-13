@@ -543,13 +543,14 @@ public class H_V_Product extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				Scanner sc;
 				String s = "";
+				String deleteName = "";
 				try {
 					sc = new Scanner(new File("H_VenderpName.txt"));
 					int i = -1;
 					while (sc.hasNextLine()) {
 						i++;
 						if (i == tableIdx) {
-							sc.nextLine();
+							deleteName = (sc.nextLine()).split("-")[0];
 							s += "";
 						} else {
 							s += sc.nextLine() + "\r\n";
@@ -564,6 +565,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 					e.printStackTrace();
 				}
 				nameTBSetting();
+				pDAO.deleteVenderpInfo(deleteName);
+				showAll();
 			}
 		});
 

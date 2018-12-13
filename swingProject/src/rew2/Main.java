@@ -62,7 +62,7 @@ public class Main extends JFrame {
 				"        var data = google.visualization.arrayToDataTable([\r\n" + 
 				"          ['월', '매입', '매출', '가맹점 총 매출', 'Average'],\r\n";
 		
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < 12; i++) {   
 			
 		}
 		htmlString+=

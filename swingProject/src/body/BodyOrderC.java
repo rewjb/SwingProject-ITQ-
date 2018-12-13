@@ -245,7 +245,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	public void orderList() {// 발주목록 보는 메서드
 		listNum = new ArrayList<>();
 		int a = B_OrderDAO.getInstance().selectAll(BodyFrame.id).size();
-		System.out.println(a);
 		for (int i = 0; i < a; i++) {
 			listNum.add(B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getNum());
 		}
@@ -287,6 +286,19 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 					textField.setText(arr2.get(j));
 				}
 			}
+		}
+	}
+	
+	public void orderDelete() {//발주 취소 메서드
+		selects = listTable2.getSelectedRows();
+		for (int i = 0; i < selects.length; i++) {
+			if (model2.getValueAt(selects[i], 3).equals("")) {
+				B_OrderDAO.getInstance().orderDelete(listNum.get(selects[i]));
+			}
+		}
+		int count = model2.getRowCount();
+		for (int i = 0; i < count;  i++) {
+			model2.removeRow(0);
 		}
 	}
 
@@ -370,15 +382,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 			}
 
 		} else if (e.getSource() == btDelete) {// 발주취소 버튼 작업중
-			selects = listTable2.getSelectedRows();
-			for (int i = 0; i < selects.length; i++) {
-				if (model2.getValueAt(selects[i], 3).equals("")) {
-					B_OrderDAO.getInstance().orderDelete(listNum.get(selects[i]));
-				}
-			}
-			for (int j = selects.length - 1; j >= 0; j--) {
-				model2.removeRow(selects[j]);
-			}
+			orderDelete();
 			orderList();
 		}
 	}// 액션 리스터 끝

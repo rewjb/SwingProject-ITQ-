@@ -78,6 +78,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
 		mainPanel.setBounds(12, 91, 790, 364);
 		mainPanel.setLayout(null);
+		mainPanel.setBackground(Color.GRAY);
 		btnGroup.add(OrderBtn);
 		btnGroup.add(StockBtn);
 		btnGroup.add(SalesBtn);
@@ -102,6 +103,8 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		SalesBtn.addActionListener(this);
 		hallButton.addActionListener(this);
 
+		OrderBtn.doClick();
+		
 		setVisible(true);
 	}// 생성자 종료
 

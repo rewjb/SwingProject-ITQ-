@@ -72,6 +72,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	private JButton orderListAllDeleteBt;// 발주 하기전 목록 전체 지우기
 	private JButton stockListBt;// 재고 목록
 	private JButton orderDeleteBt;//발주 취소 버튼
+	private JButton resetButton;//새로고침 버튼
 
 	private JComboBox reservesComboBox;// 식자재 목록이 나오는 콤보박스
 	private JTextField quantityTextField;
@@ -189,6 +190,11 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		orderDeleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		orderDeleteBt.setBounds(465, 340, 103, 23);
 		add(orderDeleteBt);
+		
+		resetButton = new JButton("\uC0C8\uB85C\uACE0\uCE68");
+		resetButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		resetButton.setBounds(482, 17, 80, 23);
+		add(resetButton);
 
 		selectBt.addActionListener(this);
 		orderBt.addActionListener(this);
@@ -199,6 +205,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		stockListBt.addActionListener(this);
 		orderDeleteBt.addActionListener(this);
 		reservesComboBox.addItemListener(this);
+		resetButton.addActionListener(this);
 
 		orderLabel = new JLabel("\uBC1C\uC8FC");
 		orderLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -228,6 +235,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		unitPriceLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		unitPriceLabel.setBounds(151, 45, 65, 20);
 		add(unitPriceLabel);
+		
 
 		setVisible(false);
 	}
@@ -242,6 +250,13 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		((Component) bbqBody).setVisible(false);
 	}
 
+	public void reservesReset() {//식자재 목록 새로고침 
+		reservesComboBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
+	}
+	
+	
+	
+	
 	public void orderList() {// 발주목록 보는 메서드
 		listNum = new ArrayList<>();
 		int selectAllArrayListSize = B_OrderDAO.getInstance().selectAll(BodyFrame.id).size();
@@ -384,6 +399,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		} else if (e.getSource() == orderDeleteBt) {// 발주취소 버튼 작업중
 			orderDelete();
 			orderList();
+		}else if (e.getSource() == resetButton) {
+			reservesReset();
 		}
 	}// 액션 리스터 끝
 

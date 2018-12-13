@@ -119,6 +119,8 @@ select * from headvender;
 select * from  headOrder;
 
 select * from  headstock;
+SELECT * from bodyorder where id = 'AAA' order by hconfirm = '';
+
 
 select * from  headstock ORDER BY date;
 select name,SUM(quantity) as quantity  from headstock  where point=16  group by name;

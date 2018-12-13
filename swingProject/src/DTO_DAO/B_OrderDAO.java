@@ -109,10 +109,9 @@ public class B_OrderDAO {
 
 		try {
 			connectDB();
-			sql = "SELECT * from bodyorder where id = '"+id+"'";
+			sql = "SELECT * from bodyorder where id = '"+id+"' order by hconfirm;";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-
 			while (rs.next()) {
 				int num = rs.getInt("num");
 				id = rs.getString("id");

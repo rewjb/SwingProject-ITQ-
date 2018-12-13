@@ -37,15 +37,15 @@ public class Main extends JFrame {
 			}
 		}); // 액션리스너 종료
 		String title = "하드웨어 판매량";
-		browser.loadHTML(inserHTML());
+		browser.loadHTML(inserHTML(null, null, null));
 		add(browserView, BorderLayout.CENTER);
 		setVisible(true);
 	}
 	
 //	ArrayList<Integer> headPurchase  ok
-//	ArrayList<Integer> headSales 이거 잠시 대기
-//	ArrayList<Integer> totalBodySales
-	public String inserHTML() {
+//	ArrayList<Integer> headSales  ok 
+//	ArrayList<Integer> totalBodySales ok
+	public String inserHTML(ArrayList<Integer> headPurchase,ArrayList<Integer> headSales,ArrayList<Integer> totalBodySales) {
 		// 매입
 		// 매출
 		// 가맹점 총 매출
@@ -60,7 +60,12 @@ public class Main extends JFrame {
 				"      function drawVisualization() {\r\n" + 
 				"        // Some raw data (not necessarily accurate)\r\n" + 
 				"        var data = google.visualization.arrayToDataTable([\r\n" + 
-				"          ['Month', '매입', '매출', '가맹점 총 매출', 'Average'],\r\n" + 
+				"          ['월', '매입', '매출', '가맹점 총 매출', 'Average'],\r\n";
+		
+		for (int i = 0; i < 12; i++) {
+			
+		}
+		htmlString+=
 				"          ['2004/05',  165,      938,         522,             998],\r\n" + 
 				"          ['2005/06',  135,      1120,        599,             1268],\r\n" + 
 				"          ['2006/07',  157,      1167,        587,             807],\r\n" + 

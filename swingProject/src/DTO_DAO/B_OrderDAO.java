@@ -1,11 +1,12 @@
 package DTO_DAO;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 //가맹점 총 발주내역
 
@@ -109,7 +110,7 @@ public class B_OrderDAO {
 
 		try {
 			connectDB();
-			sql = "SELECT * from bodyorder where id = '"+id+"' order by hconfirm;";
+			sql = "SELECT * from bodyorder where id = '" + id + "' order by hconfirm;";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -158,7 +159,7 @@ public class B_OrderDAO {
 			connectDB();
 			sql = "insert into bodyorder value (default,?,?,?,default,'','')";
 			ps = con.prepareStatement(sql);
-			
+
 			ps.setString(1, id);
 			ps.setString(2, name);
 			ps.setInt(3, quantity);
@@ -189,14 +190,14 @@ public class B_OrderDAO {
 		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "select * from bodyorder where hconfirm != ''and bconfirm =''and id ='"+id+"'";
+			sql = "select * from bodyorder where hconfirm != ''and bconfirm =''and id ='" + id + "'";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
 
 				int num = rs.getInt("num");
-				 id = rs.getString("id");
+				id = rs.getString("id");
 				String name = rs.getString("name");
 				int quantity = rs.getInt("quantity");
 				String date = rs.getString("date");
@@ -306,91 +307,58 @@ public class B_OrderDAO {
 			ps = con.prepareStatement(sql);
 			rn = ps.executeUpdate();
 			System.out.println("딜리트 확인" + rn);
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
-		}finally {
+		} finally {
 			try {
-				if (con!=null) {
+				if (con != null) {
 					con.close();
 				}
-				if (ps!=null) {
+				if (ps != null) {
 					ps.close();
 				}
 			} catch (Exception e2) {
-				
+
 			}
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public void selectMonth(String year) {
+	public ArrayList<Integer> selectMonthBodyOrder(String year) {
 		ArrayList<Integer> list = new ArrayList<>();
+		File file = new File("H_VenderpName.txt");
+		int sum;
 		try {
+			Scanner sc = new Scanner(file);
 			String[] month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
 			connectDB();
-			ResultSet rs=null;
+			ResultSet rs = null;
 
 			for (int i = 0; i < month.length; i++) {
-				sql = "SELECT name,SUM(money) FROM headorder WHERE date LIKE '%" +year+"-"+month[i]+"%' GROUP BY name;";
+				sql = "SELECT name,SUM(quantity) FROM headorder WHERE date LIKE '%" + year + "-" + month[i]
+						+ "%' GROUP BY name;";
 				ps = con.prepareStatement(sql);
-				rs=ps.executeQuery();
-				if (rs.next()) {
-					list.add(rs.getInt(1));
-				}else {
-					list.add(0);
-				}
+				rs = ps.executeQuery();
+				sum = 0;
+				while (rs.next()) { // DB 테이블에 값이 존재하는지
+					while (sc.hasNextLine()) { // 텍스트 문서에 읽을 내용이 있는지
+						if (rs.getString(1).equals(sc.nextLine().split("-")[0])) { // 텍스트 문서와 DB테이블 항목이 일치하는지
+							sum += rs.getInt(2) * Integer.parseInt(sc.nextLine().split("-")[1]);
+						}
+					}
+					sc.reset();
+				} // for 문 종료
+				list.add(sum);
 			}
+
 			rs.close();
 			ps.close();
 			con.close();
 		} catch (Exception e) {
 			System.out.println("H_OrderDAO-selectTotalMonthSalse 오류");
 		}
-		
-//		return list;
-	}// orderInsert() : 메서드 종료
+
+		return list;
+	}// selectMonth() : 메서드 종료
 }// 클래스 끝

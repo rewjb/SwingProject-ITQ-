@@ -148,7 +148,7 @@ SELECT bodyorder.*,headFranchise.alias FROM bodyorder,headFranchise WHERE (bodyo
 
 
 SELECT name,SUM(quan) FROM headorder WHERE date LIKE '%2018-12%' GROUP BY name;
-
+SELECT name,SUM(quantity) FROM headorder WHERE date LIKE '%2018-12%' GROUP BY name;
 update bodyorder set hconfirm = 'ck_1' where num=10;
 update 테이블명 set 컬럼명 = '변경값' where 컬럼명='해당값'
 ----- 테이블 선택--------
@@ -175,6 +175,8 @@ chickenH int,
 chickenS int,
 side int
 );
+
+select * from s
 
 insert into bodysales values (default,'조광재','2018-11-01','60000','20000','20000','20000','0');
 insert into bodysales values (default,'조광재','2018-10-01','60000','20000','20000','20000','0');
@@ -787,6 +789,8 @@ SELECT id,SUM(?) from bodysales where id=? GROUP BY id;
 SELECT * from bodysales;
 
 drop database bbq;
+SELECT SUM(money) FROM bodysales WHERE date LIKE '%2018-12%';
+select * from bodysales;
 
 "SELECT name,SUM(quantity) AS quantity FROM headstock GROUP BY name;";here date like '%2018-11-28%';
 drop table bodysales;

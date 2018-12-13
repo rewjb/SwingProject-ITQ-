@@ -85,7 +85,7 @@ public class BodySalesBarChart extends JPanel {
 		// chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
 		chartPanel.setBounds(0, 0, 450, 275);
 		add(chartPanel);
-
+   
 		setLayout(null);
 		setBounds(0, 0, 450, 275);
 	}// 생성자 종료

@@ -100,12 +100,13 @@ public class Login extends JFrame implements BBQ, ActionListener{
 			
 			@Override
 			public void focusLost(FocusEvent e) {
-				tfUPw.setText("           ");
 			}
 			
 			@Override
 			public void focusGained(FocusEvent e) {
-				tfUPw.setText("");
+				if (tfUPw.getText().equals("아이디를 입력하세요.")) {
+					tfUPw.setText("");
+				}
 			}
 		});
 		tfUPw.addMouseListener(new MouseAdapter() {

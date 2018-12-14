@@ -3,8 +3,6 @@ package head;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -48,7 +46,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JTextField tfMoney;
 	private JLabel lbOrderM;
 	private JTextField tfOrderM;
-
+	
 	// 버튼
 	private JButton btAdd;
 	private JButton btModify;
@@ -87,6 +85,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 		buttonSetting();
 		showAll();
 		mouseAction();
+		
+		setBackground(new Color(184, 207, 229));
 	}
 
 	// 표에 관련된 설정사항

@@ -13,10 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -46,6 +43,10 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	JButton btAdd;
 	JButton btModify;
 	JButton btDelete;
+	
+	//라벨 설정
+	private JLabel flb;
+	
 
 	// 정보입력창에 올라갈 구성요소들
 	private JFrame f = new JFrame();
@@ -92,12 +93,14 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	public H_Franchise() {
 		setBounds(0, 0, 770, 368);
 		setLayout(null);
-
+		labelSetting();
 		buttonSetting();
 		showAll();
 		innerFrameSetting();
 		mouseAction();
 
+		
+		setBackground(new Color(184, 207, 229));
 		setVisible(false);
 		f.setVisible(false);
 	} // end constructor
@@ -139,6 +142,13 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			System.out.println("2-->"+id);
 		}
 	}// end showAll
+	
+	private void labelSetting() {
+		flb = new JLabel("제품목록");
+		flb.setBounds(330, 20, 100, 30);
+		flb.setHorizontalAlignment(SwingConstants.CENTER);
+		add(flb);
+	}
 
 	// 버튼에 관련된 설정사항
 	private void buttonSetting() {

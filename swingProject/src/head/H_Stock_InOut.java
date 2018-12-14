@@ -120,12 +120,12 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 	private H_StockDTO set_stockDTO;
 	// 입력을 위한 DTO
-	ArrayList<String> venderName; // 업체 리스트
-	ArrayList<H_FranchiseDTO> h_franchiseList; // 가맹점 리스트
-	ArrayList<H_StockDTO> pointStockList; // point별 리스트
-	ArrayList<H_StockDTO> inStockList; // 입고 재고 기록
-	ArrayList<H_StockDTO> outStockList;// 출고 재고 기록
-	ArrayList<H_StockDTO> totalStockList;// 전체 재고
+	private ArrayList<String> venderName; // 업체 리스트
+	private ArrayList<H_FranchiseDTO> h_franchiseList; // 가맹점 리스트
+	private ArrayList<H_StockDTO> pointStockList; // point별 리스트
+	private ArrayList<H_StockDTO> inStockList; // 입고 재고 기록
+	private ArrayList<H_StockDTO> outStockList;// 출고 재고 기록
+	private ArrayList<H_StockDTO> totalStockList;// 전체 재고
 
 	public H_Stock_InOut() {// 생성자 시작
 
@@ -220,14 +220,12 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		add(stockScroll);
 		add(totalStockLabel);
 
+		
+		setBackground(new Color(184, 207, 229));
 		setLayout(null);
 		setBounds(0, 0, 770, 358);
 		setSize(770, 358);
 		
-		
-
-
-
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝
 

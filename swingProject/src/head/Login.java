@@ -108,15 +108,15 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		btLoginU.addActionListener(this);
 		
 		JLabel lbLogo = new JLabel("");
-		lbLogo.setIcon(new ImageIcon("logoSmall.png"));
+		lbLogo.setIcon(new ImageIcon("img/logoSmall.png"));
 		lbLogo.setBounds(10, 10, 55, 25);
 		getContentPane().add(lbLogo);
 		
 		lbLogin = new JLabel("");
-		lbLogin.setIcon(new ImageIcon("login.png"));
+		lbLogin.setIcon(new ImageIcon("img/login.png"));
 		lbLogin.setBounds(90, 110, 100, 85);
 		getContentPane().add(lbLogin);
-	}
+	}   
 
 	public static void main(String[] args) {
 		new Login();

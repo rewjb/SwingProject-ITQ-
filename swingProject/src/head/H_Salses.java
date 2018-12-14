@@ -81,7 +81,7 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 	private JToggleButton headSalesBtn = new JToggleButton("본사 매출");
 	private JToggleButton bodySalesBtn = new JToggleButton("가맹점 매출");
-
+	
 	private ArrayList<H_FranchiseDTO> h_franList;
 	// 가맹점 선택하는 콤보박스에 넣을 데이터 DTO리스느
 
@@ -101,13 +101,15 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 	private JPanel headPan = new JPanel();
 	// 본사 매출관련 페이지
 
-	ArrayList<Integer> headPurchase;
+	private ArrayList<Integer> headPurchase;
 	// 본사 매입 데이터를 갖고 있는 리스트
-	ArrayList<Integer> headSales;
+	private ArrayList<Integer> headSales;
 	// 본사 매출 데이터를 갖고 있는 리스트
-	ArrayList<Integer> totalBodySales;
+	private ArrayList<Integer> totalBodySales;
 	// 가맹점 총 매출 데이터를 갖고 있는 리스트
 
+	private Color color = new Color(128, 144, 160);
+	
 	public H_Salses() {
 
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
@@ -187,7 +189,7 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		bodySalesBtn.setBounds(566, 335, 111, 23);
 		headSalesBtn.setBounds(673, 335, 97, 23);
 		franSalesBarChart.setSize(450, 275);
-
+		
 		headSalesYearComboBox.setBounds(490, 32, 86, 21);
 		headSalesLabel.setBounds(310, 10, 250, 15);
 		headSelectJLabel.setBounds(580, 35, 20, 15);
@@ -223,6 +225,9 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		headPan.add(headSalesLabel);
 		headPan.add(headGoogleBarChart);
 		headPan.add(headSalesScroll);
+		
+		headSalesBtn.setBackground(color);
+		bodySalesBtn.setBackground(color);
 
 		add(headSalesBtn);
 		add(bodySalesBtn);
@@ -231,6 +236,9 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		add(bodyPan);
 
 		bodySalesBtn.doClick();
+		
+		headPan.setBackground(new Color(184, 207, 229));
+		bodyPan.setBackground(new Color(184, 207, 229));
 
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝

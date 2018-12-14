@@ -48,7 +48,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private JTextField tfTel2;
 	private JLabel lbTel1;
 	private JLabel lbTel2;
-
+	
 	// 버튼
 	private JButton btAdd;
 	private JButton btModify;
@@ -67,6 +67,8 @@ public class H_V_Company extends JPanel implements ActionListener {
 		buttonSetting();
 		showAll();
 		mouseAction();
+		
+		setBackground(new Color(184, 207, 229));
 	}
 
 	// 표에 관련된 설정사항
@@ -116,10 +118,13 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfCNum0.setEditable(true);
 		tfCNum1.setEditable(true);
 		tfCNum2.setEditable(true);
+		
+		
 	}
 
 	// 라벨 및 텍스트필드 설정사항
 	private void labelSetting() {
+		
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
 		lbId.setBounds(522, 20, 60, 30);

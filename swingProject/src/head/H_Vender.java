@@ -9,18 +9,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
 
+import head.H_V_Company;
+import head.H_V_Product;
 import inter.BBQHead;
 import inter.HeadVender;
 
@@ -29,62 +26,121 @@ public class H_Vender extends JPanel implements HeadVender {
 	
 	private JPanel paneVdC;
 	private JPanel paneVdP;
-	private JButton btVdC;
-	private JButton btVdP;
+	private JToggleButton btVdC; //업체
+	private JToggleButton btVdP; //제품
+	private JLabel clb1;
+	private JLabel clb2;
+	private JLabel plb1;
+	private JLabel plb2;
+	
+	ButtonGroup btnG = new ButtonGroup();
 
+	Color color = new Color(128, 144, 160);
+	
 	public H_Vender() {
-
+		            
 		setBounds(0, 0, 770, 368);
 		setLayout(null);
 
 		vCompanySetting();
 		vProductSetting();
 		
-		paneVdC.setVisible(false);
+		setBackground(new Color(184, 207, 229));
+		companeySetVisible(false);
 		setVisible(false);
+		
+		btnG.add(btVdC);
+		btnG.add(btVdP);
+		
+		btVdP.setBackground(color);
+		btVdC.setBackground(color);
+		
+		btVdC.doClick();
 	}
 	
 	private void vCompanySetting() {
 		paneVdC = new H_V_Company();
-		paneVdC.setBounds(0, 20, 770, 315);
+		paneVdC.setBounds(0, 21, 770, 315);
 		add(paneVdC);
 		paneVdC.setLayout(null);
 		
-		btVdC = new JButton("업체");
+		btVdC = new JToggleButton("업체");
 		add(btVdC);
-		btVdC.setBounds(300, 0, 80, 20);
+		btVdC.setBounds(610, 345, 80, 23);
 		btVdC.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				paneVdC.setVisible(true);
-				paneVdP.setVisible(false);
+				companeySetVisible(true);
+				productSetVisible(false);
 			}
 		});
+		
+		clb1 = new JLabel("업체목록");
+		clb1.setBounds(210, 0, 100, 30);
+		clb1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(clb1);
+		
+		clb2 = new JLabel("업체등록");
+		clb2.setBounds(590, 0, 100, 30);
+		clb2.setHorizontalAlignment(SwingConstants.CENTER);
+		add(clb2);
 	}
 	
 	private void vProductSetting() {
 		paneVdP = new H_V_Product();
-		paneVdP.setBounds(0, 20, 770, 315);
+		paneVdP.setBounds(0, 21, 770, 315);
 		add(paneVdP);
 		paneVdP.setLayout(null);
 		
-		btVdP = new JButton("제품");
-		btVdP.setBounds(380, 0, 80, 20);
+		btVdP = new JToggleButton("제품");
+		btVdP.setBounds(690, 345, 80, 23);
 		add(btVdP);
 		btVdP.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				paneVdC.setVisible(false);
-				paneVdP.setVisible(true);
+				companeySetVisible(false);
+				productSetVisible(true);
 				//콤보박스 재설정
 				((H_V_Product) paneVdP).remove(((H_V_Product) paneVdP).cbId);
 				((H_V_Product) paneVdP).comboCId();
 			}
 		});
+		plb1 = new JLabel("제품목록");
+		plb1.setBounds(210, 0, 100, 30);
+		plb1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(plb1);
+
+		plb2 = new JLabel("제품 등록");
+		plb2.setBounds(590, 0, 100, 30);
+		plb2.setHorizontalAlignment(SwingConstants.CENTER);
+		add(plb2);
 	}
 
+	private void companeySetVisible(boolean b) {
+		if(b) {
+			paneVdC.setVisible(true);
+			clb1.setVisible(true);
+			clb2.setVisible(true);
+		}else {
+			paneVdC.setVisible(false);
+			clb1.setVisible(false);
+			clb2.setVisible(false);
+		}
+	}
+	
+	private void productSetVisible(boolean b) {
+		if(b) {
+			paneVdP.setVisible(true);
+			plb1.setVisible(true);
+			plb2.setVisible(true);
+		}else {
+			paneVdP.setVisible(false);
+			plb1.setVisible(false);
+			plb2.setVisible(false);
+		}
+	}
 
 	@Override
 	public void show(BBQHead bbqHead) {

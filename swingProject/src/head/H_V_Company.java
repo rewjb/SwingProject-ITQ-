@@ -48,7 +48,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private JTextField tfTel2;
 	private JLabel lbTel1;
 	private JLabel lbTel2;
-
+	
 	// 버튼
 	private JButton btAdd;
 	private JButton btModify;
@@ -124,6 +124,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 
 	// 라벨 및 텍스트필드 설정사항
 	private void labelSetting() {
+		
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
 		lbId.setBounds(522, 20, 60, 30);

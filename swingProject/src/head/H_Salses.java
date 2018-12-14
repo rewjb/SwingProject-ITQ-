@@ -109,6 +109,7 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 	// 가맹점 총 매출 데이터를 갖고 있는 리스트
 
 	private Color color = new Color(128, 144, 160);
+	//버튼색상
 
 	public H_Salses() {
 
@@ -164,8 +165,6 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		monthRadio.doClick();
 		showPieChart();
 
-		
-
 		franSalesLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		label.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 
@@ -194,12 +193,12 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		headGoogleBarChart.setSize(470, 300);
 		headGoogleBarChart.setLocation(12, 30);
 
-		bodyPan.setBounds(0, 0, 770, 368);
+		bodyPan.setBounds(0, 0, 770, 348);
 		bodyPan.setLayout(null);
 
-		headPan.setBounds(0, 0, 770, 368);
+		headPan.setBounds(0, 0, 770, 348);
 		headPan.setLayout(null);
-
+		
 		bodyPan.add(franSalesBarChart);
 		bodyPan.add(franSalesPieChart);
 		bodyPan.add(monthComboBox);
@@ -218,26 +217,37 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		headPan.add(headSalesLabel);
 		headPan.add(headGoogleBarChart);
 		headPan.add(headSalesScroll);
+		
+		add(headSalesBtn);
+		add(bodySalesBtn);
 
 		add(headPan);
 		add(bodyPan);
 
-		headPan.setBackground(new Color(184, 207, 229));
-		buttonGroup.add(bodySalesBtn);
-		bodySalesBtn.setBounds(566, 345, 111, 23);
-		headPan.add(bodySalesBtn);
-		bodySalesBtn.addActionListener(this);
-		bodySalesBtn.setBackground(color);
-		buttonGroup.add(headSalesBtn);
-		headSalesBtn.setBounds(673, 345, 97, 23);
-		headPan.add(headSalesBtn);
 		headSalesBtn.addActionListener(this);
+		bodySalesBtn.addActionListener(this);
 		
-				headSalesBtn.setBackground(color);
+		buttonGroup.add(bodySalesBtn);
+		buttonGroup.add(headSalesBtn);
 		
-				bodySalesBtn.doClick();
+		bodySalesBtn.setBackground(color);
+		headSalesBtn.setBackground(color);
+		
+		headPan.setBackground(new Color(184, 207, 229));
 		bodyPan.setBackground(new Color(184, 207, 229));
 		
+		setBackground(new Color(184, 207, 229));
+		
+		bodySalesBtn.setBounds(566, 345, 111, 23);
+		headSalesBtn.setBounds(673, 345, 97, 23);
+
+		
+//		headSalesBtn
+//
+//		bodySalesBtn
+
+		bodySalesBtn.doClick();
+
 		setLayout(null);
 		setBounds(0, 0, 770, 368);
 		setVisible(false);// 마지막에는 false로 변경
@@ -365,8 +375,10 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 							String.format("%.2f", (double) totalBodySales.get(i) / 100000000) + "억" });
 		} // 데이터 insert 하기
 
-		headSalesModel.insertRow(12, new Object[] { "합산", String.format("%.2f", sumHeadPurchase/100000000) + "억",
-				String.format("%.2f", sumHeadSales/100000000) + "억", String.format("%.2f", sumTotalBodySales/100000000) + "억" });
+		headSalesModel.insertRow(12,
+				new Object[] { "합산", String.format("%.2f", sumHeadPurchase / 100000000) + "억",
+						String.format("%.2f", sumHeadSales / 100000000) + "억",
+						String.format("%.2f", sumTotalBodySales / 100000000) + "억" });
 
 	}// insertDataInTable() : 메서드 종료
 

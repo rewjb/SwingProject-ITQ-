@@ -127,10 +127,10 @@ public class ClientFrame extends JDialog implements ActionListener {
 		chattingPanel.setVisible(false);
 
 		setLayout(null);
-		add(selectRoomPanel);
+		add(selectRoomPanel);  
 		add(chattingPanel);
 		setResizable(false);
-		setTitle("클라이언트");
+		setTitle("접속자 아이디: "+ BodyFrame.id);
 		setSize(250, 350);
 		setVisible(false);
 	}// 생성자 종료

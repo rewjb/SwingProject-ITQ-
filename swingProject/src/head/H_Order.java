@@ -26,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
 import DTO_DAO.H_FranchiseDAO;
 import DTO_DAO.H_OrderDAO;
 import DTO_DAO.H_OrderDTO;
+import DTO_DAO.H_StockDAO;
+import DTO_DAO.H_StockDTO;
 import DTO_DAO.H_VenderDAO;
 import DTO_DAO.H_VenderDTO;
 import DTO_DAO.H_VenderpDAO;
@@ -82,7 +84,6 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 	private DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
-	
 
 	private JButton previousBtn = new JButton();
 	private JButton nowBtn = new JButton();
@@ -192,7 +193,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		pNameBox.addItemListener(this);
 		pVenderBox.addItemListener(this);
 		// 콤보박스 액션리스너
-		
+
 		pQuantityField.getDocument().addDocumentListener(this);
 
 		insertIntoNameBox();
@@ -211,6 +212,9 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		venderInsert();
 		// 업체들 전화번호 갖고오는 메서드
+
+		stockInsert();
+		// 현재 재고현황을 갖고오는 메서드
 
 		orderListTable.getTableHeader().setResizingAllowed(false);
 		orderListTable.getTableHeader().setReorderingAllowed(false);
@@ -256,6 +260,9 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		deletemBtn2.setBounds(502, 336, 60, 20);
 		plusBtn.setBounds(502, 23, 60, 20);
 		deletemBtn1.setBounds(502, 133, 60, 20);
+		confirmOrderBtn.setBounds(435, 133, 60, 20);
+		reStartBtn.setBounds(668, 335, 97, 23);
+		
 		// 버튼들의 배치
 
 		orderScroll.setBounds(2, 170, 560, 165); // 발주목록
@@ -266,7 +273,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
 		// 가운데 정렬 설정의 객체
-		
+
 		for (int i = 0; i < 5; i++) {
 			orderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
@@ -313,15 +320,17 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		add(venderInfoLabel);
 		add(stockInfoLabel);
 		add(stockScroll);
-
-		setLayout(null);
-		setBounds(0, 0, 770, 358);
-		confirmOrderBtn.setBounds(435, 133, 60, 20);
-
-		add(confirmOrderBtn);
-		reStartBtn.setBounds(668, 335, 97, 23);
-
 		add(reStartBtn);
+		add(confirmOrderBtn);
+		
+		orderListTable.setBackground(Color.LIGHT_GRAY);
+		venderListTable.setBackground(Color.LIGHT_GRAY);
+		orderPlusListTable.setBackground(Color.LIGHT_GRAY);
+		stockListTable.setBackground(Color.LIGHT_GRAY);
+		
+		setLayout(null);
+		setBounds(0, 0, 770, 368);
+		
 		setBackground(new Color(184, 207, 229));
 		setVisible(false);// 마지막에는 false로 변경
 
@@ -432,7 +441,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 								orderList.get((index - 1) * listNum + i).getName(),
 								orderList.get((index - 1) * listNum + i).getQuantity(),
 								orderList.get((index - 1) * listNum + i).getMoney(),
-								orderList.get((index - 1) * listNum + i).getDate(),
+								orderList.get((index - 1) * listNum + i).getDate().subSequence(0, 16),
 								orderList.get((index - 1) * listNum + i).getConfirm() });
 				uniqueNum.add(orderList.get((index - 1) * listNum + i).getNum());
 			}
@@ -443,14 +452,30 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 								orderList.get((index - 1) * listNum + i).getName(),
 								orderList.get((index - 1) * listNum + i).getQuantity(),
 								orderList.get((index - 1) * listNum + i).getMoney(),
-								orderList.get((index - 1) * listNum + i).getDate(),
+								orderList.get((index - 1) * listNum + i).getDate().subSequence(0, 16),
 								orderList.get((index - 1) * listNum + i).getConfirm() });
 				uniqueNum.add(orderList.get((index - 1) * listNum + i).getNum());
 			}
 		}
-		
+
 		assignBtnIndex();
 	}// orderInsert():메서드 끝
+
+	private void stockInsert() {
+		// 발주를 넣을 때 현재 존재하는 전체 재고수량을 보고 무엇인가 잘못 되었다고 판단이 가능할때가 있다.
+		// 그렇기 때문에 참고사항으로 넣어주는 테이블이다.
+		ArrayList<H_StockDTO> totalStockList = H_StockDAO.getInstance().selectTotalStock();
+		int count = stockListModel.getRowCount();
+		if (count > 0) {
+			for (int i = 0; i < count; i++) {
+				stockListModel.removeRow(0);
+			}
+		}
+		for (int i = 0; i < totalStockList.size(); i++) {
+			stockListModel.insertRow(0,
+					new Object[] { totalStockList.get(i).getName(), totalStockList.get(i).getQuantity() });
+		}
+	}// stockInsert() : 메서드 종료
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -535,16 +560,17 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		} // deletemBtn : 버튼 if문 종료
 
 		if (e.getSource() == reStartBtn) {
-			orderInsert(index); 
+			orderInsert(index);
 			insertIntoNameBox();
 			venderInsert();
-
+			stockInsert();
 		}
-
 	}// actionPerformed:메서드 끝
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {
+		// 값을 입력할 때 숫자이외 다른 값을 입력하면 제이다이얼로그로 경고를 주며
+		// 값을 입력할때마다 가격을 계산한다.
 		try {
 			Integer.parseInt(pQuantityField.getText());
 			int temp2;
@@ -559,10 +585,11 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(this, "숫자를 입력해 주세요.");
 		}
-	}// 수량을 입력할 때 값이 변경된다.
+	}// insertUpdate(DocumentEvent e) : 메서드 종료
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
+		// 수량을 입력할때 지속적으로 인지하며 총가격을 변경시킨다.
 		try {
 			int temp2;
 			if (pQuantityField.getText().equals("")) {
@@ -575,14 +602,14 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 			ptotalPriceField.setText((String.valueOf((temp1 * temp2))));
 		} catch (Exception e2) {
 		}
-	}// 수량을 지울때 때 값이 변경된다.
+	}// removeUpdate(DocumentEvent e) : 메서드 종료
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 	}// 이 메서드는 정의하지 않습니다.
 
 	public void venderInsert() {
-
+		// 발주를 할때 업체에 연락을 취해야하는 경우가 있다. 이를 위해 업체와 업체의 연락처의 정보를 테이블에 넣는 메서드이다.
 		ArrayList<H_VenderDTO> list = h_venderDAO.selectALLVenderInfo();
 		int count = venderListModel.getRowCount();
 
@@ -593,6 +620,6 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		for (int i = 0; i < list.size(); i++) {
 			venderListModel.insertRow(0, new Object[] { list.get(i).getName(), list.get(i).getTel() });
 		}
+	}// venderInsert() : 메서드 종료
 
-	}
 }// 클래스 끝

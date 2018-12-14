@@ -61,8 +61,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 출고에 관련정보 스크롤
 
-	private DefaultTableModel StockListModel = new DefaultTableModel(0, 3);
-	private JTable StockListTable = new JTable(StockListModel) {
+	private DefaultTableModel stockListModel = new DefaultTableModel(0, 3);
+	private JTable StockListTable = new JTable(stockListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
@@ -131,7 +131,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 		insertArrayBtn();
 		// 버튼 배치 메서드
-		
+
 		pNameBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
 		kindOfBox.addItem("입고");
 		kindOfBox.addItem("출고");
@@ -155,7 +155,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 		outStockListModel.setColumnIdentifiers(new String[] { "품명", "수량", "위치", "출고지", "날짜" });
 		inStockListModel.setColumnIdentifiers(new String[] { "품명", "수량", "위치", "입고지", "날짜" });
-		StockListModel.setColumnIdentifiers(new String[] { "품명", "재고" });
+		stockListModel.setColumnIdentifiers(new String[] { "품명", "재고" });
 		inputStockModel.setColumnIdentifiers(new String[] { "품명", "재고" });
 
 		inStockListTable.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -219,13 +219,16 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		add(factoryIInfoLabel);
 		add(stockScroll);
 		add(totalStockLabel);
-
+		
+		inStockListTable.setBackground(Color.LIGHT_GRAY);
+		outStockListTable.setBackground(Color.LIGHT_GRAY);
+		StockListTable.setBackground(Color.LIGHT_GRAY);
 		
 		setBackground(new Color(184, 207, 229));
 		setLayout(null);
-		setBounds(0, 0, 770, 358);
+		setBounds(0, 0, 770, 368);
 		setSize(770, 358);
-		
+
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝
 
@@ -337,8 +340,10 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == inputConfirm) {
+			//위치버튼을 누르면 나오는 제이다이얼로그 , 거기에 있는 확인버튼이다.
+			//확인 버튼을 누르면 수량이 제대로 숫자가 들어가있는지 확인하고 만약 숫자가 아니면
+			//제이옵션패널을 나타나게 하여 경고를 준다.
 			try {
-				// 오류를 검출하기 위한 사전 문장
 				set_stockDTO = new H_StockDTO(pointNum, (String) kindOfBox.getSelectedItem(),
 						(String) pNameBox.getSelectedItem(), Integer.parseInt(Quantity.getText()),
 						(String) placeBox.getSelectedItem(), null);
@@ -347,10 +352,11 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 					Quantity.setText(null);
 				}
 				insertPointList(pointNum);
-				insertInOutTotalStockHistoryList();
+				insertInOutTotalStockHistoryList();//작업중
+				inOutStockFrame.dispose();
 			} catch (Exception e2) {
-				e2.printStackTrace();
 				JOptionPane.showMessageDialog(inOutStockFrame, "수량에 숫자를 입력해 주세요.");
+				e2.printStackTrace();
 			}
 		} else {
 			pointNum = ((JButton) e.getSource()).getText();
@@ -359,7 +365,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		} // inputConfirm:버튼 if문 종료
 
 		// TODO Auto-generated method stub
-		
+
 	}// actionPerformed:메서드 종료
 
 	@Override
@@ -373,14 +379,6 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	}// insertUpdate:메서드 종료
 
 	@Override
-	public void removeUpdate(DocumentEvent e) {
-	}// 이 메서드는 정의하지 않습니다.
-
-	@Override
-	public void changedUpdate(DocumentEvent e) {
-	}// 이 메서드는 정의하지 않습니다.
-
-	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == kindOfBox) {
 			insertVenderNfranchise();
@@ -392,7 +390,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	}// itemStateChanged메서드 끝
 
 	public void insertVenderNfranchise() {
-
+		// 창고 특정 위치에 입출고를 입력하는 다이얼로그에 보면 장소를 결정하는 콤보박스가 있다.
+		// 출고와 입고의 여부에 따라 들어가는 장소가 달라지는 메서드이다.
 		if (kindOfBox.getSelectedItem().equals("출고")) {
 			h_franchiseList = H_FranchiseDAO.getInstance().select_AliasNTel();
 			placeBox.removeAllItems();
@@ -409,6 +408,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	}// insertVenderNfranchise:메서드 끝
 
 	public void insertPointList(String point) {
+		// 창고의 특정 배치도 버튼을 누르면 나오는 다이얼로그에서 좌측에 보면
+		// 특정 장소에 들어가 있는 재고를 알 수가 있다. 거기에 들어가는 재고내용이다.
 		pointStockList = H_StockDAO.getInstance().selectPointAll(point);
 		int count = inputStockModel.getRowCount();
 
@@ -420,10 +421,11 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 			inputStockModel.insertRow(0,
 					new Object[] { pointStockList.get(i).getName(), pointStockList.get(i).getQuantity() });
 		}
-
 	}// insertPointList:메서드 끝
 
 	public void insertInOutTotalStockHistoryList() {
+		//입출고관리 화면에서 모든 테이블이 존재하는데
+		//그 현황테이블들에 자료가 들어가는 메서드이다.
 		inStockList = H_StockDAO.getInstance().selectInStockHistory();
 		int count = inStockListModel.getRowCount();
 
@@ -454,15 +456,24 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		}
 
 		totalStockList = H_StockDAO.getInstance().selectTotalStock();
-		count = StockListModel.getRowCount();
+		count = stockListModel.getRowCount();
 		if (count > 0) {
 			for (int i = 0; i < count; i++) {
-				StockListModel.removeRow(0);
+				stockListModel.removeRow(0);
 			}
 		}
 		for (int i = 0; i < totalStockList.size(); i++) {
-			StockListModel.insertRow(0,
-					new Object[] {totalStockList.get(i).getName(),totalStockList.get(i).getQuantity()});
+			stockListModel.insertRow(0,
+					new Object[] { totalStockList.get(i).getName(), totalStockList.get(i).getQuantity() });
 		}
 	}// insertInOutTotalStockHistoryList:메서드 종료
+	
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+	}// 이 메서드는 정의하지 않습니다.
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+	}// 이 메서드는 정의하지 않습니다.
+
 }// 클래스 끝

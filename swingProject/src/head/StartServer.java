@@ -22,7 +22,6 @@ public class StartServer extends Thread {
 				clientGuide.start();
 			} // while문 종료
 		} catch (Exception e) {
-			System.out.println("내부 Server 클래스 오류");
 			e.printStackTrace();
 		}
 

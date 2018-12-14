@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
@@ -58,23 +59,33 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	private H_Salses h_salses = new H_Salses();
 
 	private ImageIcon img = new ImageIcon("img/logo.png");
-	//회사 이미지 아이콘
+	// 회사 이미지 아이콘
 	private JLabel logoLabel = new JLabel(img);
-	//회사 이미지 아이콘을 넣은 라벨!
-	
+	// 회사 이미지 아이콘을 넣은 라벨!
+
 	private JLabel serviceInfo = new JLabel("전산팀 연락처 : 02-xxx-xxxx");
-	//연락처 라벨
+	// 연락처 라벨
 
 	int xpos;
 	int ypos;
-	
+	// 화면을 중앙에 나타나게 하기 위한 x와 y 좌표
+
 	private Dimension point = Toolkit.getDefaultToolkit().getScreenSize();
+	// 전체 스크린 사이즈를 갖는 객체 생성
 
 	private ServerFrame serverFrame = new ServerFrame();
+	// 채팅 프로그램 실행 객체
 
 	private Color color = new Color(128, 144, 160);
+	// 모든 버튼의 색상을 지정할 객체
 
-	public HeadFrame() {
+	Toolkit toolkit = Toolkit.getDefaultToolkit();
+	Image frameimg = toolkit.getImage("img/회사 프레임 아이콘.jpg");
+
+	public HeadFrame() {  
+
+		setTitle("BBQ 관리자  계정");
+		setIconImage(frameimg);
 
 		F_OrderCheckBtn.setBackground(color);
 		OrderBtn.setBackground(color);
@@ -83,7 +94,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		FranchiseBtn.setBackground(color);
 		SalesBtn.setBackground(color);
 		chattingBtn.setBackground(color);
-		//버튼의 색상을 일괄적으로 변경
+		// 버튼의 색상을 일괄적으로 변경
 
 		F_OrderCheckBtn.setFocusPainted(false);
 		OrderBtn.setFocusPainted(false);
@@ -92,8 +103,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		FranchiseBtn.setFocusPainted(false);
 		SalesBtn.setFocusPainted(false);
 		chattingBtn.setFocusPainted(false);
-		
-		
+
 		serviceInfo.setBounds(12, 448, 216, 23);
 		F_OrderCheckBtn.setBounds(12, 60, 145, 23);
 		OrderBtn.setBounds(158, 60, 110, 23);
@@ -102,7 +112,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		FranchiseBtn.setBounds(506, 60, 120, 23);
 		SalesBtn.setBounds(627, 60, 110, 23);
 		chattingBtn.setBounds(680, 10, 110, 23);
-		//화면을 구성하는 각조 컴포넌트의 사이즈 지정
+		// 화면을 구성하는 각조 컴포넌트의 사이즈 지정
 
 		F_OrderCheckBtn.setBorder(null);
 		OrderBtn.setBorder(null);
@@ -110,7 +120,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		VenderBtn.setBorder(null);
 		FranchiseBtn.setBorder(null);
 		SalesBtn.setBorder(null);
-                    
+
 		mainPanel.setBounds(12, 83, 770, 368);
 
 		logoLabel.setBounds(10, 10, 107, 46);
@@ -123,7 +133,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		mainPanel.add(h_stock);
 		mainPanel.add(h_checkOrder);
 		mainPanel.add(h_salses);
-		//메인 판넬에 각 서비스 판넬 추가
+		// 메인 판넬에 각 서비스 판넬 추가
 
 		btnGroup.add(F_OrderCheckBtn);
 		btnGroup.add(OrderBtn);
@@ -131,7 +141,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		btnGroup.add(VenderBtn);
 		btnGroup.add(FranchiseBtn);
 		btnGroup.add(SalesBtn);
-		//토글버튼 전부다 넣기
+		// 토글버튼 전부다 넣기
 
 		getContentPane().add(F_OrderCheckBtn);
 		getContentPane().add(OrderBtn);
@@ -142,12 +152,10 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		getContentPane().add(logoLabel);
 		getContentPane().add(chattingBtn);
 		getContentPane().add(serviceInfo);
-		//전체 화면에 각종 서비스 버튼 및 이미지 라벨 추가
+		// 전체 화면에 각종 서비스 버튼 및 이미지 라벨 추가
 
 		getContentPane().add(mainPanel);
 		mainPanel.setLayout(null);
-	
-	
 
 		F_OrderCheckBtn.addActionListener(this);
 		OrderBtn.addActionListener(this);
@@ -158,8 +166,9 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		chattingBtn.addActionListener(this);
 
 		F_OrderCheckBtn.doClick();
+		
+		getContentPane().setBackground(new Color(202, 208, 213));
 
-		// 사이즈 , 레이아웃 및 각종 설정
 		setSize(800, 500);
 		xpos = (int) (point.getWidth() / 2 - getWidth() / 2);
 		ypos = (int) (point.getHeight() / 2 - getHeight() / 2);
@@ -167,6 +176,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+		// 사이즈 , 레이아웃 및 각종 설정
 
 		setVisible(true);
 	}// 생성자 종료

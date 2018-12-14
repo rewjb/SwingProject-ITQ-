@@ -93,7 +93,6 @@ public class ServerManager extends Thread {
 				if (inputStr.equals("EXroom")) {
 					inputStr = inputBuffer.readLine();
 					ServerFrame.room.get(inputStr).remove(sendWriter);
-					System.out.println(ServerFrame.room.get(inputStr).size());
 
 					int roomCount = ServerFrame.model.getRowCount();
 					for (int i = 0; i < roomCount; i++) {
@@ -116,7 +115,6 @@ public class ServerManager extends Thread {
 				
 				if (inputStr.equals("EXchatting")) {
 					//나가기 
-					System.out.println("dd");
 					ServerFrame.allMemberList.remove(sendMessage);
 					c_socket.close();
 					inputBuffer.close();

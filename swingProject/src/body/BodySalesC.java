@@ -50,7 +50,8 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 	private JTextField dayTextField;// 세번째 날짜 입력칸
 	private JLabel dateSearchLabel;// 날짜검색
 	private JButton selecteBt;// 선택버튼
-	private BodySalesDataChart bodySalesDataChart = new BodySalesDataChart();
+	private BodySalesDataChart bodySalesDataChart = new BodySalesDataChart();//검색한 매출을 그래프로 보여줄 클래스
+	
 
 	private ArrayList<Integer> value;// 월별 매출 갖고 오는 리스트
 
@@ -58,8 +59,9 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		// jpanel레이아웃 사이즈 배경설정
 		setLayout(null);
 		setSize(790, 364);
-		salesResultscroll.setBounds(439, 27, 314, 60);
-		allSalesScroll.setBounds(30, 70, 314, 273);
+		setBackground(new Color(184,207,229));
+		salesResultscroll.setBounds(438, 25, 314, 55);
+		allSalesScroll.setBounds(12, 68, 314, 273);
 
 		// 각 표 컬럼 설정
 		allSalesModel.setColumnIdentifiers(new Object[] { "메뉴", "수량", "합계", "날짜" });
@@ -69,20 +71,20 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		selecteBt = new JButton("\uAC80\uC0C9");
 		// 선택버튼 폰트설정
 		selecteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		selecteBt.setBounds(287, 37, 57, 23);
+		selecteBt.setBounds(275, 37, 57, 23);
 		bodySalesDataChart.setSize(422, 281);
 		// 그래프 위치 지정
 		bodySalesDataChart.setLocation(350, 86);
 
 		// 각 텍스트 필드 위치지정
 		yearTextField = new JTextField();
-		yearTextField.setBounds(87, 37, 42, 21);
+		yearTextField.setBounds(69, 37, 42, 21);
 		add(yearTextField);
 		yearTextField.setColumns(10);
 
 		monthTextField = new JTextField();
 		monthTextField.setColumns(10);
-		monthTextField.setBounds(156, 37, 29, 21);
+		monthTextField.setBounds(146, 37, 29, 21);
 		add(monthTextField);
 
 		dayTextField = new JTextField();
@@ -94,7 +96,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		dateSearchLabel = new JLabel("\uB0A0\uC9DC \uAC80\uC0C9");
 		dateSearchLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		dateSearchLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		dateSearchLabel.setBounds(30, 41, 57, 15);
+		dateSearchLabel.setBounds(12, 41, 57, 15);
 
 		// 각 컴포턴트 jpanel에 더하기
 		add(dateSearchLabel);
@@ -107,7 +109,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		JLabel salesResultLabel = new JLabel("\uB9E4\uCD9C\uC885\uD569");
 		salesResultLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		salesResultLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		salesResultLabel.setBounds(564, 8, 57, 15);
+		salesResultLabel.setBounds(562, 6, 57, 15);
 		add(salesResultLabel);
 
 		JLabel salesSearchLabel = new JLabel("\uB9E4\uCD9C \uAC80\uC0C9");
@@ -119,13 +121,13 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		JLabel yearLabel = new JLabel("\uB144");
 		yearLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		yearLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		yearLabel.setBounds(112, 41, 57, 15);
+		yearLabel.setBounds(99, 41, 57, 15);
 		add(yearLabel);
 
 		JLabel monthLabel = new JLabel("\uC6D4");
 		monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		monthLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		monthLabel.setBounds(168, 41, 57, 15);
+		monthLabel.setBounds(169, 41, 57, 15);
 		add(monthLabel);
 
 		JLabel dayLabel = new JLabel("\uC77C");

@@ -2,6 +2,7 @@ package body;
 
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -71,8 +72,6 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 	private JButton button6;// 6번 테이블 계산 버튼
 	// 주문 선택버튼
 	private JButton selectButton;// 선택하기 버튼
-	// 버튼 그룹
-	// private ButtonGroup bg;
 
 	HashMap<JButton, DefaultTableModel> key = new HashMap<>();// 해쉬맵 사용법
 
@@ -180,6 +179,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 		// 프레임 사이즈 및 레이아웃 설정
 		setSize(790, 388);
 		setLayout(null);
+		setBackground(new Color(184,207,229));
 		// 버튼 객체생성 및 위치지정
 		orderButton = new JButton("주문하기");
 		orderButton.setBounds(150, 210, 100, 30);

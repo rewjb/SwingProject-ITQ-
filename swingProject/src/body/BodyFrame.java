@@ -33,17 +33,20 @@ import javax.swing.JPanel;
 
 public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
-	JToggleButton OrderBtn = new JToggleButton("발주관리");
-	JToggleButton StockBtn = new JToggleButton("재고관리");
-	JToggleButton SalesBtn = new JToggleButton("매출관리");
+	JToggleButton OrderBtn = new JToggleButton("발주관리",new ImageIcon("img/발주관리 아이콘.png"));
+	JToggleButton StockBtn = new JToggleButton("재고관리",new ImageIcon("img/입출고 아이콘.png"));
+	JToggleButton SalesBtn = new JToggleButton("매출관리",new ImageIcon("img/매출관리 아이콘.png"));
 	JToggleButton hallButton = new JToggleButton("홀");
+	JButton btnNewButton = new JButton("채팅관리",new ImageIcon("img/채팅관리 아이콘.png"));
 	
-	ImageIcon img = new ImageIcon("logo.png");
-	JLabel logoLabel = new JLabel(img);
-	JLabel serviceInfo = new JLabel(img);
+	
+	
+	
+	ImageIcon logoImg = new ImageIcon("logo.png");
+	JLabel logoLabel = new JLabel(logoImg);
+	JLabel serviceInfo = new JLabel(logoImg);
 	
 
-	JButton btnNewButton = new JButton("채팅관리");
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
 
@@ -55,6 +58,8 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	public static String id ;
 
 	ClientFrame clientFrame;
+	
+	private Color color = new Color(128, 144, 160);//버튼 색상
 	
 	public BodyFrame(String id) {
 		// 사이즈 , 레이아웃 및 각종 설정
@@ -69,14 +74,26 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		// 20 간격 !
-		OrderBtn.setBounds(12, 66, 90, 23);
-		StockBtn.setBounds(103, 66, 90, 23);
-		SalesBtn.setBounds(192, 66, 90, 23);
-		hallButton.setBounds(615, 66, 90, 23);
-		btnNewButton.setBounds(705, 66, 97, 23);
+		OrderBtn.setBounds(10, 54, 107, 23);
+		StockBtn.setBounds(116, 54, 107, 23);
+		SalesBtn.setBounds(223, 54, 107, 23);
+		hallButton.setBounds(330, 54, 107, 23);
+		btnNewButton.setBounds(689, 10, 111, 23);
 		logoLabel.setBounds(10, 10, 107, 46);
+		OrderBtn.setBackground(color);
+		StockBtn.setBackground(color);
+		SalesBtn.setBackground(color);
+		hallButton.setBackground(color);
+		btnNewButton.setBackground(color);
+		OrderBtn.setBorder(null);
+		StockBtn.setBorder(null);
+		SalesBtn.setBorder(null);
+		hallButton.setBorder(null);
+		btnNewButton.setBorder(null);
+		
+		
 
-		mainPanel.setBounds(12, 91, 790, 364);
+		mainPanel.setBounds(10, 77, 790, 364);
 		mainPanel.setLayout(null);
 		mainPanel.setBackground(Color.GRAY);
 		btnGroup.add(OrderBtn);

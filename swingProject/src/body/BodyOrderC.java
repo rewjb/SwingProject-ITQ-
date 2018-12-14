@@ -74,6 +74,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	private JButton stockListBt;// 재고 목록
 	private JButton orderDeleteBt;//발주 취소 버튼
 	private JButton resetButton;//새로고침 버튼
+	
 
 	private JComboBox reservesComboBox;// 식자재 목록이 나오는 콤보박스
 	private JTextField quantityTextField;
@@ -104,7 +105,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 
 		setLayout(null);
 		setSize(781, 399);
-
+		setBackground(new Color(184,207,229));
+		
 		// 라벨의 위치 이름 폰트설정
 		reservesLabel = new JLabel("식자재 목록");
 		reservesLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));

@@ -34,9 +34,9 @@ import javax.swing.JPanel;
 
 public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
-	JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리" , new ImageIcon());
+	JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리" , new ImageIcon("img/가맹점 발주관리 아이콘.png"));
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
-	JToggleButton StockBtn = new JToggleButton("입-출고관리");
+	JToggleButton StockBtn = new JToggleButton("입-출고관리", new ImageIcon("img/입출고 아이콘.png"));
 	JToggleButton VenderBtn = new JToggleButton("업체관리");
 	JToggleButton FranchiseBtn = new JToggleButton("가맹점관리");
 	JToggleButton SalesBtn = new JToggleButton("매출관리");
@@ -55,7 +55,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	H_CheckOrder h_checkOrder = new H_CheckOrder();
 	H_Salses h_salses = new H_Salses();
 	
-	ImageIcon img = new ImageIcon("logo.png");
+	ImageIcon img = new ImageIcon("img/logo.png");
 	JLabel logoLabel = new JLabel(img);
 	JLabel serviceInfo = new JLabel(img);
 	

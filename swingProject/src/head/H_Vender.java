@@ -9,20 +9,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
 
+import head.H_V_Company;
+import head.H_V_Product;
 import inter.BBQHead;
 import inter.HeadVender;
 
@@ -33,6 +28,10 @@ public class H_Vender extends JPanel implements HeadVender {
 	private JPanel paneVdP;
 	private JToggleButton btVdC; //업체
 	private JToggleButton btVdP; //제품
+	private JLabel clb1;
+	private JLabel clb2;
+	private JLabel plb1;
+	private JLabel plb2;
 	
 	ButtonGroup btnG = new ButtonGroup();
 
@@ -47,7 +46,7 @@ public class H_Vender extends JPanel implements HeadVender {
 		vProductSetting();
 		
 		setBackground(new Color(184, 207, 229));
-		paneVdC.setVisible(false);
+		companeySetVisible(false);
 		setVisible(false);
 		
 		btnG.add(btVdC);
@@ -61,7 +60,7 @@ public class H_Vender extends JPanel implements HeadVender {
 	
 	private void vCompanySetting() {
 		paneVdC = new H_V_Company();
-		paneVdC.setBounds(0, 20, 770, 315);
+		paneVdC.setBounds(0, 21, 770, 315);
 		add(paneVdC);
 		paneVdC.setLayout(null);
 		
@@ -72,15 +71,25 @@ public class H_Vender extends JPanel implements HeadVender {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				paneVdC.setVisible(true);
-				paneVdP.setVisible(false);
+				companeySetVisible(true);
+				productSetVisible(false);
 			}
 		});
+		
+		clb1 = new JLabel("업체목록");
+		clb1.setBounds(210, 0, 100, 30);
+		clb1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(clb1);
+		
+		clb2 = new JLabel("업체등록");
+		clb2.setBounds(590, 0, 100, 30);
+		clb2.setHorizontalAlignment(SwingConstants.CENTER);
+		add(clb2);
 	}
 	
 	private void vProductSetting() {
 		paneVdP = new H_V_Product();
-		paneVdP.setBounds(0, 20, 770, 315);
+		paneVdP.setBounds(0, 21, 770, 315);
 		add(paneVdP);
 		paneVdP.setLayout(null);
 		
@@ -91,15 +100,47 @@ public class H_Vender extends JPanel implements HeadVender {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				paneVdC.setVisible(false);
-				paneVdP.setVisible(true);
+				companeySetVisible(false);
+				productSetVisible(true);
 				//콤보박스 재설정
 				((H_V_Product) paneVdP).remove(((H_V_Product) paneVdP).cbId);
 				((H_V_Product) paneVdP).comboCId();
 			}
 		});
+		plb1 = new JLabel("제품목록");
+		plb1.setBounds(210, 0, 100, 30);
+		plb1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(plb1);
+
+		plb2 = new JLabel("제품 등록");
+		plb2.setBounds(590, 0, 100, 30);
+		plb2.setHorizontalAlignment(SwingConstants.CENTER);
+		add(plb2);
 	}
 
+	private void companeySetVisible(boolean b) {
+		if(b) {
+			paneVdC.setVisible(true);
+			clb1.setVisible(true);
+			clb2.setVisible(true);
+		}else {
+			paneVdC.setVisible(false);
+			clb1.setVisible(false);
+			clb2.setVisible(false);
+		}
+	}
+	
+	private void productSetVisible(boolean b) {
+		if(b) {
+			paneVdP.setVisible(true);
+			plb1.setVisible(true);
+			plb2.setVisible(true);
+		}else {
+			paneVdP.setVisible(false);
+			plb1.setVisible(false);
+			plb2.setVisible(false);
+		}
+	}
 
 	@Override
 	public void show(BBQHead bbqHead) {

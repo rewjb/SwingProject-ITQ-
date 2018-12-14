@@ -8,8 +8,6 @@ package won;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private JTextField tfTel2;
 	private JLabel lbTel1;
 	private JLabel lbTel2;
-
+	
 	// 버튼
 	private JButton btAdd;
 	private JButton btModify;
@@ -69,6 +67,8 @@ public class H_V_Company extends JPanel implements ActionListener {
 		buttonSetting();
 		showAll();
 		mouseAction();
+		
+		setBackground(new Color(184, 207, 229));
 	}
 
 	// 표에 관련된 설정사항
@@ -118,10 +118,13 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfCNum0.setEditable(true);
 		tfCNum1.setEditable(true);
 		tfCNum2.setEditable(true);
+		
+		
 	}
 
 	// 라벨 및 텍스트필드 설정사항
 	private void labelSetting() {
+		
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
 		lbId.setBounds(522, 20, 60, 30);
@@ -148,14 +151,8 @@ public class H_V_Company extends JPanel implements ActionListener {
 		add(lbTel0);
 		
 		tfTel0 = new JTextField();
+		tfTel0.setColumns(3);
 		tfTel0.setBounds(587, 100, 40, 30);
-		tfTel0.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				JTextField src = (JTextField) e.getSource();
-				if(src.getText().length()>=3) e.consume();
-			}
-		});
 		add(tfTel0);
 		
 		lbTel1 = new JLabel("-");
@@ -166,7 +163,6 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfTel1 = new JTextField();
 		tfTel1.setColumns(4);
 		tfTel1.setBounds(637, 100, 45, 30);
-		tfTel1.setDocument(new JTextFieldLimit(4));
 		add(tfTel1);
 		
 		lbTel2 = new JLabel("-");

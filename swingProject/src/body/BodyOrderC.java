@@ -1,6 +1,7 @@
 package body;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JLabel;
@@ -153,6 +154,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 
 		selectBt = new JButton("\uC120\uD0DD");
 		selectBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		selectBt.setBackground(Color.BLACK);
 		selectBt.setBounds(313, 18, 74, 23);
 		add(selectBt);
 
@@ -330,12 +332,16 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == selectBt) {// 선택버튼기능
-			orderModel.insertRow(0, new Object[] { (String) reservesComboBox.getSelectedItem(), quantityTextField.getText(),(Integer.parseInt(quantityTextField.getText())*Integer.parseInt(reservesTextField.getText()))});
+			
+			if (!(quantityTextField.getText().equals(""))) {
+				orderModel.insertRow(0, new Object[] { (String) reservesComboBox.getSelectedItem(), quantityTextField.getText(),(Integer.parseInt(quantityTextField.getText())*Integer.parseInt(reservesTextField.getText()))});
+			}
+			
 		} else if (e.getSource() == deleteBt) {// 삭제버튼기능
 
-			if (orderModel.getValueAt(0, 0) == null) {
+			if (orderModel.getRowCount()==0) {
 				JOptionPane.showMessageDialog(null, "지울 목록이 없습니다.");
-			} else if (!(orderModel.getValueAt(0, 0) == null) && orderTable.getSelectedRowCount() == 0) {
+			} else if (!(orderModel.getRowCount()==0) && orderTable.getSelectedRowCount() == 0) {
 				JOptionPane.showMessageDialog(null, "지울 목록을 선택해주세요.");
 			} else {
 				int[] a = orderTable.getSelectedRows();
@@ -369,7 +375,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 			}
 
 		} else if (e.getSource() == orderListDeleteBt) {// 발주후 목록지우기 버튼기능
-			if (orderList.getValueAt(0, 0) == null) {
+			if (orderList.getRowCount()==0) {
 
 			} else {
 				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(BodyFrame.id).size(); i++) {
@@ -379,12 +385,9 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 			}
 
 		} else if (e.getSource() == orderListAllDeleteBt) {// 발주하기전 목록 지우기기능
-			for (int i = 0; i >= 0; i++) {
-				if (orderModel.getValueAt(0, 0) == null) {
-					break;
-				} else {
+			int rowCount = orderModel.getRowCount();
+			for (int i = 0; i < rowCount; i++) {
 					orderModel.removeRow(0);
-				}
 			}
 		} else if (e.getSource() == stockListBt) {// 재고 확인 버튼
 			if (stockModel.getValueAt(0, 0) == null) {// model1의 첫번째 줄에 아무값도 없으면 재고를 가져온다

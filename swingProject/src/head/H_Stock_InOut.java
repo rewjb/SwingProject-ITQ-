@@ -131,7 +131,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 		insertArrayBtn();
 		// 버튼 배치 메서드
-		
+
 		pNameBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
 		kindOfBox.addItem("입고");
 		kindOfBox.addItem("출고");
@@ -220,12 +220,11 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		add(stockScroll);
 		add(totalStockLabel);
 
-		
 		setBackground(new Color(184, 207, 229));
 		setLayout(null);
 		setBounds(0, 0, 770, 358);
 		setSize(770, 358);
-		
+
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝
 
@@ -359,7 +358,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		} // inputConfirm:버튼 if문 종료
 
 		// TODO Auto-generated method stub
-		
+
 	}// actionPerformed:메서드 종료
 
 	@Override
@@ -373,14 +372,6 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	}// insertUpdate:메서드 종료
 
 	@Override
-	public void removeUpdate(DocumentEvent e) {
-	}// 이 메서드는 정의하지 않습니다.
-
-	@Override
-	public void changedUpdate(DocumentEvent e) {
-	}// 이 메서드는 정의하지 않습니다.
-
-	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == kindOfBox) {
 			insertVenderNfranchise();
@@ -392,7 +383,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	}// itemStateChanged메서드 끝
 
 	public void insertVenderNfranchise() {
-
+		// 창고 특정 위치에 입출고를 입력하는 다이얼로그에 보면 장소를 결정하는 콤보박스가 있다.
+		// 출고와 입고의 여부에 따라 들어가는 장소가 달라지는 메서드이다.
 		if (kindOfBox.getSelectedItem().equals("출고")) {
 			h_franchiseList = H_FranchiseDAO.getInstance().select_AliasNTel();
 			placeBox.removeAllItems();
@@ -409,6 +401,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 	}// insertVenderNfranchise:메서드 끝
 
 	public void insertPointList(String point) {
+		// 창고의 특정 배치도 버튼을 누르면 나오는 다이얼로그에서 좌측에 보면
+		// 특정 장소에 들어가 있는 재고를 알 수가 있다. 거기에 들어가는 재고내용이다.
 		pointStockList = H_StockDAO.getInstance().selectPointAll(point);
 		int count = inputStockModel.getRowCount();
 
@@ -420,10 +414,11 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 			inputStockModel.insertRow(0,
 					new Object[] { pointStockList.get(i).getName(), pointStockList.get(i).getQuantity() });
 		}
-
 	}// insertPointList:메서드 끝
 
 	public void insertInOutTotalStockHistoryList() {
+		//입출고관리 화면에서 모든 테이블이 존재하는데
+		//그 현황테이블들에 자료가 들어가는 메서드이다.
 		inStockList = H_StockDAO.getInstance().selectInStockHistory();
 		int count = inStockListModel.getRowCount();
 
@@ -462,7 +457,16 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		}
 		for (int i = 0; i < totalStockList.size(); i++) {
 			StockListModel.insertRow(0,
-					new Object[] {totalStockList.get(i).getName(),totalStockList.get(i).getQuantity()});
+					new Object[] { totalStockList.get(i).getName(), totalStockList.get(i).getQuantity() });
 		}
 	}// insertInOutTotalStockHistoryList:메서드 종료
+	
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+	}// 이 메서드는 정의하지 않습니다.
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+	}// 이 메서드는 정의하지 않습니다.
+
 }// 클래스 끝

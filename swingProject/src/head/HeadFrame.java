@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
@@ -65,14 +66,24 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 	int xpos;
 	int ypos;
+	//화면을 중앙에 나타나게 하기 위한 x와 y 좌표
 	
 	private Dimension point = Toolkit.getDefaultToolkit().getScreenSize();
+	//전체 스크린 사이즈를 갖는 객체 생성
 
 	private ServerFrame serverFrame = new ServerFrame();
+	//채팅 프로그램 실행 객체
 
 	private Color color = new Color(128, 144, 160);
+	//모든 버튼의 색상을 지정할 객체
+	
+	Toolkit toolkit = Toolkit.getDefaultToolkit();
+	Image frameimg = toolkit.getImage("img/회사 프레임 아이콘.jpg");
 
 	public HeadFrame() {
+		
+		setTitle("BBQ 관리자  계정");
+		setIconImage(frameimg);
 
 		F_OrderCheckBtn.setBackground(color);
 		OrderBtn.setBackground(color);

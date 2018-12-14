@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import DTO_DAO.H_FranchiseDAO;
 import DTO_DAO.H_OrderDAO;
 import DTO_DAO.H_OrderDTO;
+import DTO_DAO.H_StockDAO;
 import DTO_DAO.H_VenderDAO;
 import DTO_DAO.H_VenderDTO;
 import DTO_DAO.H_VenderpDAO;
@@ -542,9 +543,10 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		}
 
 	}// actionPerformed:메서드 끝
-
+   
 	@Override
 	public void insertUpdate(DocumentEvent e) {
+		//값을 입력할 때 숫자이외 다른 값을 입력하면 
 		try {
 			Integer.parseInt(pQuantityField.getText());
 			int temp2;
@@ -559,10 +561,11 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		} catch (Exception e2) {
 			JOptionPane.showMessageDialog(this, "숫자를 입력해 주세요.");
 		}
-	}// 수량을 입력할 때 값이 변경된다.
+	}// insertUpdate(DocumentEvent e) : 메서드 종료
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
+		//수량을 입력할때 지속적으로 인지하며 총가격을 변경시킨다.
 		try {
 			int temp2;
 			if (pQuantityField.getText().equals("")) {
@@ -575,14 +578,14 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 			ptotalPriceField.setText((String.valueOf((temp1 * temp2))));
 		} catch (Exception e2) {
 		}
-	}// 수량을 지울때 때 값이 변경된다.
+	}// removeUpdate(DocumentEvent e) : 메서드 종료 
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 	}// 이 메서드는 정의하지 않습니다.
 
 	public void venderInsert() {
-
+		 // 발주를 할때 업체에 연락을 취해야하는 경우가 있다. 이를 위해 업체와 업체의 연락처의 정보를 테이블에 넣는 메서드이다.
 		ArrayList<H_VenderDTO> list = h_venderDAO.selectALLVenderInfo();
 		int count = venderListModel.getRowCount();
 
@@ -593,6 +596,19 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		for (int i = 0; i < list.size(); i++) {
 			venderListModel.insertRow(0, new Object[] { list.get(i).getName(), list.get(i).getTel() });
 		}
+	}// venderInsert() : 메서드 종료 
 
-	}
+	
+
+//	totalStockList = H_StockDAO.getInstance().selectTotalStock();
+//	count = StockListModel.getRowCount();
+//	if (count > 0) {
+//		for (int i = 0; i < count; i++) {
+//			StockListModel.removeRow(0);
+//		}
+//	}
+//	for (int i = 0; i < totalStockList.size(); i++) {
+//		StockListModel.insertRow(0,
+//				new Object[] { totalStockList.get(i).getName(), totalStockList.get(i).getQuantity() });
+//	}
 }// 클래스 끝

@@ -66,7 +66,7 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 //			listTable1.isCellEditable(i, 1);
 //	}
 		setLayout(null);
-		setSize(781, 360);
+		setSize(790, 370);
 		setBackground(new Color(184,207,229));
 		notCheckStockBt = new JButton("미확인 재고");
 		checkStockBt = new JButton("\uD1B5\uD569 \uC7AC\uACE0");
@@ -86,6 +86,10 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 	
 		checkBt = new JButton("\uAC00\uB9F9\uC810 \uD655\uC778");
 		checkBt.setBounds(193, 309, 107, 35);
+		
+		notCheckStockListTable.setBackground(Color.LIGHT_GRAY);
+		checkStockListTable.setBackground(Color.LIGHT_GRAY);
+		
 
 		notCheckStockBt.addActionListener(this);
 		checkStockBt.addActionListener(this);

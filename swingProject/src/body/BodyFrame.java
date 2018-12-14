@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 
@@ -46,6 +48,9 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	JLabel logoLabel = new JLabel(logoImg);
 	JLabel serviceInfo = new JLabel(logoImg);
 	
+	Toolkit toolkit = Toolkit.getDefaultToolkit();
+	Image frameimg = toolkit.getImage("img/회사 프레임 아이콘.jpg");
+
 
 	ButtonGroup btnGroup = new ButtonGroup();
 	// 버튼 그룹
@@ -69,16 +74,20 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		clientFrame.setLocationRelativeTo(this);
 		 
 		
-		setSize(820, 500);
+		setSize(820, 515);
+		setTitle("JVQ "+id+" 계정");
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(frameimg);
 		setResizable(false);
+		
+		
 		// 20 간격 !
 		OrderBtn.setBounds(10, 54, 107, 23);
-		StockBtn.setBounds(116, 54, 107, 23);
-		SalesBtn.setBounds(223, 54, 107, 23);
-		hallButton.setBounds(330, 54, 107, 23);
+		StockBtn.setBounds(119, 54, 107, 23);
+		SalesBtn.setBounds(228, 54, 107, 23);
+		hallButton.setBounds(337, 54, 107, 23);
 		btnNewButton.setBounds(689, 10, 111, 23);
 		logoLabel.setBounds(0, 10, 107, 46);
 		OrderBtn.setBackground(color);
@@ -94,7 +103,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		
 		
 
-		mainPanel.setBounds(10, 77, 790, 364);
+		mainPanel.setBounds(10, 77, 790, 370);
 		mainPanel.setLayout(null);
 		mainPanel.setBackground(Color.GRAY);
 		btnGroup.add(OrderBtn);
@@ -107,6 +116,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		getContentPane().add(SalesBtn);
 		getContentPane().add(hallButton);
 		getContentPane().add(logoLabel);
+		getContentPane().setBackground(new Color(202, 208, 213));
 		mainPanel.add(orderC);
 		mainPanel.add(hallc);
 		mainPanel.add(salesC);

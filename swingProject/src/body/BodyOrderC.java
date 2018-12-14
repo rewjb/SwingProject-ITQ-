@@ -45,7 +45,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	private JLabel reservesLabel;
 	private JLabel amountLabel;
 	private DefaultTableModel orderModel = new DefaultTableModel(0, 3);// 발주할 표
-	private DefaultTableModel stockModel = new DefaultTableModel(16, 2);// 재고 목록 표
+	private DefaultTableModel stockModel = new DefaultTableModel(0, 2);// 재고 목록 표
 	private DefaultTableModel orderList = new DefaultTableModel(0, 4);// 발주 목록 표
 
 	// 리스트를 넣을 Jtable
@@ -104,7 +104,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	public BodyOrderC() {// 생성자
 
 		setLayout(null);
-		setSize(781, 399);
+		setSize(790, 399);
 		setBackground(new Color(184,207,229));
 		
 		// 라벨의 위치 이름 폰트설정
@@ -147,8 +147,12 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		quantityTextField = new JTextField();
 		quantityTextField.setBounds(208, 18, 80, 21);
 		add(quantityTextField);
+		//테이블 내부 색깔
+		orderTable.setBackground(Color.LIGHT_GRAY);
+		orderListTable.setBackground(Color.LIGHT_GRAY);
+		stockListTable.setBackground(Color.LIGHT_GRAY);
 		
-
+		
 		JLabel orderListLabel = new JLabel("\uC7AC\uACE0 \uBAA9\uB85D");
 		orderListLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
 		orderListLabel.setBounds(656, 28, 57, 20);
@@ -393,7 +397,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 					orderModel.removeRow(0);
 			}
 		} else if (e.getSource() == stockListBt) {// 재고 확인 버튼
-			if (stockModel.getValueAt(0, 0) == null) {// model1의 첫번째 줄에 아무값도 없으면 재고를 가져온다
+			if (stockModel.getRowCount()==0) {// model1의 첫번째 줄에 아무값도 없으면 재고를 가져온다
 				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); j++) {
 					stockModel.insertRow(j,
 							new Object[] { B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getName(),
@@ -401,7 +405,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 				}
 
 			} else {
-				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); i++) {
+				int rowCount = stockModel.getRowCount();
+				for (int i = 0; i < rowCount; i++) {
 					stockModel.removeRow(0);
 				}
 				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); j++) {

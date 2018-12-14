@@ -58,7 +58,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 	public BodySalesC() {// 생성자
 		// jpanel레이아웃 사이즈 배경설정
 		setLayout(null);
-		setSize(790, 364);
+		setSize(790, 370);
 		setBackground(new Color(184,207,229));
 		salesResultscroll.setBounds(438, 25, 314, 55);
 		allSalesScroll.setBounds(12, 68, 314, 273);
@@ -97,6 +97,40 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		dateSearchLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		dateSearchLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		dateSearchLabel.setBounds(12, 41, 57, 15);
+		
+		salesTable.setBackground(Color.LIGHT_GRAY);
+		salesTableResult.setBackground(Color.LIGHT_GRAY);
+		
+		
+		JLabel salesResultLabel = new JLabel("\uB9E4\uCD9C\uC885\uD569");
+		salesResultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		salesResultLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		salesResultLabel.setBounds(562, 6, 57, 15);
+		add(salesResultLabel);
+		
+		JLabel salesSearchLabel = new JLabel("\uB9E4\uCD9C \uAC80\uC0C9");
+		salesSearchLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		salesSearchLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		salesSearchLabel.setBounds(146, 12, 67, 15);
+		add(salesSearchLabel);
+		
+		JLabel yearLabel = new JLabel("\uB144");
+		yearLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		yearLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		yearLabel.setBounds(99, 41, 57, 15);
+		add(yearLabel);
+		
+		JLabel monthLabel = new JLabel("\uC6D4");
+		monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		monthLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		monthLabel.setBounds(169, 41, 57, 15);
+		add(monthLabel);
+		
+		JLabel dayLabel = new JLabel("\uC77C");
+		dayLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		dayLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		dayLabel.setBounds(228, 41, 57, 15);
+		add(dayLabel);
 
 		// 각 컴포턴트 jpanel에 더하기
 		add(dateSearchLabel);
@@ -106,35 +140,6 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		add(bodySalesDataChart);
 		selecteBt.addActionListener(this);
 
-		JLabel salesResultLabel = new JLabel("\uB9E4\uCD9C\uC885\uD569");
-		salesResultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		salesResultLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		salesResultLabel.setBounds(562, 6, 57, 15);
-		add(salesResultLabel);
-
-		JLabel salesSearchLabel = new JLabel("\uB9E4\uCD9C \uAC80\uC0C9");
-		salesSearchLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		salesSearchLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		salesSearchLabel.setBounds(146, 12, 67, 15);
-		add(salesSearchLabel);
-
-		JLabel yearLabel = new JLabel("\uB144");
-		yearLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		yearLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		yearLabel.setBounds(99, 41, 57, 15);
-		add(yearLabel);
-
-		JLabel monthLabel = new JLabel("\uC6D4");
-		monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		monthLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		monthLabel.setBounds(169, 41, 57, 15);
-		add(monthLabel);
-
-		JLabel dayLabel = new JLabel("\uC77C");
-		dayLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		dayLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		dayLabel.setBounds(228, 41, 57, 15);
-		add(dayLabel);
 
 		setVisible(false);
 	}

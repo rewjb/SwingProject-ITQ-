@@ -247,6 +247,13 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 		model4.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 4번테이블 컬럼
 		model5.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 5번테이블 컬럼
 		model6.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 6번테이블 컬럼
+		
+		table.setBackground(Color.LIGHT_GRAY);
+		table1.setBackground(Color.LIGHT_GRAY);
+		table2.setBackground(Color.LIGHT_GRAY);
+		table3.setBackground(Color.LIGHT_GRAY);
+		table4.setBackground(Color.LIGHT_GRAY);
+		table5.setBackground(Color.LIGHT_GRAY);
 
 		// 각 컴포넌트 jpanel위에 올리기
 		add(jb5);
@@ -255,7 +262,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 		add(jb4);
 		add(scroll3);
 		add(scroll2);
-		add(jb1);
+		add(jb3);
 		add(scroll4);
 		add(jb2);
 		add(scroll5);

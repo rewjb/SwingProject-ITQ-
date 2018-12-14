@@ -416,7 +416,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 				}
 
 			}
-
+  
 		} else if (e.getSource() == orderDeleteBt) {// 발주취소 버튼 
 			orderDelete();
 			orderList();

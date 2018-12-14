@@ -82,7 +82,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 	Image frameimg = toolkit.getImage("img/회사 프레임 아이콘.jpg");
 
-	public HeadFrame() {
+	public HeadFrame() {  
 
 		setTitle("BBQ 관리자  계정");
 		setIconImage(frameimg);

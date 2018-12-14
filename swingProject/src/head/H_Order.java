@@ -140,24 +140,31 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 	public H_Order() {// 생성자 시작
 		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nameLabel.setText("발주품목");
+		nameLabel.setForeground(Color.WHITE);
 
 		venderLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		venderLabel.setText("업체");
+		venderLabel.setForeground(Color.WHITE);
 
 		moneyLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		moneyLabel.setText("가격");
+		moneyLabel.setForeground(Color.WHITE);
 
 		quantityLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		quantityLabel.setText("수량");
+		quantityLabel.setForeground(Color.WHITE);
 
 		totalPriceLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		totalPriceLabel.setText("총가격");
+		totalPriceLabel.setForeground(Color.WHITE);
 
 		venderInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		venderInfoLabel.setText("업체 연락처");
+		venderInfoLabel.setForeground(Color.WHITE);
 
 		stockInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		stockInfoLabel.setText("재고확인");
+		stockInfoLabel.setForeground(Color.WHITE);
 
 		pMoneyField.setHorizontalAlignment(SwingConstants.RIGHT);
 		pMoneyField.setBounds(230, 23, 70, 20);
@@ -186,6 +193,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 		orderListLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		orderListLabel.setText("발주목록");
+		orderListLabel.setForeground(Color.WHITE);
 		orderListLabel.setBounds(245, 155, 69, 15);
 		// 발주목록 레이블
 
@@ -322,7 +330,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		reStartBtn.setBounds(668, 335, 97, 23);
 
 		add(reStartBtn);
-
+		setBackground(Color.GRAY);
 		setVisible(false);// 마지막에는 false로 변경
 
 	}// 생성자 끝

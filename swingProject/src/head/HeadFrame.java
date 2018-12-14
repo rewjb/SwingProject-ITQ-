@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -33,7 +34,7 @@ import javax.swing.JPanel;
 
 public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
-	JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리");
+	JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리" , new ImageIcon());
 	JToggleButton OrderBtn = new JToggleButton("발주관리");
 	JToggleButton StockBtn = new JToggleButton("입-출고관리");
 	JToggleButton VenderBtn = new JToggleButton("업체관리");
@@ -66,6 +67,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 	public HeadFrame() {
 		// 20 간격 !
+		
 		F_OrderCheckBtn.setBounds(12, 60, 130, 23);
 		OrderBtn.setBounds(143, 60, 90, 23);
 		StockBtn.setBounds(234, 60, 110, 23);
@@ -125,6 +127,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+	
 		setVisible(true);
 	}// 생성자 종료
 
@@ -189,9 +192,5 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		}
 		
 	}// actionPerformed 메서드 끝
-
-	public static void main(String[] args) {
-		new HeadFrame();
-	}// main 메서드 종료
 
 }// 클래스 종료

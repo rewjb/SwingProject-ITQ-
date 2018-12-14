@@ -215,7 +215,7 @@ insert into bodyorder values (default,'google','g-2',25,default,'','');
 insert into bodyorder values (고유번호,아이디,재료명,수량,발주일,본사확인,가맹점 수령시 확인);
 //가맹점의 발주기록을 넣는 sql문
 
-insert into headFranchise values ('daum','123','AAA','010-xxxx-xxxx','408-81-123123','Seoul Geumcheon','bbq-d');
+insert into headFranchise values ('root','123','AAA','010-xxxx-xxxx','408-81-123123','Seoul Geumcheon','bbq-d');
 insert into headFranchise values ('naver','123','BBB','010-xxxx-xxxx','408-81-456456','Seoul Geumcheon-1','bbq-n');
 insert into headFranchise values ('google','123','CCC','010-xxxx-xxxx','408-81-789789','Seoul Geumcheon-2','bbq-g');
 insert into headFranchise values (아이디,비밀번호,가맹점 대표,전화번호,사업자번호,주소,가맹점 이름);

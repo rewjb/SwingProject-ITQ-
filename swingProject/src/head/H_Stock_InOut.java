@@ -148,7 +148,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		stockScroll.setBounds(572, 25, 186, 170);
 		inputStockScroll.setBounds(10, 20, 200, 145);
 
-		factoryArrange.setBackground(Color.BLACK);
+		factoryArrange.setBackground(Color.GRAY);
 		factoryArrange.setBounds(10, 25, 550, 170);
 		factoryArrange.setLayout(null);
 		// 공장 배치도 판넬 설정

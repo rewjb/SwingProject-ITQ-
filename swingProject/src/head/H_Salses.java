@@ -196,7 +196,7 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		franSalesBarChart.setLocation(12, 59);
 		franSalesPieChart.setLocation(474, 59);
 
-		headGoogleBarChart.setSize(470, 275);
+		headGoogleBarChart.setSize(470, 300);
 		headGoogleBarChart.setLocation(12, 30);
 
 		bodyPan.setBounds(0, 0, 770, 358);

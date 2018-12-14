@@ -126,6 +126,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btLoginU) {
 			w.findYourPage(tfUId.getText(), tfUPw.getText());
+			dispose();
 		}
 	}
 }// 클래스 종료

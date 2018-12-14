@@ -67,7 +67,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
 		clientFrame = new ClientFrame(id);
 		clientFrame.setLocationRelativeTo(this);
-		
+		 
 		
 		setSize(820, 500);
 		getContentPane().setLayout(null);

@@ -42,7 +42,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	
 	
 	
-	ImageIcon logoImg = new ImageIcon("logo.png");
+	ImageIcon logoImg = new ImageIcon("img/logo.png");
 	JLabel logoLabel = new JLabel(logoImg);
 	JLabel serviceInfo = new JLabel(logoImg);
 	
@@ -67,7 +67,8 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 
 		clientFrame = new ClientFrame(id);
 		clientFrame.setLocationRelativeTo(this);
-
+		
+		
 		setSize(820, 500);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
@@ -79,7 +80,7 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 		SalesBtn.setBounds(223, 54, 107, 23);
 		hallButton.setBounds(330, 54, 107, 23);
 		btnNewButton.setBounds(689, 10, 111, 23);
-		logoLabel.setBounds(10, 10, 107, 46);
+		logoLabel.setBounds(0, 10, 107, 46);
 		OrderBtn.setBackground(color);
 		StockBtn.setBackground(color);
 		SalesBtn.setBackground(color);

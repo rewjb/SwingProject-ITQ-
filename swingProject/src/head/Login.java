@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import body.BodyFrame;
 import inter.BBQ;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Color;
 
 
@@ -40,10 +41,15 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	
 	Dimension point = Toolkit.getDefaultToolkit().getScreenSize();
 	private JLabel lbLogin;
+	Toolkit toolkit = Toolkit.getDefaultToolkit();
+	Image frameimg = toolkit.getImage("img/회사 프레임 아이콘.jpg");
+
 
 	//생성자
 	public Login() {
 		getContentPane().setBackground(Color.PINK);
+		setIconImage(frameimg);
+		setTitle("로그인");
 		mainPSetting();
 		loginUserPageSetting();
 	

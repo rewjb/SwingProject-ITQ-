@@ -39,7 +39,7 @@ public class H_Vender extends JPanel implements HeadVender {
 	Color color = new Color(128, 144, 160);
 	
 	public H_Vender() {
-		
+		            
 		setBounds(0, 0, 770, 368);
 		setLayout(null);
 

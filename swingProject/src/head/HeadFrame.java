@@ -108,7 +108,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 		VenderBtn.setBorder(null);
 		FranchiseBtn.setBorder(null);
 		SalesBtn.setBorder(null);
-
+                    
 		mainPanel.setBounds(12, 83, 770, 368);
 
 		logoLabel.setBounds(10, 10, 107, 46);

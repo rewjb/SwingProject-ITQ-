@@ -84,7 +84,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 
 	public HeadFrame() {  
 
-		setTitle("BBQ 관리자  계정");
+		setTitle("JVQ 관리자  계정");
 		setIconImage(frameimg);
 
 		F_OrderCheckBtn.setBackground(color);

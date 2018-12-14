@@ -75,14 +75,11 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 	public static int goOrder;
 
 	public H_CheckOrder() {
-		title1.setBackground(Color.RED);
 
 		title1.setBounds(230, 1, 100, 20);
 		title2.setBounds(625, 1, 100, 20);
 		// 테이블당 제목 붙이기
 		
-		title2.setOpaque(true);
-
 		orderInsert(index);
 		// 발주 길록을 입력하는 메서드 index는 페이지 번호
 
@@ -148,10 +145,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 
 		// ----------------------------------------------------위에는 발주목록 아래는 전화번호 목록
 		
-		title1.setForeground(Color.WHITE);
-		title2.setForeground(Color.WHITE);
 
-		title2.setBackground(Color.BLACK);
 		
 		
 		add(title1);
@@ -166,7 +160,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		setLayout(null);
 		setBounds(0, 0, 770, 358);
 		
-		setBackground(Color.gray);
+		setBackground(new Color(184, 207, 229));
 //		194 226 208
 		setVisible(false);// 마지막에는 false로 변경
 

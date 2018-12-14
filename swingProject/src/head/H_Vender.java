@@ -12,12 +12,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,19 +31,32 @@ public class H_Vender extends JPanel implements HeadVender {
 	
 	private JPanel paneVdC;
 	private JPanel paneVdP;
-	private JButton btVdC;
-	private JButton btVdP;
+	private JToggleButton btVdC; //업체
+	private JToggleButton btVdP; //제품
+	
+	ButtonGroup btnG = new ButtonGroup();
 
+	Color color = new Color(128, 144, 160);
+	
 	public H_Vender() {
-
+		
 		setBounds(0, 0, 770, 368);
 		setLayout(null);
 
 		vCompanySetting();
 		vProductSetting();
 		
+		setBackground(new Color(184, 207, 229));
 		paneVdC.setVisible(false);
 		setVisible(false);
+		
+		btnG.add(btVdC);
+		btnG.add(btVdP);
+		
+		btVdP.setBackground(color);
+		btVdC.setBackground(color);
+		
+		btVdC.doClick();
 	}
 	
 	private void vCompanySetting() {
@@ -50,9 +65,9 @@ public class H_Vender extends JPanel implements HeadVender {
 		add(paneVdC);
 		paneVdC.setLayout(null);
 		
-		btVdC = new JButton("업체");
+		btVdC = new JToggleButton("업체");
 		add(btVdC);
-		btVdC.setBounds(300, 0, 80, 20);
+		btVdC.setBounds(610, 345, 80, 23);
 		btVdC.addActionListener(new ActionListener() {
 
 			@Override
@@ -69,8 +84,8 @@ public class H_Vender extends JPanel implements HeadVender {
 		add(paneVdP);
 		paneVdP.setLayout(null);
 		
-		btVdP = new JButton("제품");
-		btVdP.setBounds(380, 0, 80, 20);
+		btVdP = new JToggleButton("제품");
+		btVdP.setBounds(690, 345, 80, 23);
 		add(btVdP);
 		btVdP.addActionListener(new ActionListener() {
 

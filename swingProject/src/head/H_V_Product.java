@@ -87,6 +87,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 		buttonSetting();
 		showAll();
 		mouseAction();
+		
+		setBackground(new Color(184, 207, 229));
 	}
 
 	// 표에 관련된 설정사항

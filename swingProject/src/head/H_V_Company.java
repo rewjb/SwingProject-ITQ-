@@ -67,6 +67,8 @@ public class H_V_Company extends JPanel implements ActionListener {
 		buttonSetting();
 		showAll();
 		mouseAction();
+		
+		setBackground(new Color(184, 207, 229));
 	}
 
 	// 표에 관련된 설정사항
@@ -116,6 +118,8 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfCNum0.setEditable(true);
 		tfCNum1.setEditable(true);
 		tfCNum2.setEditable(true);
+		
+		
 	}
 
 	// 라벨 및 텍스트필드 설정사항

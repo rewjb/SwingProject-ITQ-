@@ -46,7 +46,7 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 			} else {
 				return true;
 			}
-			
+		
 		};
 	};
 

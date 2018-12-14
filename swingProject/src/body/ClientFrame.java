@@ -127,7 +127,7 @@ public class ClientFrame extends JDialog implements ActionListener {
 		chattingPanel.setVisible(false);
 
 		setLayout(null);
-		add(selectRoomPanel);
+		add(selectRoomPanel);  
 		add(chattingPanel);
 		setResizable(false);
 		setTitle("접속자 아이디: "+ BodyFrame.id);

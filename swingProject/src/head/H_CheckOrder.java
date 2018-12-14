@@ -76,6 +76,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 
 	public H_CheckOrder() {
 
+		
 		title1.setBounds(230, 1, 100, 20);
 		title2.setBounds(625, 1, 100, 20);
 		// 테이블당 제목 붙이기
@@ -91,6 +92,9 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 //		
 		aliasNtelInsert();
 		// 업체들 전화번호 갖고오는 메서드
+		
+	
+		//발주일 컬럼 너비 결정
 
 		orderListTable.getTableHeader().setResizingAllowed(false);
 		orderListTable.getTableHeader().setReorderingAllowed(false);
@@ -99,15 +103,19 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		franchiseListTable.getTableHeader().setResizingAllowed(false);
 		franchiseListTable.getTableHeader().setReorderingAllowed(false);
 		// 업체테이블의 헤더를 얻어서 사이즈 수정 불가, / 업체테이블의 컬럼 이동 금지
+		
+		
 
 		franchiseListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
 		orderListModel.setColumnIdentifiers(new String[] { "가맹점명", "상품명", "수량", "발주일", "확인여부" });
 
-//		orderListTable.getColumnModel().getColumn(1).setPreferredWidth(300);
 		// 컬럼 너비를 수정하는 메서드 , 그러나 여기에서는 스크롤팬에 맞춰서 설정된듯 하다 ..
 
 //		orderDAO = B_OrderDAO.getInstance().select_UnCheck(index);
 //		데이터를 얻어오는 것
+		
+		orderListTable.getColumnModel().getColumn(3).setPreferredWidth(150);
+		//발주일 컬럼의 너비설정
 
 		nextBtn.addActionListener(this);
 		previousBtn.addActionListener(this);
@@ -137,17 +145,6 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 			franchiseListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 
-//		orderListTable.getTableHeader().setBackground(Color.BLACK);
-//		컬럼 배경설정
-//		orderListTable.getColumnModel().getColumn(0)
-
-		// 처음 시작시 버튼에 인덱스 번호 부여
-
-		// ----------------------------------------------------위에는 발주목록 아래는 전화번호 목록
-		
-
-		
-		
 		add(title1);
 		add(title2);
 		add(confirmBtn);
@@ -158,10 +155,11 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		add(orderScroll);
 		add(reStartBtn);
 		setLayout(null);
-		setBounds(0, 0, 770, 358);
+		setBounds(0, 0, 770, 368);
+		
+		orderListTable.setBackground(Color.LIGHT_GRAY);
 		
 		setBackground(new Color(184, 207, 229));
-//		194 226 208
 		setVisible(false);// 마지막에는 false로 변경
 
 	}// 생성자 끝
@@ -213,7 +211,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 			for (int i = 0; i < (count % listNum); i++) { // 마지막 index
 				orderListModel.insertRow(orderListModel.getRowCount(),
 						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
-								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate(),
+								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate().substring(0, 16),
 								orderList.get(startNum + i).gethComfirm() });
 				uniqueNum.add(orderList.get(startNum + i).getNum());
 			}
@@ -222,7 +220,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 			for (int i = 0; i < listNum; i++) { // 마지막 index가 아님
 				orderListModel.insertRow(orderListModel.getRowCount(),
 						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
-								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate(),
+								orderList.get(startNum + i).getQuantity(), orderList.get(startNum + i).getDate().substring(0, 16),
 								orderList.get(startNum + i).gethComfirm(), orderList.get(startNum + i).gethComfirm() });
 				uniqueNum.add(orderList.get(startNum + i).getNum());
 			}

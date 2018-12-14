@@ -181,8 +181,6 @@ public class ServerFrame extends JDialog implements ActionListener {
 				tempStr += ServerFrame.model.getValueAt(i, 0) + "/" + ServerFrame.model.getValueAt(i, 1) + "\n";
 			} // sendRoomList() : 메서드 종료
 
-			System.out.println(tempStr);
-
 			for (int i = 0; i < count; i++) {
 				allMemberList.get(i).print(tempStr);
 				allMemberList.get(i).flush();

@@ -81,7 +81,7 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 	private JToggleButton headSalesBtn = new JToggleButton("본사 매출");
 	private JToggleButton bodySalesBtn = new JToggleButton("가맹점 매출");
-	
+
 	private ArrayList<H_FranchiseDTO> h_franList;
 	// 가맹점 선택하는 콤보박스에 넣을 데이터 DTO리스느
 
@@ -109,7 +109,7 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 	// 가맹점 총 매출 데이터를 갖고 있는 리스트
 
 	private Color color = new Color(128, 144, 160);
-	
+
 	public H_Salses() {
 
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
@@ -135,8 +135,6 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 		radioGroup.add(monthRadio);
 		radioGroup.add(dayRadio);
-		buttonGroup.add(headSalesBtn);
-		buttonGroup.add(bodySalesBtn);
 
 		for (int i = 0; i < 10; i++) {
 			yearComboBox.addItem(String.valueOf(2018 - i));
@@ -158,8 +156,6 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 		monthRadio.addItemListener(this);
 		dayRadio.addItemListener(this);
-		headSalesBtn.addActionListener(this);
-		bodySalesBtn.addActionListener(this);
 		monthComboBox.addItemListener(this);
 		yearComboBox.addItemListener(this);
 		franSelectJComboBox.addItemListener(this);
@@ -168,8 +164,7 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		monthRadio.doClick();
 		showPieChart();
 
-		setLayout(null);
-		setBounds(0, 0, 770, 358);
+		
 
 		franSalesLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		label.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
@@ -186,10 +181,8 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		franSelectJLabel.setBounds(266, 35, 20, 15);
 		franSelectJComboBox.setBounds(178, 32, 86, 21);
 		label.setBounds(566, 35, 111, 15);
-		bodySalesBtn.setBounds(566, 335, 111, 23);
-		headSalesBtn.setBounds(673, 335, 97, 23);
 		franSalesBarChart.setSize(450, 275);
-		
+
 		headSalesYearComboBox.setBounds(490, 32, 86, 21);
 		headSalesLabel.setBounds(310, 10, 250, 15);
 		headSelectJLabel.setBounds(580, 35, 20, 15);
@@ -201,10 +194,10 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		headGoogleBarChart.setSize(470, 300);
 		headGoogleBarChart.setLocation(12, 30);
 
-		bodyPan.setBounds(0, 0, 770, 358);
+		bodyPan.setBounds(0, 0, 770, 368);
 		bodyPan.setLayout(null);
 
-		headPan.setBounds(0, 0, 770, 358);
+		headPan.setBounds(0, 0, 770, 368);
 		headPan.setLayout(null);
 
 		bodyPan.add(franSalesBarChart);
@@ -225,21 +218,28 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		headPan.add(headSalesLabel);
 		headPan.add(headGoogleBarChart);
 		headPan.add(headSalesScroll);
-		
-		headSalesBtn.setBackground(color);
-		bodySalesBtn.setBackground(color);
-
-		add(headSalesBtn);
-		add(bodySalesBtn);
 
 		add(headPan);
 		add(bodyPan);
 
-		bodySalesBtn.doClick();
-		
 		headPan.setBackground(new Color(184, 207, 229));
+		buttonGroup.add(bodySalesBtn);
+		bodySalesBtn.setBounds(566, 345, 111, 23);
+		headPan.add(bodySalesBtn);
+		bodySalesBtn.addActionListener(this);
+		bodySalesBtn.setBackground(color);
+		buttonGroup.add(headSalesBtn);
+		headSalesBtn.setBounds(673, 345, 97, 23);
+		headPan.add(headSalesBtn);
+		headSalesBtn.addActionListener(this);
+		
+				headSalesBtn.setBackground(color);
+		
+				bodySalesBtn.doClick();
 		bodyPan.setBackground(new Color(184, 207, 229));
-
+		
+		setLayout(null);
+		setBounds(0, 0, 770, 368);
 		setVisible(false);// 마지막에는 false로 변경
 	}// 생성자 끝
 
@@ -335,9 +335,9 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 	private void insertDataInTable(String year) {
 		// 본사 매출표시 테이블에 데이터 넣는 메서드
 
-		int sumHeadPurchase = 0;
-		int sumHeadSales = 0;
-		int sumTotalBodySales = 0;
+		double sumHeadPurchase = 0;
+		double sumHeadSales = 0;
+		double sumTotalBodySales = 0;
 		// 각 데이터 테이블의 열별로 합산값을 받는 변수
 
 		headPurchase = H_OrderDAO.getInstance().selectTotalMonthSalse(year);
@@ -360,11 +360,14 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		} // 기존값 테이블에서 삭제하기
 		for (int i = 0; i < 12; i++) {
 			headSalesModel.insertRow(0,
-					new Object[] { (i + 1) + "월", headPurchase.get(i), headSales.get(i), totalBodySales.get(i) });
+					new Object[] { (i + 1) + "월", String.format("%.2f", (double) headPurchase.get(i) / 100000000) + "억",
+							String.format("%.2f", (double) headSales.get(i) / 100000000) + "억",
+							String.format("%.2f", (double) totalBodySales.get(i) / 100000000) + "억" });
 		} // 데이터 insert 하기
 
-		headSalesModel.insertRow(12, new Object[] { "합산", sumHeadPurchase, sumHeadSales, sumTotalBodySales });
-		
+		headSalesModel.insertRow(12, new Object[] { "합산", String.format("%.2f", sumHeadPurchase/100000000) + "억",
+				String.format("%.2f", sumHeadSales/100000000) + "억", String.format("%.2f", sumTotalBodySales/100000000) + "억" });
+
 	}// insertDataInTable() : 메서드 종료
 
 }// 클래스 끝

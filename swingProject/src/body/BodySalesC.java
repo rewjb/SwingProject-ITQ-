@@ -60,21 +60,21 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		setLayout(null);
 		setSize(790, 370);
 		setBackground(new Color(184,207,229));
-		salesResultscroll.setBounds(438, 25, 314, 55);
+		salesResultscroll.setBounds(363, 25, 398, 55);
 		allSalesScroll.setBounds(12, 68, 314, 273);
 
 		// 각 표 컬럼 설정
 		allSalesModel.setColumnIdentifiers(new Object[] { "메뉴", "수량", "합계", "날짜" });
 		salesResultModel.setColumnIdentifiers(new Object[] { "후라이드", "양념", "간장", "음료", "합계" });
 
-		salesTable.getColumnModel().getColumn(3).setPreferredWidth(200);
+		salesTable.getColumnModel().getColumn(3).setPreferredWidth(150);
 		selecteBt = new JButton("\uAC80\uC0C9");
 		// 선택버튼 폰트설정
 		selecteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
 		selecteBt.setBounds(275, 37, 57, 23);
-		bodySalesDataChart.setSize(422, 281);
+		bodySalesDataChart.setSize(440, 281);
 		// 그래프 위치 지정
-		bodySalesDataChart.setLocation(350, 86);
+		bodySalesDataChart.setLocation(338, 86);
 
 		// 각 텍스트 필드 위치지정
 		yearTextField = new JTextField();
@@ -105,7 +105,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		JLabel salesResultLabel = new JLabel("\uB9E4\uCD9C\uC885\uD569");
 		salesResultLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		salesResultLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		salesResultLabel.setBounds(562, 6, 57, 15);
+		salesResultLabel.setBounds(535, 8, 57, 15);
 		add(salesResultLabel);
 		
 		JLabel salesSearchLabel = new JLabel("\uB9E4\uCD9C \uAC80\uC0C9");
@@ -259,7 +259,7 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 						+ (int) salesResultModel.getValueAt(0, 2) + (int) salesResultModel.getValueAt(0, 3), 0, 4);
 			}
 		}
-	}
+	}//종합 매출 메서드 끝
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

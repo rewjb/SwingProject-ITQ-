@@ -75,23 +75,32 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		tfUId = new JTextField();
 		tfUId.setBounds(50, 230, 180, 32);
 		tfUId.setText("아이디를 입력하세요.");
-		tfUId.addMouseListener(new MouseAdapter() {
+		tfUId.addFocusListener(new FocusListener() {
 			
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				tfUId.setText("");
+			public void focusLost(FocusEvent e) {
+				if (tfUId.getText().equals("")) {
+					tfUId.setText("아이디를 입력하세요.");
+				}
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (tfUId.getText().equals("아이디를 입력하세요.")) {
+					tfUId.setText("");
+				}
 			}
 		});
+		
 		getContentPane().add(tfUId);
 		
 		tfUPw = new JPasswordField();
 		tfUPw.setBounds(50, 265, 180, 32);
-		tfUPw.setText("비밀번호를 입력하세요.");
 		tfUPw.addFocusListener(new FocusListener() {
 			
 			@Override
 			public void focusLost(FocusEvent e) {
-				
+				tfUPw.setText("           ");
 			}
 			
 			@Override

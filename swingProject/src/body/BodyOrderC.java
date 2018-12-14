@@ -131,6 +131,8 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 		orderModel.setColumnIdentifiers(new Object[] { "식자재", "수량", "금액" });
 		stockModel.setColumnIdentifiers(new Object[] { "식자재", "수량" });
 		orderList.setColumnIdentifiers(new Object[] { "식자재", "수량", "발주일", "본사확인" });
+		stockListTable.getColumnModel().getColumn(2).setPreferredWidth(90);
+		
 
 		// listTable2.getColumnModel().getColumn(4).setPreferredWidth(-10);
 
@@ -160,7 +162,6 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 
 		selectBt = new JButton("\uC120\uD0DD");
 		selectBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		selectBt.setBackground(Color.BLACK);
 		selectBt.setBounds(313, 18, 74, 23);
 		add(selectBt);
 
@@ -282,25 +283,11 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 				orderList.insertRow(i,
 						new Object[] { B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getName(),
 								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getQuantity(),
-								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate(),
+								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate().substring(0, 10),
 								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm() });
 			}
 		} 
-//			else {
-//
-//			for (int i = 0; i < selectAllArrayListSize; i++) {
-//				orderList.removeRow(0);
-//			}
-//			for (int i = 0; i < selectAllArrayListSize; i++) {
-//				orderList.insertRow(i,
-//						new Object[] { B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getName(),
-//								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getQuantity(),
-//								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate(),
-//								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm() });
-//			}
-//		}
 	}
-	
 	
 	public void reader() throws Exception {//단가를 가져오는 메서드 (파일 입출력)
 		file = new File("H_VenderpName.txt");

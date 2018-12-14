@@ -16,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
-import head.H_V_Company;
-import head.H_V_Product;
 import inter.BBQHead;
 import inter.HeadVender;
 
@@ -60,7 +58,7 @@ public class H_Vender extends JPanel implements HeadVender {
 	
 	private void vCompanySetting() {
 		paneVdC = new H_V_Company();
-		paneVdC.setBounds(0, 21, 770, 315);
+		paneVdC.setBounds(0, 21, 770, 330);
 		add(paneVdC);
 		paneVdC.setLayout(null);
 		
@@ -89,7 +87,7 @@ public class H_Vender extends JPanel implements HeadVender {
 	
 	private void vProductSetting() {
 		paneVdP = new H_V_Product();
-		paneVdP.setBounds(0, 21, 770, 315);
+		paneVdP.setBounds(0, 21, 770, 330);
 		add(paneVdP);
 		paneVdP.setLayout(null);
 		

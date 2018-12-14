@@ -23,9 +23,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.*;
+import javax.swing.ImageIcon;
 
 public class H_V_Product extends JPanel implements ActionListener {
 	// 표에 관련된 부분
@@ -46,6 +48,9 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JTextField tfMoney;
 	private JLabel lbOrderM;
 	private JTextField tfOrderM;
+	
+	private JLabel plb1;
+	private JLabel plb2;
 	
 	// 버튼
 	private JButton btAdd;
@@ -81,8 +86,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 	// 생성자 constructor
 	public H_V_Product() {
-		labelSetting();
 		buttonSetting();
+		labelSetting();
 		showAll();
 		mouseAction();
 		
@@ -100,7 +105,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		add(scrollPane);
-		scrollPane.setBounds(15, 10, 500, 300);
+		scrollPane.setBounds(255, 30, 500, 300);
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
@@ -149,7 +154,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 			id = list.get(0).getId();
 		}
 		cbId = new JComboBox<H_VenderDTO>(vec);
-		cbId.setBounds(587, 20, 120, 30);
 		cbId.addActionListener(new ActionListener() {
 
 			@Override
@@ -159,9 +163,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 				System.out.println("list size 출력 : " + list.size());
 			}
 		});
-
-		this.add(cbId);
-
 	}
 
 	// 메뉴이름 콤보박스에 담아주는 메서드
@@ -181,7 +182,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 				vec.add(np[0]); // 콤보박스에는 이름만 출력해주기.
 			}
 			cbName = new JComboBox(vec);
-			cbName.setBounds(587, 100, 120, 30);
 			cbName.addActionListener(new ActionListener() {
 
 				@Override
@@ -191,7 +191,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 					tfOrderM.setText(nameO.get(name)); // 발주가 항목에 바로 값 들어가게 세팅
 				}
 			});
-			add(cbName);
 			sc.close();
 
 		} catch (Exception e) {
@@ -201,85 +200,106 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 	// 라벨 및 텍스트필드 설정사항
 	private void labelSetting() {
+		plb1 = new JLabel("제품목록");
+		plb1.setBounds(450, 0, 100, 30);
+		plb1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(plb1);
+
+		plb2 = new JLabel("제품 등록");
+		plb2.setBounds(100, 0, 100, 30);
+		plb2.setHorizontalAlignment(SwingConstants.CENTER);
+		add(plb2);
+		
+		JPanel sp = new JPanel();
+		sp.setBorder(new LineBorder(new Color(255,255,255)));
+		sp.setBackground(new Color(184, 207, 229));
+		sp.setLayout(null);
+		sp.setBounds(15, 30, 230, 210);
+		this.add(sp);
+		
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
-		lbId.setBounds(522, 20, 60, 30);
-		add(lbId);
+		lbId.setBounds(0, 10, 60, 30);
+		sp.add(lbId);
 
 		comboCId(); // 업체 아이디 콤보박스
+		cbId.setBounds(65, 10, 150, 30);
+		sp.add(cbId);
+		
 		tfId = new JTextField();
-		tfId.setBounds(587, 20, 150, 30);
-		add(tfId);
+		tfId.setBounds(65, 10, 150, 30);
+		sp.add(tfId);
 		cbId.setVisible(true);
 		tfId.setVisible(false);
 
 		lbNum = new JLabel("번호");
 		lbNum.setHorizontalAlignment(SwingConstants.CENTER);
-		lbNum.setBounds(522, 60, 60, 30);
-		add(lbNum);
+		lbNum.setBounds(0, 50, 60, 30);
+		sp.add(lbNum);
 
 		tfNum = new JTextField();
 		tfNum.setColumns(10);
-		tfNum.setBounds(587, 60, 150, 30);
-		add(tfNum);
+		tfNum.setBounds(65, 50, 150, 30);
+		sp.add(tfNum);
 
 		lbName = new JLabel("재료명");
 		lbName.setHorizontalAlignment(SwingConstants.CENTER);
-		lbName.setBounds(522, 100, 60, 30);
-		add(lbName);
+		lbName.setBounds(0, 90, 60, 30);
+		sp.add(lbName);
 
-		comboPName();
+		comboPName(); // 재료명 콤보박스
+		cbName.setBounds(65, 90, 120, 30);
+		sp.add(cbName);
 		cbName.setVisible(true);
 		tfId.setVisible(false);
 
 		lbMoney = new JLabel("매입가");
 		lbMoney.setHorizontalAlignment(SwingConstants.CENTER);
-		lbMoney.setBounds(522, 140, 60, 30);
-		add(lbMoney);
+		lbMoney.setBounds(0, 130, 60, 25);
+		sp.add(lbMoney);
 
 		tfMoney = new JTextField();
 		tfMoney.setColumns(10);
-		tfMoney.setBounds(587, 140, 150, 30);
-		add(tfMoney);
+		tfMoney.setBounds(65, 130, 150, 30);
+		sp.add(tfMoney);
 
 		lbOrderM = new JLabel("발주가");
 		lbOrderM.setHorizontalAlignment(SwingConstants.CENTER);
-		lbOrderM.setBounds(522, 180, 60, 30);
-		add(lbOrderM);
+		lbOrderM.setBounds(0, 170, 60, 25);
+		sp.add(lbOrderM);
 
 		tfOrderM = new JTextField();
 		tfOrderM.setColumns(10);
-		tfOrderM.setBounds(587, 180, 150, 30);
+		tfOrderM.setBounds(65, 170, 150, 30);
 		tfOrderM.setEditable(false);
-		add(tfOrderM);
+		sp.add(tfOrderM);
+		
+		//버튼 추가
+		btName = new JButton();
+		btName.setIcon(new ImageIcon("img/edite.png"));
+		btName.setBounds(185, 90, 30, 30);
+		btName.addActionListener(this);
+
+		sp.add(btName);
 	}
 
 	// 버튼에 관련된 설정사항
 	private void buttonSetting() {
 		btAdd = new JButton("추가");
-		btAdd.setBounds(527, 275, 70, 30);
+		btAdd.setBounds(20, 300, 70, 30);
 		add(btAdd);
 		btAdd.addActionListener(this);
 
 		btModify = new JButton("수정");
-		btModify.setBounds(605, 275, 70, 30);
+		btModify.setBounds(95, 300, 70, 30);
 		add(btModify);
 		btModify.addActionListener(this);
 
 		btDelete = new JButton("삭제");
-		btDelete.setBounds(683, 275, 70, 30);
+		btDelete.setBounds(170, 300, 70, 30);
 		add(btDelete);
 		btDelete.addActionListener(this);
 
-		btCId = new JButton();
-		btCId.setBounds(710, 20, 30, 30);
-		add(btCId);
-		btCId.addActionListener(this);
-
-		btName = new JButton();
-		btName.setBounds(710, 100, 30, 30);
-		add(btName);
-		btName.addActionListener(this);
 	}
 
 	// 마우스 액션에 관한 메서드 - 메인 테이블
@@ -353,9 +373,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 			nameSetting();
 		}
 
-		if (e.getSource() == btCId) {
-
-		}
 	}
 
 //----------------------------------------------------------------------------------
@@ -388,7 +405,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		nameM.setColumnIdentifiers(nameC);
 		nameT.setModel(nameM);
 
-		nameF.add(nameS);
+		nameF.getContentPane().add(nameS);
 		nameS.setBounds(10, 50, 255, 205);
 		nameT.setBackground(Color.LIGHT_GRAY);
 		nameT.setForeground(Color.BLACK);
@@ -414,7 +431,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private void nameTFSetting() {
 		tfNameN = new JTextField();
 		tfNameN.setText("제품명");
-		nameF.add(tfNameN);
+		nameF.getContentPane().add(tfNameN);
 		tfNameN.setBounds(10, 10, 125, 30);
 		// 재료 명을 클릭했을때 한번에 비워지는 액션
 		tfNameN.addMouseListener(new MouseAdapter() {
@@ -426,7 +443,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 		tfNameP = new JTextField();
 		tfNameP.setText("발주가");
-		nameF.add(tfNameP);
+		nameF.getContentPane().add(tfNameP);
 		tfNameP.setBounds(140, 10, 125, 30);
 		// 이윤 항목을 틀릭했을때 한번에 비워지는 액션
 		tfNameP.addMouseListener(new MouseAdapter() {
@@ -443,22 +460,22 @@ public class H_V_Product extends JPanel implements ActionListener {
 		// 추가 버튼
 		btNameA = new JButton("추가");
 		btNameA.setBounds(10, 270, 60, 30);
-		nameF.add(btNameA);
+		nameF.getContentPane().add(btNameA);
 
 		// 수정 버튼
 		btNameM = new JButton("수정");
 		btNameM.setBounds(75, 270, 60, 30);
-		nameF.add(btNameM);
+		nameF.getContentPane().add(btNameM);
 
 		// 삭제 버튼
 		btNameD = new JButton("삭제");
 		btNameD.setBounds(140, 270, 60, 30);
-		nameF.add(btNameD);
+		nameF.getContentPane().add(btNameD);
 
 		// 적용 버튼
 		btRefresh = new JButton("적용");
 		btRefresh.setBounds(205, 270, 60, 30);
-		nameF.add(btRefresh);
+		nameF.getContentPane().add(btRefresh);
 
 	}
 

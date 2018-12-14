@@ -16,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
-import won.H_V_Company;
-import won.H_V_Product;
 import inter.BBQHead;
 import inter.HeadVender;
 
@@ -28,10 +26,6 @@ public class H_Vender extends JPanel implements HeadVender {
 	private JPanel paneVdP;
 	private JToggleButton btVdC; //업체
 	private JToggleButton btVdP; //제품
-	private JLabel clb1;
-	private JLabel clb2;
-	private JLabel plb1;
-	private JLabel plb2;
 	
 	ButtonGroup btnG = new ButtonGroup();
 
@@ -60,7 +54,7 @@ public class H_Vender extends JPanel implements HeadVender {
 	
 	private void vCompanySetting() {
 		paneVdC = new H_V_Company();
-		paneVdC.setBounds(0, 21, 770, 315);
+		paneVdC.setBounds(0, 0, 770, 340);
 		add(paneVdC);
 		paneVdC.setLayout(null);
 		
@@ -75,21 +69,12 @@ public class H_Vender extends JPanel implements HeadVender {
 				productSetVisible(false);
 			}
 		});
-		
-		clb1 = new JLabel("업체목록");
-		clb1.setBounds(210, 0, 100, 30);
-		clb1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(clb1);
-		
-		clb2 = new JLabel("업체등록");
-		clb2.setBounds(590, 0, 100, 30);
-		clb2.setHorizontalAlignment(SwingConstants.CENTER);
-		add(clb2);
+
 	}
 	
 	private void vProductSetting() {
 		paneVdP = new H_V_Product();
-		paneVdP.setBounds(0, 21, 770, 315);
+		paneVdP.setBounds(0, 0, 770, 340);
 		add(paneVdP);
 		paneVdP.setLayout(null);
 		
@@ -107,38 +92,30 @@ public class H_Vender extends JPanel implements HeadVender {
 				((H_V_Product) paneVdP).comboCId();
 			}
 		});
-		plb1 = new JLabel("제품목록");
-		plb1.setBounds(210, 0, 100, 30);
-		plb1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(plb1);
 
-		plb2 = new JLabel("제품 등록");
-		plb2.setBounds(590, 0, 100, 30);
-		plb2.setHorizontalAlignment(SwingConstants.CENTER);
-		add(plb2);
 	}
 
 	private void companeySetVisible(boolean b) {
 		if(b) {
 			paneVdC.setVisible(true);
-			clb1.setVisible(true);
-			clb2.setVisible(true);
+//			clb1.setVisible(true);
+//			clb2.setVisible(true);
 		}else {
 			paneVdC.setVisible(false);
-			clb1.setVisible(false);
-			clb2.setVisible(false);
+//			clb1.setVisible(false);
+//			clb2.setVisible(false);
 		}
 	}
 	
 	private void productSetVisible(boolean b) {
 		if(b) {
 			paneVdP.setVisible(true);
-			plb1.setVisible(true);
-			plb2.setVisible(true);
+//			plb1.setVisible(true);
+//			plb2.setVisible(true);
 		}else {
 			paneVdP.setVisible(false);
-			plb1.setVisible(false);
-			plb2.setVisible(false);
+//			plb1.setVisible(false);
+//			plb2.setVisible(false);
 		}
 	}
 

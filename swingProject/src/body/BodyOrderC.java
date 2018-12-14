@@ -279,19 +279,20 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate(),
 								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm() });
 			}
-		} else {
-
-			for (int i = 0; i < selectAllArrayListSize; i++) {
-				orderList.removeRow(0);
-			}
-			for (int i = 0; i < selectAllArrayListSize; i++) {
-				orderList.insertRow(i,
-						new Object[] { B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getName(),
-								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getQuantity(),
-								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate(),
-								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm() });
-			}
-		}
+		} 
+//			else {
+//
+//			for (int i = 0; i < selectAllArrayListSize; i++) {
+//				orderList.removeRow(0);
+//			}
+//			for (int i = 0; i < selectAllArrayListSize; i++) {
+//				orderList.insertRow(i,
+//						new Object[] { B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getName(),
+//								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getQuantity(),
+//								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate(),
+//								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm() });
+//			}
+//		}
 	}
 	
 	
@@ -409,7 +410,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 
 			}
 
-		} else if (e.getSource() == orderDeleteBt) {// 발주취소 버튼 작업중
+		} else if (e.getSource() == orderDeleteBt) {// 발주취소 버튼 
 			orderDelete();
 			orderList();
 		}else if (e.getSource() == resetButton) {//새로고침 버튼눌렀을때

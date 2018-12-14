@@ -19,6 +19,8 @@ import inter.BodyStock;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
@@ -28,8 +30,8 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 	private JButton checkStockBt;// 확인 재고
 	private JButton checkBt;// 확인
 
-	private DefaultTableModel notCheckStockmodel = new DefaultTableModel(15, 4);//미확인 재고표 
-	private DefaultTableModel checkStockmodel = new DefaultTableModel(15, 2);//확인 재고표 
+	private DefaultTableModel notCheckStockmodel = new DefaultTableModel(0, 4);//미확인 재고표 
+	private DefaultTableModel checkStockmodel = new DefaultTableModel(0, 2);//확인 재고표 
 
 	private JTable notCheckStockListTable = new JTable(notCheckStockmodel) {//미확인 재고 테이블
 		public boolean isCellEditable(int row, int column) {
@@ -52,8 +54,9 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	private JScrollPane checkStockScroll = new JScrollPane(checkStockListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,//확인재고 스크롤
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	B_OrderDAO orderDAO = B_OrderDAO.getInstance();
-	B_StockDAO stockDAO = B_StockDAO.getInstance();
+	
+	private ArrayList<Integer> numList;
+	private int[] selectRows;
 
 	private final JLabel notCheckStockLabel = new JLabel("\uBBF8\uD655\uC778\uC7AC\uACE0 \uAD00\uB9AC");
 	private final JLabel checkStockLabel = new JLabel("\uD1B5\uD569\uC7AC\uACE0 \uAD00\uB9AC");
@@ -116,80 +119,75 @@ public class BodyStockC extends JPanel implements BodyStock, ActionListener {
 		((Component) bbqBody).setVisible(false);
 	}
 
+	
+
+	
+	public void notCheckStock() {//미확인 재고 목록 보여주는 메서드
+		numList = new ArrayList<>();
+			for (int i = 0; i < B_OrderDAO.getInstance().hCheckSelect(BodyFrame.id).size(); i++) {// 본사만 확인 한 재고들을 보여주는 반복문
+				numList.add( B_OrderDAO.getInstance().hCheckSelect(BodyFrame.id).get(i).getNum());
+				notCheckStockmodel.insertRow(0, new Object[] { B_OrderDAO.getInstance().hCheckSelect(BodyFrame.id).get(i).getName(),
+						B_OrderDAO.getInstance().hCheckSelect(BodyFrame.id).get(i).getQuantity(), B_OrderDAO.getInstance().hCheckSelect(BodyFrame.id).get(i).gethComfirm(),
+						B_OrderDAO.getInstance().hCheckSelect(BodyFrame.id).get(i).getbComfirm() });
+			}
+	}
+	
+	
+	public void stockCheck() {//미확인 재고 확인해주는 메서드
+		selectRows = notCheckStockListTable.getSelectedRows();
+		if (!(selectRows.length==0)) {
+			for (int i = 0; i < selectRows.length; i++) {
+				if (notCheckStockmodel.getValueAt(selectRows[i], 3).equals("")) {
+					B_StockDAO.getInstance().insertStock(BodyFrame.id, (String)notCheckStockmodel.getValueAt(selectRows[i], 0), (int)notCheckStockmodel.getValueAt(selectRows[i], 1));
+					notCheckStockmodel.setValueAt("bk-1", selectRows[i], 3);//확인한재고 bk_1로 표에다가 실제로 표시
+					B_OrderDAO.getInstance().bConfirmUpdate(numList.get(selectRows[i]));// 가맹점 확인 메서드
+					
+				}
+			}
+		}
+	}
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		if (e.getSource() == notCheckStockBt) {// 미확인재고 버튼 기능
-			if(notCheckStockmodel.getValueAt(0, 0)==null) {
-				for (int i = 0; i < orderDAO.hCheckSelect(BodyFrame.id).size(); i++) {// 본사만 확인 한 재고들을 보여주는 반복문
-					notCheckStockmodel.insertRow(0, new Object[] { orderDAO.hCheckSelect(BodyFrame.id).get(i).getName(),
-							orderDAO.hCheckSelect(BodyFrame.id).get(i).getQuantity(), orderDAO.hCheckSelect(BodyFrame.id).get(i).gethComfirm(),
-							orderDAO.hCheckSelect(BodyFrame.id).get(i).getbComfirm() });
-				}
+			if(notCheckStockmodel.getRowCount()==0) {
+				notCheckStock();
 			}else {
-				for (int i = 0; !(notCheckStockmodel.getValueAt(0, 0)==null); i++) {
+				int rowCount = notCheckStockmodel.getRowCount();
+				for (int i = 0; i < rowCount; i++) {
 					notCheckStockmodel.removeRow(0);
 				}
-				for (int i = 0; i < orderDAO.hCheckSelect(BodyFrame.id).size(); i++) {
-					notCheckStockmodel.insertRow(0, new Object[] { orderDAO.hCheckSelect(BodyFrame.id).get(i).getName(),
-							orderDAO.hCheckSelect(BodyFrame.id).get(i).getQuantity(), orderDAO.hCheckSelect(BodyFrame.id).get(i).gethComfirm(),
-							orderDAO.hCheckSelect(BodyFrame.id).get(i).getbComfirm() });
-				}
+				notCheckStock();
+				
 			}
 			
 		} else if (e.getSource() == checkBt) {// 확인 버튼 기능
 
-			if (notCheckStockmodel.getValueAt(0, 0) == null) {// 표에 미확인재고들이 없으면 확인할수없습니다.
+			if (notCheckStockmodel.getRowCount()==0) {// 표에 미확인재고들이 없으면 확인할수없습니다.
 				JOptionPane.showMessageDialog(null, "확인할 목록이 없습니다.");
 			} else {// 표에 미확인 재고가 있으면 확인할 수 있습니다.
-				for (int i = 0; i < orderDAO.hCheckSelect(BodyFrame.id).size(); i++) {// 확인버튼 누를때 발주dB에 있는 데이터를 재고 DB로 옮기는 반복문
-					stockDAO.insertStock(BodyFrame.id, orderDAO.hCheckSelect(BodyFrame.id).get(i).getName(),
-							orderDAO.hCheckSelect(BodyFrame.id).get(i).getQuantity());
-				}
-//				for (int i = 0; i < orderDAO.hCheckSelect().size(); i++) {
-//					model.removeRow(0);
-//				}
-				orderDAO.bConfirmUpdate();// 가맹점 확인 메서드
-				for (int i = 0; i>=0; i++) {
-					if(!(notCheckStockmodel.getValueAt(i, 0)==null)) {
-						notCheckStockmodel.setValueAt("bk-1", i, 3);
-					}else {
-						break;
-					}
-				}
-				if (!(checkStockmodel.getValueAt(0, 0) == null)) {
-					for (int i = 0; !(checkStockmodel.getValueAt(0, 0) == null); i++) {// 확인재고 버튼을 누를때마다 실시간으로 업데이트 하기위해 표를 지워주는 반복문
-						checkStockmodel.removeRow(0);
-
-					}
-					for (int i = 0; i < stockDAO.stockSelectAll(BodyFrame.id).size(); i++) {
-						checkStockmodel.insertRow(0, new Object[] { stockDAO.stockSelectAll(BodyFrame.id).get(i).getName(),
-								stockDAO.stockSelectAll(BodyFrame.id).get(i).getQuantity() });
-					}
-				} else {
-
-					for (int i = 0; i < stockDAO.stockSelectAll(BodyFrame.id).size(); i++) {
-						checkStockmodel.insertRow(0, new Object[] { stockDAO.stockSelectAll(BodyFrame.id).get(i).getName(),
-								stockDAO.stockSelectAll(BodyFrame.id).get(i).getQuantity() });
-					}
-				}
+				 stockCheck();
 					
 			}
 
 		} else if (e.getSource() == checkStockBt) {// 통합재고 버튼 기능
-			if (!(checkStockmodel.getValueAt(0, 0) == null)) {
-				for (int i = 0; !(checkStockmodel.getValueAt(0, 0) == null); i++) {// 통합재고 버튼을 누를때마다 실시간으로 업데이트 하기위해 표를 지워주는 반복문
+			if (!(checkStockmodel.getRowCount()==0)) {
+				int rowCount = checkStockmodel.getRowCount();
+				for (int i = 0; i < rowCount; i++) {// 통합재고 버튼을 누를때마다 실시간으로 업데이트 하기위해 표를 지워주는 반복문
 					checkStockmodel.removeRow(0);
 
 				}
-				for (int i = 0; i < stockDAO.stockSelectAll(BodyFrame.id).size(); i++) {
-					checkStockmodel.insertRow(0, new Object[] { stockDAO.stockSelectAll(BodyFrame.id).get(i).getName(),
-							stockDAO.stockSelectAll(BodyFrame.id).get(i).getQuantity() });
+				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); i++) {
+					checkStockmodel.insertRow(0, new Object[] { B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(i).getName(),
+							B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(i).getQuantity() });
 				}
 			} else {
 
-				for (int i = 0; i < stockDAO.stockSelectAll(BodyFrame.id).size(); i++) {
-					checkStockmodel.insertRow(0, new Object[] { stockDAO.stockSelectAll(BodyFrame.id).get(i).getName(),
-							stockDAO.stockSelectAll(BodyFrame.id).get(i).getQuantity() });
+				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); i++) {
+					checkStockmodel.insertRow(0, new Object[] { B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(i).getName(),
+							B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(i).getQuantity() });
 				}
 			}
 		}

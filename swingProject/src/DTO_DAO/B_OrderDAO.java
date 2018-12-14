@@ -276,12 +276,12 @@ public class B_OrderDAO {
 		return bOrderDTO;
 	}
 
-	public void bConfirmUpdate() {
+	public void bConfirmUpdate(int num) {
 
 		int rn = 0;
 		try {
 			connectDB();
-			sql = "update bodyorder set bconfirm = 'bk_1' where hconfirm = '1'and bconfirm = ''";
+			sql = "update bodyorder set bconfirm = 'bk_1' where hconfirm = 'ck_1'and bconfirm = ''and num = '" + num + "'";
 			ps = con.prepareStatement(sql);
 
 			rn = ps.executeUpdate();

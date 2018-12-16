@@ -248,6 +248,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 		model5.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 5번테이블 컬럼
 		model6.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 6번테이블 컬럼
 		
+		//각 테이블 내부 컬러 설정
 		table.setBackground(Color.LIGHT_GRAY);
 		table1.setBackground(Color.LIGHT_GRAY);
 		table2.setBackground(Color.LIGHT_GRAY);
@@ -294,13 +295,14 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 		setVisible(false);
 	}
 
-	public void inputSales(DefaultTableModel tableMdel) {
+	public void inputSales(DefaultTableModel tableMdel) {//주문목록을 계산해주는 메서드
 
 		for (int i = 0; i >= 0; i++) {
-			if (tableMdel.getValueAt(0, 0) == null) {
+			if (tableMdel.getValueAt(0, 0) == null) {//주문목록이 없으면 반복문을 빠져나가는 조건문
 				count = 0;
 				break;
 			}
+			//각 메뉴에따른 금액과 종합 금액을 계산해주는 조건문
 			if (tableMdel.getValueAt(i - count, 0).equals("후라이드")) {
 				chickenF += Integer.parseInt((String) tableMdel.getValueAt(i - count, 1)) * 20000;
 				priceSum += chickenF;
@@ -317,7 +319,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 			tableMdel.removeRow(i - count);
 			count++;
 		}
-		if (priceSum != 0) {
+		if (priceSum != 0) {//각메뉴 금액과 종합금액을 매출에 넣어주는 조건문
 			B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
 			if (chickenF != 0) {
 				B_StockDAO.getInstance().insertStock(BodyFrame.id, "닭", -chickenF / 20000);
@@ -338,38 +340,38 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {//액션이벤트 시작
 		// System.out.println((String)combo.getSelectedItem());콤보박스 선택값 출력
 
-		if (e.getSource() == jb1) {
+		if (e.getSource() == jb1) {//1번테이블 버튼 눌렀을때
 			orderFrame.setVisible(true);
 			temp = e.getSource();
 			orderFrame.setTitle("1번테이블");
-		} else if (e.getSource() == jb2) {
+		} else if (e.getSource() == jb2) {//2번테이블 버튼 눌렀을때
 			orderFrame.setVisible(true);
 			temp = e.getSource();
 			orderFrame.setTitle("2번테이블");
-		} else if (e.getSource() == jb3) {
+		} else if (e.getSource() == jb3) {//3번테이블 버튼 눌렀을때
 			orderFrame.setVisible(true);
 			temp = e.getSource();
 			orderFrame.setTitle("3번테이블");
-		} else if (e.getSource() == jb4) {
+		} else if (e.getSource() == jb4) {//4번테이블 버튼 눌렀을때
 			orderFrame.setVisible(true);
 			temp = e.getSource();
 			orderFrame.setTitle("4번테이블");
-		} else if (e.getSource() == jb5) {
+		} else if (e.getSource() == jb5) {//5번테이블 버튼 눌렀을때
 			orderFrame.setVisible(true);
 			temp = e.getSource();
 			orderFrame.setTitle("5번테이블");
-		} else if (e.getSource() == jb6) {
+		} else if (e.getSource() == jb6) {//6번테이블 버튼 눌렀을때
 			orderFrame.setVisible(true);
 			temp = e.getSource();
 			orderFrame.setTitle("6번테이블");
-		} else if (e.getSource() == orderButton) {// 주문하기
+		} else if (e.getSource() == orderButton) {// 주문하기 버튼을 눌렀을때 
 
-			if (orderModel.getValueAt(0, 0) == null) {
+			if (orderModel.getValueAt(0, 0) == null) {//주문목록이 없으면 계산이 불가능한 조건문
 				JOptionPane.showMessageDialog(null, "주문목록이 없습니다.");
-			} else {
+			} else {//선택한 테이블별로 주문한 목록이 전달되는 조건문
 				while (true) {
 					DefaultTableModel temp2 = key.get(temp);
 					temp2.insertRow(0, new Object[] { orderModel.getValueAt(0, 0), orderModel.getValueAt(0, 1) });

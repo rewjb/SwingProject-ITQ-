@@ -1,4 +1,3 @@
-
 package head;
 
 import java.awt.Font;
@@ -24,20 +23,25 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+// 현 클래스는 매출관리 -> 가맹점 매출 -> 그래프 -> 막대 그래프 입니다.
+// 클래스의 구성 : 크게 3가지로 나눠집니다. 생성자, dayChartShow(), monthChartShow()
+// 생성자 : 부품의 배치 및 크기를 조절하는 역할
+// dayChartShow() : 매개변수에 해당하는 해당 월의 총 일수의 매출을 막대그래프로 표현합니다.
+// monthChartShow() : 매개변수에 해당하는 해당 월의 매출을 막대그래프로 표현합니다.
+
 public class BodySalesBarChart extends JPanel {
 
 	DefaultCategoryDataset dataSet;
+	// 차트에 들어갈 데이터 셋의 선언
 
 	CategoryItemRenderer renderer = new BarRenderer();
-	// 카테고리 아이템 런더를 만들어서
-
+	// 차트에 그림으로 표현할 Render를 선언 및 초기화
+	
 	CategoryPlot plot = new CategoryPlot();
-	// plot은 부지,땅이라는 뜻..
-	// 카테고리를 넣을 부지를 뜻한다 ?
+	//데이터 셋, 렌더를 넣을 plot객체 선언
 
 	JFreeChart chart = new JFreeChart(plot);
-	// JFreeChart! 자바 free 차트 객체를 만든다
-	// 지금까지 데이터 및 render 그리고 x축 y축에 대한 객체를 넣은 plot을 Jfreechart에 넣어준다.
+	// d
 
 	ChartPanel chartPanel = new ChartPanel(chart);
 	// 데이터세트,renderer,카테고리 Axis, 번호 Axis => plot => JFreeChart

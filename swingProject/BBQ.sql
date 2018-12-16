@@ -180,6 +180,8 @@ side int
 select * from s
 
 insert into bodysales values (default,'조광재','2018-11-01','60000','20000','20000','20000','0');
+
+insert into bodysales values (default,'조광재','2018-11-01','60000','20000','20000','20000','0');
 insert into bodysales values (default,'조광재','2018-10-01','60000','20000','20000','20000','0');
 insert into bodysales values (default,'조광재','2018-09-01','60000','20000','20000','20000','0');
 insert into bodysales values (default,'조광재','2018-08-01','60000','20000','20000','20000','0');

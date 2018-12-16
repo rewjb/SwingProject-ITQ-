@@ -20,20 +20,6 @@ import won.H_Vender;
 
 import javax.swing.JPanel;
 
-// 담당 :유주빈
-//수정일 : 2018-11-26 
-// ---설명---
-// Jpanel을 객체생성하여 해당버튼을 누를시 해당 내용을 보여지도록 한다.
-// 현재 정의된 메서드 2개를 이용하여 화면구현을 하는데 그 2가지는 show와 hide 메서드이다.
-// show와 hide에 Jpanel의 타입이 넘어가면 화면에 부품이 나타나거나 사라진다.
-
-// -결론적으로 하기와 같이 코딩을 하면 된다.
-// 현재 mainPanel이라는 JPanel이 있다. (2018-11-26일자로는 아무것도 add하지 않음)
-// 1) 제작한 JPanel의 객체를 전역필드에 선언한다.
-// 2) 생성한 객체를 HeadFrame클래스 생성자 내에서 mainFtPanel에 add 시킨다.
-// 3) 아래에 ActionListener메서드에 해당하는 버튼의 if문 안에 show 메서드 매개변수로 add시킨 객체를 넣는다.
-// 아래의 4번은 제작한 모든  Jpanel을 3번까지의 과정을 거친 후 4번을 실행한다.
-// 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
 public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 

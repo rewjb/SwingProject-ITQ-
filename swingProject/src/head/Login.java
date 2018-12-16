@@ -28,6 +28,7 @@ import java.awt.Image;
 import java.awt.Color;
 
 
+
 public class Login extends JFrame implements BBQ, ActionListener{
 	private JButton btLoginU;	//로그인버튼
 

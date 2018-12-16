@@ -53,7 +53,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 	private JButton jb4;// 4번 테이블 버튼
 	private JButton jb5;// 5번 테이블 버튼
 	private JButton jb6;// 6번 테이블 버튼
-
+  
 	// 기본 테이블 모델
 	private DefaultTableModel model1 = new DefaultTableModel(15, 2);// 1번테이블 표
 	private DefaultTableModel model2 = new DefaultTableModel(15, 2);// 2번테이블 표

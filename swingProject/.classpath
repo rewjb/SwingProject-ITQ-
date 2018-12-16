@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="jxbrowser-6.22.1.jar"/>
 	<classpathentry kind="lib" path="jxbrowser-win64-6.22.1.jar"/>
 	<classpathentry kind="lib" path="license.jar"/>
+	<classpathentry kind="lib" path="mysql-connector-java-5.1.45.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

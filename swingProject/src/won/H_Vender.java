@@ -88,8 +88,11 @@ public class H_Vender extends JPanel implements HeadVender {
 				companeySetVisible(false);
 				productSetVisible(true);
 				//콤보박스 재설정
-				((H_V_Product) paneVdP).remove(((H_V_Product) paneVdP).cbId);
-				((H_V_Product) paneVdP).comboCId();
+				remove(paneVdP);
+				paneVdP = new H_V_Product();
+				paneVdP.setBounds(0, 0, 770, 340);
+				add(paneVdP);
+				paneVdP.setLayout(null);
 			}
 		});
 

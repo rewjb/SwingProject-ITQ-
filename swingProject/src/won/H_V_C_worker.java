@@ -10,7 +10,7 @@ package won;
 public class H_V_C_worker {
 
 	// 마지막 아이디 가져오는 메서드
-	String findLastId(String id, String input) {
+	protected String findLastId(String id, String input) {
 		if (input == null || id == null) {
 		} else {
 			char id0 = id.charAt(0);
@@ -28,7 +28,7 @@ public class H_V_C_worker {
 	}
 
 	// id 생성 메서드 - 같은 패키지 내에서만 동작함
-	String makeId(String id) {
+	protected String makeId(String id) {
 		if (id == null) {
 			id = "AA";
 		} else {
@@ -43,4 +43,43 @@ public class H_V_C_worker {
 		}
 		return id;
 	}
+
+//	
+//	//이름 중복확인 할 경우...
+//	protected boolean checkInput(String name) {
+//		vDTO = vDAO.selectVenderInfo("name",name);
+//		if(vDTO == null) {
+//			return true;
+//		}else {
+//			return false;
+//		}
+//	}
+//
+//	테스트...!	
+//	String id;
+
+//	public H_V_C_worker() {
+//		String input = "AA";
+//		System.out.println("시작 아이디" + id);
+//		System.out.println("시작 인풋" + input);
+//		while (true) {
+//			System.out.println("ㅡㅡㅡ");
+//			id = findLastId(id, input);
+//			input = makeId(input);
+//			System.out.println("id" + id);
+//			System.out.println("input" + input);
+//			if (id != null) {
+//				if (id.equals("ZZ")) {
+//					break;
+//				}
+//			}
+//
+//		}
+//		System.out.println("끝...! "+id);
+//
+//	}
+//
+//	public static void main(String[] args) {
+//		H_V_C_worker w = new H_V_C_worker();
+//	}
 }

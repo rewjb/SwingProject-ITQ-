@@ -24,7 +24,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.*;
@@ -35,7 +34,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private DefaultTableModel model;
 	private JTable table = new JTable(model);
 	private JScrollPane scrollPane = new JScrollPane(table);
-	private Object[] column = { "업체ID", "No.", "재료명", "입고가", "발주가", "비고" };
+	private Object[] column = { "업체ID", "No.", "재료명", "입고가", "발주가" };
 
 	// 리벨과 텍스트필드 : 사용자가 입력하고 수정하는 부분
 	private JLabel lbNum;
@@ -49,10 +48,10 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JTextField tfMoney;
 	private JLabel lbOrderM;
 	private JTextField tfOrderM;
-
+	
 	private JLabel plb1;
 	private JLabel plb2;
-
+	
 	// 버튼
 	private JButton btAdd;
 	private JButton btModify;
@@ -91,7 +90,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		labelSetting();
 		showAll();
 		mouseAction();
-
+		
 		setBackground(new Color(184, 207, 229));
 	}
 
@@ -110,17 +109,11 @@ public class H_V_Product extends JPanel implements ActionListener {
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
-		table.getColumn(column[0]).setPreferredWidth(20);
-		table.getColumn(column[1]).setPreferredWidth(20);
-		table.getColumn(column[2]).setPreferredWidth(80);
-		table.getColumn(column[3]).setPreferredWidth(60);
-		table.getColumn(column[4]).setPreferredWidth(60);
-
 	}
 	// 업체명 Combobox받아오는 메서드
 
 	// refresh 표에 전체출력해주는 메서드
-	private void showAll() {
+	void showAll() {
 		tableSetting();
 		ArrayList<H_VenderpDTO> list = pDAO.selectALLVenderpInfo();
 		for (int i = 0; i < list.size(); i++) {
@@ -167,7 +160,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
 				id = (String) cb.getSelectedItem();
-				System.out.println("list size 출력 : " + list.size());
 			}
 		});
 	}
@@ -216,14 +208,14 @@ public class H_V_Product extends JPanel implements ActionListener {
 		plb2.setBounds(100, 0, 100, 30);
 		plb2.setHorizontalAlignment(SwingConstants.CENTER);
 		add(plb2);
-
+		
 		JPanel sp = new JPanel();
-		sp.setBorder(new LineBorder(new Color(255, 255, 255)));
+		sp.setBorder(new LineBorder(new Color(255,255,255)));
 		sp.setBackground(new Color(184, 207, 229));
 		sp.setLayout(null);
 		sp.setBounds(15, 30, 230, 210);
 		this.add(sp);
-
+		
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
 		lbId.setBounds(0, 10, 60, 30);
@@ -232,7 +224,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		comboCId(); // 업체 아이디 콤보박스
 		cbId.setBounds(65, 10, 150, 30);
 		sp.add(cbId);
-
+		
 		tfId = new JTextField();
 		tfId.setBounds(65, 10, 150, 30);
 		sp.add(tfId);
@@ -280,8 +272,8 @@ public class H_V_Product extends JPanel implements ActionListener {
 		tfOrderM.setBounds(65, 170, 150, 30);
 		tfOrderM.setEditable(false);
 		sp.add(tfOrderM);
-
-		// 버튼 추가
+		
+		//버튼 추가
 		btName = new JButton();
 		btName.setIcon(new ImageIcon("img/edite.png"));
 		btName.setBounds(185, 90, 30, 30);
@@ -352,9 +344,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 			showAll();
 
 		}
-		if (e.getSource() == btModify)
-
-		{ // modify, update ==> 가격만 수정 가능
+		if (e.getSource() == btModify) { // modify, update ==> 가격만 수정 가능
 			pDTO = new H_VenderpDTO();
 			pDTO.setNum(Integer.parseInt(tfNum.getText()));
 			pDTO.setName(name);
@@ -520,7 +510,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 						}
 						Writer w = new FileWriter("H_VenderpName.txt");
 						s += tfNameN.getText() + "-" + tfNameP.getText();
-						System.out.println(s);
 						w.write(s);
 						sc.close();
 						w.close();
@@ -551,7 +540,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 							s += sc.nextLine() + "\r\n";
 						}
 					}
-					System.out.println(s);
 					Writer w = new FileWriter("H_VenderpName.txt");
 					w.write(s);
 					sc.close();
@@ -582,7 +570,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 							s += sc.nextLine() + "\r\n";
 						}
 					}
-					System.out.println(s);
 					Writer w = new FileWriter("H_VenderpName.txt");
 					w.write(s);
 					sc.close();
@@ -601,7 +588,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
 				remove(cbName);
 				comboPName();
 				nameF.dispose();

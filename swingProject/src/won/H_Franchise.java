@@ -25,7 +25,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.*;
@@ -37,7 +36,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	DefaultTableModel model;
 	JTable table = new JTable(model);
 	JScrollPane scrollPane = new JScrollPane(table);
-	Object[] column = { "가맹점ID", "pw", "점주명", "연락처", "사업자번호", "주소", "별칭","비고" };
+	Object[] column = { "가맹점ID", "pw", "점주명", "연락처", "사업자번호", "주소", "별칭" };
 	// DB에는 주소1에 지역이 2에 나머지 주소가 들어갈 예정입니다.
 
 	// 버튼
@@ -121,14 +120,6 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
-		table.getColumn(column[0]).setPreferredWidth(25);
-		table.getColumn(column[1]).setPreferredWidth(25);
-		table.getColumn(column[2]).setPreferredWidth(50);
-		table.getColumn(column[3]).setPreferredWidth(70);
-		table.getColumn(column[4]).setPreferredWidth(70);
-		table.getColumn(column[5]).setPreferredWidth(150);
-		table.getColumn(column[6]).setPreferredWidth(50);
-		
 	}// end tableSetting()
 
 	private void showAll() {
@@ -148,7 +139,6 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			row[6] = fDTO.getAlias();
 
 			model.addRow(row);
-			System.out.println("2-->"+id);
 		}
 	}// end showAll
 	

@@ -35,7 +35,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private DefaultTableModel model;
 	private JTable table = new JTable(model);
 	private JScrollPane scrollPane = new JScrollPane(table);
-	private Object[] column = { "업체ID.", "업체명", "연락처", "사업자번호","비고" };
+	private Object[] column = { "업체ID.", "업체명", "연락처", "사업자번호" };
 
 	// 라벨과 텍스트필드 : 사용자가 입력하고 수정하는 부분
 	private JLabel lbId;
@@ -95,14 +95,10 @@ public class H_V_Company extends JPanel implements ActionListener {
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
-		table.getColumn(column[0]).setPreferredWidth(30);
-		table.getColumn(column[1]).setPreferredWidth(30);
-		table.getColumn(column[2]).setPreferredWidth(60);
-		table.getColumn(column[3]).setPreferredWidth(100);
 	}
 
 	// refresh 표에 전체 출력해주는 메서드
-	private void showAll() {
+	void showAll() {
 		tableSetting();
 		ArrayList<H_VenderDTO> list = vDAO.selectALLVenderInfo();
 		for (int i = 0; i < list.size(); i++) {
@@ -295,12 +291,12 @@ public class H_V_Company extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btAdd) { //add, insert
+//			if(w.checkInput(tfName.getText())) {
 				vDTO = new H_VenderDTO();	
 				//id는 자동생성
 				String setId = w.makeId(id);	//자동생성 메서드
 				vDTO.setId(setId);
 				vDTO.setName(tfName.getText());
-				
 				String tel = tfTel0.getText()+"-"+tfTel1.getText()+"-"+tfTel2.getText();
 				vDTO.setTel(tel);
 				String CNum = tfCNum0.getText()+"-"+tfCNum1.getText()+"-"+tfCNum2.getText();
@@ -313,6 +309,9 @@ public class H_V_Company extends JPanel implements ActionListener {
 					System.out.println("H_Vender insert성공");
 				}
 				showAll();
+//			}else {
+//				JOptionPane.showMessageDialog(null, "업체명 중복!");
+//			}
 		}
 		if (e.getSource() == btModify) { //modify, update
 			vDTO = new H_VenderDTO();

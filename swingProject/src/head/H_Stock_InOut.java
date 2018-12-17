@@ -339,7 +339,19 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 
 		g_Quantity.setText(null);
 		
-		g_PnameBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
+		g_PnameBox.removeAllItems();
+		//기존에 있는 데이터 삭제    
+		
+		int tempInt = H_VenderpDAO.getInstance().select_product().size();
+		// 제품군의 수량
+		ArrayList<String> list = H_VenderpDAO.getInstance().select_product();
+		// 제품군이 들어 있는 리스트
+		
+		System.out.println(tempInt);
+		for (int i = 0; i < tempInt; i++) {
+			System.out.println((String) list.get(i));
+			g_PnameBox.addItem((String) list.get(i));
+		}// 제품군 넣기
 
 		inOutStockFrame.setVisible(true);
 	}// inOutframe:메서드 끝
@@ -360,7 +372,7 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 					g_Quantity.setText(null);
 				}
 				insertPointList(pointNum);
-				insertInOutTotalStockHistoryList();// 작업중
+				insertInOutTotalStockHistoryList();
 				inOutStockFrame.dispose();
 			} catch (Exception e2) {
 				JOptionPane.showMessageDialog(inOutStockFrame, "수량에 숫자를 입력해 주세요.");

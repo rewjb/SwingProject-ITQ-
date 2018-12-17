@@ -34,26 +34,26 @@ public class H_ChattingrManager extends Thread {
 				if (inputStr.equals("Start")) { // 처음 접속시 !
 					id = inputBuffer.readLine();
 					sendRoomList(sendWriter);
-					H_ChattingFrame.allMemberList.add(sendWriter);
+					H_ChattingFrame.sg_AllMemberList.add(sendWriter);
 				} // 처음 접속 시도때 아이디를 받는다.
 
 				if (inputStr.equals("CHroom")) {
 					inputStr = inputBuffer.readLine();
 					boolean exist = false;
-					Set roomSet = H_ChattingFrame.room.keySet();
+					Set roomSet = H_ChattingFrame.sg_Room.keySet();
 					for (int i = 0; i < roomSet.size(); i++) {
 						if (roomSet.toArray()[i].equals(inputStr)) {
 							exist = true;
 						}
 					}
 					if (exist) {
-						H_ChattingFrame.room.get(inputStr).add(sendWriter);
-						int tempCount = H_ChattingFrame.g_RoomListModel.getRowCount();
+						H_ChattingFrame.sg_Room.get(inputStr).add(sendWriter);
+						int tempCount = H_ChattingFrame.sg_RoomListModel.getRowCount();
 						int tempNum;
 						for (int i = 0; i < tempCount; i++) {
-							if (H_ChattingFrame.g_RoomListModel.getValueAt(i, 0).equals(inputStr)) {
-								tempNum = (int) H_ChattingFrame.g_RoomListModel.getValueAt(i, 1);
-								H_ChattingFrame.g_RoomListModel.setValueAt(tempNum + 1, i, 1);
+							if (H_ChattingFrame.sg_RoomListModel.getValueAt(i, 0).equals(inputStr)) {
+								tempNum = (int) H_ChattingFrame.sg_RoomListModel.getValueAt(i, 1);
+								H_ChattingFrame.sg_RoomListModel.setValueAt(tempNum + 1, i, 1);
 							}
 						}
 						sendWriter.print("CHroom\ntrue\n");
@@ -63,10 +63,10 @@ public class H_ChattingrManager extends Thread {
 						sendWriter.flush();
 					}
 					
-					int temp = H_ChattingFrame.allMemberList.size();
+					int temp = H_ChattingFrame.sg_AllMemberList.size();
 					PrintWriter tempPrint;
 					for (int i = 0; i < temp; i++) {
-						tempPrint = H_ChattingFrame.allMemberList.get(i);
+						tempPrint = H_ChattingFrame.sg_AllMemberList.get(i);
 						sendRoomList(tempPrint);
 					}
 					
@@ -81,30 +81,30 @@ public class H_ChattingrManager extends Thread {
 					// sendMessage 의 0번 : 사용자 이름
 					// sendMessage 의 1번 : 방 이름
 					// sendMessage 의 2번 : 보낼메세지
-					sendMemberNum = H_ChattingFrame.room.get(inputStr.split("/")[1]).size();
+					sendMemberNum = H_ChattingFrame.sg_Room.get(inputStr.split("/")[1]).size();
 					for (int j = 0; j < sendMemberNum; j++) {
-						H_ChattingFrame.room.get(inputStr.split("/")[1]).get(j).print("Msend\n" + inputStr + "\n");
-						H_ChattingFrame.room.get(inputStr.split("/")[1]).get(j).flush();
+						H_ChattingFrame.sg_Room.get(inputStr.split("/")[1]).get(j).print("Msend\n" + inputStr + "\n");
+						H_ChattingFrame.sg_Room.get(inputStr.split("/")[1]).get(j).flush();
 					}
 				} // 특정 방에 접속 후 채팅을 전달할때
 
 				if (inputStr.equals("EXroom")) {
 					inputStr = inputBuffer.readLine();
-					H_ChattingFrame.room.get(inputStr).remove(sendWriter);
+					H_ChattingFrame.sg_Room.get(inputStr).remove(sendWriter);
 
-					int roomCount = H_ChattingFrame.g_RoomListModel.getRowCount();
+					int roomCount = H_ChattingFrame.sg_RoomListModel.getRowCount();
 					for (int i = 0; i < roomCount; i++) {
-						if (inputStr.equals(H_ChattingFrame.g_RoomListModel.getValueAt(i, 0))) {
-							int tempMeberCount = (int) H_ChattingFrame.g_RoomListModel.getValueAt(i, 1) - 1;
-							H_ChattingFrame.g_RoomListModel.setValueAt(tempMeberCount, i, 1);
+						if (inputStr.equals(H_ChattingFrame.sg_RoomListModel.getValueAt(i, 0))) {
+							int tempMeberCount = (int) H_ChattingFrame.sg_RoomListModel.getValueAt(i, 1) - 1;
+							H_ChattingFrame.sg_RoomListModel.setValueAt(tempMeberCount, i, 1);
 						}
 					} // 방에서 나갈 시 관리자 화면에서 사람 수가 변한다.
 
 					// 사람 수가 변하고나면 모든 클라이언트에게도 전달을 해준다.
-					int temp = H_ChattingFrame.allMemberList.size();
+					int temp = H_ChattingFrame.sg_AllMemberList.size();
 					PrintWriter tempPrint;
 					for (int i = 0; i < temp; i++) {
-						tempPrint = H_ChattingFrame.allMemberList.get(i);
+						tempPrint = H_ChattingFrame.sg_AllMemberList.get(i);
 						sendRoomList(tempPrint);
 					}
 
@@ -113,7 +113,7 @@ public class H_ChattingrManager extends Thread {
 				
 				if (inputStr.equals("EXchatting")) {
 					//나가기 
-					H_ChattingFrame.allMemberList.remove(sendMessage);
+					H_ChattingFrame.sg_AllMemberList.remove(sendMessage);
 					c_socket.close();
 					inputBuffer.close();
 				}
@@ -138,10 +138,10 @@ public class H_ChattingrManager extends Thread {
 	private void sendRoomList(PrintWriter sendWriter) {
 		sendMessage = "RoomList\n";
 		// 초기화
-		int temp = H_ChattingFrame.g_RoomListModel.getRowCount();
+		int temp = H_ChattingFrame.sg_RoomListModel.getRowCount();
 		// 임시 int 값 , 생성된 방의 갯수 삽입
 		for (int i = 0; i < temp; i++) {
-			sendMessage += H_ChattingFrame.g_RoomListModel.getValueAt(i, 0) + "/" + H_ChattingFrame.g_RoomListModel.getValueAt(i, 1) + "\n";
+			sendMessage += H_ChattingFrame.sg_RoomListModel.getValueAt(i, 0) + "/" + H_ChattingFrame.sg_RoomListModel.getValueAt(i, 1) + "\n";
 		} // sendRoomList() : 메서드 종료
 		sendWriter.print(sendMessage);
 		sendWriter.flush();

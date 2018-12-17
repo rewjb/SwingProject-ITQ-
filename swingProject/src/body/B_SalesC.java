@@ -263,7 +263,7 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 				for (int i = 0; i < count; i++) {
 					g_AllSalesModel.removeRow(0);
 				}
-				searchSales();
+				searchSales();   
 			}
 			if (g_SalesResultModel.getRowCount() == 0 && !(g_YearTextField.getText().equals(""))) {//
 				salesResult();

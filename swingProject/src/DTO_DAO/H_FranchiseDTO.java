@@ -17,7 +17,7 @@ public class H_FranchiseDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-
+       
 	public String getPw() {
 		return pw;
 	}

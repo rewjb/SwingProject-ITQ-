@@ -27,7 +27,7 @@ public class B_SalesC_SalesDataChart extends JPanel {
 	private CategoryPlot g_Plot = new CategoryPlot();
 	// plot은 부지,땅이라는 뜻..
 	// 카테고리를 넣을 부지를 뜻한다 ?
-	
+	   
 	private JFreeChart g_Chart = new JFreeChart(g_Plot);
 	// JFreeChart! 자바 free 차트 객체를 만든다
 	// 지금까지 데이터 및 render 그리고 x축 y축에 대한 객체를 넣은 plot을 Jfreechart에 넣어준다.

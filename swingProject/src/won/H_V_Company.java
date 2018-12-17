@@ -98,7 +98,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 	}
 
 	// refresh 표에 전체 출력해주는 메서드
-	private void showAll() {
+	void showAll() {
 		tableSetting();
 		ArrayList<H_VenderDTO> list = vDAO.selectALLVenderInfo();
 		for (int i = 0; i < list.size(); i++) {

@@ -113,7 +113,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	// 업체명 Combobox받아오는 메서드
 
 	// refresh 표에 전체출력해주는 메서드
-	private void showAll() {
+	void showAll() {
 		tableSetting();
 		ArrayList<H_VenderpDTO> list = pDAO.selectALLVenderpInfo();
 		for (int i = 0; i < list.size(); i++) {
@@ -160,7 +160,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
 				id = (String) cb.getSelectedItem();
-				System.out.println("list size 출력 : " + list.size());
 			}
 		});
 	}
@@ -511,7 +510,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 						}
 						Writer w = new FileWriter("H_VenderpName.txt");
 						s += tfNameN.getText() + "-" + tfNameP.getText();
-						System.out.println(s);
 						w.write(s);
 						sc.close();
 						w.close();
@@ -542,7 +540,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 							s += sc.nextLine() + "\r\n";
 						}
 					}
-					System.out.println(s);
 					Writer w = new FileWriter("H_VenderpName.txt");
 					w.write(s);
 					sc.close();
@@ -573,7 +570,6 @@ public class H_V_Product extends JPanel implements ActionListener {
 							s += sc.nextLine() + "\r\n";
 						}
 					}
-					System.out.println(s);
 					Writer w = new FileWriter("H_VenderpName.txt");
 					w.write(s);
 					sc.close();

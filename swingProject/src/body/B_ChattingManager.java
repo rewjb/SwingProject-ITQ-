@@ -13,11 +13,11 @@ import com.mysql.jdbc.StandardSocketFactory;
 
 public class B_ChattingManager extends Thread {
 
-	Socket my_socket;
+	Socket g_My_socket;
 	String nowRoomName;
 
 	public B_ChattingManager(Socket my_socket) {
-		this.my_socket = my_socket;
+		this.g_My_socket = my_socket;
 	}// 생성자 종료
 	
 
@@ -26,9 +26,9 @@ public class B_ChattingManager extends Thread {
 	public void run() {
 		super.run();
 		try {
-			BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(my_socket.getInputStream()));
+			BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(g_My_socket.getInputStream()));
 			// 입력을 받을 버퍼
-			PrintWriter sendWriter = new PrintWriter(my_socket.getOutputStream());
+			PrintWriter sendWriter = new PrintWriter(g_My_socket.getOutputStream());
 			
 			String str = null;
 
@@ -54,9 +54,9 @@ public class B_ChattingManager extends Thread {
 				if (str.equals("CHroom")) {
 					str = inputBuffer.readLine();
 					if (str.equals("true")) {
-						B_ChattingFrame.chattingPanel.setVisible(true);
-						B_ChattingFrame.selectRoomPanel.setVisible(false);
-						nowRoomName = new String(B_ChattingFrame.nowRoomName);
+						B_ChattingFrame.g_ChattingPanel.setVisible(true);
+						B_ChattingFrame.g_SelectRoomPanel.setVisible(false);
+						nowRoomName = new String(B_ChattingFrame.g_NowRoomName);
 					} else {
 						JOptionPane.showMessageDialog(null, "존재하지 않는 방입니다.");
 					}
@@ -64,19 +64,19 @@ public class B_ChattingManager extends Thread {
 
 				if (str.equals("Msend")) {
 					str = inputBuffer.readLine();
-					if (B_ChattingFrame.nowRoomName.equals(str.split("/")[1])) {
+					if (B_ChattingFrame.g_NowRoomName.equals(str.split("/")[1])) {
 						str = str.split("/")[0] + " : " + str.split("/")[2];
-						B_ChattingFrame.historyArea.append(str + "\n");
+						B_ChattingFrame.g_HistoryArea.append(str + "\n");
 					}
 
 				}
 
 				if (str.equals("Delete")) {
 					str = inputBuffer.readLine();
-					if (str.equals(B_ChattingFrame.nowRoomName)) {
+					if (str.equals(B_ChattingFrame.g_NowRoomName)) {
 						JOptionPane.showMessageDialog(null, "방이 삭제되었습니다.");
-						B_ChattingFrame.selectRoomPanel.setVisible(true);
-						B_ChattingFrame.chattingPanel.setVisible(false);
+						B_ChattingFrame.g_SelectRoomPanel.setVisible(true);
+						B_ChattingFrame.g_ChattingPanel.setVisible(false);
 					}
 				} else {
 
@@ -85,7 +85,7 @@ public class B_ChattingManager extends Thread {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "서버와의 연결이 끊겼습니다.");
 					inputBuffer.close();
-					my_socket.close();
+					g_My_socket.close();
 					break;
 				}
 

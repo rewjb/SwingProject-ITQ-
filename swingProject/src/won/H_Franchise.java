@@ -139,7 +139,6 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			row[6] = fDTO.getAlias();
 
 			model.addRow(row);
-			System.out.println("2-->"+id);
 		}
 	}// end showAll
 	

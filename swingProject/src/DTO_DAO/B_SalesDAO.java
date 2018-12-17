@@ -18,7 +18,7 @@ public class B_SalesDAO {
 	// mysql root 계정 비밀번호
 	private String sql;
 	// sql문 문자열
-
+   
 	private Connection con;
 	private PreparedStatement ps;
 	// Connection 객체와 PreparedStatement 미리 선언

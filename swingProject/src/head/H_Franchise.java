@@ -1,10 +1,10 @@
 package head;
 /*
- * 2018-12-07 
- * wonHn
- * 틀 작업은 다 끝났습니다. 버튼에 기능 들어가있습니다.
- * 아이디 자동생성 및 중복확인 기능, 주소 관련 처리는 아직 들어가지 않았습니다.
- * 
+ * wHn 2018-12-17
+ * 가맹점 추가 제거에 관련된 Swing페이지 입니다.
+ * 아이디 자동생성에 관련된 메서드는 H_F_worker클래스에 있습니다.
+ * 추가 수정 제거 버튼과 정보입력창 내의 버튼의 동작은 구현 완료 했습니다. 
+ * 주석처리 및 변수 정리도 완료 했습니다. 
  */
 
 import java.awt.Color;
@@ -37,16 +37,19 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	JTable table = new JTable(model);
 	JScrollPane scrollPane = new JScrollPane(table);
 	Object[] column = { "가맹점ID", "pw", "점주명", "연락처", "사업자번호", "주소", "별칭" };
-	// DB에는 주소1에 지역이 2에 나머지 주소가 들어갈 예정입니다.
 
 	// 버튼
-	JButton btAdd;
-	JButton btModify;
-	JButton btDelete;
-	
-	//라벨 설정
-	private JLabel flb;
-	
+	JButton btAdd; // 추가
+	JButton btModify; // 수정
+	JButton btDelete; // 삭제
+	// 정보입력창 안에 있는 버튼
+	JButton btInAdd; // 추가
+	JButton btsetEmpty; // 초기화
+	JButton btInModify; // 수정
+	JButton btsetBefore;// 수정 전으로
+
+	// 라벨 설정
+	private JLabel flb; // 표의 이름 알려주는 라벨
 
 	// 정보입력창에 올라갈 구성요소들
 	private JFrame f = new JFrame();
@@ -76,31 +79,30 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	private JTextField tfAllias;
 
 	// 그 외
-	Object[] row; // 테이블에 올릴 column이름 배열
-	H_FranchiseDAO fDAO = new H_FranchiseDAO();
-	H_FranchiseDTO fDTO;
-	H_F_worker w = new H_F_worker();
-	JButton btInAdd; // 팝업했을때 버튼
-	JButton btsetEmpty;
-	JButton btInModify;
-	JButton btsetBefore;
-	String addr;	//선택된 주소값 받아놓는 변수
-	String id;		//마지막 아이디 값 받아놓는 변수
+	Object[] row; // 테이블에 올릴 column내용 배열
+	H_FranchiseDAO fDAO = new H_FranchiseDAO();	//DAO
+	H_FranchiseDTO fDTO;						//DTO
+	H_F_worker w = new H_F_worker();			//기능을 넣어놓는 클래스
 
-	int i; // 표를 클릭했을때 받아놓는 인덱스 값
+	String addr; // 선택된 주소명을 받아놓는 변수
+	String id; // 마지막 아이디 값 받아놓는 변수
+
+	int i; // 표를 클릭했을때 해당 위치 인덱스 값을 받아놓는 변수
+			// 삭제와 수정 전 값 불러오는 액션시 인덱스 값이 필요함.
 
 	// 생성자 construct
 	public H_Franchise() {
 		setBounds(0, 0, 770, 368);
 		setLayout(null);
+
 		labelSetting();
 		buttonSetting();
 		showAll();
 		innerFrameSetting();
 		mouseAction();
 
-		
 		setBackground(new Color(184, 207, 229));
+
 		setVisible(false);
 		f.setVisible(false);
 	} // end constructor
@@ -122,6 +124,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		table.setRowHeight(20);
 	}// end tableSetting()
 
+	// DB에 있는 데이터를 표에 출력해주는 메서드
 	private void showAll() {
 		tableSetting();
 		ArrayList<H_FranchiseDTO> list = fDAO.selectALLFranchiseInfo();
@@ -129,6 +132,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			fDTO = list.get(i);
 			row = new Object[8];
 			row[0] = fDTO.getId();
+			//데이터중 마지막 아이디를 받아놓음
 			id = w.findLastId(id, fDTO.getId());
 			System.out.println(fDTO.getId());
 			row[1] = fDTO.getPw();
@@ -140,14 +144,15 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 
 			model.addRow(row);
 		}
-	}// end showAll
-	
+	}// end showAll()
+
+	// 표의 제목 달아주는 라벨설정에 관한 메서드
 	private void labelSetting() {
 		flb = new JLabel("제품목록");
 		flb.setBounds(330, 0, 100, 30);
 		flb.setHorizontalAlignment(SwingConstants.CENTER);
 		add(flb);
-	}
+	}//end labelSetting()
 
 	// 버튼에 관련된 설정사항
 	private void buttonSetting() {
@@ -165,6 +170,27 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		btDelete.setBounds(685, 328, 70, 30);
 		add(btDelete);
 		btDelete.addActionListener(this);
+
+		// 정보입력창 안에 있는 버튼들 수정사항
+		btInAdd = new JButton("추가");
+		btInAdd.setBounds(30, 340, 115, 31);
+		f.getContentPane().add(btInAdd);
+		btInAdd.addActionListener(this);
+
+		btInModify = new JButton("수정");
+		btInModify.setBounds(30, 340, 115, 31);
+		f.getContentPane().add(btInModify);
+		btInModify.addActionListener(this);
+
+		btsetEmpty = new JButton("초기화");
+		btsetEmpty.setBounds(157, 340, 115, 31);
+		f.getContentPane().add(btsetEmpty);
+		btsetEmpty.addActionListener(this);
+
+		btsetBefore = new JButton("초기화"); // 수정 전 값으로 다시 돌ㅇ가ㅏㅁ
+		btsetBefore.setBounds(157, 340, 115, 31);
+		f.getContentPane().add(btsetBefore);
+		btsetBefore.addActionListener(this);
 	}// end buttonSetting()
 
 	// 정보입력창 설정
@@ -290,51 +316,31 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		tfAllias.setBounds(75, 300, 150, 30);
 		f.getContentPane().add(tfAllias);
 
-		btInAdd = new JButton("추가");
-		btInAdd.setBounds(30, 340, 115, 31);
-		f.getContentPane().add(btInAdd);
-		btInAdd.addActionListener(this);
-
-		btInModify = new JButton("수정");
-		btInModify.setBounds(30, 340, 115, 31);
-		f.getContentPane().add(btInModify);
-		btInModify.addActionListener(this);
-
-		btsetEmpty = new JButton("초기화");
-		btsetEmpty.setBounds(157, 340, 115, 31);
-		f.getContentPane().add(btsetEmpty);
-		btsetEmpty.addActionListener(this);
-
-		btsetBefore = new JButton("초기화");
-		btsetBefore.setBounds(157, 340, 115, 31);
-		f.getContentPane().add(btsetBefore);
-		btsetBefore.addActionListener(this);
-
 		f.setVisible(false);
-	}
+	}// end innerFrameSetting()
 
-	// 콤보박스 설정
+	// 주소에 관련된 콤보박스 설정
 	private void comboAddr() {
-		String[] city = { "서울", "광주", "대구", "부산", "울산", "인천", 
-				"대전", "경기", "강원", "충청", "경상", "전라", "제주", "그외" };
-		addr = "서울"; // 기본값은 서울로 해놨습니다.
+		String[] city = { "서울", "광주", "대구", "부산", "울산", "인천", "대전", "경기", "강원", "충청", "경상", "전라", "제주", "그외" };
+		addr = "서울"; // 기본값은 서울.
 		cbAddr0 = new JComboBox(city);
 		cbAddr0.setBounds(75, 220, 197, 30);
 		f.getContentPane().add(cbAddr0);
 		cbAddr0.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
-				addr = (String) cb.getSelectedItem();	//선택된 콤보박스 항목을 주소로 저장
+				// 선택된 콤보박스 항목을 주소로 저장
+				addr = (String) cb.getSelectedItem();
 			}
 		});
-	}
+	}// end comboAddr()
 
 	// 마우스 액션에 관한 메서드
 	private void mouseAction() {
 
-		// 클릭한 테이블의 row인덱스값 읽어오기
+		// 클릭한 표의 row인덱스값 읽어오기
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -365,10 +371,11 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			setBefore();
 		}
 		if (e.getSource() == btDelete) { // delete, delete
+			// DAO에 삭제를 위한 key word를 담아두는 변수
 			String selectId = model.getValueAt(i, 0).toString();
-			if(selectId.equals("관리자")||selectId.equals("root")) {
+			if (selectId.equals("관리자") || selectId.equals("root")) {
 				JOptionPane.showMessageDialog(null, "관리자는 삭제할 수 없습니다.");
-			}else {
+			} else {
 				int rs = fDAO.deleteFranchiseInfo(id);
 				if (rs == 0) {
 					System.out.println("H_Franchise delete실패");
@@ -382,7 +389,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			fDTO = new H_FranchiseDTO();
 			System.out.println(w.makeId(id));
 			fDTO.setId(w.makeId(id));
-			fDTO.setPw("1234"); //비밀번호 그냥설정
+			fDTO.setPw("1234"); // 비밀번호 그냥설정
 			fDTO.setOwnername(tfON.getText());
 			String tel = tfTel0.getText() + "-" + tfTel1.getText() + "-" + tfTel2.getText();
 			fDTO.setTel(tel);
@@ -423,7 +430,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		if (e.getSource() == btsetBefore) { // 초기화
 			setBefore();
 		}
-	}
+	}//end actionPerformed()
 
 	// 입력 창을 텅 비워주는 메서드
 	private void setEmpty() {
@@ -438,20 +445,21 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		tfAddr1.setText("");
 		tfAllias.setText("");
 
-		tfPw.setEditable(true);	// 수정 가능하게
+		tfPw.setEditable(true); // 수정 가능하게
 		tfCNum0.setEditable(true);
 		tfCNum1.setEditable(true);
 		tfCNum2.setEditable(true);
 		cbAddr0.setEnabled(true);
 		tfAddr1.setEditable(true);
 		tfAllias.setEditable(true);
-	}
+	}//end setEmpty
 
 	// 수정하기 전 모습으로 돌려주는 메서드
+	// 받아놓은 인덱스 값에 해당하는 데이터들을 다시 불러옴
 	private void setBefore() {
 		tfId.setText(model.getValueAt(i, 0).toString());
 		tfPw.setText(model.getValueAt(i, 1).toString());
-		tfPw.setEditable(false);	 // 수정 불가능하게
+		tfPw.setEditable(false); // 수정 불가능하게
 		tfON.setText(model.getValueAt(i, 2).toString());
 		String[] tel = (model.getValueAt(i, 3).toString()).split("-");
 		tfTel0.setText(tel[0]);
@@ -471,7 +479,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		tfAddr1.setEditable(false);
 		tfAllias.setText(model.getValueAt(i, 6).toString());
 		tfAllias.setEditable(false);
-	}
+	}//end setBefore
 
 	// BBQHead 인터페이스 구현으로 강제생성된 show / hide메서드
 	@Override

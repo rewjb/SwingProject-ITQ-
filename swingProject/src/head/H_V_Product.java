@@ -1,5 +1,11 @@
 package head;
 
+/*
+ * wHn 2018-12-17
+ * 재료의 추가 제거에 관련된 Swing페에지 입니다.
+ * 추가 수정 제거 버튼과 재료의 이름을 따로 추가 수정 제거하는 동작은 구현 완료 했습니다. 
+ * 주석처리 및 변수 정리도 완료 했습니다. 
+ */
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,24 +47,23 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JTextField tfNum;
 	private JLabel lbId;
 	private JTextField tfId;
-	JComboBox cbId;
+	JComboBox cbId;		//H_Vender클래스에서 사용해야 해서 default
 	private JLabel lbName;
 	private JComboBox cbName;
 	private JLabel lbMoney;
 	private JTextField tfMoney;
 	private JLabel lbOrderM;
 	private JTextField tfOrderM;
-	
+	// 라벨 설정 - 화면에 각 영역의 이름을 알려주는 라벨
 	private JLabel plb1;
 	private JLabel plb2;
 	
 	// 버튼
-	private JButton btAdd;
-	private JButton btModify;
-	private JButton btDelete;
-	private JButton btCId;
-	private JButton btName; // 재료명, 이율 수정하는 버튼
-	private JButton btRefresh;
+	private JButton btAdd;		//추가
+	private JButton btModify;	//수정
+	private JButton btDelete;	//제거
+	private JButton btName;		//재료명, 발주가 수정하는 버튼
+	private JButton btRefresh;	//수정 후 적용(콤보박스 리프레쉬 해줌)
 
 	// 메뉴 수정에 관한 라벨,텍스트필드,버튼 테이블 등
 	private JFrame nameF;
@@ -75,14 +80,14 @@ public class H_V_Product extends JPanel implements ActionListener {
 	// 그외
 	Object[] row;
 	H_VenderpDAO pDAO = new H_VenderpDAO(); // 제품 DAO
-	H_VenderpDTO pDTO; // 제품 DTO
-	H_VenderDAO vDAO = new H_VenderDAO(); // 업체 DAO
-	H_VenderDTO vDTO; // 업체DTO
-	String id; // 콤보박스 선택된 id 담아두는 변수
-	String name; // 콤보박스 선택된 name 담아두는 변수
+	H_VenderpDTO pDTO;						// 제품 DTO
+	H_VenderDAO vDAO = new H_VenderDAO();	// 업체 DAO
+	H_VenderDTO vDTO;						// 업체DTO
+	String id; 		// 콤보박스 선택된 id 담아두는 변수
+	String name; 	// 콤보박스 선택된 name 담아두는 변수
 	HashMap<String, String> nameO; // name에 해당하는 발주가격 담아놓은 컬렉션
-	String[] np; // 텍스트에서 (재료)이름과 발주가 분리해주는 배열
-	int tableIdx; // 메뉴명 추가 테이블 클릭시 해당 열의 인덱스값 받아오는 변수
+	String[] np; 	// 텍스트에서 (재료)이름과 발주가 분리해주는 배열
+	int tableIdx; 	// 메뉴명 추가 테이블 클릭시 해당 열의 인덱스값 받아오는 변수
 
 	// 생성자 constructor
 	public H_V_Product() {
@@ -92,7 +97,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		mouseAction();
 		
 		setBackground(new Color(184, 207, 229));
-	}
+	}//end construct
 
 	// 표에 관련된 설정사항
 	private void tableSetting() {
@@ -109,10 +114,9 @@ public class H_V_Product extends JPanel implements ActionListener {
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
-	}
-	// 업체명 Combobox받아오는 메서드
+	}//end tableSetting()
 
-	// refresh 표에 전체출력해주는 메서드
+	// 표에 전체 데이터를 출력해주는 메서드
 	void showAll() {
 		tableSetting();
 		ArrayList<H_VenderpDTO> list = pDAO.selectALLVenderpInfo();
@@ -143,33 +147,33 @@ public class H_V_Product extends JPanel implements ActionListener {
 		tfNum.setText("자동생성");
 		tfNum.setEditable(false);
 		tfMoney.setText("");
-	}
+	}//end showAll()
 
 	// 업체id 콤보박스에 담아주는 메서드
 	void comboCId() {
-		Vector vec = new Vector(); // 콤보박스에 vector를 넣어야 합니다..!
+		Vector vec = new Vector(); // 콤보박스에 vector를 넣어야 합니다!
 		ArrayList<H_VenderDTO> list = vDAO.selectIdAllVenderInfo();
 		for (int i = 0; i < list.size(); i++) {
-			vec.add(list.get(i).getId());
-			id = list.get(0).getId();
+			vec.add(list.get(i).getId());	//vector에 list를 넣어줌
+			id = list.get(0).getId();		//선택을 따로 안하면 첫번째 id가 선택되어 있음.
 		}
-		cbId = new JComboBox<H_VenderDTO>(vec);
+		cbId = new JComboBox<H_VenderDTO>(vec); //콤보박스 생성
 		cbId.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox) e.getSource();
-				id = (String) cb.getSelectedItem();
+				id = (String) cb.getSelectedItem(); //선택을 할경우 해당 id가 선택
 			}
 		});
-	}
+	}//end comboCId()
 
 	// 메뉴이름 콤보박스에 담아주는 메서드
 	private void comboPName() {
 		try {
 			Scanner sc = new Scanner(new File("H_VenderpName.txt"));
-			Vector vec = new Vector<>();
-			nameO = new HashMap<>();
+			Vector vec = new Vector<>();	//콤보박스에 넣을 vector
+			nameO = new HashMap<>();		//map
 			int idx = 0;
 			while (sc.hasNextLine()) {
 				np = sc.nextLine().split("-");
@@ -195,7 +199,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}//end comboPName()
 
 	// 라벨 및 텍스트필드 설정사항
 	private void labelSetting() {

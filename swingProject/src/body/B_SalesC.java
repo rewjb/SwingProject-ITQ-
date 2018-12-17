@@ -161,21 +161,26 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 
 	public void searchSales() {// 매출 검색 메서드
 		
-		if (!(g_YearTextField.getText().equals("")) && g_MonthTextField.getText().equals("") && g_DayTextField.getText().equals("")) {//년도만 검색했을때 조건
+		if (!(g_YearTextField.getText().equals("")) && g_MonthTextField.getText().equals("") && g_DayTextField.getText().equals("") ) {//년도만 검색했을때 조건
 			int size = B_SalesDAO.getInstance()
 					.menuAllSelect(B_Frame.st_G_id,g_YearTextField.getText() + "-" + g_MonthTextField.getText()).size();
+			System.out.println(size); 
 			ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
 					.menuAllSelect(B_Frame.st_G_id,g_YearTextField.getText() + "-" + g_MonthTextField.getText());
+//			System.out.println(g_MonthTextField.getText());
 			for (int j = 0; j < size; j++) {
 				if (!(salesDTO.get(j).getChickenF() == 0)) {
 					g_AllSalesModel.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
 							salesDTO.get(j).getChickenF(), salesDTO.get(j).getDate().substring(0, 19) });
-				} else if (!(salesDTO.get(j).getChickenH() == 0)) {
+				}  if (!(salesDTO.get(j).getChickenH() == 0)) {
 					g_AllSalesModel.insertRow(0, new Object[] { "양념", (salesDTO.get(j).getChickenH()) / 20000,
 							salesDTO.get(j).getChickenH(), salesDTO.get(j).getDate().substring(0, 19) });
-				} else if (!(salesDTO.get(j).getChickenS() == 0)) {
+				}  if (!(salesDTO.get(j).getChickenS() == 0)) {
 					g_AllSalesModel.insertRow(0, new Object[] { "간장", (salesDTO.get(j).getChickenS()) / 20000,
 							salesDTO.get(j).getChickenS(), salesDTO.get(j).getDate().substring(0, 19) });
+				}  if (!(salesDTO.get(j).getSide() == 0)) {
+					g_AllSalesModel.insertRow(0, new Object[] { "음료", (salesDTO.get(j).getSide())/2000,
+							salesDTO.get(j).getSide(), salesDTO.get(j).getDate().substring(0, 19)});
 				}
 
 			}
@@ -188,12 +193,15 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 			if (!(salesDTO.get(j).getChickenF() == 0)) {
 				g_AllSalesModel.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
 						salesDTO.get(j).getChickenF(), salesDTO.get(j).getDate().substring(0, 19) });
-			} else if (!(salesDTO.get(j).getChickenH() == 0)) {
+			}  if (!(salesDTO.get(j).getChickenH() == 0)) {
 				g_AllSalesModel.insertRow(0, new Object[] { "양념", (salesDTO.get(j).getChickenH()) / 20000,
 						salesDTO.get(j).getChickenH(), salesDTO.get(j).getDate().substring(0, 19) });
-			} else if (!(salesDTO.get(j).getChickenS() == 0)) {
+			}  if (!(salesDTO.get(j).getChickenS() == 0)) {
 				g_AllSalesModel.insertRow(0, new Object[] { "간장", (salesDTO.get(j).getChickenS()) / 20000,
 						salesDTO.get(j).getChickenS(), salesDTO.get(j).getDate().substring(0, 19) });
+			} if (!(salesDTO.get(j).getSide() == 0)) {
+				g_AllSalesModel.insertRow(0, new Object[] { "음료", (salesDTO.get(j).getSide())/2000,
+						salesDTO.get(j).getSide(), salesDTO.get(j).getDate().substring(0, 19)});
 			}
 
 		}
@@ -205,50 +213,28 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 		if (count==0) {
 			
 		}else {
+			g_SalesResultModel.insertRow(0, new Object[] {0,0,0,0,0});
 		for (int i = 0; i < count; i++) {// 작업중
 			if (g_AllSalesModel.getValueAt(i, 0).equals("후라이드")) {// 후라이드치킨 종합
-				if (g_SalesResultModel.getRowCount() == 0) {
-					g_SalesResultModel.insertRow(0, new Object[] {});
-					g_SalesResultModel.setValueAt((int) g_AllSalesModel.getValueAt(i, 2), 0, 0);
-				} else {
+
 					g_SalesResultModel.setValueAt(
-							(int) g_SalesResultModel.getValueAt(0, 0) + (int) g_AllSalesModel.getValueAt(i, 2),
-							0, 0);
-				}
+				(int) g_SalesResultModel.getValueAt(0, 0) +(int) g_AllSalesModel.getValueAt(i, 2),0, 0);
 
 			} else if (g_AllSalesModel.getValueAt(i, 0).equals("양념")) {// 양념치킨 종합
-				if (g_SalesResultModel.getRowCount() == 0) {
-					g_SalesResultModel.insertRow(0, new Object[] {});
-					g_SalesResultModel.setValueAt((int) g_AllSalesModel.getValueAt(i, 2), 0, 1);
-				} else if (g_SalesResultModel.getValueAt(0, 1) == null) {
-					g_SalesResultModel.setValueAt((int) g_AllSalesModel.getValueAt(i, 2), 0, 1);
-				} else {
-					g_SalesResultModel.setValueAt(
-							(int) g_SalesResultModel.getValueAt(0, 1) + (int) g_AllSalesModel.getValueAt(i, 2),
-							0, 1);
-				}
+
+				g_SalesResultModel.setValueAt(
+						(int) g_SalesResultModel.getValueAt(0, 1) + (int) g_AllSalesModel.getValueAt(i, 2),
+						0, 1);
 			} else if (g_AllSalesModel.getValueAt(i, 0).equals("간장")) {// 간장치킨 종합
-				if (g_SalesResultModel.getRowCount() == 0) {
-					g_SalesResultModel.insertRow(0, new Object[] {});
-					g_SalesResultModel.setValueAt((int) g_AllSalesModel.getValueAt(i, 2), 0, 2);
-				} else if (g_SalesResultModel.getValueAt(0, 1) == null) {
-					g_SalesResultModel.setValueAt((int) g_AllSalesModel.getValueAt(i, 2), 0, 2);
-				} else {
-					g_SalesResultModel.setValueAt(
-							(int) g_SalesResultModel.getValueAt(0, 2) + (int) g_AllSalesModel.getValueAt(i, 2),
-							0, 2);
-				}
+
+				g_SalesResultModel.setValueAt(
+				(int) g_SalesResultModel.getValueAt(0, 2) + (int) g_AllSalesModel.getValueAt(i, 2),
+				0, 2);
 			} else if(g_AllSalesModel.getValueAt(i, 0).equals("음료")){// 음료 종합
-				if (g_SalesResultModel.getRowCount() == 0) {
-					g_SalesResultModel.insertRow(0, new Object[] {});
-					g_SalesResultModel.setValueAt((int) g_AllSalesModel.getValueAt(i, 2), 0, 3);
-				} else if (g_SalesResultModel.getValueAt(0, 3) == null) {
-					g_SalesResultModel.setValueAt((int) g_AllSalesModel.getValueAt(i, 2), 0, 3);
-				} else {
-					g_SalesResultModel.setValueAt(
-							(int) g_SalesResultModel.getValueAt(0, 3) + (int) g_AllSalesModel.getValueAt(i, 2),
-							0, 3);
-				}
+
+				g_SalesResultModel.setValueAt(
+						(int) g_SalesResultModel.getValueAt(0, 3) + (int) g_AllSalesModel.getValueAt(i, 2),
+						0, 3);
 			}
 
 		}
@@ -277,7 +263,7 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 				for (int i = 0; i < count; i++) {
 					g_AllSalesModel.removeRow(0);
 				}
-				searchSales();
+				searchSales();   
 			}
 			if (g_SalesResultModel.getRowCount() == 0 && !(g_YearTextField.getText().equals(""))) {//
 				salesResult();

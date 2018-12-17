@@ -116,7 +116,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		add(scrollPane);
-		scrollPane.setBounds(15, 54, 738, 304);
+		scrollPane.setBounds(15, 25, 740, 300);
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
@@ -145,7 +145,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	
 	private void labelSetting() {
 		flb = new JLabel("제품목록");
-		flb.setBounds(330, 20, 100, 30);
+		flb.setBounds(330, 0, 100, 30);
 		flb.setHorizontalAlignment(SwingConstants.CENTER);
 		add(flb);
 	}
@@ -153,17 +153,17 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	// 버튼에 관련된 설정사항
 	private void buttonSetting() {
 		btAdd = new JButton("추가");
-		btAdd.setBounds(15, 14, 70, 30);
+		btAdd.setBounds(540, 328, 70, 30);
 		add(btAdd);
 		btAdd.addActionListener(this);
 
 		btModify = new JButton("수정");
-		btModify.setBounds(95, 14, 70, 30);
+		btModify.setBounds(612, 328, 70, 30);
 		add(btModify);
 		btModify.addActionListener(this);
 
 		btDelete = new JButton("삭제");
-		btDelete.setBounds(175, 14, 70, 30);
+		btDelete.setBounds(685, 328, 70, 30);
 		add(btDelete);
 		btDelete.addActionListener(this);
 	}// end buttonSetting()

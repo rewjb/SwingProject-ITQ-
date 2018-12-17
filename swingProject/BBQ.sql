@@ -116,6 +116,7 @@ select * from bodysales  order by date desc;
 특정 날짜 + 날짜를 내림차순으로 전체 가져오기
 SELECT id,name FROM headvender;
 select * from headvender;
+select * from headvenderp;
 select * from  headOrder;
 
 select * from  headstock;
@@ -177,6 +178,8 @@ side int
 );
 
 select * from s
+
+insert into bodysales values (default,'조광재','2018-11-01','60000','20000','20000','20000','0');
 
 insert into bodysales values (default,'조광재','2018-11-01','60000','20000','20000','20000','0');
 insert into bodysales values (default,'조광재','2018-10-01','60000','20000','20000','20000','0');

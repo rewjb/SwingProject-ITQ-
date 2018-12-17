@@ -30,6 +30,7 @@ import java.awt.Image;
 import java.awt.Color;
 
 
+
 public class Login extends JFrame implements BBQ, ActionListener{
 	private JButton btLoginU;	//로그인버튼
 
@@ -49,7 +50,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 
 	//생성자
 	public Login() {
-		getContentPane().setBackground(Color.PINK);
+		getContentPane().setBackground(new Color(184, 207, 229));
 		setIconImage(frameimg);
 		setTitle("로그인");
 		mainPSetting();

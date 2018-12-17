@@ -23,6 +23,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import DTO_DAO.*;
+import javax.swing.border.LineBorder;
+import java.awt.Font;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
 
 public class H_V_Company extends JPanel implements ActionListener {
 	// 표에 관련된 부분
@@ -37,6 +43,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private JLabel lbName;
 	private JTextField tfName;
 	private JLabel lbCNum0;
+	private JLabel lbCNum01;
 	private JTextField tfCNum0;
 	private JTextField tfCNum1;
 	private JTextField tfCNum2;
@@ -48,6 +55,9 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private JTextField tfTel2;
 	private JLabel lbTel1;
 	private JLabel lbTel2;
+	
+	private JLabel clb1;
+	private JLabel clb2;
 	
 	// 버튼
 	private JButton btAdd;
@@ -81,7 +91,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		add(scrollPane);
-		scrollPane.setBounds(15, 10, 500, 300);
+		scrollPane.setBounds(255, 30, 500, 300);
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
@@ -124,103 +134,126 @@ public class H_V_Company extends JPanel implements ActionListener {
 
 	// 라벨 및 텍스트필드 설정사항
 	private void labelSetting() {
+
+		clb1 = new JLabel("업체목록");
+		clb1.setBounds(450, 0, 100, 30);
+		clb1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(clb1);
+		
+		clb2 = new JLabel("업체등록");
+		clb2.setBounds(100, 0, 100, 30);
+		clb2.setHorizontalAlignment(SwingConstants.CENTER);
+		add(clb2);
+		
+		JPanel sp = new JPanel();
+		sp.setBorder(new LineBorder(new Color(255,255,255)));
+		sp.setBackground(new Color(184, 207, 229));
+		sp.setLayout(null);
+		sp.setBounds(15, 30, 230, 180);
+		this.add(sp);
 		
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
-		lbId.setBounds(522, 20, 60, 30);
-		add(lbId);
+		lbId.setBounds(0, 10, 60, 30);
+		sp.add(lbId);
 
 		tfId = new JTextField();
-		tfId.setBounds(587, 20, 150, 30);
-		add(tfId);
+		tfId.setBounds(65, 10, 150, 30);
+		sp.add(tfId);
 		tfId.setColumns(10);
 
 		lbName = new JLabel("업체명");
 		lbName.setHorizontalAlignment(SwingConstants.CENTER);
-		lbName.setBounds(522, 60, 60, 30);
-		add(lbName);
+		lbName.setBounds(0, 50, 60, 30);
+		sp.add(lbName);
 
 		tfName = new JTextField();
 		tfName.setColumns(10);
-		tfName.setBounds(587, 60, 150, 30);
-		add(tfName);
+		tfName.setBounds(65, 50, 150, 30);
+		sp.add(tfName);
 		
 		lbTel0 = new JLabel("연락처");
 		lbTel0.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTel0.setBounds(522, 100, 60, 30);
-		add(lbTel0);
+		lbTel0.setBounds(0, 90, 60, 30);
+		sp.add(lbTel0);
 		
 		tfTel0 = new JTextField();
 		tfTel0.setColumns(3);
-		tfTel0.setBounds(587, 100, 40, 30);
-		add(tfTel0);
+		tfTel0.setBounds(65, 90, 40, 30);
+		sp.add(tfTel0);
 		
 		lbTel1 = new JLabel("-");
 		lbTel1.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTel1.setBounds(627, 100, 10, 30);
-		add(lbTel1);
+		lbTel1.setBounds(105, 90, 10, 30);
+		sp.add(lbTel1);
 		
 		tfTel1 = new JTextField();
 		tfTel1.setColumns(4);
-		tfTel1.setBounds(637, 100, 45, 30);
-		add(tfTel1);
+		tfTel1.setBounds(115, 90, 45, 30);
+		sp.add(tfTel1);
 		
 		lbTel2 = new JLabel("-");
 		lbTel2.setHorizontalAlignment(SwingConstants.CENTER);
-		lbTel2.setBounds(682, 100, 10, 30);
-		add(lbTel2);
+		lbTel2.setBounds(160, 90, 10, 30);
+		sp.add(lbTel2);
 		
 		tfTel2 = new JTextField();
 		tfTel2.setColumns(4);
-		tfTel2.setBounds(692, 100, 45, 30);
-		add(tfTel2);
+		tfTel2.setBounds(170, 90, 45, 30);
+		sp.add(tfTel2);
 
-		lbCNum0 = new JLabel("사업자번호");
+		lbCNum0 = new JLabel("사업자");
+		lbCNum0.setFont(new Font("굴림", Font.BOLD, 11));
 		lbCNum0.setHorizontalAlignment(SwingConstants.CENTER);
-		lbCNum0.setBounds(522, 140, 60, 30);
-		add(lbCNum0);
+		lbCNum0.setBounds(0, 124, 60, 25);
+		sp.add(lbCNum0);
+		lbCNum01 = new JLabel("번호");
+		lbCNum01.setFont(new Font("굴림", Font.BOLD, 11));
+		lbCNum01.setHorizontalAlignment(SwingConstants.CENTER);
+		lbCNum01.setBounds(0, 136, 60, 25);
+		sp.add(lbCNum01);
 
 		tfCNum0 = new JTextField();
 		tfCNum0.setColumns(3);
-		tfCNum0.setBounds(587, 140, 30, 30);
-		add(tfCNum0);
+		tfCNum0.setBounds(65, 130, 30, 30);
+		sp.add(tfCNum0);
 
 		lbCNum1 = new JLabel("-");
 		lbCNum1.setHorizontalAlignment(SwingConstants.CENTER);
-		lbCNum1.setBounds(617, 140, 10, 30);
-		add(lbCNum1);
+		lbCNum1.setBounds(95, 130, 10, 30);
+		sp.add(lbCNum1);
 
 		tfCNum1 = new JTextField();
 		tfCNum1.setColumns(4);
-		tfCNum1.setBounds(627, 140, 30, 30);
-		add(tfCNum1);
+		tfCNum1.setBounds(105, 130, 30, 30);
+		sp.add(tfCNum1);
 
 		lbCNum2 = new JLabel("-");
 		lbCNum2.setHorizontalAlignment(SwingConstants.CENTER);
-		lbCNum2.setBounds(657, 140, 10, 30);
-		add(lbCNum2);
+		lbCNum2.setBounds(135, 130, 10, 30);
+		sp.add(lbCNum2);
 
 		tfCNum2 = new JTextField();
 		tfCNum2.setColumns(4);
-		tfCNum2.setBounds(667, 140, 70, 30);
-		add(tfCNum2);
+		tfCNum2.setBounds(145, 130, 70, 30);
+		sp.add(tfCNum2);
 
 	}
 
 	// 버튼에 관련된 설정사항
 	private void buttonSetting() {
 		btAdd = new JButton("추가");
-		btAdd.setBounds(527, 275, 70, 30);
+		btAdd.setBounds(20, 300, 70, 30);
 		add(btAdd);
 		btAdd.addActionListener(this);
 
 		btModify = new JButton("수정");
-		btModify.setBounds(605, 275, 70, 30);
+		btModify.setBounds(95, 300, 70, 30);
 		add(btModify);
 		btModify.addActionListener(this);
 
 		btDelete = new JButton("삭제");
-		btDelete.setBounds(683, 275, 70, 30);
+		btDelete.setBounds(170, 300, 70, 30);
 		add(btDelete);
 		btDelete.addActionListener(this);
 	}

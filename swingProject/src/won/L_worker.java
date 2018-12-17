@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * DB는 H_FranchasDAO DTO를 같이 사용합니다.
  */
 import DTO_DAO.*;
-import body.BodyFrame;
+import body.B_Frame;
 
 public class L_worker {
 	H_FranchiseDAO fDAO = new H_FranchiseDAO();
@@ -27,7 +27,7 @@ public class L_worker {
 		}else {
 			if(checkUid(id)) {
 				if(checkUpw(id, "1234")) {
-					BodyFrame bf = new BodyFrame(id);
+					B_Frame bf = new B_Frame(id);
 				}//사용자 비밀번호 맞을때
 			}
 		}

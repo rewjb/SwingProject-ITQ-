@@ -40,7 +40,7 @@ import javax.swing.JComboBox;
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 
-public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, ItemListener {
+public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemListener {
 
 	private JLabel reservesLabel;
 	private JLabel amountLabel;
@@ -101,7 +101,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	// DefaultTableCellRenderer();
 	// Jtable의 가운데 정렬 객체
 
-	public BodyOrderC() {// 생성자
+	public B_OrderC() {// 생성자
 
 		setLayout(null);
 		setSize(790, 399);
@@ -274,17 +274,17 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 	
 	public void orderList() {// 발주목록 보는 메서드
 		listNum = new ArrayList<>();
-		int selectAllArrayListSize = B_OrderDAO.getInstance().selectAll(BodyFrame.id).size();
+		int selectAllArrayListSize = B_OrderDAO.getInstance().selectAll(B_Frame.id).size();
 		for (int i = 0; i < selectAllArrayListSize; i++) {
-			listNum.add(B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getNum());
+			listNum.add(B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).getNum());
 		}
 		if (orderList.getRowCount() == 0) {
 			for (int i = 0; i < selectAllArrayListSize; i++) {
 				orderList.insertRow(i,
-						new Object[] { B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getName(),
-								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getQuantity(),
-								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).getDate().substring(0, 10),
-								B_OrderDAO.getInstance().selectAll(BodyFrame.id).get(i).gethComfirm() });
+						new Object[] { B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).getName(),
+								B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).getQuantity(),
+								B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).getDate().substring(0, 10),
+								B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).gethComfirm() });
 			}
 		} 
 	}
@@ -349,7 +349,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 			for (int j = 0; j < orderModel.getRowCount(); j++) {
 				String test2 = (String) orderModel.getValueAt(j, 0);
 				int test3 = Integer.parseInt((String) orderModel.getValueAt(j, 1));
-				B_OrderDAO.getInstance().orderInsert(BodyFrame.id, test2, test3);
+				B_OrderDAO.getInstance().orderInsert(B_Frame.id, test2, test3);
 			}
 			int orderModelRowCount = orderModel.getRowCount();
 			for (int j = 0; j < orderModelRowCount; j++) {
@@ -372,7 +372,7 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 			if (orderList.getRowCount()==0) {
 
 			} else {
-				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(BodyFrame.id).size(); i++) {
+				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(B_Frame.id).size(); i++) {
 					orderList.removeRow(0);
 				}
 
@@ -385,10 +385,10 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 			}
 		} else if (e.getSource() == stockListBt) {// 재고 확인 버튼
 			if (stockModel.getRowCount()==0) {// model1의 첫번째 줄에 아무값도 없으면 재고를 가져온다
-				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); j++) {
+				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(B_Frame.id).size(); j++) {
 					stockModel.insertRow(j,
-							new Object[] { B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getName(),
-									B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getQuantity() });
+							new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(j).getName(),
+									B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(j).getQuantity() });
 				}
 
 			} else {
@@ -396,10 +396,10 @@ public class BodyOrderC extends JPanel implements BodyOrder, ActionListener, Ite
 				for (int i = 0; i < rowCount; i++) {
 					stockModel.removeRow(0);
 				}
-				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).size(); j++) {
+				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(B_Frame.id).size(); j++) {
 					stockModel.insertRow(j,
-							new Object[] { B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getName(),
-									B_StockDAO.getInstance().stockSelectAll(BodyFrame.id).get(j).getQuantity() });
+							new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(j).getName(),
+									B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(j).getQuantity() });
 				}
 
 			}

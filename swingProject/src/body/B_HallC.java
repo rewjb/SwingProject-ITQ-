@@ -43,7 +43,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class HallC extends JPanel implements ActionListener, BodyHall{
+public class B_HallC extends JPanel implements ActionListener, BodyHall{
 
 
 	// 테이블 버튼
@@ -160,7 +160,7 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 
 	String[] menu = new String[] { "후라이드", "양념", "간장", "음료" };// 메뉴 리스트
 
-	public HallC() {// 생성자
+	public B_HallC() {// 생성자
 
 		// 각 테이블 버튼 객체 생성
 		jb1 = new JButton("1번 테이블");
@@ -318,15 +318,15 @@ public class HallC extends JPanel implements ActionListener, BodyHall{
 			count++;
 		}
 		if (priceSum != 0) {
-			B_SalesDAO.getInstance().menuInsert(BodyFrame.id, priceSum, chickenF, chickenH, chickenS, side);
+			B_SalesDAO.getInstance().menuInsert(B_Frame.id, priceSum, chickenF, chickenH, chickenS, side);
 			if (chickenF != 0) {
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "닭", -chickenF / 20000);
+				B_StockDAO.getInstance().insertStock(B_Frame.id, "닭", -chickenF / 20000);
 			}
 			if (chickenH != 0) {
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "닭", -chickenH / 20000);
+				B_StockDAO.getInstance().insertStock(B_Frame.id, "닭", -chickenH / 20000);
 			}
 			if (chickenS != 0) {
-				B_StockDAO.getInstance().insertStock(BodyFrame.id, "닭", -chickenS / 20000);
+				B_StockDAO.getInstance().insertStock(B_Frame.id, "닭", -chickenS / 20000);
 			}
 			priceSum = 0;
 			chickenF = 0;

@@ -25,7 +25,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
 
-public class BodySalesC extends JPanel implements BodySales, ActionListener {
+public class B_SalesC extends JPanel implements BodySales, ActionListener {
 
 	private DefaultTableModel allSalesModel = new DefaultTableModel(0, 4);//전체 매출 표
 	private DefaultTableModel salesResultModel = new DefaultTableModel(0, 5);//매출 종합 표
@@ -50,12 +50,12 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 	private JTextField dayTextField;// 세번째 날짜 입력칸
 	private JLabel dateSearchLabel;// 날짜검색
 	private JButton selecteBt;// 선택버튼
-	private BodySalesDataChart bodySalesDataChart = new BodySalesDataChart();//검색한 매출을 그래프로 보여줄 클래스
+	private B_SalesC_SalesDataChart bodySalesDataChart = new B_SalesC_SalesDataChart();//검색한 매출을 그래프로 보여줄 클래스
 	
 
 	private ArrayList<Integer> value;// 월별 매출 갖고 오는 리스트
 
-	public BodySalesC() {// 생성자
+	public B_SalesC() {// 생성자
 		// jpanel레이아웃 사이즈 배경설정
 		setLayout(null);
 		setSize(790, 370);
@@ -158,9 +158,9 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 		
 		if (!(yearTextField.getText().equals("")) && monthTextField.getText().equals("")) {
 			int size = B_SalesDAO.getInstance()
-					.menuAllSelect(BodyFrame.id,yearTextField.getText() + "-" + monthTextField.getText()).size();
+					.menuAllSelect(B_Frame.id,yearTextField.getText() + "-" + monthTextField.getText()).size();
 			ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
-					.menuAllSelect(BodyFrame.id,yearTextField.getText() + "-" + monthTextField.getText());
+					.menuAllSelect(B_Frame.id,yearTextField.getText() + "-" + monthTextField.getText());
 			for (int j = 0; j < size; j++) {
 				if (!(salesDTO.get(j).getChickenF() == 0)) {
 					allSalesModel.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
@@ -176,9 +176,9 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 			}
 		}else {
 		int size = B_SalesDAO.getInstance()
-				.menuAllSelect(BodyFrame.id,yearTextField.getText() + "-" + monthTextField.getText() + "-" + dayTextField.getText()).size();
+				.menuAllSelect(B_Frame.id,yearTextField.getText() + "-" + monthTextField.getText() + "-" + dayTextField.getText()).size();
 		ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
-				.menuAllSelect(BodyFrame.id,yearTextField.getText() + "-" + monthTextField.getText() + "-" + dayTextField.getText());
+				.menuAllSelect(B_Frame.id,yearTextField.getText() + "-" + monthTextField.getText() + "-" + dayTextField.getText());
 		for (int j = 0; j < size; j++) {
 			if (!(salesDTO.get(j).getChickenF() == 0)) {
 				allSalesModel.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
@@ -282,10 +282,10 @@ public class BodySalesC extends JPanel implements BodySales, ActionListener {
 			}
 
 			if (!(yearTextField.getText().equals("")) && monthTextField.getText().equals("")) {
-				value = B_SalesDAO.getInstance().selectFranSalesYear(BodyFrame.id, yearTextField.getText());
+				value = B_SalesDAO.getInstance().selectFranSalesYear(B_Frame.id, yearTextField.getText());
 				bodySalesDataChart.monthChart(yearTextField.getText(), value);
 			}else if (!(yearTextField.getText().equals("")) && !(monthTextField.getText().equals(""))) {
-				value = B_SalesDAO.getInstance().selectFranSalesMonth(BodyFrame.id, yearTextField.getText(), monthTextField.getText());
+				value = B_SalesDAO.getInstance().selectFranSalesMonth(B_Frame.id, yearTextField.getText(), monthTextField.getText());
 				bodySalesDataChart.dayChart(yearTextField.getText(),monthTextField.getText(), value);
 				
 			}

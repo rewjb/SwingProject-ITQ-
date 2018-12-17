@@ -11,12 +11,12 @@ import javax.swing.JOptionPane;
 
 import com.mysql.jdbc.StandardSocketFactory;
 
-public class ClientReceive extends Thread {
+public class B_ChattingManager extends Thread {
 
 	Socket my_socket;
 	String nowRoomName;
 
-	public ClientReceive(Socket my_socket) {
+	public B_ChattingManager(Socket my_socket) {
 		this.my_socket = my_socket;
 	}// 생성자 종료
 	
@@ -39,24 +39,24 @@ public class ClientReceive extends Thread {
 			
 
 				if (str.equals("RoomList")) {
-					int temp = ClientFrame.model.getRowCount();
+					int temp = B_ChattingFrame.model.getRowCount();
 					// 테이블의 현재 갯수
 					for (int i = 0; i < temp; i++) {
-						ClientFrame.model.removeRow(0);
+						B_ChattingFrame.model.removeRow(0);
 					} // 기존 방 삭제
 					while (inputBuffer.ready()) {
 						str = inputBuffer.readLine();
 						System.out.println(str.split("/")[0]);
-						ClientFrame.model.insertRow(0, new Object[] { str.split("/")[0], str.split("/")[1] });
+						B_ChattingFrame.model.insertRow(0, new Object[] { str.split("/")[0], str.split("/")[1] });
 					}
 				} // 처음 접속시 리스트를 받는 메세지
 
 				if (str.equals("CHroom")) {
 					str = inputBuffer.readLine();
 					if (str.equals("true")) {
-						ClientFrame.chattingPanel.setVisible(true);
-						ClientFrame.selectRoomPanel.setVisible(false);
-						nowRoomName = new String(ClientFrame.nowRoomName);
+						B_ChattingFrame.chattingPanel.setVisible(true);
+						B_ChattingFrame.selectRoomPanel.setVisible(false);
+						nowRoomName = new String(B_ChattingFrame.nowRoomName);
 					} else {
 						JOptionPane.showMessageDialog(null, "존재하지 않는 방입니다.");
 					}
@@ -64,19 +64,19 @@ public class ClientReceive extends Thread {
 
 				if (str.equals("Msend")) {
 					str = inputBuffer.readLine();
-					if (ClientFrame.nowRoomName.equals(str.split("/")[1])) {
+					if (B_ChattingFrame.nowRoomName.equals(str.split("/")[1])) {
 						str = str.split("/")[0] + " : " + str.split("/")[2];
-						ClientFrame.historyArea.append(str + "\n");
+						B_ChattingFrame.historyArea.append(str + "\n");
 					}
 
 				}
 
 				if (str.equals("Delete")) {
 					str = inputBuffer.readLine();
-					if (str.equals(ClientFrame.nowRoomName)) {
+					if (str.equals(B_ChattingFrame.nowRoomName)) {
 						JOptionPane.showMessageDialog(null, "방이 삭제되었습니다.");
-						ClientFrame.selectRoomPanel.setVisible(true);
-						ClientFrame.chattingPanel.setVisible(false);
+						B_ChattingFrame.selectRoomPanel.setVisible(true);
+						B_ChattingFrame.chattingPanel.setVisible(false);
 					}
 				} else {
 

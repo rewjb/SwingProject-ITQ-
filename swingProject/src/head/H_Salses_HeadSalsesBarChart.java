@@ -17,7 +17,7 @@ import DTO_DAO.B_OrderDAO;
 import DTO_DAO.B_SalesDAO;
 import DTO_DAO.H_OrderDAO;
 
-public class HeadGoogleBarChart extends JPanel {
+public class H_Salses_HeadSalsesBarChart extends JPanel {
 
 	private Browser browser = new Browser();
 	// 이것이 HTML을 Swing 형태로 바꿔주는 것인가 ??
@@ -29,7 +29,7 @@ public class HeadGoogleBarChart extends JPanel {
 	ArrayList<Integer> headSales;
 	ArrayList<Integer> totalBodySales;
 
-	public HeadGoogleBarChart(String year) {
+	public H_Salses_HeadSalsesBarChart(String year) {
 
 		setLayout(new BorderLayout());
 		browser.addLoadListener(new LoadAdapter() {

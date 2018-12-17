@@ -35,7 +35,7 @@ import javax.swing.JPanel;
 // 아래의 4번은 제작한 모든  Jpanel을 3번까지의 과정을 거친 후 4번을 실행한다.
 // 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
-public class HeadFrame extends JFrame implements BBQHead, ActionListener {
+public class H_Frame extends JFrame implements BBQHead, ActionListener {
 
 	private JToggleButton F_OrderCheckBtn = new JToggleButton("가맹점 발주관리", new ImageIcon("img/가맹점 발주관리 아이콘.png"));
 	private JToggleButton OrderBtn = new JToggleButton("발주관리", new ImageIcon("img/발주관리 아이콘.png"));
@@ -73,7 +73,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	private Dimension point = Toolkit.getDefaultToolkit().getScreenSize();
 	// 전체 스크린 사이즈를 갖는 객체 생성
 
-	private ServerFrame serverFrame = new ServerFrame();
+	private H_ChattingFrame serverFrame = new H_ChattingFrame();
 	// 채팅 프로그램 실행 객체
 
 	private Color color = new Color(128, 144, 160);
@@ -82,7 +82,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
 	Image frameimg = toolkit.getImage("img/회사 프레임 아이콘.jpg");
 
-	public HeadFrame() {  
+	public H_Frame() {  
 
 		setTitle("JVQ 관리자  계정");
 		setIconImage(frameimg);
@@ -244,7 +244,7 @@ public class HeadFrame extends JFrame implements BBQHead, ActionListener {
 	}// actionPerformed 메서드 끝
 
 	public static void main(String[] args) {
-		new HeadFrame();
+		new H_Frame();
 	}
 
 }// 클래스 종료

@@ -20,7 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import body.BodyFrame;
+import body.B_Frame;
 import inter.BBQ;
 
 
@@ -192,7 +192,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		}
 		if(e.getSource() == btLoginR) {
 			if(true) {
-				head.HeadFrame hf = new head.HeadFrame(); 
+				head.H_Frame hf = new head.H_Frame(); 
 				dispose();
 			}else {
 				JOptionPane.showMessageDialog(null, "관리자 비밀번호 확인해주세요.");
@@ -200,7 +200,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		}
 		if(e.getSource() == btLoginU) {
 			if(true) {	//, tfUPw.getText())
-				BodyFrame bf = new BodyFrame(tfUId.getText());
+				B_Frame bf = new B_Frame(tfUId.getText());
 				dispose();
 			}
 			

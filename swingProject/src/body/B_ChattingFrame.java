@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class ClientFrame extends JDialog implements ActionListener {
+public class B_ChattingFrame extends JDialog implements ActionListener {
 
 	public static DefaultTableModel model = new DefaultTableModel(0, 2);
 	private JTable table = new JTable(model) {
@@ -60,7 +60,7 @@ public class ClientFrame extends JDialog implements ActionListener {
 	private PrintWriter sendWriter;
 
 	private String userName ;
-	public ClientFrame(String id) {
+	public B_ChattingFrame(String id) {
 		
 		clinet.start();
 		//이것이 가장 먼저 위에 있어야 한다.
@@ -130,7 +130,7 @@ public class ClientFrame extends JDialog implements ActionListener {
 		add(selectRoomPanel);  
 		add(chattingPanel);
 		setResizable(false);
-		setTitle("접속자 아이디: "+ BodyFrame.id);
+		setTitle("접속자 아이디: "+ B_Frame.id);
 		setSize(250, 350);
 		setVisible(false);
 	}// 생성자 종료
@@ -172,7 +172,7 @@ public class ClientFrame extends JDialog implements ActionListener {
 			try {
 				c_socket = new Socket("127.0.0.1", 8000);
 				// 기준이 되는 서버소켓 선언
-				ClientReceive clientReceive = new ClientReceive(c_socket);
+				B_ChattingManager clientReceive = new B_ChattingManager(c_socket);
 				clientReceive.start();
 				
 				sendWriter = new PrintWriter(c_socket.getOutputStream());

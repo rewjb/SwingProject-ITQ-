@@ -25,7 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
-public class ServerFrame extends JDialog implements ActionListener {
+public class H_ChattingFrame extends JDialog implements ActionListener {
 
 	public static DefaultTableModel model = new DefaultTableModel(0, 2);
 	private JTable table = new JTable(model) {
@@ -52,9 +52,9 @@ public class ServerFrame extends JDialog implements ActionListener {
 	private final JButton button_2 = new JButton("완료");
 	private final JTextField textField = new JTextField();
 
-	StartServer server = new StartServer();
+	H_ChattingJoin server = new H_ChattingJoin();
 
-	public ServerFrame() {
+	public H_ChattingFrame() {
 
 		server.start();
 
@@ -137,10 +137,10 @@ public class ServerFrame extends JDialog implements ActionListener {
 			
 			String tempStr = "RoomList\n";
 			// 초기화
-			int tempInt = ServerFrame.model.getRowCount();
+			int tempInt = H_ChattingFrame.model.getRowCount();
 			// 임시 int 값 , 생성된 방의 갯수 삽입
 			for (int i = 0; i < tempInt; i++) {
-				tempStr += ServerFrame.model.getValueAt(i, 0) + "/" + ServerFrame.model.getValueAt(i, 1) + "\n";
+				tempStr += H_ChattingFrame.model.getValueAt(i, 0) + "/" + H_ChattingFrame.model.getValueAt(i, 1) + "\n";
 			} // sendRoomList() : 메서드 종료
 
 			for (int i = 0; i < count; i++) {
@@ -175,10 +175,10 @@ public class ServerFrame extends JDialog implements ActionListener {
 
 			tempStr = "RoomList\n";
 			// 초기화
-			int tempInt = ServerFrame.model.getRowCount();
+			int tempInt = H_ChattingFrame.model.getRowCount();
 			// 임시 int 값 , 생성된 방의 갯수 삽입
 			for (int i = 0; i < tempInt; i++) {
-				tempStr += ServerFrame.model.getValueAt(i, 0) + "/" + ServerFrame.model.getValueAt(i, 1) + "\n";
+				tempStr += H_ChattingFrame.model.getValueAt(i, 0) + "/" + H_ChattingFrame.model.getValueAt(i, 1) + "\n";
 			} // sendRoomList() : 메서드 종료
 
 			for (int i = 0; i < count; i++) {

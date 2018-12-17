@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 // 아래의 4번은 제작한 모든  Jpanel을 3번까지의 과정을 거친 후 4번을 실행한다.
 // 4) 3번이 모든 부품이 입력되었다면 마지막으로 hide 메서드로 나머지를 감추는 마무리 작업을 한다.
 
-public class BodyFrame extends JFrame implements BBQBody, ActionListener {
+public class B_Frame extends JFrame implements BBQBody, ActionListener {
 
 	JToggleButton OrderBtn = new JToggleButton("발주관리",new ImageIcon("img/발주관리 아이콘.png"));
 	JToggleButton StockBtn = new JToggleButton("재고관리",new ImageIcon("img/입출고 아이콘.png"));
@@ -56,21 +56,21 @@ public class BodyFrame extends JFrame implements BBQBody, ActionListener {
 	// 버튼 그룹
 
 	JPanel mainPanel = new JPanel();
-	BodyOrderC orderC = new BodyOrderC();
-	BodySalesC salesC = new BodySalesC();
-	BodyStockC stockC = new BodyStockC();
-	HallC hallc = new HallC();
+	B_OrderC orderC = new B_OrderC();
+	B_SalesC salesC = new B_SalesC();
+	B_StockC stockC = new B_StockC();
+	B_HallC hallc = new B_HallC();
 	public static String id ;
 
-	ClientFrame clientFrame;
+	B_ChattingFrame clientFrame;
 	
 	private Color color = new Color(128, 144, 160);//버튼 색상
 	
-	public BodyFrame(String id) {
+	public B_Frame(String id) {
 		// 사이즈 , 레이아웃 및 각종 설정
 		this.id = id;
 
-		clientFrame = new ClientFrame(id);
+		clientFrame = new B_ChattingFrame(id);
 		clientFrame.setLocationRelativeTo(this);
 		 
 		

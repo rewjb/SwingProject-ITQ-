@@ -85,15 +85,15 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 	private ArrayList<H_FranchiseDTO> h_franList;
 	// 가맹점 선택하는 콤보박스에 넣을 데이터 DTO리스느
 
-	private BodySalesBarChart franSalesBarChart = new BodySalesBarChart();
+	private H_Salses_BodySalesBarChart franSalesBarChart = new H_Salses_BodySalesBarChart();
 	// 가맹점 막대그래프 판넬 객체
-	private BodySalesPieChart franSalesPieChart = new BodySalesPieChart();
+	private H_Salses_BodySalesPieChart franSalesPieChart = new H_Salses_BodySalesPieChart();
 	private String franId;
 	// 프랜차이즈 이름을 넣고 아이디를 얻어오는 문자열
 	private ArrayList<Integer> value;
 	// 월별 매출 갖고오는 list
 
-	private HeadGoogleBarChart headGoogleBarChart;
+	private H_Salses_HeadSalsesBarChart headGoogleBarChart;
 	// 본점의 구글 막대 그래프
 
 	private JPanel bodyPan = new JPanel();
@@ -153,7 +153,7 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		// table에 데이터 넣기
 		// 위에 콤보박스에 값이 들어간 후 실행되어야 하므로 위 for문보다 아래에 위치해야한다.
 
-		headGoogleBarChart = new HeadGoogleBarChart((String) headSalesYearComboBox.getSelectedItem());
+		headGoogleBarChart = new H_Salses_HeadSalsesBarChart((String) headSalesYearComboBox.getSelectedItem());
 
 		monthRadio.addItemListener(this);
 		dayRadio.addItemListener(this);

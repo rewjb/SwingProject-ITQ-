@@ -24,7 +24,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-public class BodySalesBarChart extends JPanel {
+public class H_Salses_BodySalesBarChart extends JPanel {
 
 	DefaultCategoryDataset dataSet;
 
@@ -45,7 +45,7 @@ public class BodySalesBarChart extends JPanel {
 	CategoryAxis categoryAxis = new CategoryAxis("");
 	NumberAxis NumberAxis = new NumberAxis("매출");
 
-	public BodySalesBarChart() {
+	public H_Salses_BodySalesBarChart() {
 		// create the first dataset...
 		// franName 은 가맹점의 이름 , sort에서 0은 월별 , 1은 일별
 

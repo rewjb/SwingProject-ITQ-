@@ -9,9 +9,9 @@ import javax.swing.JOptionPane;
  * DB는 H_FranchasDAO DTO를 같이 사용합니다.
  */
 import DTO_DAO.*;
-import body.BodyFrame;
+import body.B_Frame;
 
-public class L_worker {
+public class LoginWorker {
 	H_FranchiseDAO fDAO = new H_FranchiseDAO();
 	H_FranchiseDTO fDTO;
 	
@@ -20,13 +20,13 @@ public class L_worker {
 	JFrame findYourPage(String id, String pw) {
 		if(pickOutRoot(id,pw)) {
 			if(checkRpw(id,pw)) {
-				HeadFrame hf = new HeadFrame();
+				H_Frame hf = new H_Frame();
 				return hf;
 			}//관리자 비밀번호 맞을때
 		}else {
 			if(checkUid(id)) {
 				if(checkUpw(id, "1234")) {
-					BodyFrame bf = new BodyFrame(id);
+					B_Frame bf = new B_Frame(id);
 				}//사용자 비밀번호 맞을때
 			}
 		}

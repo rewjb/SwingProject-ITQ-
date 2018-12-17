@@ -16,7 +16,7 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
-public class BodySalesPieChart extends JPanel {
+public class H_Salses_BodySalesPieChart extends JPanel {
 	
 	private DefaultPieDataset dataset = new DefaultPieDataset();
 	// 파이 데이터 셋! 메서드로 만들었다!
@@ -31,7 +31,7 @@ public class BodySalesPieChart extends JPanel {
 	private ChartPanel chartPanel = new ChartPanel(chart);
 	//최종 판넬
 
-	public BodySalesPieChart() {
+	public H_Salses_BodySalesPieChart() {
 		
 		PiePlot plot = (PiePlot) chart.getPlot();
 		

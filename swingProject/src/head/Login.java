@@ -5,6 +5,8 @@ package head;
  * 계정 조회는 L_worker에서 하고 DB는 H_FranchasDAO DTO를 같이 사용할 예정입니다.
  */
 
+
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -21,7 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import body.BodyFrame;
+import body.B_Frame;
 import inter.BBQ;
 import java.awt.Font;
 import java.awt.Image;
@@ -35,7 +37,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	private JPasswordField tfUPw;
 	
 	//그외
-	L_worker w = new L_worker();
+	LoginWorker loginWorker = new LoginWorker();
 	int xpos;
 	int ypos;
 	
@@ -141,7 +143,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btLoginU) {
-			w.findYourPage(tfUId.getText(), tfUPw.getText());
+			loginWorker.findYourPage(tfUId.getText(), tfUPw.getText());
 			dispose();
 		}
 	}

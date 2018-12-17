@@ -1,5 +1,24 @@
 package head;
 
+// 1. 계층도
+// 하위 내용은 클래스 계층도 입니다.
+// 기본적으로 인터페이스 계층도 이며 () 괄호안에 들어가 있는 것은 인터페이스 및 클래스 여부입니다.
+// 괄호 :  I(인터페이스) , C(클래스)
+//                                                                                                      BBQ(I)
+//                                                            ┌───────────────────────────────────────────┴─────────────────────────────────────────────┐
+//                                                        BBQHead(I)                                                                                BBQBody(I)
+//          ┌───────────────────┌────────────────────┌────────┴────────────┐──────────────────┐─────────────────┐                  ┌────────────┌───────┴───────┐───────────────┐ 
+//   HeadCheckOrder(I) / HeadFranchise(I) / HeadOrderHeadSales(I) / HeadStockInOut(I) / HeadVender(I) / HeadVenderProduct(I)  BodyHall(I) / BodyOrder(I) / BodySales(I) / BodyStock(I)
+//          │                   │                    │                     │                  │                 │                  │            │               │               │
+//
+
+
+
+// 2. 변수명
+//    1) 전역변수 식별자 특징
+//       => g_클래스 약어_역할  (g : 글로벌 변수)  ,  ex) g_Btn_Select
+//    2) 클래스 약어 정리
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;

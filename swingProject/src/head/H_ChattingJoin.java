@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Set;
 
-public class StartServer extends Thread {
+public class H_ChattingJoin extends Thread {
 
 	@Override
 	public void run() {
@@ -17,7 +17,7 @@ public class StartServer extends Thread {
 			while (true) {
 				Socket c_socket = s_socket.accept();
 				// 접속을 시도하는 소켓
-				ServerManager clientGuide = new ServerManager();
+				H_ChattingrManager clientGuide = new H_ChattingrManager();
 				clientGuide.set_socket(c_socket);
 				clientGuide.start();
 			} // while문 종료

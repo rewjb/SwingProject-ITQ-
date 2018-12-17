@@ -1,5 +1,9 @@
 package DTO_DAO;
 
+/*
+ * 2018-12-17 wonHn
+ * 구현 및 주석 수정까지 완료 하였습니다.
+ */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

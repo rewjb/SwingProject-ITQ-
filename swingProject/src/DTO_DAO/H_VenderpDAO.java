@@ -3,6 +3,9 @@ package DTO_DAO;
 /*
  * 2018-11-29 wonHn
  * ~44라인까지의 기본 틀은 [메인폴더.DTO_DAO.H_FranchiseDTO]를 참고했습니다.
+ * 
+ * 2018-12-17 wonHn
+ * 구현 및 주석 수정까지 완료 하였습니다.
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,10 +44,8 @@ public class H_VenderpDAO {
 		}
 	}// connectDB:메서드 끝
 
-	// wonHn
+	// wHn
 	// 재료정보 입력메서드
-	// *자동카운트 되는 경우 입력을 어떻게 해줘야 하는지 확인해야됨.*
-	// *UI에서 int값으로 받아올 수 있게 해놔야함. DB에서 int값인경우 명령어에 작은따옴표 쓰는지 확인해야함*
 	public int insertVenderpInfo(H_VenderpDTO pDTO) {
 		connectDB();
 		int rs = 0;
@@ -63,7 +64,7 @@ public class H_VenderpDAO {
 	}// end insertVenderpInfo()
 
 	// wonHn
-	// 재료정보 수정 메서드 : 가격만 수정 가능합니다.
+	// 재료정보 수정 메서드 : 재료 이름과 가격만 수정 가능합니다.
 	public int updateVenderpInfo(H_VenderpDTO pDTO) {
 		connectDB();
 		int rs = 0;
@@ -83,34 +84,7 @@ public class H_VenderpDAO {
 	}// end updateVenderpInfo()
 
 	// wonHn
-	// 재료정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 num값을 넘겨줄 예정입니다.
-	public H_VenderpDTO selectVenderpInfo(int num) {
-		connectDB();
-		sql = "SELECT * FROM headvenderp WHERE num = ?;";
-		H_VenderpDTO pDTO = null;
-
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, num);
-
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				pDTO = new H_VenderpDTO();
-				pDTO.setId(rs.getString(1));
-				pDTO.setNum(rs.getInt(2));
-				pDTO.setName(rs.getString(3));
-				pDTO.setMoney(rs.getInt(4));
-			} // end while
-		} catch (Exception e) {
-			System.out.println("selectVenderpInfo() 오류");
-			e.printStackTrace();
-		} // end try catch
-
-		return pDTO;
-	}// end selectVenderInfo
-
-	// wonHn
-	// 재료정보 전체 출력메서드 : 처음부터 마지막 인덱스 값까지 한줄 출력메서드를 돌려줄 예정입니다.
+	// 재료정보 전체 출력메서드
 	public ArrayList<H_VenderpDTO> selectALLVenderpInfo() {
 		ArrayList<H_VenderpDTO> list = null;
 		try {

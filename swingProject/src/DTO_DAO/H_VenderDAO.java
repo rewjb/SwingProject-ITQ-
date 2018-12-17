@@ -3,7 +3,9 @@ package DTO_DAO;
 /*
  * 2018-11-29 wonHn
  * ~44라인까지의 기본 틀은 메인폴더.DTO_DAO.H_FranchiseDTO를 참고했습니다.
- * 코드테스트 아직 안했습니다..!
+ * 
+ * 2018-12-17 wonHn
+ * 구현 및 주석 수정까지 완료 하였습니다.
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -65,7 +67,7 @@ public class H_VenderDAO {
 	}// end insertVenderInfo()
 
 	// wonHn
-	// 업체정보 수정 메서드 : 전화번호만 수정할예정입니다.
+	// 업체정보 수정 메서드 : 전화번호만 수정 가능 합니다.
 	public int updateVenderInfo(H_VenderDTO vDTO) {
 		connectDB();
 		int rs = 0;
@@ -82,36 +84,9 @@ public class H_VenderDAO {
 		}
 		return rs;
 	}// end updateVenderInfo()
-
+	
 	// wonHn
-	// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
-	public H_VenderDTO selectVenderInfo(String column, String input) {
-		connectDB();
-		if (column.equals("id")) {
-			sql = "select * from headvender where id=?;";
-		} else if (column.equals("name")) {
-			sql = "select * from headvender where name=?;";
-		}
-		H_VenderDTO vDTO = null;
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, input);
-
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				vDTO = new H_VenderDTO();
-				vDTO.setId(rs.getString(1));
-				vDTO.setName(rs.getString(2));
-				vDTO.setTel(rs.getString(3));
-				vDTO.setComNum(rs.getString(4));
-			}
-		} catch (Exception e) {
-			System.out.println("selectVenderInfo() 오류");
-			e.printStackTrace();
-		}
-		return vDTO;
-	}// end selectVenderInfo
-		// 업체정보 한줄 출력메서드 : 클릭으로 받아지는 인덱스값에 해당하는 id값을 넘겨줄 예정입니다.
+	// 업체정보 전체 출력 메서드
 	public ArrayList<H_VenderDTO> selectIdAllVenderInfo() {
 		try {
 			connectDB();

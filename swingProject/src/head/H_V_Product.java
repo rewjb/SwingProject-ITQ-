@@ -284,7 +284,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		btName.addActionListener(this);
 
 		sp.add(btName);
-	}
+	}//end labelSetting()
 
 	// 버튼에 관련된 설정사항
 	private void buttonSetting() {
@@ -302,8 +302,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		btDelete.setBounds(170, 300, 70, 30);
 		add(btDelete);
 		btDelete.addActionListener(this);
-
-	}
+	}//end buttonSetting()
 
 	// 마우스 액션에 관한 메서드 - 메인 테이블
 	private void mouseAction() {
@@ -311,6 +310,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int i = table.getSelectedRow();
+				//수정 삭제시에는 콤보박스는 안보이고 수정 안되게 묶여있는 텍스트필드가 보임.
 				cbId.setVisible(false);
 				tfId.setVisible(true);
 				tfId.setEditable(false);
@@ -334,9 +334,9 @@ public class H_V_Product extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btAdd) { // add, insert
 			pDTO = new H_VenderpDTO();
-			pDTO.setId(id); // combobox에 선택된 값을 받아옵니다.
+			pDTO.setId(id); // 업체 콤보박스에 선택된 값을 받아옵니다.
 			// num은 자동생성 DAO의 sql에서 null값을 넣어줄 것입니다.
-			pDTO.setName(name); // combobox에 선택된 값을 받아옵니다.
+			pDTO.setName(name); // 제품이름 콤보박스에 선택된 값을 받아옵니다.
 			pDTO.setMoney(Integer.parseInt(tfMoney.getText()));
 
 			int rs = pDAO.insertVenderpInfo(pDTO);
@@ -348,7 +348,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 			showAll();
 
 		}
-		if (e.getSource() == btModify) { // modify, update ==> 가격만 수정 가능
+		if (e.getSource() == btModify) { // modify, update ==> 재료명과 가격 수정 가능
 			pDTO = new H_VenderpDTO();
 			pDTO.setNum(Integer.parseInt(tfNum.getText()));
 			pDTO.setName(name);
@@ -375,8 +375,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		if (e.getSource() == btName) {
 			nameSetting();
 		}
-
-	}
+	}//end actionPerformed()
 
 //----------------------------------------------------------------------------------
 	// 재료명 추가 수정 삭제 할 수 있는 프레임 설정
@@ -392,7 +391,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		nameBTAction(); // 재료명 프레임 내임 버튼 액션
 
 		nameF.setVisible(true);
-	}
+	}//end nameSetting()
 
 	// 재료명 프레임 내 테이블 세팅
 	private void nameTBSetting() {
@@ -419,16 +418,17 @@ public class H_V_Product extends JPanel implements ActionListener {
 		try {
 			sc = new Scanner(new File("H_VenderpName.txt"));
 			while (sc.hasNextLine()) {
+				//해당 파일에 한줄을 구분자 기준으로 배열에 나눠서 넣어주기
 				row = sc.nextLine().split("-");
-				nameM.addRow(row);
+				nameM.addRow(row);	//해당 배열 테이블에 출력
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		// 입력 가능한 상태로 바꿔주기
 		tfNameN.setEditable(true);
-	}
+		
+	}//end nameTBSetting()
 
 	// 재료명 프레임 내 텍스트필드 세팅
 	private void nameTFSetting() {
@@ -456,7 +456,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 			}
 		});
 
-	}
+	}//end nameTFSetting();
 
 	// 재료명 프레임 내 버튼 세팅
 	private void nameBTSetting() {
@@ -479,8 +479,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		btRefresh = new JButton("적용");
 		btRefresh.setBounds(205, 270, 60, 30);
 		nameF.getContentPane().add(btRefresh);
-
-	}
+	}//end nameBTSetting()
 
 	// 재료명 프레임 내 마우스 액션
 	private void nameMouseAction() {
@@ -493,7 +492,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 				tfNameP.setText(nameM.getValueAt(tableIdx, 1).toString());
 			}
 		});
-	}
+	}//end nameMouseAction()
 
 	// 재료명 프레임 내임 버튼 액션
 	private void nameBTAction() {
@@ -598,5 +597,5 @@ public class H_V_Product extends JPanel implements ActionListener {
 				nameF.dispose();
 			}
 		});
-	}
-}
+	}//end nameBTAction();
+}//end class

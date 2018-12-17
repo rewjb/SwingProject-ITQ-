@@ -1,6 +1,7 @@
 package DTO_DAO;
 /*
- * 2018-11-29 wonHn
+ * 2018-12-17 wonHn
+ * 구현 및 주석 수정까지 완료 하였습니다.
  */
 public class H_VenderDTO {
 	private String id;

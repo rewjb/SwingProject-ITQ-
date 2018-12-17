@@ -1,4 +1,4 @@
-package head;
+package won;
 /*
  * 2018-12-17
  * login페이지의 계정 확인하는 기능을 위한 클래스 입니다.
@@ -20,7 +20,7 @@ public class LoginWorker {
 	void findYourPage(String id, String pw) {
 		if(pickOutRoot(id,pw)) {
 			if(checkRpw(id,pw)) {
-				H_Frame hf = new H_Frame();
+				HeadFrame hf = new HeadFrame();
 			}//관리자 비밀번호 맞을때
 		}else {
 			if(checkUid(id)) {

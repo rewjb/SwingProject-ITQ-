@@ -1,11 +1,10 @@
 package head;
 /*
- * 2018-12-06
- * 로그인 페이지 입니다.
- * 계정 조회는 L_worker에서 하고 DB는 H_FranchasDAO DTO를 같이 사용할 예정입니다.
+ * 2018-12-17 wonHn
+ * 로그인 페이지 구현하는 클래스 입니다.
+ * 계정 조회는 L_worker에서 하고 
+ * 구현 및 주석 수정까지 완료 하였습니다.
  */
-
-
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -23,17 +22,15 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import body.B_Frame;
 import inter.BBQ;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Color;
 
-
-
 public class Login extends JFrame implements BBQ, ActionListener{
-	private JButton btLoginU;	//로그인버튼
-
+	//로그인 버튼
+	private JButton btLoginU;
+	
+	//아이디 비밀번호 입력받는 필드
 	private JTextField tfUId;
 	private JPasswordField tfUPw;
 	
@@ -53,7 +50,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		getContentPane().setBackground(new Color(184, 207, 229));
 		setIconImage(frameimg);
 		setTitle("로그인");
-		mainPSetting();
+		mainPageSetting();
 		loginUserPageSetting();
 	
 		xpos = (int) (point.getWidth()/2 - getWidth()/2);
@@ -64,13 +61,13 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		
 	}// 생성자 종료
 	
-	//메인세팅
-	private void mainPSetting() {
+	//메인판넬세팅
+	private void mainPageSetting() {
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(290, 420);
 		setResizable(false);
-	}
+	}//end mainPSetting()
 
 	//판넬 세팅
 	private void loginUserPageSetting() {
@@ -135,7 +132,7 @@ public class Login extends JFrame implements BBQ, ActionListener{
 		lbLogin.setIcon(new ImageIcon("img/login.png"));
 		lbLogin.setBounds(90, 110, 100, 85);
 		getContentPane().add(lbLogin);
-	}   
+	}//end loginUserPageSetting()   
 
 	public static void main(String[] args) {
 		new Login();
@@ -147,5 +144,5 @@ public class Login extends JFrame implements BBQ, ActionListener{
 			loginWorker.findYourPage(tfUId.getText(), tfUPw.getText());
 			dispose();
 		}
-	}
+	}//end actionPerformed()
 }// 클래스 종료

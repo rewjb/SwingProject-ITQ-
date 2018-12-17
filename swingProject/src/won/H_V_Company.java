@@ -1,9 +1,11 @@
 package won;
+
 /*
- * 2018-12-05 업체에 관련된 Swing페에지 입니다.
- * 추가 수정 제거 버튼과 클릭해서 값을 받아오는 기능은 구현해놨습니다.
- * 아이디 자동생성이나 중복확인은 H_V_C_worker에 있습니다.
- * DB생성 후 테스트해봐야 합니다.
+ * wHn 2018-12-17
+ * 업체 추가 제거에 관련된 Swing페에지 입니다.
+ * 아이디 자동생성에 관련된 메서드는 H_V_C_worker에 있습니다.
+ * 추가 수정 제거 버튼의 동작은 구현 완료 했습니다. 
+ * 주석처리 및 변수 정리도 완료 했습니다. 
  */
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -14,7 +16,6 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,10 +26,6 @@ import javax.swing.table.DefaultTableModel;
 import DTO_DAO.*;
 import javax.swing.border.LineBorder;
 import java.awt.Font;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
 
 public class H_V_Company extends JPanel implements ActionListener {
 	// 표에 관련된 부분
@@ -55,21 +52,21 @@ public class H_V_Company extends JPanel implements ActionListener {
 	private JTextField tfTel2;
 	private JLabel lbTel1;
 	private JLabel lbTel2;
-	
+	// 라벨 설정 - 화면에 각 영역의 이름을 알려주는 라벨
 	private JLabel clb1;
 	private JLabel clb2;
-	
+
 	// 버튼
-	private JButton btAdd;
-	private JButton btModify;
-	private JButton btDelete;
+	private JButton btAdd; // 추가
+	private JButton btModify; // 수정
+	private JButton btDelete; // 삭제
 
 	// 그외
 	Object[] row;
-	H_VenderDAO vDAO = new H_VenderDAO();	//DAO
-	H_VenderDTO vDTO;						// DTO
-	H_V_C_worker w = new H_V_C_worker(); //기능을 넣어놓는 클래스
-	String id;	//전체 테이블에서 마지막 id를 받아놓는 변수
+	H_VenderDAO vDAO = new H_VenderDAO(); // DAO
+	H_VenderDTO vDTO; // DTO
+	H_V_C_worker w = new H_V_C_worker(); // 기능을 넣어놓는 클래스
+	String id; // 표에 출력되는 아이디 중 마지막 id를 받아놓는 변수
 
 	// 생성자 construct
 	public H_V_Company() {
@@ -77,17 +74,18 @@ public class H_V_Company extends JPanel implements ActionListener {
 		buttonSetting();
 		showAll();
 		mouseAction();
-		
+
 		setBackground(new Color(184, 207, 229));
-	}
+	}// end constructor
 
 	// 표에 관련된 설정사항
 	private void tableSetting() {
 		model = new DefaultTableModel(0, 4) {
 			@Override
-		public boolean isCellEditable(int row, int column) {
-			return false;
-		}};
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		add(scrollPane);
@@ -95,9 +93,9 @@ public class H_V_Company extends JPanel implements ActionListener {
 		table.setBackground(Color.LIGHT_GRAY);
 		table.setForeground(Color.BLACK);
 		table.setRowHeight(20);
-	}
+	}// end tableSetting()
 
-	// refresh 표에 전체 출력해주는 메서드
+	// 표에 전체 데이터를 출력해주는 메서드
 	void showAll() {
 		tableSetting();
 		ArrayList<H_VenderDTO> list = vDAO.selectALLVenderInfo();
@@ -105,13 +103,14 @@ public class H_V_Company extends JPanel implements ActionListener {
 			vDTO = list.get(i);
 			row = new Object[4];
 			row[0] = vDTO.getId();
+			//데이터중 마지막 아이디를 받아놓음
 			id = w.findLastId(id, vDTO.getId());
 			row[1] = vDTO.getName();
 			row[2] = vDTO.getTel();
 			row[3] = vDTO.getComNum();
 
 			model.addRow(row);
-		}
+		} // end for
 		tfId.setText("자동생성");
 		tfId.setEditable(false);
 		tfName.setText("");
@@ -128,30 +127,30 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfCNum0.setEditable(true);
 		tfCNum1.setEditable(true);
 		tfCNum2.setEditable(true);
-		
-		
-	}
+	}// end showAll()
 
 	// 라벨 및 텍스트필드 설정사항
 	private void labelSetting() {
 
+		// 표의 제목 달아주는 라벨설정
 		clb1 = new JLabel("업체목록");
 		clb1.setBounds(450, 0, 100, 30);
 		clb1.setHorizontalAlignment(SwingConstants.CENTER);
 		add(clb1);
-		
+
 		clb2 = new JLabel("업체등록");
 		clb2.setBounds(100, 0, 100, 30);
 		clb2.setHorizontalAlignment(SwingConstants.CENTER);
 		add(clb2);
-		
-		JPanel sp = new JPanel();
-		sp.setBorder(new LineBorder(new Color(255,255,255)));
+
+		// 데이터 입력하는 라벨 및 텍스트필드들을 묶어주는 판넬
+		JPanel sp = new JPanel(); // small panel
+		sp.setBorder(new LineBorder(new Color(255, 255, 255)));
 		sp.setBackground(new Color(184, 207, 229));
 		sp.setLayout(null);
 		sp.setBounds(15, 30, 230, 180);
 		this.add(sp);
-		
+
 		lbId = new JLabel("업체ID");
 		lbId.setHorizontalAlignment(SwingConstants.CENTER);
 		lbId.setBounds(0, 10, 60, 30);
@@ -171,32 +170,32 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfName.setColumns(10);
 		tfName.setBounds(65, 50, 150, 30);
 		sp.add(tfName);
-		
+
 		lbTel0 = new JLabel("연락처");
 		lbTel0.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTel0.setBounds(0, 90, 60, 30);
 		sp.add(lbTel0);
-		
+
 		tfTel0 = new JTextField();
 		tfTel0.setColumns(3);
 		tfTel0.setBounds(65, 90, 40, 30);
 		sp.add(tfTel0);
-		
+
 		lbTel1 = new JLabel("-");
 		lbTel1.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTel1.setBounds(105, 90, 10, 30);
 		sp.add(lbTel1);
-		
+
 		tfTel1 = new JTextField();
 		tfTel1.setColumns(4);
 		tfTel1.setBounds(115, 90, 45, 30);
 		sp.add(tfTel1);
-		
+
 		lbTel2 = new JLabel("-");
 		lbTel2.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTel2.setBounds(160, 90, 10, 30);
 		sp.add(lbTel2);
-		
+
 		tfTel2 = new JTextField();
 		tfTel2.setColumns(4);
 		tfTel2.setBounds(170, 90, 45, 30);
@@ -238,7 +237,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 		tfCNum2.setBounds(145, 130, 70, 30);
 		sp.add(tfCNum2);
 
-	}
+	}// end labelSetting()
 
 	// 버튼에 관련된 설정사항
 	private void buttonSetting() {
@@ -256,15 +255,15 @@ public class H_V_Company extends JPanel implements ActionListener {
 		btDelete.setBounds(170, 300, 70, 30);
 		add(btDelete);
 		btDelete.addActionListener(this);
-	}
+	}// end buttonSetting()
 
 	// 마우스 액션에 관한 메서드
 	private void mouseAction() {
-		// 클릭한 테이블의 row인덱스값 읽어오기
+		// 클릭한 테이블의 row인덱스값을 텍스트필드로 가져오기
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//값을 가져와도 수정은 전화번호만 할꺼라 나머지는 수정 못하게 묶어놓았습니다.
+				// 값을 가져와도 수정은 전화번호만 할꺼라 나머지는 수정 못하게 묶어놓았습니다.
 				int i = table.getSelectedRow();
 				tfId.setText(model.getValueAt(i, 0).toString());
 				tfId.setEditable(false);
@@ -285,40 +284,36 @@ public class H_V_Company extends JPanel implements ActionListener {
 				tfCNum2.setEditable(false);
 			}
 		});
-	}
+	}// end mouseAction()
 
 	// 버튼 액션에 관한 메서드
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btAdd) { //add, insert
-//			if(w.checkInput(tfName.getText())) {
-				vDTO = new H_VenderDTO();	
-				//id는 자동생성
-				String setId = w.makeId(id);	//자동생성 메서드
-				vDTO.setId(setId);
-				vDTO.setName(tfName.getText());
-				String tel = tfTel0.getText()+"-"+tfTel1.getText()+"-"+tfTel2.getText();
-				vDTO.setTel(tel);
-				String CNum = tfCNum0.getText()+"-"+tfCNum1.getText()+"-"+tfCNum2.getText();
-				vDTO.setComNum(CNum);
-				
-				int rs = vDAO.insertVenderInfo(vDTO);
-				if( rs ==0 ) {
-					System.out.println("H_Vender insert실패");
-				}else {
-					System.out.println("H_Vender insert성공");
-				}
-				showAll();
-//			}else {
-//				JOptionPane.showMessageDialog(null, "업체명 중복!");
-//			}
+		if (e.getSource() == btAdd) { // add, insert
+			vDTO = new H_VenderDTO();
+			// id는 자동생성
+			String setId = w.makeId(id); // 자동생성 메서드
+			vDTO.setId(setId);
+			vDTO.setName(tfName.getText());
+			String tel = tfTel0.getText() + "-" + tfTel1.getText() + "-" + tfTel2.getText();
+			vDTO.setTel(tel);
+			String CNum = tfCNum0.getText() + "-" + tfCNum1.getText() + "-" + tfCNum2.getText();
+			vDTO.setComNum(CNum);
+
+			int rs = vDAO.insertVenderInfo(vDTO);
+			if (rs == 0) {
+				System.out.println("H_Vender insert실패");
+			} else {
+				System.out.println("H_Vender insert성공");
+			}
+			showAll();
 		}
-		if (e.getSource() == btModify) { //modify, update
+		if (e.getSource() == btModify) { // modify, update
 			vDTO = new H_VenderDTO();
 			vDTO.setId(tfId.getText());
-			String tel = tfTel0.getText()+"-"+tfTel1.getText()+"-"+tfTel2.getText();
+			String tel = tfTel0.getText() + "-" + tfTel1.getText() + "-" + tfTel2.getText();
 			vDTO.setTel(tel);
-			
+
 			int rs = vDAO.updateVenderInfo(vDTO);
 			if (rs == 0) {
 				System.out.println("H_Vender update실패");
@@ -327,7 +322,7 @@ public class H_V_Company extends JPanel implements ActionListener {
 			}
 			showAll();
 		}
-		if (e.getSource() == btDelete) { //delete, delete
+		if (e.getSource() == btDelete) { // delete, delete
 			String id = tfId.getText();
 			int rs = vDAO.deleteVenderInfo(id);
 			if (rs == 0) {
@@ -337,5 +332,5 @@ public class H_V_Company extends JPanel implements ActionListener {
 			}
 			showAll();
 		}
-	}
+	}//end actionPerformed()
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class B_SalesDAO {
-
+         
 	private String url = "jdbc:mysql://localhost:3306/bbq";
 	// 데이터 베이스 url
 	private String user = "root";

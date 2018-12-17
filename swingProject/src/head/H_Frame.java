@@ -51,8 +51,8 @@ public class H_Frame extends JFrame implements BBQHead, ActionListener {
 	private CardLayout card = new CardLayout();
 
 	private JPanel mainPanel = new JPanel();
-	private H_Vender H_vender = new H_Vender();
-	private H_Franchise H_franchise = new H_Franchise();
+	private H_Vender h_vender = new H_Vender();
+	private H_Franchise h_franchise = new H_Franchise();
 	private H_Order h_order = new H_Order();
 	private H_Stock_InOut h_stock = new H_Stock_InOut();
 	private H_CheckOrder h_checkOrder = new H_CheckOrder();
@@ -127,8 +127,8 @@ public class H_Frame extends JFrame implements BBQHead, ActionListener {
 
 		serverFrame.setLocationRelativeTo(this);
 
-		mainPanel.add(H_vender);
-		mainPanel.add(H_franchise);
+		mainPanel.add(h_vender);
+		mainPanel.add(h_franchise);
 		mainPanel.add(h_order);
 		mainPanel.add(h_stock);
 		mainPanel.add(h_checkOrder);
@@ -198,47 +198,47 @@ public class H_Frame extends JFrame implements BBQHead, ActionListener {
 			hide(h_stock);
 			hide(h_order);
 			hide(h_salses);
-			hide(H_vender);
-			hide(H_franchise);
+			hide(h_vender);
+			hide(h_franchise);
 		} else if (e.getSource() == OrderBtn) {// 본사 발주관리
 			show(h_order);
 			hide(h_checkOrder);
 			hide(h_stock);
 			hide(h_salses);
-			hide(H_vender);
-			hide(H_franchise);
+			hide(h_vender);
+			hide(h_franchise);
 		} else if (e.getSource() == StockBtn) {// 재고 입출고 관리
 			show(h_stock);
 			hide(h_order);
 			hide(h_salses);
 			hide(h_checkOrder);
-			hide(H_vender);
-			hide(H_franchise);
+			hide(h_vender);
+			hide(h_franchise);
 		} else if (e.getSource() == VenderBtn) {// 업체관리
-			show(H_vender);
+			show(h_vender);
 			hide(h_checkOrder);
 			hide(h_stock);
 			hide(h_order);
 			hide(h_salses);
-			hide(H_franchise);
+			hide(h_franchise);
 		} else if (e.getSource() == FranchiseBtn) {// 가맹점 관리
-			show(H_franchise);
+			show(h_franchise);
 			hide(h_checkOrder);
 			hide(h_stock);
 			hide(h_order);
 			hide(h_salses);
-			hide(H_vender);
+			hide(h_vender);
 		} else if (e.getSource() == SalesBtn) {// 매출관리
 			hide(h_checkOrder);
 			hide(h_stock);
 			hide(h_order);
 			show(h_salses);
-			hide(H_vender);
-			hide(H_franchise);
+			hide(h_vender);
+			hide(h_franchise);
 		}
 
 		if (e.getSource() == chattingBtn) {// 채팅서버 관리
-			serverFrame.setVisible(true);
+			show(serverFrame);
 		}
 
 	}// actionPerformed 메서드 끝

@@ -74,7 +74,7 @@ public class H_VenderDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, vDTO.getTel());
 			ps.setString(2, vDTO.getId());
-
+			
 			rs = ps.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("updateVenderInfo() 오류");

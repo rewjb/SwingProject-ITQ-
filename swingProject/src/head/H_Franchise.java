@@ -265,7 +265,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 
 		lbCNum0 = new JLabel("사업자번호");
 		lbCNum0.setHorizontalAlignment(SwingConstants.CENTER);
-		lbCNum0.setBounds(10, 180, 60, 30);
+		lbCNum0.setBounds(0, 180, 70, 30);
 		f.getContentPane().add(lbCNum0);
 
 		tfCNum0 = new JTextField();

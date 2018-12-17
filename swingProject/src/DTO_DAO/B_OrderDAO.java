@@ -105,7 +105,7 @@ public class B_OrderDAO {
 
 	// 가맹점에서 사용할 select문 담당자 : 조광재
 	public ArrayList<B_OrderDTO> selectAll(String id) {
-		ArrayList<B_OrderDTO> orderlist = new ArrayList<>();
+		ArrayList<B_OrderDTO> orderlist = new ArrayList<>();//발주한 내용을 전부다 가져올 발주리스트
 		ResultSet rs = null;
 
 		try {
@@ -113,7 +113,7 @@ public class B_OrderDAO {
 			sql = "SELECT * from bodyorder where id = '" + id + "' order by hconfirm;";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			while (rs.next()) {
+			while (rs.next()) {//DB에 있는 발주 테이블을 한줄씩 읽기
 				int num = rs.getInt("num");
 				id = rs.getString("id");
 				String name = rs.getString("name");
@@ -121,6 +121,7 @@ public class B_OrderDAO {
 				String date = rs.getString("date");
 				String hComfirm = rs.getString("hconfirm");
 				String bComfirm = rs.getString("bconfirm");
+				//한줄씩 읽은 테이블내용을 DTO객체에 담아서 리스트에 담기
 				B_OrderDTO orderDTO = new B_OrderDTO(num, id, name, quantity, date, hComfirm, bComfirm, bComfirm);
 
 				orderlist.add(orderDTO);
@@ -153,7 +154,7 @@ public class B_OrderDAO {
 
 	public void orderInsert(String id, String name, int quantity) {
 
-		int rn = 0;
+		int rn = 0;//Insert가 정상작동했는지 확인하는 변수
 
 		try {
 			connectDB();
@@ -165,7 +166,7 @@ public class B_OrderDAO {
 			ps.setInt(3, quantity);
 
 			rn = ps.executeUpdate();
-			System.out.println("발주완료" + rn);
+			System.out.println("발주완료" + rn);//rn값이 1이나오면 정상작동
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -186,11 +187,12 @@ public class B_OrderDAO {
 
 	// 본사 확인 값이 존재하는 테이블만 가져오는 메서드
 	public ArrayList<B_OrderDTO> hCheckSelect(String id) {
-		ArrayList<B_OrderDTO> hOrderDTO = new ArrayList<>();
+		ArrayList<B_OrderDTO> hOrderDTO = new ArrayList<>();//본사확인값이 존재하는 테이블만 담는 리스트
 		ResultSet rs = null;
 		try {
 			connectDB();
-			sql = "select * from bodyorder where hconfirm != ''and bconfirm =''and id ='" + id + "'";
+			//접속한 아이디와 본사확인값이 존재하고 가맹점 확인값이 없는 테이블만 가져오는 sql문
+			sql = "select * from bodyorder where hconfirm != '' and bconfirm =''and id ='" + id + "'";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 

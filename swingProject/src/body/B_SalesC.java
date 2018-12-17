@@ -161,7 +161,7 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 
 	public void searchSales() {// 매출 검색 메서드
 		
-		if (!(g_YearTextField.getText().equals("")) && g_MonthTextField.getText().equals("")) {
+		if (!(g_YearTextField.getText().equals("")) && g_MonthTextField.getText().equals("") && g_DayTextField.getText().equals("")) {//년도만 검색했을때 조건
 			int size = B_SalesDAO.getInstance()
 					.menuAllSelect(B_Frame.st_G_id,g_YearTextField.getText() + "-" + g_MonthTextField.getText()).size();
 			ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
@@ -179,7 +179,7 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 				}
 
 			}
-		}else {
+		}else {//달과 일만 검색했을때
 		int size = B_SalesDAO.getInstance()
 				.menuAllSelect(B_Frame.st_G_id,g_YearTextField.getText() + "-" + g_MonthTextField.getText() + "-" + g_DayTextField.getText()).size();
 		ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
@@ -294,7 +294,6 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 				g_BodySalesDataChart.dayChart(g_YearTextField.getText(),g_MonthTextField.getText(), g_MonthValue);
 				
 			}
-
 		}
 	}// 액션리스너 끝
 }// 클래스 끝

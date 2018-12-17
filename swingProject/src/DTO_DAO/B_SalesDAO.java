@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class B_SalesDAO {
-
+         
 	private String url = "jdbc:mysql://localhost:3306/bbq";
 	// 데이터 베이스 url
 	private String user = "root";
@@ -18,7 +18,7 @@ public class B_SalesDAO {
 	// mysql root 계정 비밀번호
 	private String sql;
 	// sql문 문자열
-
+   
 	private Connection con;
 	private PreparedStatement ps;
 	// Connection 객체와 PreparedStatement 미리 선언

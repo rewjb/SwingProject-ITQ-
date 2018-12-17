@@ -10,7 +10,7 @@ package won;
 public class H_V_C_worker {
 
 	// 마지막 아이디 가져오는 메서드
-	protected String findLastId(String id, String input) {
+	String findLastId(String id, String input) {
 		if (input == null || id == null) {
 		} else {
 			char id0 = id.charAt(0);
@@ -28,7 +28,7 @@ public class H_V_C_worker {
 	}
 
 	// id 생성 메서드 - 같은 패키지 내에서만 동작함
-	protected String makeId(String id) {
+	String makeId(String id) {
 		if (id == null) {
 			id = "AA";
 		} else {

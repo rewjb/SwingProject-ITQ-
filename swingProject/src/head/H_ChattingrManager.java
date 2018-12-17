@@ -24,8 +24,6 @@ public class H_ChattingrManager extends Thread {
 			String inputStr = null;
 
 			int sendMemberNum;
-
-
 			
 			while (true) {
 
@@ -50,12 +48,12 @@ public class H_ChattingrManager extends Thread {
 					}
 					if (exist) {
 						H_ChattingFrame.room.get(inputStr).add(sendWriter);
-						int tempCount = H_ChattingFrame.model.getRowCount();
+						int tempCount = H_ChattingFrame.g_RoomListModel.getRowCount();
 						int tempNum;
 						for (int i = 0; i < tempCount; i++) {
-							if (H_ChattingFrame.model.getValueAt(i, 0).equals(inputStr)) {
-								tempNum = (int) H_ChattingFrame.model.getValueAt(i, 1);
-								H_ChattingFrame.model.setValueAt(tempNum + 1, i, 1);
+							if (H_ChattingFrame.g_RoomListModel.getValueAt(i, 0).equals(inputStr)) {
+								tempNum = (int) H_ChattingFrame.g_RoomListModel.getValueAt(i, 1);
+								H_ChattingFrame.g_RoomListModel.setValueAt(tempNum + 1, i, 1);
 							}
 						}
 						sendWriter.print("CHroom\ntrue\n");
@@ -94,11 +92,11 @@ public class H_ChattingrManager extends Thread {
 					inputStr = inputBuffer.readLine();
 					H_ChattingFrame.room.get(inputStr).remove(sendWriter);
 
-					int roomCount = H_ChattingFrame.model.getRowCount();
+					int roomCount = H_ChattingFrame.g_RoomListModel.getRowCount();
 					for (int i = 0; i < roomCount; i++) {
-						if (inputStr.equals(H_ChattingFrame.model.getValueAt(i, 0))) {
-							int tempMeberCount = (int) H_ChattingFrame.model.getValueAt(i, 1) - 1;
-							H_ChattingFrame.model.setValueAt(tempMeberCount, i, 1);
+						if (inputStr.equals(H_ChattingFrame.g_RoomListModel.getValueAt(i, 0))) {
+							int tempMeberCount = (int) H_ChattingFrame.g_RoomListModel.getValueAt(i, 1) - 1;
+							H_ChattingFrame.g_RoomListModel.setValueAt(tempMeberCount, i, 1);
 						}
 					} // 방에서 나갈 시 관리자 화면에서 사람 수가 변한다.
 
@@ -140,10 +138,10 @@ public class H_ChattingrManager extends Thread {
 	private void sendRoomList(PrintWriter sendWriter) {
 		sendMessage = "RoomList\n";
 		// 초기화
-		int temp = H_ChattingFrame.model.getRowCount();
+		int temp = H_ChattingFrame.g_RoomListModel.getRowCount();
 		// 임시 int 값 , 생성된 방의 갯수 삽입
 		for (int i = 0; i < temp; i++) {
-			sendMessage += H_ChattingFrame.model.getValueAt(i, 0) + "/" + H_ChattingFrame.model.getValueAt(i, 1) + "\n";
+			sendMessage += H_ChattingFrame.g_RoomListModel.getValueAt(i, 0) + "/" + H_ChattingFrame.g_RoomListModel.getValueAt(i, 1) + "\n";
 		} // sendRoomList() : 메서드 종료
 		sendWriter.print(sendMessage);
 		sendWriter.flush();

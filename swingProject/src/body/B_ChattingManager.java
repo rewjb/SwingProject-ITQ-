@@ -13,11 +13,11 @@ import com.mysql.jdbc.StandardSocketFactory;
 
 public class B_ChattingManager extends Thread {
 
-	Socket my_socket;
+	Socket g_My_socket;
 	String nowRoomName;
 
 	public B_ChattingManager(Socket my_socket) {
-		this.my_socket = my_socket;
+		this.g_My_socket = my_socket;
 	}// 생성자 종료
 	
 
@@ -26,9 +26,9 @@ public class B_ChattingManager extends Thread {
 	public void run() {
 		super.run();
 		try {
-			BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(my_socket.getInputStream()));
+			BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(g_My_socket.getInputStream()));
 			// 입력을 받을 버퍼
-			PrintWriter sendWriter = new PrintWriter(my_socket.getOutputStream());
+			PrintWriter sendWriter = new PrintWriter(g_My_socket.getOutputStream());
 			
 			String str = null;
 
@@ -85,7 +85,7 @@ public class B_ChattingManager extends Thread {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "서버와의 연결이 끊겼습니다.");
 					inputBuffer.close();
-					my_socket.close();
+					g_My_socket.close();
 					break;
 				}
 

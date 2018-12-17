@@ -54,9 +54,9 @@ public class B_ChattingManager extends Thread {
 				if (str.equals("CHroom")) {
 					str = inputBuffer.readLine();
 					if (str.equals("true")) {
-						B_ChattingFrame.chattingPanel.setVisible(true);
-						B_ChattingFrame.selectRoomPanel.setVisible(false);
-						nowRoomName = new String(B_ChattingFrame.nowRoomName);
+						B_ChattingFrame.g_ChattingPanel.setVisible(true);
+						B_ChattingFrame.g_SelectRoomPanel.setVisible(false);
+						nowRoomName = new String(B_ChattingFrame.g_NowRoomName);
 					} else {
 						JOptionPane.showMessageDialog(null, "존재하지 않는 방입니다.");
 					}
@@ -64,19 +64,19 @@ public class B_ChattingManager extends Thread {
 
 				if (str.equals("Msend")) {
 					str = inputBuffer.readLine();
-					if (B_ChattingFrame.nowRoomName.equals(str.split("/")[1])) {
+					if (B_ChattingFrame.g_NowRoomName.equals(str.split("/")[1])) {
 						str = str.split("/")[0] + " : " + str.split("/")[2];
-						B_ChattingFrame.historyArea.append(str + "\n");
+						B_ChattingFrame.g_HistoryArea.append(str + "\n");
 					}
 
 				}
 
 				if (str.equals("Delete")) {
 					str = inputBuffer.readLine();
-					if (str.equals(B_ChattingFrame.nowRoomName)) {
+					if (str.equals(B_ChattingFrame.g_NowRoomName)) {
 						JOptionPane.showMessageDialog(null, "방이 삭제되었습니다.");
-						B_ChattingFrame.selectRoomPanel.setVisible(true);
-						B_ChattingFrame.chattingPanel.setVisible(false);
+						B_ChattingFrame.g_SelectRoomPanel.setVisible(true);
+						B_ChattingFrame.g_ChattingPanel.setVisible(false);
 					}
 				} else {
 

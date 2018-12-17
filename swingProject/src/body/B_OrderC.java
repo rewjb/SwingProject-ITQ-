@@ -42,59 +42,60 @@ import javax.swing.JButton;
 
 public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemListener {
 
-	private JLabel reservesLabel;
-	private JLabel amountLabel;
-	private DefaultTableModel orderModel = new DefaultTableModel(0, 3);// 발주할 표
-	private DefaultTableModel stockModel = new DefaultTableModel(0, 2);// 재고 목록 표
-	private DefaultTableModel orderList = new DefaultTableModel(0, 4);// 발주 목록 표
+	private JLabel g_ReservesLabel;//식자재 라벨
+	private JLabel g_AmountLabel;//식자재 수량 라벨
+	private JLabel g_UnitPriceLabel;//식자재 단가 라벨
+	private JLabel g_OrderLabel;//발주 라벨
+	private JLabel g_OrderListLabel;//발주목록 라벨
+	private DefaultTableModel g_OrderModel = new DefaultTableModel(0, 3);// 발주할 표
+	private DefaultTableModel g_StockModel = new DefaultTableModel(0, 2);// 재고 목록 표
+	private DefaultTableModel g_OrderListModel = new DefaultTableModel(0, 4);// 발주 목록 표
 
 	// 리스트를 넣을 Jtable
-	private JTable orderTable = new JTable(orderModel) {// 발주할 테이블
+	private JTable g_OrderTable = new JTable(g_OrderModel) {// 발주할 테이블
 		public boolean isCellEditable(int row, int column) {// 내부 표 수정불가
 			return false;
 		};
 	};
-	private JTable orderListTable = new JTable(stockModel) {// 발주목록 테이블
+	private JTable g_OrderListTable = new JTable(g_StockModel) {// 발주목록 테이블
 		public boolean isCellEditable(int row, int column) {// 내부 표 수정불가
 			return false;
 		};
 	};
-	private JTable stockListTable = new JTable(orderList) {// 재고 목록 테이블
+	private JTable g_StockListTable = new JTable(g_OrderListModel) {// 재고 목록 테이블
 		public boolean isCellEditable(int row, int column) {// 내부 표 수정불가
 			return false;
 		};
 	};
 
-	private JButton selectBt;// 선택 버튼
-	private JButton orderBt;// 발주 버튼
-	private JButton deleteBt;// 삭제 버튼
-	private JButton orderListBt;// 발주목록 버튼
-	private JButton orderListDeleteBt;// 발주목록 지우기 버튼
-	private JButton orderListAllDeleteBt;// 발주 하기전 목록 전체 지우기
-	private JButton stockListBt;// 재고 목록
-	private JButton orderDeleteBt;//발주 취소 버튼
-	private JButton resetButton;//새로고침 버튼
+	private JButton g_SelectBt;// 선택 버튼
+	private JButton g_OrderBt;// 발주 버튼
+	private JButton g_DeleteBt;// 삭제 버튼
+	private JButton g_OrderListBt;// 발주목록 버튼
+	private JButton g_OrderListDeleteBt;// 발주목록 지우기 버튼
+	private JButton g_OrderListAllDeleteBt;// 발주 하기전 목록 전체 지우기
+	private JButton g_StockListBt;// 재고 목록
+	private JButton g_OrderDeleteBt;//발주 취소 버튼
+	private JButton g_ResetButton;//새로고침 버튼
 	
 
-	private JComboBox reservesComboBox;// 식자재 목록이 나오는 콤보박스
-	private JTextField quantityTextField;
-	private File file;
+	private JComboBox g_ReservesComboBox;// 식자재 목록이 나오는 콤보박스
+	private JTextField g_QuantityTextField;
+	private File g_File;
 
-	private JScrollPane orderScroll = new JScrollPane(orderTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 발주하는 테이블 스크롤
+	private JScrollPane g_OrderScroll = new JScrollPane(g_OrderTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 발주하는 테이블 스크롤
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-	private JScrollPane orderListScroll = new JScrollPane(orderListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 발주목록 스크롤
+	private JScrollPane g_OrderListScroll = new JScrollPane(g_OrderListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 발주목록 스크롤
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-	private JScrollPane stockListScroll = new JScrollPane(stockListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 재고테이블 스크
+	private JScrollPane g_StockListScroll = new JScrollPane(g_StockListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 재고테이블 스크
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	private JLabel orderLabel;
-	private JLabel orderListLabel;
-	private ArrayList<Integer> listNum;// 발주 목록을 볼 때 각행별 고유 num을 담고 있는 리스트
-	private JTextField reservesTextField;// 식자재 단가입력란
-	private int[] selects;// 발주 취소시 다중선택을 받는 배열
-	private ArrayList<String> fileOutPutArrayList = new ArrayList<>();//파일입출력용 리스트  (-앞뒤로 스플릿해서 [0]을 갖고있음)
-	private ArrayList<String> fileOutPutArrayListSecond = new ArrayList<>();//파일입출력용 리스트 2 (-앞뒤로 스플릿해서 [1]을 갖고있음)
+	private ArrayList<Integer> g_ListNum;// 발주 목록을 볼 때 각행별 고유 num을 담고 있는 리스트
+	private JTextField g_ReservesTextField;// 식자재 단가입력란
+	private int[] g_Selects;// 발주 취소시 다중선택을 받는 배열
+	private ArrayList<String> g_FileOutPutArrayList = new ArrayList<>();//파일입출력용 리스트  (-앞뒤로 스플릿해서 [0]을 갖고있음)
+	private ArrayList<String> g_FileOutPutArrayListSecond = new ArrayList<>();//파일입출력용 리스트 2 (-앞뒤로 스플릿해서 [1]을 갖고있음)
 
 	// Jtable의 스크롤 기능 객체 w
 	// private DefaultTableCellRenderer celAlignCenter = new
@@ -108,144 +109,138 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 		setBackground(new Color(184,207,229));
 		
 		// 라벨의 위치 이름 폰트설정
-		reservesLabel = new JLabel("식자재 목록");
-		reservesLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		reservesLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		amountLabel = new JLabel("수량");
-		amountLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		amountLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		reservesLabel.setBounds(0, 10, 80, 38);
-		amountLabel.setBounds(151, 19, 65, 20);
+		g_ReservesLabel = new JLabel("식자재 목록");
+		g_ReservesLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		g_ReservesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		g_AmountLabel = new JLabel("수량");
+		g_AmountLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		g_AmountLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		g_ReservesLabel.setBounds(0, 10, 80, 38);
+		g_AmountLabel.setBounds(151, 19, 65, 20);
 
-		orderScroll.setBounds(23, 94, 200, 239);
-		orderListScroll.setBounds(599, 58, 182, 275);
-		stockListScroll.setBounds(263, 94, 293, 239);
-		// 테이블내
-		orderTable.getTableHeader().setResizingAllowed(false);
-		orderListTable.getTableHeader().setResizingAllowed(false);
-		stockListTable.getTableHeader().setResizingAllowed(false);
-		orderTable.getTableHeader().setReorderingAllowed(false);
-		orderListTable.getTableHeader().setReorderingAllowed(false);
-		stockListTable.getTableHeader().setReorderingAllowed(false);
+		//스크롤바에 위치 및 크기 조정 
+		g_OrderScroll.setBounds(23, 94, 200, 239);
+		g_OrderListScroll.setBounds(599, 58, 182, 275);
+		g_StockListScroll.setBounds(263, 94, 293, 239);
+		// 테이블 컬럼 드래그로 이동불가 
+		g_OrderTable.getTableHeader().setResizingAllowed(false);
+		g_OrderListTable.getTableHeader().setResizingAllowed(false);
+		g_StockListTable.getTableHeader().setResizingAllowed(false);
+		g_OrderTable.getTableHeader().setReorderingAllowed(false);
+		g_OrderListTable.getTableHeader().setReorderingAllowed(false);
+		g_StockListTable.getTableHeader().setReorderingAllowed(false);
 
-		orderModel.setColumnIdentifiers(new Object[] { "식자재", "수량", "금액" });
-		stockModel.setColumnIdentifiers(new Object[] { "식자재", "수량" });
-		orderList.setColumnIdentifiers(new Object[] { "식자재", "수량", "발주일", "본사확인" });
-		stockListTable.getColumnModel().getColumn(2).setPreferredWidth(90);
+		//각 표마다 들어갈 컬럼명 
+		g_OrderModel.setColumnIdentifiers(new Object[] { "식자재", "수량", "금액" });
+		g_StockModel.setColumnIdentifiers(new Object[] { "식자재", "수량" });
+		g_OrderListModel.setColumnIdentifiers(new Object[] { "식자재", "수량", "발주일", "본사확인" });
+		g_StockListTable.getColumnModel().getColumn(2).setPreferredWidth(90);//특정 컬럼 간격 조정 
 		
 
 		// listTable2.getColumnModel().getColumn(4).setPreferredWidth(-10);
 
-		add(stockListScroll);
-		add(orderListScroll);
-		add(orderScroll);
-		add(amountLabel);
-		add(reservesLabel, BorderLayout.WEST);
+		add(g_StockListScroll);
+		add(g_OrderListScroll);
+		add(g_OrderScroll);
+		add(g_AmountLabel);
+		add(g_ReservesLabel, BorderLayout.WEST);
 
-		reservesComboBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
-		reservesComboBox.setBounds(78, 18, 80, 21);
-		add(reservesComboBox);
+		g_ReservesComboBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
+		g_ReservesComboBox.setBounds(78, 18, 80, 21);
+		add(g_ReservesComboBox);
 
-		quantityTextField = new JTextField();
-		quantityTextField.setBounds(208, 18, 80, 21);
-		add(quantityTextField);
+		g_QuantityTextField = new JTextField();
+		g_QuantityTextField.setBounds(208, 18, 80, 21);
+		add(g_QuantityTextField);
 		//테이블 내부 색깔
-		orderTable.setBackground(Color.LIGHT_GRAY);
-		orderListTable.setBackground(Color.LIGHT_GRAY);
-		stockListTable.setBackground(Color.LIGHT_GRAY);
+		g_OrderTable.setBackground(Color.LIGHT_GRAY);
+		g_OrderListTable.setBackground(Color.LIGHT_GRAY);
+		g_StockListTable.setBackground(Color.LIGHT_GRAY);
+
+		g_SelectBt = new JButton("\uC120\uD0DD");
+		g_SelectBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		g_SelectBt.setBounds(313, 18, 74, 23);
+		add(g_SelectBt);
+
+		g_OrderBt = new JButton("\uBC1C\uC8FC");
+		g_OrderBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		g_OrderBt.setBounds(23, 340, 84, 23);
+		add(g_OrderBt);
+
+		g_DeleteBt = new JButton("\uC0AD\uC81C");
+		g_DeleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		g_DeleteBt.setBounds(399, 18, 74, 23);
+		add(g_DeleteBt);
+
+		g_OrderListBt = new JButton("\uBC1C\uC8FC \uBAA9\uB85D");
+		g_OrderListBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		g_OrderListBt.setBounds(253, 340, 103, 23);
+		add(g_OrderListBt);
+
+		g_OrderListDeleteBt = new JButton("\uBAA9\uB85D \uC9C0\uC6B0\uAE30");
+		g_OrderListDeleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		g_OrderListDeleteBt.setBounds(355, 340, 110, 23);
+		add(g_OrderListDeleteBt);
+
+		g_OrderListAllDeleteBt = new JButton("\uBAA9\uB85D\uC9C0\uC6B0\uAE30");
+		g_OrderListAllDeleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		g_OrderListAllDeleteBt.setBounds(119, 340, 110, 23);
+		add(g_OrderListAllDeleteBt);
+
+		g_StockListBt = new JButton("\uC7AC\uACE0 \uBAA9\uB85D");
+		g_StockListBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		g_StockListBt.setBounds(642, 340, 113, 23);
+		add(g_StockListBt);
+
+		g_OrderDeleteBt = new JButton("\uBC1C\uC8FC \uCDE8\uC18C");
+		g_OrderDeleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		g_OrderDeleteBt.setBounds(465, 340, 103, 23);
+		add(g_OrderDeleteBt);
 		
+		g_ResetButton = new JButton("\uC0C8\uB85C\uACE0\uCE68");
+		g_ResetButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		g_ResetButton.setBounds(482, 17, 80, 23);
+		add(g_ResetButton);
+
+		g_SelectBt.addActionListener(this);
+		g_OrderBt.addActionListener(this);
+		g_DeleteBt.addActionListener(this);
+		g_OrderListBt.addActionListener(this);
+		g_OrderListDeleteBt.addActionListener(this);
+		g_OrderListAllDeleteBt.addActionListener(this);
+		g_StockListBt.addActionListener(this);
+		g_OrderDeleteBt.addActionListener(this);
+		g_ReservesComboBox.addItemListener(this);
+		g_ResetButton.addActionListener(this);
+
+		g_OrderLabel = new JLabel("\uBC1C\uC8FC");
+		g_OrderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		g_OrderLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
+		g_OrderLabel.setBounds(90, 73, 57, 20);
+		add(g_OrderLabel);
 		
-		JLabel orderListLabel = new JLabel("\uC7AC\uACE0 \uBAA9\uB85D");
-		orderListLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
-		orderListLabel.setBounds(656, 28, 57, 20);
-		add(orderListLabel);
+		g_OrderListLabel = new JLabel("\uBC1C\uC8FC \uBAA9\uB85D");
+		g_OrderListLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		g_OrderListLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
+		g_OrderListLabel.setBounds(378, 73, 57, 20);
+		add(g_OrderListLabel);
 
-		selectBt = new JButton("\uC120\uD0DD");
-		selectBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		selectBt.setBounds(313, 18, 74, 23);
-		add(selectBt);
+		g_ReservesTextField = new JTextField();
+		g_ReservesTextField.setBounds(208, 44, 80, 21);
+		g_ReservesTextField.setEditable(false);
+		add(g_ReservesTextField);
 
-		orderBt = new JButton("\uBC1C\uC8FC");
-		orderBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		orderBt.setBounds(23, 340, 84, 23);
-		add(orderBt);
-
-		deleteBt = new JButton("\uC0AD\uC81C");
-		deleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		deleteBt.setBounds(399, 18, 74, 23);
-		add(deleteBt);
-
-		orderListBt = new JButton("\uBC1C\uC8FC \uBAA9\uB85D");
-		orderListBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		orderListBt.setBounds(253, 340, 103, 23);
-		add(orderListBt);
-
-		orderListDeleteBt = new JButton("\uBAA9\uB85D \uC9C0\uC6B0\uAE30");
-		orderListDeleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		orderListDeleteBt.setBounds(355, 340, 110, 23);
-		add(orderListDeleteBt);
-
-		orderListAllDeleteBt = new JButton("\uBAA9\uB85D\uC9C0\uC6B0\uAE30");
-		orderListAllDeleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		orderListAllDeleteBt.setBounds(119, 340, 110, 23);
-		add(orderListAllDeleteBt);
-
-		stockListBt = new JButton("\uC7AC\uACE0 \uBAA9\uB85D");
-		stockListBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		stockListBt.setBounds(642, 340, 113, 23);
-		add(stockListBt);
-
-		orderDeleteBt = new JButton("\uBC1C\uC8FC \uCDE8\uC18C");
-		orderDeleteBt.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-		orderDeleteBt.setBounds(465, 340, 103, 23);
-		add(orderDeleteBt);
+		g_UnitPriceLabel = new JLabel("\uB2E8\uAC00");
+		g_UnitPriceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		g_UnitPriceLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
+		g_UnitPriceLabel.setBounds(151, 45, 65, 20);
+		add(g_UnitPriceLabel);
 		
-		resetButton = new JButton("\uC0C8\uB85C\uACE0\uCE68");
-		resetButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		resetButton.setBounds(482, 17, 80, 23);
-		add(resetButton);
-
-		selectBt.addActionListener(this);
-		orderBt.addActionListener(this);
-		deleteBt.addActionListener(this);
-		orderListBt.addActionListener(this);
-		orderListDeleteBt.addActionListener(this);
-		orderListAllDeleteBt.addActionListener(this);
-		stockListBt.addActionListener(this);
-		orderDeleteBt.addActionListener(this);
-		reservesComboBox.addItemListener(this);
-		resetButton.addActionListener(this);
-
-		orderLabel = new JLabel("\uBC1C\uC8FC");
-		orderLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		orderLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
-		orderLabel.setBounds(90, 73, 57, 20);
-		add(orderLabel);
-		
-
-		orderListLabel = new JLabel("\uBC1C\uC8FC \uBAA9\uB85D");
-		orderListLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		orderListLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 14));
-		orderListLabel.setBounds(378, 73, 57, 20);
-		add(orderListLabel);
-
-		reservesTextField = new JTextField();
-		reservesTextField.setBounds(208, 44, 80, 21);
-		reservesTextField.setEditable(false);
-		add(reservesTextField);
 		try {
 			reader();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		JLabel unitPriceLabel = new JLabel("\uB2E8\uAC00");
-		unitPriceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		unitPriceLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
-		unitPriceLabel.setBounds(151, 45, 65, 20);
-		add(unitPriceLabel);
-		
 
 		setVisible(false);
 	}
@@ -262,10 +257,10 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 
 
 	public void reservesReset() {//식자재 목록 새로고침
-		reservesComboBox.removeAllItems();
+		g_ReservesComboBox.removeAllItems();
 		int count = H_VenderpDAO.getInstance().select_product().size();
 		for (int i = 0; i <count; i++) {
-			reservesComboBox.addItem(H_VenderpDAO.getInstance().select_product().get(i));
+			g_ReservesComboBox.addItem(H_VenderpDAO.getInstance().select_product().get(i));
 		}
 	}
 	
@@ -273,37 +268,37 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 	
 	
 	public void orderList() {// 발주목록 보는 메서드
-		listNum = new ArrayList<>();
-		int selectAllArrayListSize = B_OrderDAO.getInstance().selectAll(B_Frame.id).size();
+		g_ListNum = new ArrayList<>();
+		int selectAllArrayListSize = B_OrderDAO.getInstance().selectAll(B_Frame.st_G_id).size();
 		for (int i = 0; i < selectAllArrayListSize; i++) {
-			listNum.add(B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).getNum());
+			g_ListNum.add(B_OrderDAO.getInstance().selectAll(B_Frame.st_G_id).get(i).getNum());
 		}
-		if (orderList.getRowCount() == 0) {
+		if (g_OrderListModel.getRowCount() == 0) {
 			for (int i = 0; i < selectAllArrayListSize; i++) {
-				orderList.insertRow(i,
-						new Object[] { B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).getName(),
-								B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).getQuantity(),
-								B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).getDate().substring(0, 10),
-								B_OrderDAO.getInstance().selectAll(B_Frame.id).get(i).gethComfirm() });
+				g_OrderListModel.insertRow(i,
+						new Object[] { B_OrderDAO.getInstance().selectAll(B_Frame.st_G_id).get(i).getName(),
+								B_OrderDAO.getInstance().selectAll(B_Frame.st_G_id).get(i).getQuantity(),
+								B_OrderDAO.getInstance().selectAll(B_Frame.st_G_id).get(i).getDate().substring(0, 10),
+								B_OrderDAO.getInstance().selectAll(B_Frame.st_G_id).get(i).gethComfirm() });
 			}
 		} 
 	}
 	
 	public void reader() throws Exception {//단가를 가져오는 메서드 (파일 입출력)
-		file = new File("H_VenderpName.txt");
-		Scanner sc = new Scanner(file);
-		if (file.exists()) {
+		g_File = new File("H_VenderpName.txt");
+		Scanner sc = new Scanner(g_File);
+		if (g_File.exists()) {
 			while (sc.hasNextLine()) {
 				String[] read = sc.nextLine().split("-");
-				fileOutPutArrayList.add(read[0]);
-				fileOutPutArrayListSecond.add(read[1]);
+				g_FileOutPutArrayList.add(read[0]);
+				g_FileOutPutArrayListSecond.add(read[1]);
 			}
-			if (reservesComboBox.getSelectedItem()==null) {
+			if (g_ReservesComboBox.getSelectedItem()==null) {
 				
 			}else {
-				for (int j = 0; j < fileOutPutArrayList.size(); j++) {
-					if (reservesComboBox.getSelectedItem().equals(fileOutPutArrayList.get(j))) {
-						reservesTextField.setText(fileOutPutArrayListSecond.get(j));
+				for (int j = 0; j < g_FileOutPutArrayList.size(); j++) {
+					if (g_ReservesComboBox.getSelectedItem().equals(g_FileOutPutArrayList.get(j))) {
+						g_ReservesTextField.setText(g_FileOutPutArrayListSecond.get(j));
 					}
 				}
 			}
@@ -311,103 +306,103 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 	}
 	
 	public void orderDelete() {//발주 취소 메서드
-		selects = stockListTable.getSelectedRows();
-		for (int i = 0; i < selects.length; i++) {
-			if (orderList.getValueAt(selects[i], 3).equals("")) {
-				B_OrderDAO.getInstance().orderDelete(listNum.get(selects[i]));
+		g_Selects = g_StockListTable.getSelectedRows();
+		for (int i = 0; i < g_Selects.length; i++) {
+			if (g_OrderListModel.getValueAt(g_Selects[i], 3).equals("")) {
+				B_OrderDAO.getInstance().orderDelete(g_ListNum.get(g_Selects[i]));
 			}
 		}
-		int count = orderList.getRowCount();
+		int count = g_OrderListModel.getRowCount();
 		for (int i = 0; i < count;  i++) {
-			orderList.removeRow(0);
+			g_OrderListModel.removeRow(0);
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == selectBt) {// 선택버튼기능
+		if (e.getSource() == g_SelectBt) {// 선택버튼기능
 			
-			if (!(quantityTextField.getText().equals(""))) {
-				orderModel.insertRow(0, new Object[] { (String) reservesComboBox.getSelectedItem(), quantityTextField.getText(),(Integer.parseInt(quantityTextField.getText())*Integer.parseInt(reservesTextField.getText()))});
+			if (!(g_QuantityTextField.getText().equals(""))) {
+				g_OrderModel.insertRow(0, new Object[] { (String) g_ReservesComboBox.getSelectedItem(), g_QuantityTextField.getText(),(Integer.parseInt(g_QuantityTextField.getText())*Integer.parseInt(g_ReservesTextField.getText()))});
 			}
 			
-		} else if (e.getSource() == deleteBt) {// 삭제버튼기능
+		} else if (e.getSource() == g_DeleteBt) {// 삭제버튼기능
 
-			if (orderModel.getRowCount()==0) {
+			if (g_OrderModel.getRowCount()==0) {
 				JOptionPane.showMessageDialog(null, "지울 목록이 없습니다.");
-			} else if (!(orderModel.getRowCount()==0) && orderTable.getSelectedRowCount() == 0) {
+			} else if (!(g_OrderModel.getRowCount()==0) && g_OrderTable.getSelectedRowCount() == 0) {
 				JOptionPane.showMessageDialog(null, "지울 목록을 선택해주세요.");
 			} else {
-				int[] a = orderTable.getSelectedRows();
-				int b = orderTable.getSelectedRowCount();
+				int[] a = g_OrderTable.getSelectedRows();
+				int b = g_OrderTable.getSelectedRowCount();
 				for (int i = b - 1; i >= 0; i--) {
-					orderModel.removeRow(a[i]);
+					g_OrderModel.removeRow(a[i]);
 				}
 			}
-		} else if (e.getSource() == orderBt) {// 발주버튼 기능
+		} else if (e.getSource() == g_OrderBt) {// 발주버튼 기능
 
-			for (int j = 0; j < orderModel.getRowCount(); j++) {
-				String test2 = (String) orderModel.getValueAt(j, 0);
-				int test3 = Integer.parseInt((String) orderModel.getValueAt(j, 1));
-				B_OrderDAO.getInstance().orderInsert(B_Frame.id, test2, test3);
+			for (int j = 0; j < g_OrderModel.getRowCount(); j++) {
+				String test2 = (String) g_OrderModel.getValueAt(j, 0);
+				int test3 = Integer.parseInt((String) g_OrderModel.getValueAt(j, 1));
+				B_OrderDAO.getInstance().orderInsert(B_Frame.st_G_id, test2, test3);
 			}
-			int orderModelRowCount = orderModel.getRowCount();
+			int orderModelRowCount = g_OrderModel.getRowCount();
 			for (int j = 0; j < orderModelRowCount; j++) {
-				orderModel.removeRow(0);
+				g_OrderModel.removeRow(0);
 			}
 
-		} else if (e.getSource() == orderListBt) {// 발주목록 버튼기능
+		} else if (e.getSource() == g_OrderListBt) {// 발주목록 버튼기능
 
-			if (orderList.getRowCount() == 0) {
+			if (g_OrderListModel.getRowCount() == 0) {
 				orderList();
 			} else {
-				int count = orderList.getRowCount();
+				int count = g_OrderListModel.getRowCount();
 				for (int i = 0; i < count; i++) {
-					orderList.removeRow(0);
+					g_OrderListModel.removeRow(0);
 				}
 				orderList();
 			}
 
-		} else if (e.getSource() == orderListDeleteBt) {// 발주후 목록지우기 버튼기능
-			if (orderList.getRowCount()==0) {
+		} else if (e.getSource() == g_OrderListDeleteBt) {// 발주후 목록지우기 버튼기능
+			if (g_OrderListModel.getRowCount()==0) {
 
 			} else {
-				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(B_Frame.id).size(); i++) {
-					orderList.removeRow(0);
+				for (int i = 0; i < B_OrderDAO.getInstance().selectAll(B_Frame.st_G_id).size(); i++) {
+					g_OrderListModel.removeRow(0);
 				}
 
 			}
 
-		} else if (e.getSource() == orderListAllDeleteBt) {// 발주하기전 목록 지우기기능
-			int rowCount = orderModel.getRowCount();
+		} else if (e.getSource() == g_OrderListAllDeleteBt) {// 발주하기전 목록 지우기기능
+			int rowCount = g_OrderModel.getRowCount();
 			for (int i = 0; i < rowCount; i++) {
-					orderModel.removeRow(0);
+				g_OrderModel.removeRow(0);
 			}
-		} else if (e.getSource() == stockListBt) {// 재고 확인 버튼
-			if (stockModel.getRowCount()==0) {// model1의 첫번째 줄에 아무값도 없으면 재고를 가져온다
-				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(B_Frame.id).size(); j++) {
-					stockModel.insertRow(j,
-							new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(j).getName(),
-									B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(j).getQuantity() });
+		} else if (e.getSource() == g_StockListBt) {// 재고 확인 버튼
+			if (g_StockModel.getRowCount()==0) {// model1의 첫번째 줄에 아무값도 없으면 재고를 가져온다
+				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).size(); j++) {
+					g_StockModel.insertRow(j,
+							new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).get(j).getName(),
+									B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).get(j).getQuantity() });
 				}
 
 			} else {
-				int rowCount = stockModel.getRowCount();
+				int rowCount = g_StockModel.getRowCount();
 				for (int i = 0; i < rowCount; i++) {
-					stockModel.removeRow(0);
+					g_StockModel.removeRow(0);
 				}
-				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(B_Frame.id).size(); j++) {
-					stockModel.insertRow(j,
-							new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(j).getName(),
-									B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(j).getQuantity() });
+				for (int j = 0; j < B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).size(); j++) {
+					g_StockModel.insertRow(j,
+							new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).get(j).getName(),
+									B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).get(j).getQuantity() });
 				}
 
 			}
   
-		} else if (e.getSource() == orderDeleteBt) {// 발주취소 버튼 
+		} else if (e.getSource() == g_OrderDeleteBt) {// 발주취소 버튼 
 			orderDelete();
 			orderList();
-		}else if (e.getSource() == resetButton) {//새로고침 버튼눌렀을때
+		}else if (e.getSource() == g_ResetButton) {//새로고침 버튼눌렀을때
 			reservesReset();
 		}
 	}// 액션 리스터 끝
@@ -415,7 +410,7 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		if (e.getSource() == reservesComboBox) {
+		if (e.getSource() == g_ReservesComboBox) {
 			try {
 				reader();
 			} catch (Exception e1) {

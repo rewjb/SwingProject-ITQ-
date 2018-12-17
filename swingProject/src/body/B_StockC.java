@@ -128,11 +128,11 @@ public class B_StockC extends JPanel implements BodyStock, ActionListener {
 	
 	public void notCheckStock() {//미확인 재고 목록 보여주는 메서드
 		numList = new ArrayList<>();
-			for (int i = 0; i < B_OrderDAO.getInstance().hCheckSelect(B_Frame.id).size(); i++) {// 본사만 확인 한 재고들을 보여주는 반복문
-				numList.add( B_OrderDAO.getInstance().hCheckSelect(B_Frame.id).get(i).getNum());
-				notCheckStockmodel.insertRow(0, new Object[] { B_OrderDAO.getInstance().hCheckSelect(B_Frame.id).get(i).getName(),
-						B_OrderDAO.getInstance().hCheckSelect(B_Frame.id).get(i).getQuantity(), B_OrderDAO.getInstance().hCheckSelect(B_Frame.id).get(i).gethComfirm(),
-						B_OrderDAO.getInstance().hCheckSelect(B_Frame.id).get(i).getbComfirm() });
+			for (int i = 0; i < B_OrderDAO.getInstance().hCheckSelect(B_Frame.st_G_id).size(); i++) {// 본사만 확인 한 재고들을 보여주는 반복문
+				numList.add( B_OrderDAO.getInstance().hCheckSelect(B_Frame.st_G_id).get(i).getNum());
+				notCheckStockmodel.insertRow(0, new Object[] { B_OrderDAO.getInstance().hCheckSelect(B_Frame.st_G_id).get(i).getName(),
+						B_OrderDAO.getInstance().hCheckSelect(B_Frame.st_G_id).get(i).getQuantity(), B_OrderDAO.getInstance().hCheckSelect(B_Frame.st_G_id).get(i).gethComfirm(),
+						B_OrderDAO.getInstance().hCheckSelect(B_Frame.st_G_id).get(i).getbComfirm() });
 			}
 	}
 	
@@ -142,7 +142,7 @@ public class B_StockC extends JPanel implements BodyStock, ActionListener {
 		if (!(selectRows.length==0)) {
 			for (int i = 0; i < selectRows.length; i++) {
 				if (notCheckStockmodel.getValueAt(selectRows[i], 3).equals("")) {
-					B_StockDAO.getInstance().insertStock(B_Frame.id, (String)notCheckStockmodel.getValueAt(selectRows[i], 0), (int)notCheckStockmodel.getValueAt(selectRows[i], 1));
+					B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, (String)notCheckStockmodel.getValueAt(selectRows[i], 0), (int)notCheckStockmodel.getValueAt(selectRows[i], 1));
 					notCheckStockmodel.setValueAt("bk-1", selectRows[i], 3);//확인한재고 bk_1로 표에다가 실제로 표시
 					B_OrderDAO.getInstance().bConfirmUpdate(numList.get(selectRows[i]));// 가맹점 확인 메서드
 					
@@ -183,15 +183,15 @@ public class B_StockC extends JPanel implements BodyStock, ActionListener {
 					checkStockmodel.removeRow(0);
 
 				}
-				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll(B_Frame.id).size(); i++) {
-					checkStockmodel.insertRow(0, new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(i).getName(),
-							B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(i).getQuantity() });
+				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).size(); i++) {
+					checkStockmodel.insertRow(0, new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).get(i).getName(),
+							B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).get(i).getQuantity() });
 				}
 			} else {
 
-				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll(B_Frame.id).size(); i++) {
-					checkStockmodel.insertRow(0, new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(i).getName(),
-							B_StockDAO.getInstance().stockSelectAll(B_Frame.id).get(i).getQuantity() });
+				for (int i = 0; i < B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).size(); i++) {
+					checkStockmodel.insertRow(0, new Object[] { B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).get(i).getName(),
+							B_StockDAO.getInstance().stockSelectAll(B_Frame.st_G_id).get(i).getQuantity() });
 				}
 			}
 		}

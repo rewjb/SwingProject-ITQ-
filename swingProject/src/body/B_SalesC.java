@@ -158,9 +158,9 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 		
 		if (!(yearTextField.getText().equals("")) && monthTextField.getText().equals("")) {
 			int size = B_SalesDAO.getInstance()
-					.menuAllSelect(B_Frame.id,yearTextField.getText() + "-" + monthTextField.getText()).size();
+					.menuAllSelect(B_Frame.st_G_id,yearTextField.getText() + "-" + monthTextField.getText()).size();
 			ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
-					.menuAllSelect(B_Frame.id,yearTextField.getText() + "-" + monthTextField.getText());
+					.menuAllSelect(B_Frame.st_G_id,yearTextField.getText() + "-" + monthTextField.getText());
 			for (int j = 0; j < size; j++) {
 				if (!(salesDTO.get(j).getChickenF() == 0)) {
 					allSalesModel.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
@@ -176,9 +176,9 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 			}
 		}else {
 		int size = B_SalesDAO.getInstance()
-				.menuAllSelect(B_Frame.id,yearTextField.getText() + "-" + monthTextField.getText() + "-" + dayTextField.getText()).size();
+				.menuAllSelect(B_Frame.st_G_id,yearTextField.getText() + "-" + monthTextField.getText() + "-" + dayTextField.getText()).size();
 		ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
-				.menuAllSelect(B_Frame.id,yearTextField.getText() + "-" + monthTextField.getText() + "-" + dayTextField.getText());
+				.menuAllSelect(B_Frame.st_G_id,yearTextField.getText() + "-" + monthTextField.getText() + "-" + dayTextField.getText());
 		for (int j = 0; j < size; j++) {
 			if (!(salesDTO.get(j).getChickenF() == 0)) {
 				allSalesModel.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
@@ -282,10 +282,10 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 			}
 
 			if (!(yearTextField.getText().equals("")) && monthTextField.getText().equals("")) {
-				value = B_SalesDAO.getInstance().selectFranSalesYear(B_Frame.id, yearTextField.getText());
+				value = B_SalesDAO.getInstance().selectFranSalesYear(B_Frame.st_G_id, yearTextField.getText());
 				bodySalesDataChart.monthChart(yearTextField.getText(), value);
 			}else if (!(yearTextField.getText().equals("")) && !(monthTextField.getText().equals(""))) {
-				value = B_SalesDAO.getInstance().selectFranSalesMonth(B_Frame.id, yearTextField.getText(), monthTextField.getText());
+				value = B_SalesDAO.getInstance().selectFranSalesMonth(B_Frame.st_G_id, yearTextField.getText(), monthTextField.getText());
 				bodySalesDataChart.dayChart(yearTextField.getText(),monthTextField.getText(), value);
 				
 			}

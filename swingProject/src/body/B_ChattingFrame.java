@@ -30,134 +30,134 @@ import javax.swing.table.DefaultTableModel;
 public class B_ChattingFrame extends JDialog implements ActionListener {
 
 	public static DefaultTableModel model = new DefaultTableModel(0, 2);
-	private JTable table = new JTable(model) {
+	private JTable g_Table = new JTable(model) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
 	}; // 가맹점의 발주 리스트(확인하지 않은..)를 넣을 Jtable / 오면서 셀을
 		// 수정여부 메서드를 무조건 false값으로 리턴
 
-	private JScrollPane scroll = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+	private JScrollPane g_Scroll = new JScrollPane(g_Table, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 발주내용의 스크롤 기능 객체
 
-	private JButton exitBtn = new JButton("종료");
+	private JButton g_ExitBtn = new JButton("종료");
 
-	public static JPanel selectRoomPanel = new JPanel();
-	public static JPanel chattingPanel = new JPanel();
+	public static JPanel g_SelectRoomPanel = new JPanel();
+	public static JPanel g_ChattingPanel = new JPanel();
 
-	private Socket c_socket;
+	private Socket g_C_Socket;
 
-	private JButton exitChattingRoomBtn = new JButton("나가기");
-	private JTextField inputText = new JTextField();
-	private JLabel roomLabel = new JLabel();
-	public static JTextArea historyArea = new JTextArea();
+	private JButton g_ExitChattingRoomBtn = new JButton("나가기");
+	private JTextField g_InputText = new JTextField();
+	private JLabel g_RoomLabel = new JLabel();
+	public static JTextArea g_HistoryArea = new JTextArea();
 
-	private Clinet clinet = new Clinet();
+	private Clinet g_Clinet = new Clinet();
 
-	public static String nowRoomName;
+	public static String g_NowRoomName;
 
-	private PrintWriter sendWriter;
+	private PrintWriter g_SendWriter;
 
-	private String userName ;
+	private String g_UserName;
 	public B_ChattingFrame(String id) {
 		
-		clinet.start();
+		g_Clinet.start();
 		//이것이 가장 먼저 위에 있어야 한다.
 
-		userName=id;
+		g_UserName=id;
 		
-		exitChattingRoomBtn.setBounds(75, 295, 97, 23);
-		inputText.setBounds(12, 265, 220, 23);
-		roomLabel.setBounds(12, 2, 220, 23);
-		historyArea.setBounds(12, 30, 220, 230);
+		g_ExitChattingRoomBtn.setBounds(75, 295, 97, 23);
+		g_InputText.setBounds(12, 265, 220, 23);
+		g_RoomLabel.setBounds(12, 2, 220, 23);
+		g_HistoryArea.setBounds(12, 30, 220, 230);
 
-		inputText.setHorizontalAlignment(JTextField.RIGHT);
-		historyArea.setEditable(false);
-		roomLabel.setHorizontalAlignment(JLabel.CENTER);
+		g_InputText.setHorizontalAlignment(JTextField.RIGHT);
+		g_HistoryArea.setEditable(false);
+		g_RoomLabel.setHorizontalAlignment(JLabel.CENTER);
 
-		chattingPanel.add(exitChattingRoomBtn);
-		chattingPanel.add(inputText);
-		chattingPanel.add(roomLabel);
-		chattingPanel.add(historyArea);
+		g_ChattingPanel.add(g_ExitChattingRoomBtn);
+		g_ChattingPanel.add(g_InputText);
+		g_ChattingPanel.add(g_RoomLabel);
+		g_ChattingPanel.add(g_HistoryArea);
 
 
-		scroll.setBounds(12, 10, 220, 240);
-		exitBtn.setBounds(75, 260, 97, 23);
+		g_Scroll.setBounds(12, 10, 220, 240);
+		g_ExitBtn.setBounds(75, 260, 97, 23);
 
-		exitBtn.addActionListener(this);
-		inputText.addActionListener(this);
-		exitChattingRoomBtn.addActionListener(this);
+		g_ExitBtn.addActionListener(this);
+		g_InputText.addActionListener(this);
+		g_ExitChattingRoomBtn.addActionListener(this);
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
-		table.getTableHeader().setResizingAllowed(false);
-		table.getTableHeader().setReorderingAllowed(false);
-		getContentPane().add(exitBtn);
-		getContentPane().add(scroll);
+		g_Table.getTableHeader().setResizingAllowed(false);
+		g_Table.getTableHeader().setReorderingAllowed(false);
+		getContentPane().add(g_ExitBtn);
+		getContentPane().add(g_Scroll);
 
 		getContentPane().setLayout(null);
 
-		exitBtn.addActionListener(this);
-		table.addMouseListener(new MouseAdapter() {
+		g_ExitBtn.addActionListener(this);
+		g_Table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) { // 2번 클릭 시
-					nowRoomName = (String) table.getValueAt(table.getSelectedRow(), 0);
-					roomLabel.setText("방 제목 : " + nowRoomName);
-					sendWriter.print("CHroom\n" + nowRoomName + "\n");
-					sendWriter.flush();
+					g_NowRoomName = (String) g_Table.getValueAt(g_Table.getSelectedRow(), 0);
+					g_RoomLabel.setText("방 제목 : " + g_NowRoomName);
+					g_SendWriter.print("CHroom\n" + g_NowRoomName + "\n");
+					g_SendWriter.flush();
 				}
 			}
 		});
 
 		model.setColumnIdentifiers(new Object[] { "제목", "인원" });
 
-		table.getTableHeader().setResizingAllowed(false);
-		table.getTableHeader().setReorderingAllowed(false);
+		g_Table.getTableHeader().setResizingAllowed(false);
+		g_Table.getTableHeader().setReorderingAllowed(false);
 
-		selectRoomPanel.setLayout(null);
-		selectRoomPanel.setBounds(0, 0, 250, 350);
-		chattingPanel.setBounds(0, 0, 250, 350);
-		chattingPanel.setLayout(null);
+		g_SelectRoomPanel.setLayout(null);
+		g_SelectRoomPanel.setBounds(0, 0, 250, 350);
+		g_ChattingPanel.setBounds(0, 0, 250, 350);
+		g_ChattingPanel.setLayout(null);
 
-		selectRoomPanel.add(exitBtn);
-		selectRoomPanel.add(scroll);
+		g_SelectRoomPanel.add(g_ExitBtn);
+		g_SelectRoomPanel.add(g_Scroll);
 
-		chattingPanel.setVisible(false);
+		g_ChattingPanel.setVisible(false);
 
 		setLayout(null);
-		add(selectRoomPanel);  
-		add(chattingPanel);
+		add(g_SelectRoomPanel);  
+		add(g_ChattingPanel);
 		setResizable(false);
-		setTitle("접속자 아이디: "+ B_Frame.id);
+		setTitle("접속자 아이디: "+ B_Frame.st_G_id);
 		setSize(250, 350);
 		setVisible(false);
 	}// 생성자 종료
 
 	private void startClient() {
-		sendWriter.print("Start\n"+userName+"\n");
-		sendWriter.flush();
+		g_SendWriter.print("Start\n"+g_UserName+"\n");
+		g_SendWriter.flush();
 	}// 채팅서비스에 입장!
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == inputText) {
-			sendWriter.print("Msend\n" + userName + "\n" + nowRoomName + "\n" + inputText.getText() + "\n");
-			inputText.setText(null);
-			sendWriter.flush();
+		if (e.getSource() == g_InputText) {
+			g_SendWriter.print("Msend\n" + g_UserName + "\n" + g_NowRoomName + "\n" + g_InputText.getText() + "\n");
+			g_InputText.setText(null);
+			g_SendWriter.flush();
 		} // 메세지 전송
 
-		if (e.getSource() == exitChattingRoomBtn) {
-			historyArea.setText(null);
-			sendWriter.print("EXroom\n" + nowRoomName + "\n");
-			sendWriter.flush();
-			selectRoomPanel.setVisible(true); ;
-			chattingPanel.setVisible(false);
+		if (e.getSource() == g_ExitChattingRoomBtn) {
+			g_HistoryArea.setText(null);
+			g_SendWriter.print("EXroom\n" + g_NowRoomName + "\n");
+			g_SendWriter.flush();
+			g_SelectRoomPanel.setVisible(true); ;
+			g_ChattingPanel.setVisible(false);
 
 		}
 		
-		if (e.getSource()==exitBtn) {
+		if (e.getSource()==g_ExitBtn) {
 			dispose();
 		}
 		
@@ -170,14 +170,14 @@ public class B_ChattingFrame extends JDialog implements ActionListener {
 		public void run() {
 			super.run();
 			try {
-				c_socket = new Socket("127.0.0.1", 8000);
+				g_C_Socket = new Socket("127.0.0.1", 8000);
 				// 기준이 되는 서버소켓 선언
-				B_ChattingManager clientReceive = new B_ChattingManager(c_socket);
+				B_ChattingManager clientReceive = new B_ChattingManager(g_C_Socket);
 				clientReceive.start();
 				
-				sendWriter = new PrintWriter(c_socket.getOutputStream());
-				sendWriter.print("Start\n"+userName+"\n");
-				sendWriter.flush();
+				g_SendWriter = new PrintWriter(g_C_Socket.getOutputStream());
+				g_SendWriter.print("Start\n"+g_UserName+"\n");
+				g_SendWriter.flush();
 			} catch (Exception e) {
 				System.out.println("내부 Server 클래스 오류");
 				JOptionPane.showMessageDialog(null, "서버와의 연결에 실패하셨습니다.");

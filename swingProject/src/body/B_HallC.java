@@ -318,15 +318,15 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 			count++;
 		}
 		if (priceSum != 0) {
-			B_SalesDAO.getInstance().menuInsert(B_Frame.id, priceSum, chickenF, chickenH, chickenS, side);
+			B_SalesDAO.getInstance().menuInsert(B_Frame.st_G_id, priceSum, chickenF, chickenH, chickenS, side);
 			if (chickenF != 0) {
-				B_StockDAO.getInstance().insertStock(B_Frame.id, "닭", -chickenF / 20000);
+				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -chickenF / 20000);
 			}
 			if (chickenH != 0) {
-				B_StockDAO.getInstance().insertStock(B_Frame.id, "닭", -chickenH / 20000);
+				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -chickenH / 20000);
 			}
 			if (chickenS != 0) {
-				B_StockDAO.getInstance().insertStock(B_Frame.id, "닭", -chickenS / 20000);
+				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -chickenS / 20000);
 			}
 			priceSum = 0;
 			chickenF = 0;

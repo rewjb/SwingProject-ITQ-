@@ -65,7 +65,7 @@ public class B_SalesC_SalesDataChart extends JPanel {
 		} // 기존 데이터 날리기
 
 		for (int i = 0; i < 12; i++) {
-			dataSet.addValue(intList.get(i), B_Frame.id, String.valueOf(1 + i) + "월");
+			dataSet.addValue(intList.get(i), B_Frame.st_G_id, String.valueOf(1 + i) + "월");
 		} // 12월까지 입력
 
 	}
@@ -82,23 +82,23 @@ public class B_SalesC_SalesDataChart extends JPanel {
 		if (intList.size()==31) {
 			for (int i = 0; i < 32; i+=3) {
 				if (i==30) {
-					dataSet.addValue(intList.get(i), B_Frame.id, String.valueOf(1 + i) + "일");
+					dataSet.addValue(intList.get(i), B_Frame.st_G_id, String.valueOf(1 + i) + "일");
 					break;
 				}
-				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), B_Frame.id, String.valueOf(1 + i) + "일");
+				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), B_Frame.st_G_id, String.valueOf(1 + i) + "일");
 				
 			} // 31일까지 입력
 		}else if(intList.size()==30){
 			for (int i = 0; i < 28; i+=3) {
-				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), B_Frame.id, String.valueOf(1 + i) + "일");
+				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), B_Frame.st_G_id, String.valueOf(1 + i) + "일");
 			}
 		}else if(intList.size()==28){
 			for (int i = 0; i < 29; i+=3) {
 				if (i==27) {
-					dataSet.addValue(intList.get(i), B_Frame.id, String.valueOf(1 + i) + "일");
+					dataSet.addValue(intList.get(i), B_Frame.st_G_id, String.valueOf(1 + i) + "일");
 					break;
 				}
-				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), B_Frame.id, String.valueOf(1 + i) + "일");
+				dataSet.addValue(intList.get(i)+intList.get(i+1)+intList.get(i+2), B_Frame.st_G_id, String.valueOf(1 + i) + "일");
 			}
 		}
 	}

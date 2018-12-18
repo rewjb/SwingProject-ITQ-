@@ -59,6 +59,7 @@ public class B_ChattingManager extends Thread {
 
 				try {
 					str = inputBuffer.readLine();
+					System.err.println(str);
 			
 
 				if (str.equals("RoomList")) {
@@ -96,19 +97,36 @@ public class B_ChattingManager extends Thread {
 
 				if (str.equals("Delete")) {
 					str = inputBuffer.readLine();
+					
+					int tempCount = B_ChattingFrame.model.getRowCount();
+					//전체 방의 숫자
+					String stringTemp;
+					
+					System.out.println(tempCount);
+					
+					for (int i = 0; i < tempCount; i++) {
+						stringTemp = (String) B_ChattingFrame.model.getValueAt(i, 0);
+						if (stringTemp.equals(str)) {
+							B_ChattingFrame.model.removeRow(i);
+							break;
+						}
+					}
+					
 					if (str.equals(B_ChattingFrame.g_NowRoomName)) {
-						JOptionPane.showMessageDialog(null, "방이 삭제되었습니다.");
 						B_ChattingFrame.g_SelectRoomPanel.setVisible(true);
 						B_ChattingFrame.g_ChattingPanel.setVisible(false);
+						JOptionPane.showMessageDialog(null, "방이 삭제되었습니다.");
+						B_ChattingFrame.g_NowRoomName="";
 					}
 				} else {
 
 				}
 				
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "서버와의 연결이 끊겼습니다.");
-					inputBuffer.close();
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "서버와 연결이 끊겼습니다.");
 					g_My_socket.close();
+					inputBuffer.close();
 					break;
 				}
 

@@ -232,20 +232,6 @@ public class H_ChattingFrame extends JDialog implements ActionListener, BBQHead 
 			sg_RoomListModel.removeRow(g_RoomListTable.getSelectedRow());
 			// 선택한 방을 테이블에서 삭제
 
-			tempStr = "RoomList\n";
-			// 초기화
-			tempCount = H_ChattingFrame.sg_RoomListModel.getRowCount();
-			// 삭제 후 현재 존재하는 방의 수량을 삽입
-
-			for (int i = 0; i < tempCount; i++) {
-				tempStr += H_ChattingFrame.sg_RoomListModel.getValueAt(i, 0) + "/"
-						+ H_ChattingFrame.sg_RoomListModel.getValueAt(i, 1) + "\n";
-			} // 현존하는 방의 리스트를 문자열에 넣기
-
-			for (int i = 0; i < tempCount; i++) {
-				sg_AllMemberList.get(i).print(tempStr);
-				sg_AllMemberList.get(i).flush();
-			} // 모든 사용자에게 방의 삭제를 알림
 
 		} else {
 			// 방을 여러개 선택했을 경우

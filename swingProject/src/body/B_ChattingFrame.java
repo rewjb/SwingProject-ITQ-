@@ -84,13 +84,14 @@ public class B_ChattingFrame extends JDialog implements ActionListener {
 	private PrintWriter g_SendWriter;
 
 	private String g_UserName;
-	public B_ChattingFrame(String id) {
-		
-		g_Clinet.start();
-		//이것이 가장 먼저 위에 있어야 한다.
 
-		g_UserName=id;
-		
+	public B_ChattingFrame(String id) {
+
+		g_Clinet.start();
+		// 이것이 가장 먼저 위에 있어야 한다.
+
+		g_UserName = id;
+
 		g_ExitChattingRoomBtn.setBounds(75, 295, 97, 23);
 		g_InputText.setBounds(12, 265, 220, 23);
 		g_RoomLabel.setBounds(12, 2, 220, 23);
@@ -104,7 +105,6 @@ public class B_ChattingFrame extends JDialog implements ActionListener {
 		g_ChattingPanel.add(g_InputText);
 		g_ChattingPanel.add(g_RoomLabel);
 		g_ChattingPanel.add(g_HistoryArea);
-
 
 		g_Scroll.setBounds(12, 10, 220, 240);
 		g_ExitBtn.setBounds(75, 260, 97, 23);
@@ -127,6 +127,7 @@ public class B_ChattingFrame extends JDialog implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) { // 2번 클릭 시
+					g_HistoryArea.setText("");
 					g_NowRoomName = (String) g_Table.getValueAt(g_Table.getSelectedRow(), 0);
 					g_RoomLabel.setText("방 제목 : " + g_NowRoomName);
 					g_SendWriter.print("CHroom\n" + g_NowRoomName + "\n");
@@ -151,16 +152,16 @@ public class B_ChattingFrame extends JDialog implements ActionListener {
 		g_ChattingPanel.setVisible(false);
 
 		setLayout(null);
-		add(g_SelectRoomPanel);  
+		add(g_SelectRoomPanel);
 		add(g_ChattingPanel);
 		setResizable(false);
-		setTitle("접속자 아이디: "+ B_Frame.st_G_id);
+		setTitle("접속자 아이디: " + B_Frame.st_G_id);
 		setSize(250, 350);
 		setVisible(false);
 	}// 생성자 종료
 
 	private void startClient() {
-		g_SendWriter.print("Start\n"+g_UserName+"\n");
+		g_SendWriter.print("Start\n" + g_UserName + "\n");
 		g_SendWriter.flush();
 	}// 채팅서비스에 입장!
 
@@ -176,15 +177,15 @@ public class B_ChattingFrame extends JDialog implements ActionListener {
 			g_HistoryArea.setText(null);
 			g_SendWriter.print("EXroom\n" + g_NowRoomName + "\n");
 			g_SendWriter.flush();
-			g_SelectRoomPanel.setVisible(true); ;
+			g_SelectRoomPanel.setVisible(true);
+			;
 			g_ChattingPanel.setVisible(false);
 
 		}
-		
-		if (e.getSource()==g_ExitBtn) {
+
+		if (e.getSource() == g_ExitBtn) {
 			dispose();
 		}
-		
 
 	}// actionPerformed:메서드 종료
 
@@ -198,9 +199,9 @@ public class B_ChattingFrame extends JDialog implements ActionListener {
 				// 기준이 되는 서버소켓 선언
 				B_ChattingManager clientReceive = new B_ChattingManager(g_C_Socket);
 				clientReceive.start();
-				
+
 				g_SendWriter = new PrintWriter(g_C_Socket.getOutputStream());
-				g_SendWriter.print("Start\n"+g_UserName+"\n");
+				g_SendWriter.print("Start\n" + g_UserName + "\n");
 				g_SendWriter.flush();
 			} catch (Exception e) {
 				System.out.println("내부 Server 클래스 오류");
@@ -211,7 +212,6 @@ public class B_ChattingFrame extends JDialog implements ActionListener {
 
 		}// run : 메서드 종료
 	}// Server : 클래스 종료
-
 
 }// 클래스 종료
 

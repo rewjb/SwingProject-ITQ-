@@ -407,6 +407,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 				System.out.println("H_Franchise insert성공");
 			}
 			showAll();
+			f.dispose();
 		}
 		if (e.getSource() == btInModify) { // modify, update
 			fDTO = new H_FranchiseDTO();
@@ -423,6 +424,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 				System.out.println("H_Franchise update성공");
 			}
 			showAll();
+			f.dispose();
 
 		}
 		if (e.getSource() == btsetEmpty) { // 비워놓기

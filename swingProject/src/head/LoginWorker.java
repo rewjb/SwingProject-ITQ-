@@ -45,8 +45,7 @@ public class LoginWorker {
 	// 관리자 비밀번호 확인하는 메서드
 	boolean checkRpw(String id, String pw) {
 		fDTO = fDAO.selectFranchiseInfo(id);
-		if (fDTO != null) {	//fDTO반환값이 있을때만 실행
-			fDTO.getPw().equals(pw);
+		if (id.equals("root") && pw.equals("123")) {	//fDTO반환값이 있을때만 실행
 			return true;
 		}
 		JOptionPane.showMessageDialog(null, "관리자 비밀번호가 다릅니다");

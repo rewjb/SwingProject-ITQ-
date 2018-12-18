@@ -46,7 +46,7 @@ public class H_Salses_BodySalesPieChart extends JPanel {
 	}//생성자 종료
 
 	public void pieChartShow(String name , ArrayList<Integer> list) {
-		chart.setTitle(name);
+		chart.setTitle("");
 		// DefaultCategoryDataset bar에서 사용한 데이터 셋!
 		// 파이그래프에 전용 데이터 셋이 있는 것 가다..
 		

@@ -171,26 +171,6 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		add(btDelete);
 		btDelete.addActionListener(this);
 
-		// 정보입력창 안에 있는 버튼들 수정사항
-		btInAdd = new JButton("추가");
-		btInAdd.setBounds(30, 340, 115, 31);
-		f.getContentPane().add(btInAdd);
-		btInAdd.addActionListener(this);
-
-		btInModify = new JButton("수정");
-		btInModify.setBounds(30, 340, 115, 31);
-		f.getContentPane().add(btInModify);
-		btInModify.addActionListener(this);
-
-		btsetEmpty = new JButton("초기화");
-		btsetEmpty.setBounds(157, 340, 115, 31);
-		f.getContentPane().add(btsetEmpty);
-		btsetEmpty.addActionListener(this);
-
-		btsetBefore = new JButton("초기화"); // 수정 전 값으로 다시 돌ㅇ가ㅏㅁ
-		btsetBefore.setBounds(157, 340, 115, 31);
-		f.getContentPane().add(btsetBefore);
-		btsetBefore.addActionListener(this);
 	}// end buttonSetting()
 
 	// 정보입력창 설정
@@ -315,6 +295,27 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		tfAllias.setColumns(10);
 		tfAllias.setBounds(75, 300, 150, 30);
 		f.getContentPane().add(tfAllias);
+		
+		// 정보입력창 안에 있는 버튼들 수정사항
+		btInAdd = new JButton("추가");
+		btInAdd.setBounds(30, 340, 115, 31);
+		f.getContentPane().add(btInAdd);
+		btInAdd.addActionListener(this);
+
+		btInModify = new JButton("수정");
+		btInModify.setBounds(30, 340, 115, 31);
+		f.getContentPane().add(btInModify);
+		btInModify.addActionListener(this);
+
+		btsetEmpty = new JButton("초기화");
+		btsetEmpty.setBounds(157, 340, 115, 31);
+		f.getContentPane().add(btsetEmpty);
+		btsetEmpty.addActionListener(this);
+
+		btsetBefore = new JButton("초기화"); // 수정 전 값으로 다시 돌ㅇ가ㅏㅁ
+		btsetBefore.setBounds(157, 340, 115, 31);
+		f.getContentPane().add(btsetBefore);
+		btsetBefore.addActionListener(this);
 
 		f.setVisible(false);
 	}// end innerFrameSetting()

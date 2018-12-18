@@ -16,7 +16,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 import inter.BBQHead;
-import won.H_Vender;
 
 import javax.swing.JPanel;
 

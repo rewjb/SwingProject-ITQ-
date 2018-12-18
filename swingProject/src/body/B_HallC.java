@@ -330,24 +330,24 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 		setVisible(false);
 	}
 
-	public void inputSales(DefaultTableModel tableMdel) {
+	public void inputSales(DefaultTableModel tableMdel) {//계산을 끝낸 메뉴들을 매출에다가 넣어주는 메서드 
 
 		for (int i = 0; i >= 0; i++) {
-			if (tableMdel.getValueAt(0, 0) == null) {
+			if (tableMdel.getValueAt(0, 0) == null) {//계산할 메뉴가 없으면 브레이크 
 				g_Count = 0;
 				break;
 			}
-			if (tableMdel.getValueAt(i - g_Count, 0).equals("후라이드")) {
-				g_ChickenF += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
+			if (tableMdel.getValueAt(i - g_Count, 0).equals("후라이드")) {//계산할 메뉴가 후라이드 일때 처리 
+				g_ChickenF += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;//후라이드총합 컬럼에 넣어줌
 				g_PriceSum += g_ChickenF;
-			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("양념")) {
-				g_ChickenH += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
+			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("양념")) {//계산할 메뉴가 양념 일때 처리
+				g_ChickenH += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;//양념총합 컬림에 넣어줌
 				g_PriceSum += g_ChickenH;
-			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("간장")) {
-				g_ChickenS += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
+			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("간장")) {//계산할 메뉴가 간장 일때 처리
+				g_ChickenS += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;//간장총합 컬럼에 넣어줌
 				g_PriceSum += g_ChickenS;
-			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("음료")) {
-				g_Side += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 2000;
+			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("음료")) {//계산할 메뉴가 음료 일때 처리
+				g_Side += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 2000;//음료 총합 컬럼에 넣어줌
 				g_PriceSum += g_Side;
 			}
 			tableMdel.removeRow(i - g_Count);
@@ -436,23 +436,23 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 			g_OrderFrame.setVisible(false);
 			inputSales(g_Model6);
 		} else if (e.getSource() == g_SelectButton) {// 선택하기 버튼 누를시
-			if (!(g_MenuQuantityTextField.getText().equals(""))) {
+			if (!(g_MenuQuantityTextField.getText().equals(""))) {//수량을 쓰기만 했으면 선택한 메뉴를 주문테이블에 담아준다.
 				g_OrderModel.insertRow(0, new Object[] { (String) g_MenuCombo.getSelectedItem(), g_MenuQuantityTextField.getText() });
-			} else {
+			} else {//수량을 입력하지않으면 선택 불가능
 				JOptionPane.showMessageDialog(null, "수량을 입력해주세요");
 			}
 		}
 	}
 
 	@Override
-	public void show(BBQBody bbqBody) {
+	public void show(BBQBody bbqBody) {//구현한 인터페이스 show 메서드 오버라이딩
 		((Component) bbqBody).setVisible(true);
 	}
 
 	@Override
-	public void hide(BBQBody bbqBody) {
+	public void hide(BBQBody bbqBody) {//구현한 인터페이스 hide 메서드 오버라이딩
 		((Component) bbqBody).setVisible(false);
 	}
 
 	
-}
+}//클래스 끝 

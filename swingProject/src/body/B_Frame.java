@@ -59,34 +59,34 @@ import javax.swing.JPanel;
 
 public class B_Frame extends JFrame implements BBQBody, ActionListener {
 
-	JToggleButton g_OrderBtn = new JToggleButton("발주관리",new ImageIcon("img/발주관리 아이콘.png"));
-	JToggleButton g_StockBtn = new JToggleButton("재고관리",new ImageIcon("img/입출고 아이콘.png"));
-	JToggleButton g_SalesBtn = new JToggleButton("매출관리",new ImageIcon("img/매출관리 아이콘.png"));
-	JToggleButton g_HallButton = new JToggleButton("홀");
-	JButton g_ChettingBtn = new JButton("채팅관리",new ImageIcon("img/채팅관리 아이콘.png"));
+	JToggleButton g_OrderBtn = new JToggleButton("발주관리",new ImageIcon("img/발주관리 아이콘.png"));//발주관리 토클버튼
+	JToggleButton g_StockBtn = new JToggleButton("재고관리",new ImageIcon("img/입출고 아이콘.png"));//재고관리 토글버튼
+	JToggleButton g_SalesBtn = new JToggleButton("매출관리",new ImageIcon("img/매출관리 아이콘.png"));//매출관리 토글버튼
+	JToggleButton g_HallButton = new JToggleButton("홀");//홀 토글버튼
+	JButton g_ChettingBtn = new JButton("채팅관리",new ImageIcon("img/채팅관리 아이콘.png"));//채팅관리 버튼
 	
 	
 	
 	
-	ImageIcon g_LogoImg = new ImageIcon("img/logo.png");
-	JLabel g_LogoLabel = new JLabel(g_LogoImg);
-	JLabel g_ServiceInfo = new JLabel(g_LogoImg);
+	ImageIcon g_LogoImg = new ImageIcon("img/logo.png");//회사 메인 로고 
+	JLabel g_LogoLabel = new JLabel(g_LogoImg);//메인로고를 담을 라벨
+	//JLabel g_ServiceInfo = new JLabel(g_LogoImg);
 	
-	Toolkit g_Toolkit = Toolkit.getDefaultToolkit();
-	Image g_Frameimg = g_Toolkit.getImage("img/회사 프레임 아이콘.jpg");
+	Toolkit g_Toolkit = Toolkit.getDefaultToolkit();// 툴킷
+	Image g_Frameimg = g_Toolkit.getImage("img/회사 프레임 아이콘.jpg");//툴킷의 이미지 아이콘 
 
-
-	ButtonGroup g_BtnGroup = new ButtonGroup();
 	// 버튼 그룹
+	ButtonGroup g_BtnGroup = new ButtonGroup();
 
-	JPanel g_MainPanel = new JPanel();
-	B_OrderC g_OrderC = new B_OrderC();
-	B_SalesC g_SalesC = new B_SalesC();
-	B_StockC g_StockC = new B_StockC();
-	B_HallC g_Hallc = new B_HallC();
-	public static String st_G_id ;
 
-	B_ChattingFrame g_ClientFrame;
+	JPanel g_MainPanel = new JPanel();//각 메뉴 판넬을 올릴 메인판넬
+	B_OrderC g_OrderC = new B_OrderC();//발주 판넬 객체
+	B_SalesC g_SalesC = new B_SalesC();//매출 판넬 객체
+	B_StockC g_StockC = new B_StockC();//재고 판넬 객체
+	B_HallC g_Hallc = new B_HallC();//홀 판넬 객체 
+	public static String st_G_id ;//가맹점 로그인시 아이디를 담아두는 변수 
+
+	B_ChattingFrame g_ClientFrame;//채팅 클라이언트 객체 선언 
 	
 	private Color g_Color = new Color(128, 144, 160);//버튼 색상
 	
@@ -94,10 +94,10 @@ public class B_Frame extends JFrame implements BBQBody, ActionListener {
 		// 사이즈 , 레이아웃 및 각종 설정
 		this.st_G_id = id;
 
-		g_ClientFrame = new B_ChattingFrame(id);
-		g_ClientFrame.setLocationRelativeTo(this);
+		g_ClientFrame = new B_ChattingFrame(id);//클라이언트 객체 생성 
+		g_ClientFrame.setLocationRelativeTo(this);//띄우는 창을 화면의 정중앙에 띄우기
 		 
-		
+		//프레임 셋팅
 		setSize(820, 515);
 		setTitle("JVQ "+id+" 계정");
 		getContentPane().setLayout(null);
@@ -107,7 +107,7 @@ public class B_Frame extends JFrame implements BBQBody, ActionListener {
 		setResizable(false);
 		
 		
-		// 20 간격 !
+		// 버튼 위치 색상 레이아웃 설정
 		g_OrderBtn.setBounds(10, 54, 107, 23);
 		g_StockBtn.setBounds(119, 54, 107, 23);
 		g_SalesBtn.setBounds(228, 54, 107, 23);
@@ -126,15 +126,17 @@ public class B_Frame extends JFrame implements BBQBody, ActionListener {
 		g_ChettingBtn.setBorder(null);
 		
 		
-
+		//메인 판넬 위치 레이아웃 색깔 설정
 		g_MainPanel.setBounds(10, 77, 790, 370);
 		g_MainPanel.setLayout(null);
 		g_MainPanel.setBackground(Color.GRAY);
+		//버튼그룹에 들어갈 버튼들 add
 		g_BtnGroup.add(g_OrderBtn);
 		g_BtnGroup.add(g_StockBtn);
 		g_BtnGroup.add(g_SalesBtn);
 		g_BtnGroup.add(g_HallButton);
 
+		//필요한 컴포넌트들 프레임에 넣어준다.
 		getContentPane().add(g_OrderBtn);
 		getContentPane().add(g_StockBtn);
 		getContentPane().add(g_SalesBtn);
@@ -145,17 +147,17 @@ public class B_Frame extends JFrame implements BBQBody, ActionListener {
 		g_MainPanel.add(g_Hallc);
 		g_MainPanel.add(g_SalesC);
 		g_MainPanel.add(g_StockC);
-
 		getContentPane().add(g_MainPanel);
 		getContentPane().add(g_ChettingBtn);
 
+		//버튼 액션리스너 사용
 		g_ChettingBtn.addActionListener(this);
 		g_OrderBtn.addActionListener(this);
 		g_StockBtn.addActionListener(this);
 		g_SalesBtn.addActionListener(this);
 		g_HallButton.addActionListener(this);
 
-		g_OrderBtn.doClick(); 
+		g_OrderBtn.doClick(); //버튼을 누르고 있는 기능 
 		setVisible(true);
 	}// 생성자 종료
 

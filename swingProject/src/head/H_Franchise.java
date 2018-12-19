@@ -391,7 +391,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 			fDTO = new H_FranchiseDTO();
 			System.out.println(w.makeId(id));
 			fDTO.setId(w.makeId(id));
-			fDTO.setPw("1234"); // 비밀번호 그냥설정
+			fDTO.setPw(tfPw.getText()); 
 			fDTO.setOwnername(tfON.getText());
 			String tel = tfTel0.getText() + "-" + tfTel1.getText() + "-" + tfTel2.getText();
 			fDTO.setTel(tel);

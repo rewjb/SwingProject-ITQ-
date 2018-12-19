@@ -23,7 +23,7 @@ public class LoginWorker {
 				H_Frame hf = new H_Frame();
 			} // 관리자 비밀번호 맞을때
 		} else {
-			if (checkUpw(id, "1234")) {
+			if (checkUpw(id, pw)) {
 				B_Frame bf = new B_Frame(id);
 			} // 사용자 비밀번호 맞을때
 		}

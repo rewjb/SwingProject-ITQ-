@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 //가맹점 총 발주내역
@@ -105,7 +106,7 @@ public class B_OrderDAO {
 
 	// 가맹점에서 사용할 select문 담당자 : 조광재
 	public ArrayList<B_OrderDTO> selectAll(String id) {
-		ArrayList<B_OrderDTO> orderlist = new ArrayList<>();//발주한 내용을 전부다 가져올 발주리스트
+		ArrayList<B_OrderDTO> orderlist = new ArrayList<>();// 발주한 내용을 전부다 가져올 발주리스트
 		ResultSet rs = null;
 
 		try {
@@ -113,7 +114,7 @@ public class B_OrderDAO {
 			sql = "SELECT * from bodyorder where id = '" + id + "' order by hconfirm;";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			while (rs.next()) {//DB에 있는 발주 테이블을 한줄씩 읽기
+			while (rs.next()) {// DB에 있는 발주 테이블을 한줄씩 읽기
 				int num = rs.getInt("num");
 				id = rs.getString("id");
 				String name = rs.getString("name");
@@ -121,7 +122,7 @@ public class B_OrderDAO {
 				String date = rs.getString("date");
 				String hComfirm = rs.getString("hconfirm");
 				String bComfirm = rs.getString("bconfirm");
-				//한줄씩 읽은 테이블내용을 DTO객체에 담아서 리스트에 담기
+				// 한줄씩 읽은 테이블내용을 DTO객체에 담아서 리스트에 담기
 				B_OrderDTO orderDTO = new B_OrderDTO(num, id, name, quantity, date, hComfirm, bComfirm, bComfirm);
 
 				orderlist.add(orderDTO);
@@ -154,7 +155,7 @@ public class B_OrderDAO {
 
 	public void orderInsert(String id, String name, int quantity) {
 
-		int rn = 0;//Insert가 정상작동했는지 확인하는 변수
+		int rn = 0;// Insert가 정상작동했는지 확인하는 변수
 
 		try {
 			connectDB();
@@ -166,7 +167,7 @@ public class B_OrderDAO {
 			ps.setInt(3, quantity);
 
 			rn = ps.executeUpdate();
-			System.out.println("발주완료" + rn);//rn값이 1이나오면 정상작동
+			System.out.println("발주완료" + rn);// rn값이 1이나오면 정상작동
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -187,11 +188,11 @@ public class B_OrderDAO {
 
 	// 본사 확인 값이 존재하는 테이블만 가져오는 메서드
 	public ArrayList<B_OrderDTO> hCheckSelect(String id) {
-		ArrayList<B_OrderDTO> hOrderDTO = new ArrayList<>();//본사확인값이 존재하는 테이블만 담는 리스트
+		ArrayList<B_OrderDTO> hOrderDTO = new ArrayList<>();// 본사확인값이 존재하는 테이블만 담는 리스트
 		ResultSet rs = null;
 		try {
 			connectDB();
-			//접속한 아이디와 본사확인값이 존재하고 가맹점 확인값이 없는 테이블만 가져오는 sql문
+			// 접속한 아이디와 본사확인값이 존재하고 가맹점 확인값이 없는 테이블만 가져오는 sql문
 			sql = "select * from bodyorder where hconfirm != '' and bconfirm =''and id ='" + id + "'";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
@@ -283,7 +284,8 @@ public class B_OrderDAO {
 		int rn = 0;
 		try {
 			connectDB();
-			sql = "update bodyorder set bconfirm = 'bk_1' where hconfirm = 'ck_1'and bconfirm = ''and num = '" + num + "'";
+			sql = "update bodyorder set bconfirm = 'bk_1' where hconfirm = 'ck_1'and bconfirm = ''and num = '" + num
+					+ "'";
 			ps = con.prepareStatement(sql);
 
 			rn = ps.executeUpdate();
@@ -326,30 +328,38 @@ public class B_OrderDAO {
 			}
 		}
 	}
+	
 
 	public ArrayList<Integer> selectMonthBodyOrder(String year) {
 		ArrayList<Integer> list = new ArrayList<>();
 		File file = new File("H_VenderpName.txt");
+		String[] month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };		
 		int sum;
 		try {
-			Scanner sc = new Scanner(file);
-			String[] month = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" };
 			connectDB();
 			ResultSet rs = null;
-
+			Scanner sc = new Scanner(file);
+			
+			HashMap<String, Integer> pInfoHashMap = new HashMap<>();
+			
+			String[] pInfoStr;
+			
+			while (sc.hasNext()) {
+				pInfoStr=sc.nextLine().split("-");
+				pInfoHashMap.put(pInfoStr[0], Integer.parseInt(pInfoStr[1]));
+			}
+			
+			
 			for (int i = 0; i < month.length; i++) {
 				sql = "SELECT name,SUM(quantity) FROM headorder WHERE date LIKE '%" + year + "-" + month[i]
 						+ "%' GROUP BY name;";
 				ps = con.prepareStatement(sql);
 				rs = ps.executeQuery();
 				sum = 0;
+				;
 				while (rs.next()) { // DB 테이블에 값이 존재하는지
-					while (sc.hasNextLine()) { // 텍스트 문서에 읽을 내용이 있는지
-						if (rs.getString(1).equals(sc.nextLine().split("-")[0])) { // 텍스트 문서와 DB테이블 항목이 일치하는지
-							sum += rs.getInt(2) * Integer.parseInt(sc.nextLine().split("-")[1]);
-						}
-					}
-					sc.reset();
+					sum +=  pInfoHashMap.get(rs.getString(1))*rs.getInt(2) ; 
+					System.out.println(sum);
 				} // for 문 종료
 				list.add(sum);
 			}

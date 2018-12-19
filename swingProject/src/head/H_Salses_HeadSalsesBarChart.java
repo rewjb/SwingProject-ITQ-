@@ -49,7 +49,6 @@ public class H_Salses_HeadSalsesBarChart extends JPanel {
 
 	public void inserHTML(String year) {
 
-		System.out.println();
 
 		headPurchase = H_OrderDAO.getInstance().selectTotalMonthSalse(year);
 		// 본사 발주목록에서 갖고온다.

@@ -148,6 +148,7 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 	private JLabel g_OrderListLabel = new JLabel("발주목록");
 	// "발주목록" 문자열이 들어 있는 레이블
 
+	
 	private JComboBox<String> g_PnameComboBox = new JComboBox<>();
 	// 발주품목 선택
 	private JComboBox<String> g_PvenderComboBox = new JComboBox<>();

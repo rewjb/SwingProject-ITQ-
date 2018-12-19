@@ -331,12 +331,20 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 	
 	@Override
 	public void orderDelete() {//발주 취소 메서드
+		int checkCount = 0;
 		g_Selects = g_StockListTable.getSelectedRows();
 		for (int i = 0; i < g_Selects.length; i++) {
-			if (g_OrderListModel.getValueAt(g_Selects[i], 3).equals("")) {
-				B_OrderDAO.getInstance().orderDelete(g_ListNum.get(g_Selects[i]));
+			if (g_OrderListModel.getValueAt(g_Selects[i], 3).equals("ck_1")) {
+				JOptionPane.showMessageDialog(null, "본사확인이 완료된 발주는 취소할 수 없습니다.");
+				checkCount++;
+				break;
 			}
 		}
+		for (int i = 0; i < g_Selects.length; i++) {
+			if (g_OrderListModel.getValueAt(g_Selects[i], 3).equals("") && checkCount == 0 ) {
+				B_OrderDAO.getInstance().orderDelete(g_ListNum.get(g_Selects[i]));
+			}
+		}  
 		int count = g_OrderListModel.getRowCount();
 		for (int i = 0; i < count;  i++) {
 			g_OrderListModel.removeRow(0);

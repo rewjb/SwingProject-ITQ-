@@ -66,8 +66,7 @@ import javax.swing.JTextField;
 //1) 전역변수 식별자 특징
 //  => g_식별자  (g : 글로벌 변수)  ,  ex) g_BtnSelect
 
-public class B_HallC extends JPanel implements ActionListener, BodyHall{
-
+public class B_HallC extends JPanel implements ActionListener, BodyHall {
 
 	// 테이블 버튼
 	private JButton g_Jb1;// 1번테이블 버튼
@@ -99,7 +98,7 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 	HashMap<JButton, DefaultTableModel> g_Key = new HashMap<>();// 해쉬맵 사용법
 
 	// 테이블내 표
-	private DefaultTableModel g_OrderModel = new DefaultTableModel(15, 2);//주문하기 표
+	private DefaultTableModel g_OrderModel = new DefaultTableModel(15, 2);// 주문하기 표
 
 	// 주문하기 테이블
 	private JTable g_ListTable = new JTable(g_OrderModel) {
@@ -107,42 +106,42 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 			return false;
 		};
 	};
-	
+
 	// 1번테이블
 	private JTable g_Table = new JTable(g_Model1) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
 	};
-	
+
 	// 2번테이블
 	private JTable g_Table1 = new JTable(g_Model2) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
 	};
-	
+
 	// 3번테이블
 	private JTable g_Table2 = new JTable(g_Model3) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
 	};
-	
+
 	// 4번테이블
 	private JTable g_Table3 = new JTable(g_Model4) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
 	};
-	
+
 	// 5번테이블
 	private JTable g_Table4 = new JTable(g_Model5) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		};
 	};
-	
+
 	// 6번테이블
 	private JTable g_Table5 = new JTable(g_Model6) {
 		public boolean isCellEditable(int row, int column) {
@@ -151,35 +150,42 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 	};
 
 	// 스크롤바
-	private JScrollPane g_Scroll = new JScrollPane(g_ListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 주문하기 스크롤바
+	private JScrollPane g_Scroll = new JScrollPane(g_ListTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 주문하기
+																													// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	
-	private JScrollPane g_Scroll1 = new JScrollPane(g_Table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 1번테이블 스크롤바
+
+	private JScrollPane g_Scroll1 = new JScrollPane(g_Table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 1번테이블
+																												// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	
-	private JScrollPane g_Scroll2 = new JScrollPane(g_Table1, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 2번테이블 스크롤바
+
+	private JScrollPane g_Scroll2 = new JScrollPane(g_Table1, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 2번테이블
+																												// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	
-	private JScrollPane g_Scroll3 = new JScrollPane(g_Table2, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 3번테이블 스크롤바
+
+	private JScrollPane g_Scroll3 = new JScrollPane(g_Table2, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 3번테이블
+																												// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	
-	private JScrollPane g_Scroll4 = new JScrollPane(g_Table3, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 4번테이블 스크롤바
+
+	private JScrollPane g_Scroll4 = new JScrollPane(g_Table3, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 4번테이블
+																												// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	
-	private JScrollPane g_Scroll5 = new JScrollPane(g_Table4, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 5번테이블 스크롤바
+
+	private JScrollPane g_Scroll5 = new JScrollPane(g_Table4, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 5번테이블
+																												// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	
-	private JScrollPane g_Scroll6 = new JScrollPane(g_Table5, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 6번테이블 스크롤바
+
+	private JScrollPane g_Scroll6 = new JScrollPane(g_Table5, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, // 6번테이블
+																												// 스크롤바
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	// 주문할 프레임
 	private JFrame g_OrderFrame;
 	// 메뉴선택 콤보박스
 	private JComboBox g_MenuCombo;
-	//메뉴 수량 텍스트 필드
+	// 메뉴 수량 텍스트 필드
 	private JTextField g_MenuQuantityTextField;
-	//메뉴 라벨
+	// 메뉴 라벨
 	private JLabel g_MenuLabel;
-	//수량 라벨
+	// 수량 라벨
 	private JLabel g_QuantityLabel;
 
 	// 각버튼의 주소값을 담아두는 변수
@@ -215,7 +221,7 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 		// 프레임 사이즈 및 레이아웃 설정
 		setSize(790, 388);
 		setLayout(null);
-		setBackground(new Color(184,207,229));
+		setBackground(new Color(184, 207, 229));
 		// 버튼 객체생성 및 위치지정
 		g_OrderButton = new JButton("주문하기");
 		g_OrderButton.setBounds(150, 210, 100, 30);
@@ -283,7 +289,7 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 		g_Model4.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 4번테이블 컬럼
 		g_Model5.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 5번테이블 컬럼
 		g_Model6.setColumnIdentifiers(new Object[] { "메뉴", "수량" });// 6번테이블 컬럼
-		
+
 		g_Table.setBackground(Color.LIGHT_GRAY);
 		g_Table1.setBackground(Color.LIGHT_GRAY);
 		g_Table2.setBackground(Color.LIGHT_GRAY);
@@ -330,48 +336,6 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 		setVisible(false);
 	}
 
-	public void inputSales(DefaultTableModel tableMdel) {
-
-		for (int i = 0; i >= 0; i++) {
-			if (tableMdel.getValueAt(0, 0) == null) {
-				g_Count = 0;
-				break;
-			}
-			if (tableMdel.getValueAt(i - g_Count, 0).equals("후라이드")) {
-				g_ChickenF += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
-				g_PriceSum += g_ChickenF;
-			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("양념")) {
-				g_ChickenH += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
-				g_PriceSum += g_ChickenH;
-			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("간장")) {
-				g_ChickenS += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
-				g_PriceSum += g_ChickenS;
-			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("음료")) {
-				g_Side += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 2000;
-				g_PriceSum += g_Side;
-			}
-			tableMdel.removeRow(i - g_Count);
-			g_Count++;
-		}
-		if (g_PriceSum != 0) {
-			B_SalesDAO.getInstance().menuInsert(B_Frame.st_G_id, g_PriceSum, g_ChickenF, g_ChickenH, g_ChickenS, g_Side);
-			if (g_ChickenF != 0) {
-				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -g_ChickenF / 20000);
-			}
-			if (g_ChickenH != 0) {
-				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -g_ChickenH / 20000);
-			}
-			if (g_ChickenS != 0) {
-				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -g_ChickenS / 20000);
-			}
-			g_PriceSum = 0;
-			g_ChickenF = 0;
-			g_ChickenH = 0;
-			g_ChickenS = 0;
-			g_Side = 0;
-		}
-
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -437,7 +401,8 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 			inputSales(g_Model6);
 		} else if (e.getSource() == g_SelectButton) {// 선택하기 버튼 누를시
 			if (!(g_MenuQuantityTextField.getText().equals(""))) {
-				g_OrderModel.insertRow(0, new Object[] { (String) g_MenuCombo.getSelectedItem(), g_MenuQuantityTextField.getText() });
+				g_OrderModel.insertRow(0,
+						new Object[] { (String) g_MenuCombo.getSelectedItem(), g_MenuQuantityTextField.getText() });
 			} else {
 				JOptionPane.showMessageDialog(null, "수량을 입력해주세요");
 			}
@@ -454,5 +419,48 @@ public class B_HallC extends JPanel implements ActionListener, BodyHall{
 		((Component) bbqBody).setVisible(false);
 	}
 
-	
+	@Override
+	public void inputSales(DefaultTableModel tableMdel) {
+		for (int i = 0; i >= 0; i++) {
+			if (tableMdel.getValueAt(0, 0) == null) {
+				g_Count = 0;
+				break;
+			}
+			if (tableMdel.getValueAt(i - g_Count, 0).equals("후라이드")) {
+				g_ChickenF += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
+				g_PriceSum += g_ChickenF;
+			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("양념")) {
+				g_ChickenH += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
+				g_PriceSum += g_ChickenH;
+			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("간장")) {
+				g_ChickenS += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 20000;
+				g_PriceSum += g_ChickenS;
+			} else if (tableMdel.getValueAt(i - g_Count, 0).equals("음료")) {
+				g_Side += Integer.parseInt((String) tableMdel.getValueAt(i - g_Count, 1)) * 2000;
+				g_PriceSum += g_Side;
+			}
+			tableMdel.removeRow(i - g_Count);
+			g_Count++;
+		}
+		if (g_PriceSum != 0) {
+			B_SalesDAO.getInstance().menuInsert(B_Frame.st_G_id, g_PriceSum, g_ChickenF, g_ChickenH, g_ChickenS,
+					g_Side);
+			if (g_ChickenF != 0) {
+				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -g_ChickenF / 20000);
+			}
+			if (g_ChickenH != 0) {
+				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -g_ChickenH / 20000);
+			}
+			if (g_ChickenS != 0) {
+				B_StockDAO.getInstance().insertStock(B_Frame.st_G_id, "닭", -g_ChickenS / 20000);
+			}
+			g_PriceSum = 0;
+			g_ChickenF = 0;
+			g_ChickenH = 0;
+			g_ChickenS = 0;
+			g_Side = 0;
+		}
+
+	}
+
 }

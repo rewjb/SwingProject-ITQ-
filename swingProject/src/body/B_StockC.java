@@ -148,7 +148,7 @@ public class B_StockC extends JPanel implements BodyStock, ActionListener {
 
 	
 
-	
+	@Override
 	public void notCheckStock() {//미확인 재고 목록 보여주는 메서드
 		g_NumList = new ArrayList<>();
 			for (int i = 0; i < B_OrderDAO.getInstance().hCheckSelect(B_Frame.st_G_id).size(); i++) {// 본사만 확인 한 재고들을 보여주는 반복문
@@ -159,7 +159,7 @@ public class B_StockC extends JPanel implements BodyStock, ActionListener {
 			}
 	}
 	
-	
+	@Override
 	public void stockCheck() {//미확인 재고 확인해주는 메서드
 		g_SelectRows = g_NotCheckStockListTable.getSelectedRows();
 		if (!(g_SelectRows.length==0)) {

@@ -181,16 +181,15 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 	public void hide(BBQBody bbqBody) {
 		((Component) bbqBody).setVisible(false);
 	}
-
+	
+	@Override
 	public void searchSales() {// 매출 검색 메서드
-		
 		if (!(g_YearTextField.getText().equals("")) && g_MonthTextField.getText().equals("") && g_DayTextField.getText().equals("") ) {//년도만 검색했을때 조건
 			int size = B_SalesDAO.getInstance()
 					.menuAllSelect(B_Frame.st_G_id,g_YearTextField.getText() + "-" + g_MonthTextField.getText()).size();
 			System.out.println(size); 
 			ArrayList<B_SalesDTO> salesDTO = B_SalesDAO.getInstance()
 					.menuAllSelect(B_Frame.st_G_id,g_YearTextField.getText() + "-" + g_MonthTextField.getText());
-//			System.out.println(g_MonthTextField.getText());
 			for (int j = 0; j < size; j++) {
 				if (!(salesDTO.get(j).getChickenF() == 0)) {
 					g_AllSalesModel.insertRow(0, new Object[] { "후라이드", (salesDTO.get(j).getChickenF()) / 20000,
@@ -230,7 +229,8 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 		}
 		}
 	}
-
+	
+	@Override
 	public void salesResult() {// 종합매출 메서드
 		int count = g_AllSalesModel.getRowCount();
 		if (count==0) {

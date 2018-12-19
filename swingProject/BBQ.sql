@@ -3,7 +3,6 @@ create database BBQ;
 
 유통기한..고민..
 
-select * from bodysales where id = 'ror' and date like '% 2018-0-0 %' order by date desc;
 
 
 =가맹점 발주내역=

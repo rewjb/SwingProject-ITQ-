@@ -278,14 +278,6 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 		((Component) bbqBody).setVisible(false);
 	}
 
-
-	public void reservesReset() {//식자재 목록 새로고침
-		g_ReservesComboBox.removeAllItems();
-		int count = H_VenderpDAO.getInstance().select_product().size();
-		for (int i = 0; i <count; i++) {
-			g_ReservesComboBox.addItem(H_VenderpDAO.getInstance().select_product().get(i));
-		}
-	}
 	
 	
 	
@@ -328,6 +320,16 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 		}
 	}
 	
+	@Override
+	public void reservesReset() {//식자재 목록 새로고침
+		g_ReservesComboBox.removeAllItems();
+		int count = H_VenderpDAO.getInstance().select_product().size();
+		for (int i = 0; i <count; i++) {
+			g_ReservesComboBox.addItem(H_VenderpDAO.getInstance().select_product().get(i));
+		}
+	}
+	
+	@Override
 	public void orderDelete() {//발주 취소 메서드
 		g_Selects = g_StockListTable.getSelectedRows();
 		for (int i = 0; i < g_Selects.length; i++) {

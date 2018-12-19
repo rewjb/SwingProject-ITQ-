@@ -49,7 +49,7 @@ import inter.HeadCheckOrder;
 
 public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListener {
 
-	private DefaultTableModel g_OrderListModel = new DefaultTableModel(0, 5);
+	private DefaultTableModel g_OrderListModel = new DefaultTableModel(0, 6);
 	private JTable g_OrderListTable = new JTable(g_OrderListModel) {
 		public boolean isCellEditable(int row, int column) {
 			return false;
@@ -121,7 +121,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		// 업체테이블의 헤더를 얻어서 사이즈 수정 불가, / 업체테이블의 컬럼 이동 금지
 
 		g_BodyListModel.setColumnIdentifiers(new String[] { "가맹점명", "전화번호" });
-		g_OrderListModel.setColumnIdentifiers(new String[] { "가맹점명", "상품명", "수량", "발주일", "확인여부" });
+		g_OrderListModel.setColumnIdentifiers(new String[] { "가맹점명", "상품명", "수량", "발주일", "본사 확인", "가맹점 확인" });
 		// 테이블들의 컬럼 설정
 
 		g_OrderListTable.getColumnModel().getColumn(3).setPreferredWidth(150);
@@ -147,7 +147,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		celAlignCenter.setHorizontalAlignment(SwingConstants.CENTER);
 		// 가운데 정렬 설정의 객체
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			g_OrderListTable.getColumnModel().getColumn(i).setCellRenderer(celAlignCenter);
 		} // for문 끝 / 가운데 정렬 세팅
 		for (int i = 0; i < 2; i++) {
@@ -229,7 +229,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
 								orderList.get(startNum + i).getQuantity(),
 								orderList.get(startNum + i).getDate().substring(0, 16),
-								orderList.get(startNum + i).gethComfirm() });
+								orderList.get(startNum + i).gethComfirm(),orderList.get(startNum + i).getbComfirm() });
 				g_UniqueNum.add(orderList.get(startNum + i).getNum());
 			}
 		} else {
@@ -240,7 +240,7 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 						new Object[] { orderList.get(startNum + i).getAlias(), orderList.get(startNum + i).getName(),
 								orderList.get(startNum + i).getQuantity(),
 								orderList.get(startNum + i).getDate().substring(0, 16),
-								orderList.get(startNum + i).gethComfirm(), orderList.get(startNum + i).gethComfirm() });
+								orderList.get(startNum + i).gethComfirm(), orderList.get(startNum + i).gethComfirm(),orderList.get(startNum + i).getbComfirm() });
 				g_UniqueNum.add(orderList.get(startNum + i).getNum());
 			}
 		}

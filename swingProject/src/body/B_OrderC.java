@@ -344,7 +344,7 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 			if (g_OrderListModel.getValueAt(g_Selects[i], 3).equals("") && checkCount == 0 ) {
 				B_OrderDAO.getInstance().orderDelete(g_ListNum.get(g_Selects[i]));
 			}
-		}
+		}  
 		int count = g_OrderListModel.getRowCount();
 		for (int i = 0; i < count;  i++) {
 			g_OrderListModel.removeRow(0);

@@ -405,19 +405,9 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 
 	}// insertMoneyField:메서드 종료
 
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		if (e.getSource() == g_PnameComboBox) {
-			// 제품군 콤보박스가 작동할 때
-			insertIntoVenderBox();
-		}
-		if (e.getSource() == g_PvenderComboBox) {
-			// 업체명 콤보박스가 작동할 때
-			insertMoneyField();
-		}
-	}// itemStateChanged:메서드 종료
 
-	private void assignBtnIndex() {
+	@Override
+	public void assignBtnIndex() {
 		// 발주목록 테이블에서 현재 위치한 index에 따라 다음과 이전 버튼의
 		// 속성이 결정되는 메서드이다.
 
@@ -447,7 +437,8 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		}
 	}// assignBtnIndex():메서드 끝
 
-	private void orderInsert(int index) {
+	@Override
+	public void orderInsert(int index) {
 		//발주 목록을 현재 위치한 index 번호에 따라 목록을 삽입하는 메서드
 
 		// B_OrderDAO의 배열값 객체 반환
@@ -502,7 +493,8 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 		
 	}// orderInsert():메서드 끝
 
-	private void stockInsert() {
+	@Override
+	public void stockInsert() {
 		// 발주를 넣을 때 현재 존재하는 전체 재고수량을 보고 무엇인가 잘못 되었다고 판단이 가능할때가 있다.
 		// 그렇기 때문에 참고사항으로 넣어주는 테이블이다.
 		
@@ -671,6 +663,18 @@ public class H_Order extends JPanel implements HeadOrder, ActionListener, ItemLi
 			g_VenderListModel.insertRow(0, new Object[] { list.get(i).getName(), list.get(i).getTel() });
 		}
 	}// venderInsert() : 메서드 종료
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == g_PnameComboBox) {
+			// 제품군 콤보박스가 작동할 때
+			insertIntoVenderBox();
+		}
+		if (e.getSource() == g_PvenderComboBox) {
+			// 업체명 콤보박스가 작동할 때
+			insertMoneyField();
+		}
+	}// itemStateChanged:메서드 종료
 
 	@Override
 	public void show(BBQHead bbqHead) {

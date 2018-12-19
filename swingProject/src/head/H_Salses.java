@@ -368,7 +368,8 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		}
 	}// itemStateChanged:메서드 종료
 
-	private void showBodyBarChart(String str) {
+	@Override
+	public void showBodyBarChart(String str) {
 		// 가맹점 매출의 바차트를 보여주는 메서드
 		if (str.equals("월별")) {
 			g_BodyId = H_FranchiseDAO.getInstance().selectFranchiseID((String) g_FranSelectJComboBox.getSelectedItem());
@@ -392,14 +393,16 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 		}
 	}// barChart() : 메서드 종료
 
-	private void showBodyPieChart() {
+	@Override
+	public void showBodyPieChart() {
 		// 가맹점 메뉴 인기비율에 데이터를 넣는 메서드
 		g_BodyId = H_FranchiseDAO.getInstance().selectFranchiseID((String) g_FranSelectJComboBox.getSelectedItem());
 		g_BodySalsesvalue = B_SalesDAO.getInstance().selectFranSalePie(g_BodyId);
 		g_FranSalesPieChart.pieChartShow((String) g_FranSelectJComboBox.getSelectedItem(), g_BodySalsesvalue);
 	}// pieChart() : 메서드 종료
 
-	private void showHeadBarChart(String year) {
+	@Override
+	public void showHeadBarChart(String year) {
 		// 본사 매출표시 테이블에 데이터 넣는 메서드
 
 		double sumHeadPurchase = 0;

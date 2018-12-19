@@ -40,7 +40,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private DefaultTableModel model;
 	private JTable table = new JTable(model);
 	private JScrollPane scrollPane = new JScrollPane(table);
-	private Object[] column = { "업체ID", "No.", "재료명", "입고가", "발주가" };
+	private Object[] column = { "업체ID", "No.", "재료명", "입고가", "판매가" };
 
 	// 리벨과 텍스트필드 : 사용자가 입력하고 수정하는 부분
 	private JLabel lbNum;
@@ -75,7 +75,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private DefaultTableModel nameM;
 	private JTable nameT = new JTable(nameM);
 	private JScrollPane nameS = new JScrollPane(nameT);
-	private Object[] nameC = { "재료명", "발주가" };
+	private Object[] nameC = { "재료명", "판매가" };
 
 	// 그외
 	Object[] row;

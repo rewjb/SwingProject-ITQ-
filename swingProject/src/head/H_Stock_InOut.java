@@ -436,7 +436,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		}
 	}// insertVenderNfranchise:메서드 끝
 
-	private void insertPointList(String point) {
+	@Override
+	public void insertPointList(String point) {
 		// 창고의 특정 배치도 버튼을 누르면 나오는 다이얼로그에서 좌측에 보면
 		// 특정 장소에 들어가 있는 재고를 알 수가 있다. 거기에 들어가는 재고내용이다.
 		
@@ -454,7 +455,8 @@ public class H_Stock_InOut extends JPanel implements HeadStockInOut, ActionListe
 		}
 	}// insertPointList:메서드 끝
 
-	private void insertInOutTotalStockHistoryList() {
+	@Override
+	public void insertInOutTotalStockHistoryList() {
 		// 입출고관리 화면에서 모든 테이블이 존재하는데 (다이얼로그에 있는 테이블은 제외)
 		// 그 현황테이블들에 자료가 들어가는 메서드이다.
 		

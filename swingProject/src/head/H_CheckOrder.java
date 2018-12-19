@@ -177,7 +177,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 
 	}// 생성자 끝
 
-	private void assignBtnIndex() {
+	@Override
+	public void assignBtnIndex() {
 		//가맹점의 발주 목록 페이지에 따라 다음 및 이전 버튼의 속성을 부여하는 메서드
 		
 		if (g_OrderTableindex == 1) {
@@ -203,7 +204,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		}
 	}// assignBtnIndex():메서드 끝
 
-	private void orderInsert(int index) {
+	@Override
+	public void orderInsert(int index) {
 
 		ArrayList<B_OrderDTO> orderList = B_OrderDAO.getInstance().selectAllPlusAlias();
 		// 발주목록에 넣을 데이터를 갖고 있는 리스트
@@ -250,7 +252,8 @@ public class H_CheckOrder extends JPanel implements HeadCheckOrder, ActionListen
 		
 	}// orderInsert():메서드 끝
 
-	private void aliasNtelInsert() {
+	@Override
+	public void aliasNtelInsert() {
 		//가맹점의 이름과 연락처를 테이블에 넣는 메서드
 		
 		int tempCount = g_BodyListModel.getRowCount();

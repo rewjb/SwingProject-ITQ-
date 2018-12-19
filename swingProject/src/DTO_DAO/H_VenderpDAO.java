@@ -68,7 +68,7 @@ public class H_VenderpDAO {
 	public int updateVenderpInfo(H_VenderpDTO pDTO) {
 		connectDB();
 		int rs = 0;
-		sql = "UPDATE headvenderp SET name = ? money = ? WHERE num = ?;";
+		sql = "UPDATE headvenderp SET name = ? , money = ? WHERE num = ?;";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, pDTO.getName());

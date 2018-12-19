@@ -10,10 +10,10 @@ import java.util.Set;
 
 public class H_ChattingrManager extends Thread {
 
-	Socket c_socket;
-	String id;
-	PrintWriter sendWriter;
-	String sendMessage;
+	private Socket c_socket;
+	private String id;
+	private PrintWriter sendWriter;
+	private String sendMessage;
 
 	@Override
 	public void run() {

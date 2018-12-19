@@ -26,24 +26,24 @@ import org.jfree.ui.RefineryUtilities;
 
 public class H_Salses_BodySalesBarChart extends JPanel {
 
-	DefaultCategoryDataset dataSet;
+	private DefaultCategoryDataset dataSet;
 
-	CategoryItemRenderer renderer = new BarRenderer();
+	private CategoryItemRenderer renderer = new BarRenderer();
 	// 카테고리 아이템 런더를 만들어서
 
-	CategoryPlot plot = new CategoryPlot();
+	private CategoryPlot plot = new CategoryPlot();
 	// plot은 부지,땅이라는 뜻..
 	// 카테고리를 넣을 부지를 뜻한다 ?
 
-	JFreeChart chart = new JFreeChart(plot);
+	private JFreeChart chart = new JFreeChart(plot);
 	// JFreeChart! 자바 free 차트 객체를 만든다
 	// 지금까지 데이터 및 render 그리고 x축 y축에 대한 객체를 넣은 plot을 Jfreechart에 넣어준다.
 
-	ChartPanel chartPanel = new ChartPanel(chart);
+	private ChartPanel chartPanel = new ChartPanel(chart);
 	// 데이터세트,renderer,카테고리 Axis, 번호 Axis => plot => JFreeChart
 
-	CategoryAxis categoryAxis = new CategoryAxis("");
-	NumberAxis NumberAxis = new NumberAxis("매출");
+	private CategoryAxis categoryAxis = new CategoryAxis("");
+	private NumberAxis NumberAxis = new NumberAxis("매출");
 
 	public H_Salses_BodySalesBarChart() {
 		// create the first dataset...

@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <interface id="1" language="java" name="inter.BodyStock" project="swingProject" 
     file="/swingProject/src/inter/BodyStock.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="870" y="371"/>    
+    <position height="-1" width="-1" x="1505" y="570"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </interface>  
   <interface id="2" language="java" name="inter.BodyHall" project="swingProject" 
     file="/swingProject/src/inter/BodyHall.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1072" y="362"/>    
+    <position height="-1" width="-1" x="1707" y="561"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </interface>  
   <interface id="3" language="java" name="inter.BBQ" project="swingProject" file="/swingProject/src/inter/BBQ.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="710" y="111"/>    
+    <position height="-1" width="-1" x="1321" y="170"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </interface>  
   <interface id="4" language="java" name="inter.HeadSales" project="swingProject" 
     file="/swingProject/src/inter/HeadSales.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="444" y="481"/>    
+    <position height="-1" width="-1" x="378" y="579"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </interface>  
   <interface id="5" language="java" name="inter.HeadStockInOut" project="swingProject" 
     file="/swingProject/src/inter/HeadStockInOut.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="196" y="499"/>    
+    <position height="-1" width="-1" x="613" y="570"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </interface>  
   <interface id="6" language="java" name="inter.BodyOrder" project="swingProject" 
     file="/swingProject/src/inter/BodyOrder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1089" y="492"/>    
+    <position height="-1" width="-1" x="1908" y="570"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </interface>  
   <interface id="7" language="java" name="inter.BBQHead" project="swingProject" 
     file="/swingProject/src/inter/BBQHead.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="409" y="232"/>    
+    <position height="-1" width="-1" x="947" y="295"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </interface>  
   <interface id="8" language="java" name="inter.BBQBody" project="swingProject" 
     file="/swingProject/src/inter/BBQBody.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1041" y="232"/>    
+    <position height="-1" width="-1" x="1676" y="291"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   </interface>  
   <interface id="9" language="java" name="inter.HeadOrder" project="swingProject" 
     file="/swingProject/src/inter/HeadOrder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="237" y="380"/>    
+    <position height="-1" width="-1" x="823" y="579"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -84,7 +84,7 @@
   </interface>  
   <interface id="10" language="java" name="inter.HeadFranchise" project="swingProject" 
     file="/swingProject/src/inter/HeadFranchise.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="397" y="353"/>    
+    <position height="-1" width="-1" x="989" y="588"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </interface>  
   <interface id="11" language="java" name="inter.BodySales" project="swingProject" 
     file="/swingProject/src/inter/BodySales.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="910" y="496"/>    
+    <position height="-1" width="-1" x="2072" y="570"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,7 +102,7 @@
   </interface>  
   <interface id="12" language="java" name="inter.HeadVender" project="swingProject" 
     file="/swingProject/src/inter/HeadVender.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="543" y="353"/>    
+    <position height="-1" width="-1" x="1159" y="570"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,61 +111,285 @@
   </interface>  
   <interface id="13" language="java" name="inter.HeadCheckOrder" project="swingProject" 
     file="/swingProject/src/inter/HeadCheckOrder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="622" y="474"/>    
+    <position height="-1" width="-1" x="1335" y="579"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <generalization id="14">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="15">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="16">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <generalization id="19">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <generalization id="21">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <generalization id="22">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <generalization id="23">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <generalization id="24">    
+  <class id="14" language="java" name="head.H_Vender" project="swingProject" file="/swingProject/src/head/H_Vender.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="237" width="157" x="1083" y="648"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="head.H_Stock_InOut" project="swingProject" 
+    file="/swingProject/src/head/H_Stock_InOut.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="151" width="205" x="514" y="662"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="head.H_Order" project="swingProject" file="/swingProject/src/head/H_Order.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="151" width="177" x="734" y="670"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="head.H_CheckOrder" project="swingProject" 
+    file="/swingProject/src/head/H_CheckOrder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="195" width="160" x="1261" y="664"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="head.H_Franchise" project="swingProject" 
+    file="/swingProject/src/head/H_Franchise.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="141" width="141" x="922" y="682"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="head.H_Salses" project="swingProject" file="/swingProject/src/head/H_Salses.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="177" x="287" y="665"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="body.B_OrderC" project="swingProject" file="/swingProject/src/body/B_OrderC.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="183" width="146" x="1831" y="652"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="body.B_StockC" project="swingProject" file="/swingProject/src/body/B_StockC.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="147" x="1443" y="648"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="body.B_HallC" project="swingProject" file="/swingProject/src/body/B_HallC.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="197" width="168" x="1620" y="636"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="body.B_SalesC" project="swingProject" file="/swingProject/src/body/B_SalesC.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="177" width="132" x="2007" y="652"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="body.B_Frame" project="swingProject" file="/swingProject/src/body/B_Frame.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="170" x="1870" y="191"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="head.H_Salses_BodySalesPieChart" project="swingProject" 
+    file="/swingProject/src/head/H_Salses_BodySalesPieChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="107" width="204" x="90" y="881"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="head.H_Salses_HeadSalsesBarChart" project="swingProject" 
+    file="/swingProject/src/head/H_Salses_HeadSalsesBarChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="85" width="204" x="295" y="883"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="head.H_Salses_BodySalesBarChart" project="swingProject" 
+    file="/swingProject/src/head/H_Salses_BodySalesBarChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="127" width="196" x="498" y="883"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="head.H_Frame" project="swingProject" file="/swingProject/src/head/H_Frame.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="224" x="487" y="212"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="body.B_SalesC_SalesDataChart" project="swingProject" 
+    file="/swingProject/src/body/B_SalesC_SalesDataChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="167" width="257" x="1928" y="879"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="30">    
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
-  <generalization id="25">    
+  <generalization id="31">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <generalization id="32">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
+  <realization id="33">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <association id="34">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="35" name="g_HeadGoogleBarChart"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="37">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="38">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <association id="39">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="40" name="g_FranSalesBarChart"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="42">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="44">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <realization id="45">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="12"/>  
+  </realization>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <realization id="47">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <association id="48">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="49" name="g_BodySalesDataChart"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="51">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <realization id="52">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <association id="53">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="54" name="g_FranSalesPieChart"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="56">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <realization id="57">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="58">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="59">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <realization id="60">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="61">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <generalization id="62">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <realization id="63">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="64">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <realization id="65">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

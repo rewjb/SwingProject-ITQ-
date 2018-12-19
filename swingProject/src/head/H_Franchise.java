@@ -33,20 +33,20 @@ import inter.HeadFranchise;
 
 public class H_Franchise extends JPanel implements HeadFranchise, ActionListener {
 	// 표에 관련된 부분
-	DefaultTableModel model;
-	JTable table = new JTable(model);
-	JScrollPane scrollPane = new JScrollPane(table);
-	Object[] column = { "가맹점ID", "pw", "점주명", "연락처", "사업자번호", "주소", "별칭" };
+	private DefaultTableModel model;
+	private JTable table = new JTable(model);
+	private JScrollPane scrollPane = new JScrollPane(table);
+	private Object[] column = { "가맹점ID", "pw", "점주명", "연락처", "사업자번호", "주소", "별칭" };
 
 	// 버튼
-	JButton btAdd; // 추가
-	JButton btModify; // 수정
-	JButton btDelete; // 삭제
+	private JButton btAdd; // 추가
+	private JButton btModify; // 수정
+	private JButton btDelete; // 삭제
 	// 정보입력창 안에 있는 버튼
-	JButton btInAdd; // 추가
-	JButton btsetEmpty; // 초기화
-	JButton btInModify; // 수정
-	JButton btsetBefore;// 수정 전으로
+	private JButton btInAdd; // 추가
+	private 	JButton btsetEmpty; // 초기화
+	private JButton btInModify; // 수정
+	private JButton btsetBefore;// 수정 전으로
 
 	// 라벨 설정
 	private JLabel flb; // 표의 이름 알려주는 라벨
@@ -79,13 +79,13 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	private JTextField tfAllias;
 
 	// 그 외
-	Object[] row; // 테이블에 올릴 column내용 배열
-	H_FranchiseDAO fDAO = new H_FranchiseDAO();	//DAO
-	H_FranchiseDTO fDTO;						//DTO
-	H_F_worker w = new H_F_worker();			//기능을 넣어놓는 클래스
+	private 	Object[] row; // 테이블에 올릴 column내용 배열
+	private 	H_FranchiseDAO fDAO = new H_FranchiseDAO();	//DAO
+	private 	H_FranchiseDTO fDTO;						//DTO
+	private 	H_F_worker w = new H_F_worker();			//기능을 넣어놓는 클래스
 
-	String addr; // 선택된 주소명을 받아놓는 변수
-	String id; // 마지막 아이디 값 받아놓는 변수
+	private String addr; // 선택된 주소명을 받아놓는 변수
+	private String id; // 마지막 아이디 값 받아놓는 변수
 
 	int i; // 표를 클릭했을때 해당 위치 인덱스 값을 받아놓는 변수
 			// 삭제와 수정 전 값 불러오는 액션시 인덱스 값이 필요함.

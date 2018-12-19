@@ -27,9 +27,9 @@ public class H_Vender extends JPanel implements HeadVender {
 	private JToggleButton btVdC; //업체
 	private JToggleButton btVdP; //제품
 	
-	ButtonGroup btnG = new ButtonGroup();
+	private ButtonGroup btnG = new ButtonGroup();
 
-	Color color = new Color(128, 144, 160);
+	private 	Color color = new Color(128, 144, 160);
 	
 	public H_Vender() {
 		            

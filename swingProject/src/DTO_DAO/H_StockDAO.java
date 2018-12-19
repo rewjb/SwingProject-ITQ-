@@ -1,9 +1,5 @@
 package DTO_DAO;
 
-/*
- * ~44라인까지의 기본 틀은 메인폴더.DTO_DAO.H_FranchiseDTO를 참고했습니다.
- * 코드테스트 아직 안했습니다..!
- */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

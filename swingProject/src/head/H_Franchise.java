@@ -104,6 +104,7 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 		setBackground(new Color(184, 207, 229));
 
 		setVisible(false);
+		f.setLocationRelativeTo(this);
 		f.setVisible(false);
 	} // end constructor
 

@@ -52,7 +52,8 @@ public class H_Vender extends JPanel implements HeadVender {
 		btVdC.doClick();
 	}
 	
-	private void vCompanySetting() {
+	@Override
+	public void vCompanySetting() {
 		paneVdC = new H_V_Company();
 		paneVdC.setBounds(0, 0, 770, 340);
 		add(paneVdC);
@@ -68,11 +69,13 @@ public class H_Vender extends JPanel implements HeadVender {
 				companeySetVisible(true);
 				productSetVisible(false);
 			}
-		});
-
+		});		
 	}
-	
-	private void vProductSetting() {
+
+
+
+	@Override
+	public void vProductSetting() {
 		paneVdP = new H_V_Product();
 		paneVdP.setBounds(0, 0, 770, 340);
 		add(paneVdP);
@@ -101,24 +104,16 @@ public class H_Vender extends JPanel implements HeadVender {
 	private void companeySetVisible(boolean b) {
 		if(b) {
 			paneVdC.setVisible(true);
-//			clb1.setVisible(true);
-//			clb2.setVisible(true);
 		}else {
 			paneVdC.setVisible(false);
-//			clb1.setVisible(false);
-//			clb2.setVisible(false);
 		}
 	}
 	
 	private void productSetVisible(boolean b) {
 		if(b) {
 			paneVdP.setVisible(true);
-//			plb1.setVisible(true);
-//			plb2.setVisible(true);
 		}else {
 			paneVdP.setVisible(false);
-//			plb1.setVisible(false);
-//			plb2.setVisible(false);
 		}
 	}
 
@@ -133,4 +128,5 @@ public class H_Vender extends JPanel implements HeadVender {
 		// TODO Auto-generated method stub
 		((Component) bbqHead).setVisible(false);
 	}
+
 }

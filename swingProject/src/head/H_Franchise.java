@@ -109,7 +109,8 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	} // end constructor
 
 	// 표에 관련된 설정사항
-	private void tableSetting() {
+	@Override
+	public void tableSetting() {
 		model = new DefaultTableModel(0, 8) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -126,7 +127,8 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	}// end tableSetting()
 
 	// DB에 있는 데이터를 표에 출력해주는 메서드
-	private void showAll() {
+	@Override
+	public void showAll() {
 		tableSetting();
 		ArrayList<H_FranchiseDTO> list = fDAO.selectALLFranchiseInfo();
 		for (int i = 0; i < list.size(); i++) {
@@ -148,7 +150,8 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	}// end showAll()
 
 	// 표의 제목 달아주는 라벨설정에 관한 메서드
-	private void labelSetting() {
+	@Override
+	public void labelSetting() {
 		flb = new JLabel("제품목록");
 		flb.setBounds(330, 0, 100, 30);
 		flb.setHorizontalAlignment(SwingConstants.CENTER);
@@ -156,7 +159,8 @@ public class H_Franchise extends JPanel implements HeadFranchise, ActionListener
 	}//end labelSetting()
 
 	// 버튼에 관련된 설정사항
-	private void buttonSetting() {
+	@Override
+	public void buttonSetting() {
 		btAdd = new JButton("추가");
 		btAdd.setBounds(540, 328, 70, 30);
 		add(btAdd);

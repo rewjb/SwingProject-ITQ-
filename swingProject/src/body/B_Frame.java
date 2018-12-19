@@ -59,29 +59,26 @@ import javax.swing.JPanel;
 
 public class B_Frame extends JFrame implements BBQBody, ActionListener {
 
-	private 	JToggleButton g_OrderBtn = new JToggleButton("발주관리",new ImageIcon("img/발주관리 아이콘.png"));//발주관리 토클버튼
-	private 	JToggleButton g_StockBtn = new JToggleButton("재고관리",new ImageIcon("img/입출고 아이콘.png"));//재고관리 토글버튼
-	private 	JToggleButton g_SalesBtn = new JToggleButton("매출관리",new ImageIcon("img/매출관리 아이콘.png"));//매출관리 토글버튼
-	private 	JToggleButton g_HallButton = new JToggleButton("홀");//홀 토글버튼
-	private 	JButton g_ChettingBtn = new JButton("채팅관리",new ImageIcon("img/채팅관리 아이콘.png"));//채팅관리 버튼
+	private JToggleButton g_OrderBtn = new JToggleButton("발주관리",new ImageIcon("img/발주관리 아이콘.png"));//발주관리 토클버튼
+	private JToggleButton g_StockBtn = new JToggleButton("재고관리",new ImageIcon("img/입출고 아이콘.png"));//재고관리 토글버튼
+	private JToggleButton g_SalesBtn = new JToggleButton("매출관리",new ImageIcon("img/매출관리 아이콘.png"));//매출관리 토글버튼
+	private JToggleButton g_HallButton = new JToggleButton("홀");//홀 토글버튼
+	private JButton g_ChettingBtn = new JButton("채팅관리",new ImageIcon("img/채팅관리 아이콘.png"));//채팅관리 버튼
 	
 	
-	
-	
-	private 	ImageIcon g_LogoImg = new ImageIcon("img/logo.png");//회사 메인 로고 
-	private 	JLabel g_LogoLabel = new JLabel(g_LogoImg);//메인로고를 담을 라벨
+	private ImageIcon g_LogoImg = new ImageIcon("img/logo.png");//회사 메인 로고 
+	private JLabel g_LogoLabel = new JLabel(g_LogoImg);//메인로고를 담을 라벨
 	//JLabel g_ServiceInfo = new JLabel(g_LogoImg);
 	
 	private Toolkit g_Toolkit = Toolkit.getDefaultToolkit();// 툴킷
-	private 	Image g_Frameimg = g_Toolkit.getImage("img/회사 프레임 아이콘.jpg");//툴킷의 이미지 아이콘 
+	private Image g_Frameimg = g_Toolkit.getImage("img/회사 프레임 아이콘.jpg");//툴킷의 이미지 아이콘 
 
 	// 버튼 그룹
-	private 	ButtonGroup g_BtnGroup = new ButtonGroup();
+	private ButtonGroup g_BtnGroup = new ButtonGroup();
 
-
-	private 	JPanel g_MainPanel = new JPanel();//각 메뉴 판넬을 올릴 메인판넬
-	private 	B_OrderC g_OrderC = new B_OrderC();//발주 판넬 객체
-	private 	B_SalesC g_SalesC = new B_SalesC();//매출 판넬 객체
+	private JPanel g_MainPanel = new JPanel();//각 메뉴 판넬을 올릴 메인판넬
+	private B_OrderC g_OrderC = new B_OrderC();//발주 판넬 객체
+	private B_SalesC g_SalesC = new B_SalesC();//매출 판넬 객체
 	private B_StockC g_StockC = new B_StockC();//재고 판넬 객체
 	private B_HallC g_Hallc = new B_HallC();//홀 판넬 객체 
 	public static String st_G_id ;//가맹점 로그인시 아이디를 담아두는 변수 
@@ -106,7 +103,6 @@ public class B_Frame extends JFrame implements BBQBody, ActionListener {
 		setIconImage(g_Frameimg);
 		setResizable(false);
 		
-		
 		// 버튼 위치 색상 레이아웃 설정
 		g_OrderBtn.setBounds(10, 54, 107, 23);
 		g_StockBtn.setBounds(119, 54, 107, 23);
@@ -124,7 +120,6 @@ public class B_Frame extends JFrame implements BBQBody, ActionListener {
 		g_SalesBtn.setBorder(null);
 		g_HallButton.setBorder(null);
 		g_ChettingBtn.setBorder(null);
-		
 		
 		//메인 판넬 위치 레이아웃 색깔 설정
 		g_MainPanel.setBounds(10, 77, 790, 370);

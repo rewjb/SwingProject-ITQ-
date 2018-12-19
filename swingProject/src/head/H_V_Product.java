@@ -49,7 +49,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 	private JTextField tfId;
 	JComboBox cbId;		//H_Vender클래스에서 사용해야 해서 default
 	private JLabel lbName;
-	private JComboBox cbName;
+	private JComboBox cbName = new JComboBox<>();
 	private JLabel lbMoney;
 	private JTextField tfMoney;
 	private JLabel lbOrderM;
@@ -184,7 +184,18 @@ public class H_V_Product extends JPanel implements ActionListener {
 				nameO.put(np[0], np[1]);
 				vec.add(np[0]); // 콤보박스에는 이름만 출력해주기.
 			}
-			cbName = new JComboBox(vec);
+			
+			if (!(cbName.getItemCount()==0)) {
+				cbName.removeAllItems();
+				//전체 아이템 삭제
+			}
+
+			int temp = vec.size();
+			
+			for (int i = 0; i < temp; i++) {
+				cbName.addItem(vec.get(i));
+			}
+			
 			cbName.addActionListener(new ActionListener() {
 
 				@Override
@@ -384,6 +395,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 		nameF.setSize(293, 350);
 		nameF.getContentPane().setLayout(null);
 
+		nameF.setLocationRelativeTo(this);
 		nameTFSetting(); // 재료명 프레임 내 텍스트필드 세팅
 		nameTBSetting(); // 재료명 프레임 내 테이블 세팅
 		nameMouseAction(); // 재료명 프레임 내 마우스 액션
@@ -591,6 +603,7 @@ public class H_V_Product extends JPanel implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("dd");
 				
 				remove(cbName);
 				comboPName();

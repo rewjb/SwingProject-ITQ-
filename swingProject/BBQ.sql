@@ -781,9 +781,9 @@ insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
 insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
 insert into bodysales values (default,'naver','2018-01-07 10:11',1,1,1,1,1);
 
-select * from headorder;
+select * from headorder;      
 insert into bodysales values (  자동값, 가맹아이디,날짜자동,총금액,후라이드,양념,간장,사이드);
-
+           
 select bodysales.id, headFranchise.alias, SUM(bodysales.money) from bodysales,headFranchise where and bodysales.id='daum'and date like '%2018-01%';
 select bodysales.id,SUM(bodysales.money) from bodysales where bodysales.id='naver'and bodysales.date like '%2018-01%' GROUP BY bodysales.id;
 

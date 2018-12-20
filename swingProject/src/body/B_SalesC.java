@@ -181,7 +181,7 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 	public void hide(BBQBody bbqBody) {
 		((Component) bbqBody).setVisible(false);
 	}
-	
+	  
 	@Override
 	public void searchSales() {// 매출 검색 메서드
 		if (!(g_YearTextField.getText().equals("")) && g_MonthTextField.getText().equals("") && g_DayTextField.getText().equals("") ) {//년도만 검색했을때 조건

@@ -268,10 +268,10 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 		}
 			
 			
-			if (g_SalesResultModel.getValueAt(0, 4) == null) {// 전체 합계
+			// 전체 합계
 				g_SalesResultModel.setValueAt((int) g_SalesResultModel.getValueAt(0, 0) + (int) g_SalesResultModel.getValueAt(0, 1)
 						+ (int) g_SalesResultModel.getValueAt(0, 2) + (int) g_SalesResultModel.getValueAt(0, 3), 0, 4);
-			}
+			
 		}
 	}//종합 매출 메서드 끝
 
@@ -290,7 +290,7 @@ public class B_SalesC extends JPanel implements BodySales, ActionListener {
 			}
 			if (g_SalesResultModel.getRowCount() == 0 && !(g_YearTextField.getText().equals(""))) {//
 				salesResult();
-			} else if(!(g_SalesResultModel.getRowCount() == 0)){
+			} else if(!(g_SalesResultModel.getValueAt(0, 4).equals("0"))){
 				g_SalesResultModel.removeRow(0);
 				salesResult();
 			}

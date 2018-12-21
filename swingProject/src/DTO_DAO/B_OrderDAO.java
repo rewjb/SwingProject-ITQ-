@@ -351,15 +351,18 @@ public class B_OrderDAO {
 			
 			
 			for (int i = 0; i < month.length; i++) {
-				sql = "SELECT name,SUM(quantity) FROM headorder WHERE date LIKE '%" + year + "-" + month[i]
+				sql = "SELECT name,SUM(quantity) FROM bodyorder WHERE date LIKE '%" + year + "-" + month[i]
 						+ "%' GROUP BY name;";
 				ps = con.prepareStatement(sql);
 				rs = ps.executeQuery();
 				sum = 0;
 				;
 				while (rs.next()) { // DB 테이블에 값이 존재하는지
-					sum +=  pInfoHashMap.get(rs.getString(1))*rs.getInt(2) ; 
-					System.out.println(sum);
+					if (pInfoHashMap.get(rs.getString(1))==null) {
+					}else {
+						sum +=  pInfoHashMap.get(rs.getString(1))*
+								rs.getInt(2) ; 
+					}
 				} // for 문 종료
 				list.add(sum);
 			}
@@ -368,7 +371,7 @@ public class B_OrderDAO {
 			ps.close();
 			con.close();
 		} catch (Exception e) {
-			System.out.println("B_OrderDAO-selectMonthBodyOrder 오류");
+			e.printStackTrace();
 		}
 
 		return list;

@@ -21,7 +21,7 @@ bconfirm varchar(10)
 create table bodysales(
 num int auto_increment primary key,
 id varchar(10) not null,
-date TIMESTAMP DEFAULT NOW(),
+date TIMESTAMP DEFAULT NOW(),r
 money int not null,
 chickenF int,
 chickenH int,
@@ -817,4 +817,4 @@ chickenS int,
 side int
 );
 
-SELECT name,SUM(quantity) FROM headorder WHERE date LIKE '%2018-12%' GROUP BY name;
+SELECT name,SUM(quantity) FROM bodyorder WHERE date LIKE '%2018-12%' GROUP BY name;

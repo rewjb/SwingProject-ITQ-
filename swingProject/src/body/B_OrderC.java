@@ -162,7 +162,6 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 		
 
 		// listTable2.getColumnModel().getColumn(4).setPreferredWidth(-10);
-
 		add(g_StockListScroll);
 		add(g_OrderListScroll);
 		add(g_OrderScroll);
@@ -301,7 +300,6 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 	}
 	
 	public void reader() throws Exception {//단가를 가져오는 메서드 (파일 입출력)
-		
 		g_File = new File("H_VenderpName.txt");
 		Scanner sc = new Scanner(g_File);
 		if (g_File.exists()) {

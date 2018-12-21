@@ -421,12 +421,10 @@ public class H_Salses extends JPanel implements HeadSales, ActionListener, ItemL
 
 		for (int i = 0; i < 12; i++) {
 			sumHeadPurchase += headPurchase.get(i);
-			
-			System.out.println(headSales.get(i));
 			sumHeadSales += headSales.get(i);
 			sumTotalBodySales += totalBodySales.get(i);
 		} // 합산하여 데이터 넣기
-
+  
 		int tempCount = g_HeadSalesModel.getRowCount();
 		// 기존에 있는 데이터 수량
 		for (int i = 0; i < tempCount; i++) {

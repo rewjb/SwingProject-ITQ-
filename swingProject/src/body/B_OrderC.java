@@ -117,8 +117,8 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 	private ArrayList<Integer> g_ListNum;// 발주 목록을 볼 때 각행별 고유 num을 담고 있는 리스트
 	private JTextField g_ReservesTextField;// 식자재 단가입력란
 	private int[] g_Selects;// 발주 취소시 다중선택을 받는 배열
-	private ArrayList<String> g_FileOutPutArrayList = new ArrayList<>();//파일입출력용 리스트  (-앞뒤로 스플릿해서 [0]을 갖고있음)
-	private ArrayList<String> g_FileOutPutArrayListSecond = new ArrayList<>();//파일입출력용 리스트 2 (-앞뒤로 스플릿해서 [1]을 갖고있음)
+	private ArrayList<String> g_FileOutPutArrayList;//파일입출력용 리스트  (-앞뒤로 스플릿해서 [0]을 갖고있음)
+	private ArrayList<String> g_FileOutPutArrayListSecond;//파일입출력용 리스트 2 (-앞뒤로 스플릿해서 [1]을 갖고있음)
 
 	// Jtable의 스크롤 기능 객체 w
 	// private DefaultTableCellRenderer celAlignCenter = new
@@ -300,6 +300,8 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 	}
 	
 	public void reader() throws Exception {//단가를 가져오는 메서드 (파일 입출력)
+		 g_FileOutPutArrayList = new ArrayList<>();
+		 g_FileOutPutArrayListSecond = new ArrayList<>();
 		g_File = new File("H_VenderpName.txt");
 		Scanner sc = new Scanner(g_File);
 		if (g_File.exists()) {
@@ -307,6 +309,10 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 				String[] read = sc.nextLine().split("-");
 				g_FileOutPutArrayList.add(read[0]);
 				g_FileOutPutArrayListSecond.add(read[1]);
+			}
+			for (int i = 0; i < g_FileOutPutArrayList.size(); i++) {
+				System.out.println(g_FileOutPutArrayList.get(i));
+				System.out.println(g_FileOutPutArrayListSecond.get(i));
 			}
 			if (g_ReservesComboBox.getSelectedItem()==null) {
 				

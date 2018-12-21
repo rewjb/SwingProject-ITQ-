@@ -130,7 +130,7 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 		setLayout(null);
 		setSize(790, 399);
 		setBackground(new Color(184,207,229));
-		
+		  
 		
 		 g_FileOutPutArrayList = new ArrayList<>();
 		 g_FileOutPutArrayListSecond = new ArrayList<>();

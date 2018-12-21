@@ -586,7 +586,7 @@ id varchar(10) not null,
 num int auto_increment unique,
 name varchar(10) not null,  
 money int,
-이익률 
+
 foreign key (id) references headvender(id) on delete cascade
 );
 
@@ -750,7 +750,7 @@ select * from headstock;
 
 SELECT headvenderp.name,headvender.name FROM headvenderp,headvender WHERE (headvender.id=headvenderp.id) and headvenderp.name='apple'  ORDER BY headvender.name;
 
-insert into headFranchise values ('root','root','DDD','010-xxxx-xxxx','3','2','4');
+insert into headFranchise values ('root','123','DDD','010-xxxx-xxxx','3','2','4');
 insert into headFranchise values ('daum','123','AAA','010-xxxx-xxxx','408-81-123123','Seoul Geumcheon','bbq-d');
 insert into headFranchise values ('naver','123','BBB','010-xxxx-xxxx','408-81-456456','Seoul Geumcheon-1','bbq-n');
 insert into headFranchise values ('google','123','CCC','010-xxxx-xxxx','408-81-789789','Seoul Geumcheon-2','bbq-g');

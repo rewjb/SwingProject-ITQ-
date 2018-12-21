@@ -117,12 +117,10 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 	private ArrayList<Integer> g_ListNum;// 발주 목록을 볼 때 각행별 고유 num을 담고 있는 리스트
 	private JTextField g_ReservesTextField;// 식자재 단가입력란
 	private int[] g_Selects;// 발주 취소시 다중선택을 받는 배열
-	private ArrayList<String> g_FileOutPutArrayList	= g_FileOutPutArrayList = new ArrayList<>();//파일입출력용 리스트  (-앞뒤로 스플릿해서 [0]을 갖고있음)
-	private ArrayList<String> g_FileOutPutArrayListSecond = g_FileOutPutArrayListSecond = new ArrayList<>();//파일입출력용 리스트 2 (-앞뒤로 스플릿해서 [1]을 갖고있음)
+	private ArrayList<String> g_FileOutPutArrayList = new ArrayList<>();;//파일입출력용 리스트  (-앞뒤로 스플릿해서 [0]을 갖고있음)
+	private ArrayList<String> g_FileOutPutArrayListSecond =new ArrayList<>();;//파일입출력용 리스트 2 (-앞뒤로 스플릿해서 [1]을 갖고있음)
 
 	
-
-	 
 	// Jtable의 스크롤 기능 객체 w
 	// private DefaultTableCellRenderer celAlignCenter = new
 	// DefaultTableCellRenderer();

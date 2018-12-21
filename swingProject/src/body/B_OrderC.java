@@ -168,11 +168,6 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 		add(g_AmountLabel);
 		add(g_ReservesLabel, BorderLayout.WEST);
 		
-		
-		g_FileOutPutArrayList = new ArrayList<>();
-		g_FileOutPutArrayListSecond =new ArrayList<>();
-		
-		
 		g_ReservesComboBox = new JComboBox(H_VenderpDAO.getInstance().select_product().toArray());
 		g_ReservesComboBox.setBounds(78, 18, 80, 21);
 		add(g_ReservesComboBox);

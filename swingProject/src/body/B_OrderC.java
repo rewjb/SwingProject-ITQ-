@@ -131,6 +131,9 @@ public class B_OrderC extends JPanel implements BodyOrder, ActionListener, ItemL
 		setSize(790, 399);
 		setBackground(new Color(184,207,229));
 		
+		
+		 g_FileOutPutArrayList = new ArrayList<>();
+		 g_FileOutPutArrayListSecond = new ArrayList<>();
 		// 라벨의 위치 이름 폰트설정
 		g_ReservesLabel = new JLabel("식자재 목록");
 		g_ReservesLabel.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 12));
